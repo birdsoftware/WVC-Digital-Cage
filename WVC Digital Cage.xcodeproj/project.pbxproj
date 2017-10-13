@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		582836541F9143AC003F18FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836531F9143AC003F18FE /* AppDelegate.swift */; };
+		582836561F9143AC003F18FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836551F9143AC003F18FE /* ViewController.swift */; };
+		582836591F9143AC003F18FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 582836571F9143AC003F18FE /* Main.storyboard */; };
+		5828365B1F9143AC003F18FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5828365A1F9143AC003F18FE /* Assets.xcassets */; };
+		5828365E1F9143AC003F18FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5828365C1F9143AC003F18FE /* LaunchScreen.storyboard */; };
+		582836691F9143AC003F18FE /* WVC_Digital_CageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836681F9143AC003F18FE /* WVC_Digital_CageTests.swift */; };
+		582836741F9143AC003F18FE /* WVC_Digital_CageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836731F9143AC003F18FE /* WVC_Digital_CageUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		582836651F9143AC003F18FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 582836481F9143AC003F18FE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5828364F1F9143AC003F18FE;
+			remoteInfo = "WVC Digital Cage";
+		};
+		582836701F9143AC003F18FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 582836481F9143AC003F18FE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5828364F1F9143AC003F18FE;
+			remoteInfo = "WVC Digital Cage";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		582836501F9143AC003F18FE /* WVC Digital Cage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WVC Digital Cage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		582836531F9143AC003F18FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		582836551F9143AC003F18FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		582836581F9143AC003F18FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5828365A1F9143AC003F18FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5828365D1F9143AC003F18FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5828365F1F9143AC003F18FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		582836641F9143AC003F18FE /* WVC Digital CageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WVC Digital CageTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		582836681F9143AC003F18FE /* WVC_Digital_CageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVC_Digital_CageTests.swift; sourceTree = "<group>"; };
+		5828366A1F9143AC003F18FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5828366F1F9143AC003F18FE /* WVC Digital CageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WVC Digital CageUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		582836731F9143AC003F18FE /* WVC_Digital_CageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVC_Digital_CageUITests.swift; sourceTree = "<group>"; };
+		582836751F9143AC003F18FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5828364D1F9143AC003F18FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		582836611F9143AC003F18FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5828366C1F9143AC003F18FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		582836471F9143AC003F18FE = {
+			isa = PBXGroup;
+			children = (
+				582836521F9143AC003F18FE /* WVC Digital Cage */,
+				582836671F9143AC003F18FE /* WVC Digital CageTests */,
+				582836721F9143AC003F18FE /* WVC Digital CageUITests */,
+				582836511F9143AC003F18FE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		582836511F9143AC003F18FE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				582836501F9143AC003F18FE /* WVC Digital Cage.app */,
+				582836641F9143AC003F18FE /* WVC Digital CageTests.xctest */,
+				5828366F1F9143AC003F18FE /* WVC Digital CageUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		582836521F9143AC003F18FE /* WVC Digital Cage */ = {
+			isa = PBXGroup;
+			children = (
+				582836531F9143AC003F18FE /* AppDelegate.swift */,
+				582836551F9143AC003F18FE /* ViewController.swift */,
+				582836571F9143AC003F18FE /* Main.storyboard */,
+				5828365A1F9143AC003F18FE /* Assets.xcassets */,
+				5828365C1F9143AC003F18FE /* LaunchScreen.storyboard */,
+				5828365F1F9143AC003F18FE /* Info.plist */,
+			);
+			path = "WVC Digital Cage";
+			sourceTree = "<group>";
+		};
+		582836671F9143AC003F18FE /* WVC Digital CageTests */ = {
+			isa = PBXGroup;
+			children = (
+				582836681F9143AC003F18FE /* WVC_Digital_CageTests.swift */,
+				5828366A1F9143AC003F18FE /* Info.plist */,
+			);
+			path = "WVC Digital CageTests";
+			sourceTree = "<group>";
+		};
+		582836721F9143AC003F18FE /* WVC Digital CageUITests */ = {
+			isa = PBXGroup;
+			children = (
+				582836731F9143AC003F18FE /* WVC_Digital_CageUITests.swift */,
+				582836751F9143AC003F18FE /* Info.plist */,
+			);
+			path = "WVC Digital CageUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5828364F1F9143AC003F18FE /* WVC Digital Cage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 582836781F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital Cage" */;
+			buildPhases = (
+				5828364C1F9143AC003F18FE /* Sources */,
+				5828364D1F9143AC003F18FE /* Frameworks */,
+				5828364E1F9143AC003F18FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WVC Digital Cage";
+			productName = "WVC Digital Cage";
+			productReference = 582836501F9143AC003F18FE /* WVC Digital Cage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		582836631F9143AC003F18FE /* WVC Digital CageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5828367B1F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital CageTests" */;
+			buildPhases = (
+				582836601F9143AC003F18FE /* Sources */,
+				582836611F9143AC003F18FE /* Frameworks */,
+				582836621F9143AC003F18FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				582836661F9143AC003F18FE /* PBXTargetDependency */,
+			);
+			name = "WVC Digital CageTests";
+			productName = "WVC Digital CageTests";
+			productReference = 582836641F9143AC003F18FE /* WVC Digital CageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5828366E1F9143AC003F18FE /* WVC Digital CageUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5828367E1F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital CageUITests" */;
+			buildPhases = (
+				5828366B1F9143AC003F18FE /* Sources */,
+				5828366C1F9143AC003F18FE /* Frameworks */,
+				5828366D1F9143AC003F18FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				582836711F9143AC003F18FE /* PBXTargetDependency */,
+			);
+			name = "WVC Digital CageUITests";
+			productName = "WVC Digital CageUITests";
+			productReference = 5828366F1F9143AC003F18FE /* WVC Digital CageUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		582836481F9143AC003F18FE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "Brian Bird";
+				TargetAttributes = {
+					5828364F1F9143AC003F18FE = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+					582836631F9143AC003F18FE = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5828364F1F9143AC003F18FE;
+					};
+					5828366E1F9143AC003F18FE = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5828364F1F9143AC003F18FE;
+					};
+				};
+			};
+			buildConfigurationList = 5828364B1F9143AC003F18FE /* Build configuration list for PBXProject "WVC Digital Cage" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 582836471F9143AC003F18FE;
+			productRefGroup = 582836511F9143AC003F18FE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5828364F1F9143AC003F18FE /* WVC Digital Cage */,
+				582836631F9143AC003F18FE /* WVC Digital CageTests */,
+				5828366E1F9143AC003F18FE /* WVC Digital CageUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5828364E1F9143AC003F18FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5828365E1F9143AC003F18FE /* LaunchScreen.storyboard in Resources */,
+				5828365B1F9143AC003F18FE /* Assets.xcassets in Resources */,
+				582836591F9143AC003F18FE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		582836621F9143AC003F18FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5828366D1F9143AC003F18FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5828364C1F9143AC003F18FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				582836561F9143AC003F18FE /* ViewController.swift in Sources */,
+				582836541F9143AC003F18FE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		582836601F9143AC003F18FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				582836691F9143AC003F18FE /* WVC_Digital_CageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5828366B1F9143AC003F18FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				582836741F9143AC003F18FE /* WVC_Digital_CageUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		582836661F9143AC003F18FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5828364F1F9143AC003F18FE /* WVC Digital Cage */;
+			targetProxy = 582836651F9143AC003F18FE /* PBXContainerItemProxy */;
+		};
+		582836711F9143AC003F18FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5828364F1F9143AC003F18FE /* WVC Digital Cage */;
+			targetProxy = 582836701F9143AC003F18FE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		582836571F9143AC003F18FE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				582836581F9143AC003F18FE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5828365C1F9143AC003F18FE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5828365D1F9143AC003F18FE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		582836761F9143AC003F18FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		582836771F9143AC003F18FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		582836791F9143AC003F18FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-Cage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5828367A1F9143AC003F18FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-Cage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5828367C1F9143AC003F18FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				INFOPLIST_FILE = "WVC Digital CageTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-CageTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WVC Digital Cage.app/WVC Digital Cage";
+			};
+			name = Debug;
+		};
+		5828367D1F9143AC003F18FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				INFOPLIST_FILE = "WVC Digital CageTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-CageTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WVC Digital Cage.app/WVC Digital Cage";
+			};
+			name = Release;
+		};
+		5828367F1F9143AC003F18FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				INFOPLIST_FILE = "WVC Digital CageUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-CageUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WVC Digital Cage";
+			};
+			name = Debug;
+		};
+		582836801F9143AC003F18FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				INFOPLIST_FILE = "WVC Digital CageUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-CageUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WVC Digital Cage";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5828364B1F9143AC003F18FE /* Build configuration list for PBXProject "WVC Digital Cage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				582836761F9143AC003F18FE /* Debug */,
+				582836771F9143AC003F18FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		582836781F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital Cage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				582836791F9143AC003F18FE /* Debug */,
+				5828367A1F9143AC003F18FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5828367B1F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital CageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5828367C1F9143AC003F18FE /* Debug */,
+				5828367D1F9143AC003F18FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5828367E1F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital CageUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5828367F1F9143AC003F18FE /* Debug */,
+				582836801F9143AC003F18FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 582836481F9143AC003F18FE /* Project object */;
+}
