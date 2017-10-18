@@ -14,6 +14,21 @@
 		5828365E1F9143AC003F18FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5828365C1F9143AC003F18FE /* LaunchScreen.storyboard */; };
 		582836691F9143AC003F18FE /* WVC_Digital_CageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836681F9143AC003F18FE /* WVC_Digital_CageTests.swift */; };
 		582836741F9143AC003F18FE /* WVC_Digital_CageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836731F9143AC003F18FE /* WVC_Digital_CageUITests.swift */; };
+		582836941F914840003F18FE /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5828368E1F914840003F18FE /* HexColor.swift */; };
+		582836951F914840003F18FE /* Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5828368F1F914840003F18FE /* Rounded.swift */; };
+		582836961F914840003F18FE /* Bordered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836901F914840003F18FE /* Bordered.swift */; };
+		582836971F914840003F18FE /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836911F914840003F18FE /* SimpleAlert.swift */; };
+		582836981F914840003F18FE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836921F914840003F18FE /* Date.swift */; };
+		582836991F914840003F18FE /* toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836931F914840003F18FE /* toast.swift */; };
+		5828369D1F914F5A003F18FE /* Patients.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5828369C1F914F5A003F18FE /* Patients.storyboard */; };
+		5828369F1F914F73003F18FE /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5828369E1F914F73003F18FE /* Notifications.storyboard */; };
+		582836A11F914F7D003F18FE /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 582836A01F914F7D003F18FE /* History.storyboard */; };
+		582836A41F914FC9003F18FE /* PatientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836A31F914FC9003F18FE /* PatientsVC.swift */; };
+		582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836A51F914FDF003F18FE /* NotificationsVC.swift */; };
+		582836A81F914FED003F18FE /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836A71F914FED003F18FE /* HistoryVC.swift */; };
+		582836AB1F916092003F18FE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836AA1F916092003F18FE /* TableViewCell.swift */; };
+		58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */; };
+		58E8A52F1F9802D4004E6640 /* AddNewPatient.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +62,21 @@
 		5828366F1F9143AC003F18FE /* WVC Digital CageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WVC Digital CageUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		582836731F9143AC003F18FE /* WVC_Digital_CageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVC_Digital_CageUITests.swift; sourceTree = "<group>"; };
 		582836751F9143AC003F18FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5828368E1F914840003F18FE /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
+		5828368F1F914840003F18FE /* Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rounded.swift; sourceTree = "<group>"; };
+		582836901F914840003F18FE /* Bordered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bordered.swift; sourceTree = "<group>"; };
+		582836911F914840003F18FE /* SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
+		582836921F914840003F18FE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		582836931F914840003F18FE /* toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toast.swift; sourceTree = "<group>"; };
+		5828369C1F914F5A003F18FE /* Patients.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Patients.storyboard; sourceTree = "<group>"; };
+		5828369E1F914F73003F18FE /* Notifications.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
+		582836A01F914F7D003F18FE /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
+		582836A31F914FC9003F18FE /* PatientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsVC.swift; sourceTree = "<group>"; };
+		582836A51F914FDF003F18FE /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
+		582836A71F914FED003F18FE /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
+		582836AA1F916092003F18FE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPE_VC.swift; sourceTree = "<group>"; };
+		58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddNewPatient.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +127,16 @@
 		582836521F9143AC003F18FE /* WVC Digital Cage */ = {
 			isa = PBXGroup;
 			children = (
+				582836811F9147A9003F18FE /* Helpers */,
 				582836531F9143AC003F18FE /* AppDelegate.swift */,
 				582836551F9143AC003F18FE /* ViewController.swift */,
 				582836571F9143AC003F18FE /* Main.storyboard */,
+				5828369C1F914F5A003F18FE /* Patients.storyboard */,
+				58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */,
+				5828369E1F914F73003F18FE /* Notifications.storyboard */,
+				582836A01F914F7D003F18FE /* History.storyboard */,
+				582836A91F91606E003F18FE /* TV Cell */,
+				582836A21F914FA8003F18FE /* VC */,
 				5828365A1F9143AC003F18FE /* Assets.xcassets */,
 				5828365C1F9143AC003F18FE /* LaunchScreen.storyboard */,
 				5828365F1F9143AC003F18FE /* Info.plist */,
@@ -123,6 +160,38 @@
 				582836751F9143AC003F18FE /* Info.plist */,
 			);
 			path = "WVC Digital CageUITests";
+			sourceTree = "<group>";
+		};
+		582836811F9147A9003F18FE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				582836901F914840003F18FE /* Bordered.swift */,
+				582836921F914840003F18FE /* Date.swift */,
+				5828368E1F914840003F18FE /* HexColor.swift */,
+				5828368F1F914840003F18FE /* Rounded.swift */,
+				582836911F914840003F18FE /* SimpleAlert.swift */,
+				582836931F914840003F18FE /* toast.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		582836A21F914FA8003F18FE /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				582836A31F914FC9003F18FE /* PatientsVC.swift */,
+				58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */,
+				582836A51F914FDF003F18FE /* NotificationsVC.swift */,
+				582836A71F914FED003F18FE /* HistoryVC.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		582836A91F91606E003F18FE /* TV Cell */ = {
+			isa = PBXGroup;
+			children = (
+				582836AA1F916092003F18FE /* TableViewCell.swift */,
+			);
+			path = "TV Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +302,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5828365E1F9143AC003F18FE /* LaunchScreen.storyboard in Resources */,
+				5828369F1F914F73003F18FE /* Notifications.storyboard in Resources */,
 				5828365B1F9143AC003F18FE /* Assets.xcassets in Resources */,
+				5828369D1F914F5A003F18FE /* Patients.storyboard in Resources */,
 				582836591F9143AC003F18FE /* Main.storyboard in Resources */,
+				582836A11F914F7D003F18FE /* History.storyboard in Resources */,
+				58E8A52F1F9802D4004E6640 /* AddNewPatient.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +332,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,
+				582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */,
+				582836991F914840003F18FE /* toast.swift in Sources */,
 				582836561F9143AC003F18FE /* ViewController.swift in Sources */,
+				582836A41F914FC9003F18FE /* PatientsVC.swift in Sources */,
+				58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */,
+				582836981F914840003F18FE /* Date.swift in Sources */,
+				582836951F914840003F18FE /* Rounded.swift in Sources */,
+				582836941F914840003F18FE /* HexColor.swift in Sources */,
+				582836A81F914FED003F18FE /* HistoryVC.swift in Sources */,
+				582836AB1F916092003F18FE /* TableViewCell.swift in Sources */,
+				582836961F914840003F18FE /* Bordered.swift in Sources */,
 				582836541F9143AC003F18FE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,11 +513,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55VP4JFWK9;
 				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-Cage";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -444,11 +529,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55VP4JFWK9;
 				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-Cage";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

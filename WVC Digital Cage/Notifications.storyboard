@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--mainDB-->
+        <scene sceneID="ZNg-cw-LN5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="mainDB" id="bfy-Tz-OgA" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UpA-X5-1eG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-276" y="-137"/>
+        </scene>
+        <!--NotificationsVC-->
+        <scene sceneID="ueD-Lr-e6w">
+            <objects>
+                <viewController storyboardIdentifier="notificationsDB" id="D6l-kd-w4B" customClass="NotificationsVC" customModule="WVC_Digital_Cage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9AJ-hJ-O5J">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSg-CA-lLl" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ir5-xY-2tZ">
+                                        <rect key="frame" x="20" y="30" width="34" height="30"/>
+                                        <state key="normal" title="Back"/>
+                                        <connections>
+                                            <segue destination="bfy-Tz-OgA" kind="presentation" animates="NO" id="9ii-0y-NcL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAB-Fg-bVV">
+                                        <rect key="frame" x="928" y="30" width="76" height="30"/>
+                                        <state key="normal" title="+ Add New"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2Q-8N-zKL">
+                                        <rect key="frame" x="457.5" y="17.5" width="110.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="HWw-BI-Dw3"/>
+                                    <constraint firstItem="Ir5-xY-2tZ" firstAttribute="leading" secondItem="eSg-CA-lLl" secondAttribute="leading" constant="20" id="NHg-ij-233"/>
+                                    <constraint firstItem="TAB-Fg-bVV" firstAttribute="top" secondItem="eSg-CA-lLl" secondAttribute="top" constant="30" id="RrM-4g-DSE"/>
+                                    <constraint firstAttribute="trailing" secondItem="TAB-Fg-bVV" secondAttribute="trailing" constant="20" id="W5g-GB-RyX"/>
+                                    <constraint firstItem="y2Q-8N-zKL" firstAttribute="centerY" secondItem="eSg-CA-lLl" secondAttribute="centerY" id="fQA-3U-eFm"/>
+                                    <constraint firstItem="Ir5-xY-2tZ" firstAttribute="top" secondItem="eSg-CA-lLl" secondAttribute="top" constant="30" id="j3T-b9-jty"/>
+                                    <constraint firstItem="y2Q-8N-zKL" firstAttribute="centerX" secondItem="eSg-CA-lLl" secondAttribute="centerX" id="mTh-bT-a3i"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eSg-CA-lLl" firstAttribute="trailing" secondItem="7hp-JI-mul" secondAttribute="trailing" id="RQX-vB-9eK"/>
+                            <constraint firstItem="eSg-CA-lLl" firstAttribute="leading" secondItem="7hp-JI-mul" secondAttribute="leading" id="fch-eC-n7L"/>
+                            <constraint firstItem="eSg-CA-lLl" firstAttribute="top" secondItem="9AJ-hJ-O5J" secondAttribute="top" id="qiX-3l-Lrv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7hp-JI-mul"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U5R-k5-sla" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="87" y="134"/>
+        </scene>
+    </scenes>
+</document>
