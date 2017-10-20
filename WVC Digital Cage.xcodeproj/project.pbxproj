@@ -29,6 +29,9 @@
 		582836AB1F916092003F18FE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836AA1F916092003F18FE /* TableViewCell.swift */; };
 		58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */; };
 		58E8A52F1F9802D4004E6640 /* AddNewPatient.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */; };
+		58E8A5311F9808A9004E6640 /* AddPatientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */; };
+		58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5321F98187A004E6640 /* DatePickerDialog.swift */; };
+		58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5341F990977004E6640 /* ExtensionsForVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		582836AA1F916092003F18FE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPE_VC.swift; sourceTree = "<group>"; };
 		58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddNewPatient.storyboard; sourceTree = "<group>"; };
+		58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientsVC.swift; sourceTree = "<group>"; };
+		58E8A5321F98187A004E6640 /* DatePickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
+		58E8A5341F990977004E6640 /* ExtensionsForVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsForVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,11 +172,13 @@
 			isa = PBXGroup;
 			children = (
 				582836901F914840003F18FE /* Bordered.swift */,
+				58E8A5321F98187A004E6640 /* DatePickerDialog.swift */,
 				582836921F914840003F18FE /* Date.swift */,
 				5828368E1F914840003F18FE /* HexColor.swift */,
 				5828368F1F914840003F18FE /* Rounded.swift */,
 				582836911F914840003F18FE /* SimpleAlert.swift */,
 				582836931F914840003F18FE /* toast.swift */,
+				58E8A5341F990977004E6640 /* ExtensionsForVC.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -180,6 +188,7 @@
 			children = (
 				582836A31F914FC9003F18FE /* PatientsVC.swift */,
 				58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */,
+				58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */,
 				582836A51F914FDF003F18FE /* NotificationsVC.swift */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 			);
@@ -332,10 +341,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,
 				582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */,
 				582836991F914840003F18FE /* toast.swift in Sources */,
 				582836561F9143AC003F18FE /* ViewController.swift in Sources */,
+				58E8A5311F9808A9004E6640 /* AddPatientsVC.swift in Sources */,
 				582836A41F914FC9003F18FE /* PatientsVC.swift in Sources */,
 				58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */,
 				582836981F914840003F18FE /* Date.swift in Sources */,
@@ -345,6 +356,7 @@
 				582836AB1F916092003F18FE /* TableViewCell.swift in Sources */,
 				582836961F914840003F18FE /* Bordered.swift in Sources */,
 				582836541F9143AC003F18FE /* AppDelegate.swift in Sources */,
+				58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,9 +39,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0z-SF-TG9">
                                         <rect key="frame" x="928" y="30" width="76" height="30"/>
                                         <state key="normal" title="+ Add New"/>
+                                        <connections>
+                                            <segue destination="9DH-LG-hgd" kind="presentation" animates="NO" id="pfx-hj-c7U"/>
+                                        </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Active Patients" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEW-zB-tni">
-                                        <rect key="frame" x="432.5" y="17.5" width="160.5" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Active Patients (6)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEW-zB-tni">
+                                        <rect key="frame" x="416.5" y="17.5" width="191" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1189,6 +1192,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UW8-qC-XXc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-144.43359375" y="794.921875"/>
+        </scene>
+        <!--addPatientsVC-->
+        <scene sceneID="2Tx-Fi-PZ2">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddNewPatient" referencedIdentifier="addPatientsVC" id="9DH-LG-hgd" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mdr-fS-kLI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="549" y="-128"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="JxB-B6-orL">
