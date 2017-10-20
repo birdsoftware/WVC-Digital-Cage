@@ -48,7 +48,10 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         if patientRecords.isEmpty == false
         {
             let patient = patientRecords[0]
-            let lastPatientID = patient["PatientID"]!
+            let lastPatientID = patient["patientID"]!
+            print("lastPatientID: \(lastPatientID)")
+            let incrementalPID = Int(lastPatientID)!+1
+            patientIDTF.text = String(incrementalPID)
         }
 
     }
@@ -70,7 +73,8 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         }
     }
     @IBAction func saveAction(_ sender: Any) {
-        self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
+        saveNewPatientLocally()
+        //self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
     }
     @IBAction func closeAction(_ sender: Any) {
         self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
@@ -170,5 +174,56 @@ extension AddPatientsVC{
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
+    }
+}
+extension AddPatientsVC{
+// MARK: local storage
+    func saveNewPatientLocally(){
+        //get what user entered
+        var newPatientData = [String]()
+        newPatientData.append(reviewDateLabel.text!)
+        newPatientData.append(reviewPatientID.text!)
+        newPatientData.append(reviewGroup.text!)
+        newPatientData.append(reviewOwner.text!)
+        newPatientData.append(reviewKennel.text!)
+        //check for missing data
+        var missingData = false
+        for index in 0..<newPatientData.count{
+            if newPatientData[index].isEmpty {
+                missingData = true
+                let p = patientDataConversion(indexV:index)
+                simpleAlert(title: p + " is missing", message: "enter value and try again before Saving.", buttonTitle: "OK")
+            }
+        }
+        //save locally if no missing data
+        if missingData == false{
+            let newP:Array<Dictionary<String,String>> =
+                [
+                    ["patientID":reviewPatientID.text!,
+                     "kennelID":reviewKennel.text!,
+                     "Status":"Active",
+                     "intakeDate":reviewDateLabel.text!,
+                     "owner":reviewOwner.text!,
+                     "group":reviewGroup.text!,
+                     "walkDate":""
+                    ]
+            ]
+            UserDefaults.standard.set(newP, forKey: "patientRecords")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    func patientDataConversion(indexV:Int) -> String{
+        switch indexV {
+        case 1:
+            return "Patient ID"
+        case 2:
+            return "Group"
+        case 3:
+            return "Owner"
+        case 4:
+            return "Kennel"
+        default:
+            return "Patient Field"
+        }
     }
 }

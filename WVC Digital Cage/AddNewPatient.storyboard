@@ -21,7 +21,6 @@
         <!--Add PatientsVC-->
         <scene sceneID="ddq-Z5-5XM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6w9-jI-jf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="addPatientsVC" id="qwn-YW-HUP" customClass="AddPatientsVC" customModule="WVC_Digital_Cage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsN-pj-bLZ">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
@@ -521,6 +520,7 @@
                         <outlet property="segmentControl" destination="Iiz-XG-6pN" id="Uhv-II-HIE"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6w9-jI-jf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="127.14843749999999" y="-159.375"/>
         </scene>

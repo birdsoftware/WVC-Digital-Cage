@@ -32,6 +32,14 @@
 		58E8A5311F9808A9004E6640 /* AddPatientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */; };
 		58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5321F98187A004E6640 /* DatePickerDialog.swift */; };
 		58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5341F990977004E6640 /* ExtensionsForVC.swift */; };
+		58E8A5391F9A5780004E6640 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5381F9A5780004E6640 /* AVFoundation.framework */; };
+		58E8A53B1F9A578A004E6640 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A53A1F9A578A004E6640 /* CoreGraphics.framework */; };
+		58E8A53D1F9A5791004E6640 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A53C1F9A5791004E6640 /* CoreMedia.framework */; };
+		58E8A53F1F9A579E004E6640 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A53E1F9A579E004E6640 /* CoreVideo.framework */; };
+		58E8A5411F9A57A9004E6640 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5401F9A57A9004E6640 /* MobileCoreServices.framework */; };
+		58E8A5431F9A57B1004E6640 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5421F9A57B1004E6640 /* QuartzCore.framework */; };
+		58E8A5451F9A57B8004E6640 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5441F9A57B8004E6640 /* SystemConfiguration.framework */; };
+		58E8A5461F9A57E4004E6640 /* UXCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5361F9A5424004E6640 /* UXCam.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +91,14 @@
 		58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientsVC.swift; sourceTree = "<group>"; };
 		58E8A5321F98187A004E6640 /* DatePickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		58E8A5341F990977004E6640 /* ExtensionsForVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsForVC.swift; sourceTree = "<group>"; };
+		58E8A5361F9A5424004E6640 /* UXCam.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UXCam.framework; sourceTree = "<group>"; };
+		58E8A5381F9A5780004E6640 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		58E8A53A1F9A578A004E6640 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		58E8A53C1F9A5791004E6640 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		58E8A53E1F9A579E004E6640 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		58E8A5401F9A57A9004E6640 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		58E8A5421F9A57B1004E6640 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		58E8A5441F9A57B8004E6640 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +106,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58E8A5451F9A57B8004E6640 /* SystemConfiguration.framework in Frameworks */,
+				58E8A5431F9A57B1004E6640 /* QuartzCore.framework in Frameworks */,
+				58E8A5411F9A57A9004E6640 /* MobileCoreServices.framework in Frameworks */,
+				58E8A53F1F9A579E004E6640 /* CoreVideo.framework in Frameworks */,
+				58E8A53D1F9A5791004E6640 /* CoreMedia.framework in Frameworks */,
+				58E8A53B1F9A578A004E6640 /* CoreGraphics.framework in Frameworks */,
+				58E8A5461F9A57E4004E6640 /* UXCam.framework in Frameworks */,
+				58E8A5391F9A5780004E6640 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +141,8 @@
 				582836671F9143AC003F18FE /* WVC Digital CageTests */,
 				582836721F9143AC003F18FE /* WVC Digital CageUITests */,
 				582836511F9143AC003F18FE /* Products */,
+				58E8A5361F9A5424004E6640 /* UXCam.framework */,
+				58E8A5371F9A577F004E6640 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +227,20 @@
 				582836AA1F916092003F18FE /* TableViewCell.swift */,
 			);
 			path = "TV Cell";
+			sourceTree = "<group>";
+		};
+		58E8A5371F9A577F004E6640 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				58E8A5441F9A57B8004E6640 /* SystemConfiguration.framework */,
+				58E8A5421F9A57B1004E6640 /* QuartzCore.framework */,
+				58E8A5401F9A57A9004E6640 /* MobileCoreServices.framework */,
+				58E8A53E1F9A579E004E6640 /* CoreVideo.framework */,
+				58E8A53C1F9A5791004E6640 /* CoreMedia.framework */,
+				58E8A53A1F9A578A004E6640 /* CoreGraphics.framework */,
+				58E8A5381F9A5780004E6640 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,7 +499,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -510,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -524,9 +564,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-Cage";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -540,9 +588,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_LDFLAGS[arch=*]" = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "wvc.WVC-Digital-Cage";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
