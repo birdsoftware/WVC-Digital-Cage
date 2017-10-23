@@ -23,9 +23,27 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var containerPro: UIView!
     @IBOutlet weak var containerAMPM: UIView!
     
+    //hider view
+    @IBOutlet weak var hideView: UIView!
+    @IBOutlet weak var hideTrailingLC: NSLayoutConstraint!
+    @IBOutlet weak var hideLeadingLC: NSLayoutConstraint!
+    @IBOutlet weak var hideBottomLC: NSLayoutConstraint!
+    @IBOutlet weak var hideTopLC: NSLayoutConstraint!
+    
+    //update record view URView
+    @IBOutlet weak var URview: UIView!
+    @IBOutlet weak var uRVTrailingLC: NSLayoutConstraint!
+    @IBOutlet weak var uRVLeadingLC: NSLayoutConstraint!
+    @IBOutlet weak var uRVBottomLC: NSLayoutConstraint!
+    @IBOutlet weak var uRVTopLC: NSLayoutConstraint!
+    
     //labels
     @IBOutlet weak var walkMeLabel: UILabel!
     @IBOutlet weak var viewTitle: UILabel!
+    @IBOutlet weak var patientIDLabel: UILabel!
+    
+    //buttons
+    @IBOutlet weak var kennelNumberButton: RoundedButton!
     
     //search bar
     @IBOutlet weak var patientSearchBar: UISearchBar!
@@ -46,18 +64,25 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tapDismissKeyboard()
+        //tapDismissKeyboard()
         setUpUI()
         //Delegates
         patientTable.delegate = self
         patientTable.dataSource = self
-        
         //search delegate
         patientSearchBar.delegate = self
-        
         SearchData=patientRecords
-        
-        viewTitle.text = "My Active Patients (\(patientRecords.count))"
+
+        //keyboard notification for update patient record
+        let center = NotificationCenter.default
+        center.addObserver(self,
+                           selector: #selector(keyboardWillShow),
+                           name: .UIKeyboardWillShow,
+                           object: nil)
+        center.addObserver(self,
+                           selector: #selector(keyboardWillHide),
+                           name: .UIKeyboardWillHide,
+                           object: nil)
     }
     //#MARK - Actions
     @IBAction func segmentControlAction(_ sender: Any) {
@@ -87,6 +112,12 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         default:
             break;
         }
+    }
+    @IBAction func saveUPRAction(_ sender: Any) {
+        hideUpdateRecordView()
+    }
+    @IBAction func closeUPRAction(_ sender: Any) {
+        hideUpdateRecordView()
     }
 }
 extension PatientsVC {
@@ -121,12 +152,22 @@ extension PatientsVC {
         view.addGestureRecognizer(tap)
     }
     @objc func dismissKeyboard(){ view.endEditing(true) }
+    // #MARK: - When Keyboard hides DO: Move text view up
+    @objc func keyboardWillShow(sender: NSNotification){
+        showUpdateRecordView()
+    }// #MARK: - When Keyboard shws DO: Move text view down
+    @objc func keyboardWillHide(sender: NSNotification){
+
+    }
     // #MARK: - UI Set Up
     func setUpUI(){
         containerPE.isHidden = false
         containerDem.isHidden = true
         containerPro.isHidden = true
         containerAMPM.isHidden = true
+        viewTitle.text = "My Active Patients (\(patientRecords.count))"
+        showHideView()
+        hideUpdateRecordView()
     }
     func updateWalkTime(){
         let patientID = "804348"
@@ -150,38 +191,68 @@ extension PatientsVC {
             }
         }
     }
+    func showHideView(){
+        hideView.isHidden = false
+        hideTrailingLC.constant = 0
+        hideLeadingLC.constant = 2
+        hideBottomLC.constant = 0
+        hideTopLC.constant = 0
+    }
+    func hideHideView(){
+        hideView.isHidden = true
+    }
+    func showUpdateRecordView(){
+        URview.isHidden = false
+        uRVTopLC.constant = 0
+        uRVBottomLC.constant = 0
+        uRVLeadingLC.constant = 0
+        uRVTrailingLC.constant = 0
+    }
+    func hideUpdateRecordView(){
+        URview.isHidden = true
+    }
 }
 extension PatientsVC {
     // #MARK: - Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return SearchData.count//patientRecords.count//patients.count
+        return SearchData.count//patientRecords.count
     }
-    
     func tableView(_ tableView: UITableView,
                    cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
         let cell: PatientTableView = tableView.dequeueReusableCell(withIdentifier: "patientCell") as! PatientTableView
-        let thisPatient = SearchData[IndexPath.row]//patientRecords[IndexPath.row]//patients[IndexPath.row]
-
+        let thisPatient = SearchData[IndexPath.row]//patientRecords[IndexPath.row]
         cell.intakeDate.text = thisPatient["intakeDate"]
         cell.patientId.text = thisPatient["patientID"]
         cell.kennelID.text = thisPatient["kennelID"]
         cell.status.text = thisPatient["Status"]
         cell.owner.text = thisPatient["owner"]
-        
-        //cell.accessoryType = .disclosureIndicator // add arrow > to cell
-        
         return cell
     }
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if let cell = tableView.cellForRow(at: indexPath) {
+//            cell.accessoryType = .checkmark
+//        }
+        var selectedData:Dictionary<String,String> = SearchData[indexPath.row]
+        hideHideView()
+//        let intakeDate = selectedData["intakeDate"]!
+        let patientID = selectedData["patientID"]!
+        patientIDLabel.text = patientID
+        let kennelID = selectedData["kennelID"]!
+        kennelNumberButton.setTitle(kennelID, for: .normal)
+//        let status = selectedData["Status"]!
+//        let owner = selectedData["owner"]!
         
+        //print("intakeDate: \(intakeDate), patientID: \(patientID), kennelID: \(kennelID), status: \(status), owner: \(owner)")
+//   UserDefaults.standard.set(selectedUsers, forKey: "connectSelectedUsers")
+//     UserDefaults.standard.synchronize()
+//       selectedUsereTableView.reloadData()
+//     }
+    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
-            //self.selectedRow = indexPath.row
-            //self.editMedication()
             print("Edit button tapped")
         }
         edit.backgroundColor = UIColor.orange
-        
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             //self.selectedRow = indexPath.row
             //self.removeMedication(indexPath: indexPath, typeString: "Delete")
@@ -195,7 +266,6 @@ extension PatientsVC {
             print("Delete button tapped")
         }
         delete.backgroundColor = UIColor.red
-        
         let archive = UITableViewRowAction(style: .normal, title: "Archive") { action, index in
             //self.isEditing = false
             print("Archive button tapped")
@@ -206,7 +276,6 @@ extension PatientsVC {
             self.patientTable.reloadData()
         }
         archive.backgroundColor = UIColor.blue
-        
         return [edit, delete, archive]
     }
 }
