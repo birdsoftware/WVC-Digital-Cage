@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     //table view
     @IBOutlet weak var patientTable: UITableView!
@@ -27,6 +27,8 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var walkMeLabel: UILabel!
     @IBOutlet weak var viewTitle: UILabel!
     
+    //search bar
+    @IBOutlet weak var patientSearchBar: UISearchBar!
     
     //table data
     var patients:Array<Dictionary<String,String>> =
@@ -50,22 +52,12 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         patientTable.delegate = self
         patientTable.dataSource = self
         
+        //search delegate
+        patientSearchBar.delegate = self
+        
         SearchData=patientRecords
         
-        //get local patientID
-        
-        //if patientRecords.isEmpty == false
-        //{
-            viewTitle.text = "My Active Patients (\(patientRecords.count))"
-        //}
-//        ["patientID":reviewPatientID.text!,
-//         "kennelID":reviewKennel.text!,
-//         "Status":"Active",
-//         "intakeDate":reviewDateLabel.text!,
-//         "owner":reviewOwner.text!,
-//         "group":reviewGroup.text!,
-//         "walkDate":""
-//        ]
+        viewTitle.text = "My Active Patients (\(patientRecords.count))"
     }
     //#MARK - Actions
     @IBAction func segmentControlAction(_ sender: Any) {
@@ -80,52 +72,47 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         var scopePredicate:NSPredicate
         switch scopeSegmentControl.selectedSegmentIndex
         {
-        case 0:
+        case 0://All
             SearchData=patientRecords
             patientTable.reloadData()
-        //
         case 1://Canine
             scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Canine")
-            let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
-            if arr.count >= 0
-            {
-                SearchData=arr as! Array<Dictionary<String,String>>
-                } else {
-                SearchData=patientRecords
-            }
-            patientTable.reloadData()
-        
+            predicateFilter(scopePredicate:scopePredicate)
         case 2://Feline
             scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Feline")
-            let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
-            if arr.count >= 0
-            {
-                SearchData=arr as! Array<Dictionary<String,String>>
-            } else {
-                SearchData=patientRecords
-            }
-            patientTable.reloadData()
-            
+            predicateFilter(scopePredicate:scopePredicate)
         case 3://Other
             scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Other")
-            let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
-            if arr.count >= 0
-            {
-                SearchData=arr as! Array<Dictionary<String,String>>
-            } else {
-                SearchData=patientRecords
-            }
-            patientTable.reloadData()
-            
-            default:
-                break;
+            predicateFilter(scopePredicate:scopePredicate)
+        default:
+            break;
         }
-        //
-        //        ScopeData = SearchData
-        //        let patientCount = ScopeData.count
-        //        myPatientsLabel.text = "My Patients (\(patientCount))"
     }
-    
+}
+extension PatientsVC {
+    // #MARK: - SEARCH
+    func predicateFilter(scopePredicate:NSPredicate){
+        let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
+        if arr.count >= 0
+        {
+            SearchData=arr as! Array<Dictionary<String,String>>
+        } else {
+            SearchData=patientRecords
+        }
+        patientTable.reloadData()
+        viewTitle.text = "My Active Patients (\(SearchData.count))"
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let patientIdPredicate = NSPredicate(format: "SELF.patientID CONTAINS[cd] %@", searchText)
+        let intakeDatePredicate = NSPredicate(format: "SELF.intakeDate CONTAINS[cd] %@", searchText)
+        let ownerPredicate = NSPredicate(format: "SELF.owner CONTAINS[cd] %@", searchText)
+        
+        let orPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.or, subpredicates: [patientIdPredicate, intakeDatePredicate, ownerPredicate])
+        
+        predicateFilter(scopePredicate:orPredicate)//<- reload table occurs in this function
+
+        viewTitle.text = "My Active Patients (\(SearchData.count))"
+    }
 }
 extension PatientsVC {
     // #MARK: - UI Hide Keyboard
@@ -158,7 +145,6 @@ extension PatientsVC {
                     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                     let lastWalkDate = dateFormatter.date(from: yourDateString!)
                     walkMeLabel.text = lastWalkDate!.timeAgo()
-                    
                     patients[index]["walkDate"] = nowString
                 }
             }

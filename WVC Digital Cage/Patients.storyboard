@@ -645,6 +645,7 @@
                         <outlet property="containerDem" destination="zZP-tR-Gle" id="M05-In-Chi"/>
                         <outlet property="containerPE" destination="XaN-UT-EBD" id="84b-Z6-8Rm"/>
                         <outlet property="containerPro" destination="u7b-ix-jrT" id="xWl-ni-a4R"/>
+                        <outlet property="patientSearchBar" destination="u2H-SX-0Xq" id="9UK-re-oSU"/>
                         <outlet property="patientTable" destination="hvb-MT-b3r" id="6U9-KN-esu"/>
                         <outlet property="scopeSegmentControl" destination="aSF-DT-ljm" id="Dj5-du-zYy"/>
                         <outlet property="segmentControl" destination="6bR-4s-74J" id="cJ3-zO-qWd"/>
