@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UXCam.start(withKey: "b0d743128b2a609")//9ae9c9a738972fa") //wvctester1@gmail.com b.bird@wvc.org
+        UXCam.start(withKey: "9ae9c9a738972fa") //wvctester1@gmail.com "b0d743128b2a609" b.bird@wvc.org
         return true
     }
 

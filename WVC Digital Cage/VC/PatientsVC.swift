@@ -15,6 +15,7 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //segment
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var scopeSegmentControl: UISegmentedControl!
     
     //Container views
     @IBOutlet weak var containerPE: UIView!
@@ -22,7 +23,10 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var containerPro: UIView!
     @IBOutlet weak var containerAMPM: UIView!
     
+    //labels
     @IBOutlet weak var walkMeLabel: UILabel!
+    @IBOutlet weak var viewTitle: UILabel!
+    
     
     //table data
     var patients:Array<Dictionary<String,String>> =
@@ -34,6 +38,10 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
          ["patientID":"804351","kennelID":"1","Status":"Active", "intakeDate":"10/12/2017","owner":"Henderson","walkDate":""],
          ["patientID":"804352","kennelID":"1","Status":"Active", "intakeDate":"10/12/2017","owner":"Henderson","walkDate":""]]
     
+    var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    
+    var SearchData = Array<Dictionary<String,String>>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tapDismissKeyboard()
@@ -41,6 +49,23 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //Delegates
         patientTable.delegate = self
         patientTable.dataSource = self
+        
+        SearchData=patientRecords
+        
+        //get local patientID
+        
+        //if patientRecords.isEmpty == false
+        //{
+            viewTitle.text = "My Active Patients (\(patientRecords.count))"
+        //}
+//        ["patientID":reviewPatientID.text!,
+//         "kennelID":reviewKennel.text!,
+//         "Status":"Active",
+//         "intakeDate":reviewDateLabel.text!,
+//         "owner":reviewOwner.text!,
+//         "group":reviewGroup.text!,
+//         "walkDate":""
+//        ]
     }
     //#MARK - Actions
     @IBAction func segmentControlAction(_ sender: Any) {
@@ -50,6 +75,55 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //walkMeLabel
         //timer value exits? creat new : reset time
         updateWalkTime()
+    }
+    @IBAction func scopeSegmentAction(_ sender: Any) {
+        var scopePredicate:NSPredicate
+        switch scopeSegmentControl.selectedSegmentIndex
+        {
+        case 0:
+            SearchData=patientRecords
+            patientTable.reloadData()
+        //
+        case 1://Canine
+            scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Canine")
+            let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
+            if arr.count >= 0
+            {
+                SearchData=arr as! Array<Dictionary<String,String>>
+                } else {
+                SearchData=patientRecords
+            }
+            patientTable.reloadData()
+        
+        case 2://Feline
+            scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Feline")
+            let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
+            if arr.count >= 0
+            {
+                SearchData=arr as! Array<Dictionary<String,String>>
+            } else {
+                SearchData=patientRecords
+            }
+            patientTable.reloadData()
+            
+        case 3://Other
+            scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Other")
+            let arr=(patientRecords as NSArray).filtered(using: scopePredicate)
+            if arr.count >= 0
+            {
+                SearchData=arr as! Array<Dictionary<String,String>>
+            } else {
+                SearchData=patientRecords
+            }
+            patientTable.reloadData()
+            
+            default:
+                break;
+        }
+        //
+        //        ScopeData = SearchData
+        //        let patientCount = ScopeData.count
+        //        myPatientsLabel.text = "My Patients (\(patientCount))"
     }
     
 }
@@ -95,13 +169,13 @@ extension PatientsVC {
     // #MARK: - Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return patients.count
+        return SearchData.count//patientRecords.count//patients.count
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
         let cell: PatientTableView = tableView.dequeueReusableCell(withIdentifier: "patientCell") as! PatientTableView
-        let thisPatient = patients[IndexPath.row]
+        let thisPatient = SearchData[IndexPath.row]//patientRecords[IndexPath.row]//patients[IndexPath.row]
 
         cell.intakeDate.text = thisPatient["intakeDate"]
         cell.patientId.text = thisPatient["patientID"]
@@ -112,6 +186,42 @@ extension PatientsVC {
         //cell.accessoryType = .disclosureIndicator // add arrow > to cell
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+            //self.selectedRow = indexPath.row
+            //self.editMedication()
+            print("Edit button tapped")
+        }
+        edit.backgroundColor = UIColor.orange
+        
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            //self.selectedRow = indexPath.row
+            //self.removeMedication(indexPath: indexPath, typeString: "Delete")
+            //self.medicationData.remove(at: indexPath.row)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
+            //3. Update UI
+            self.patientRecords.remove(at: indexPath.row)//self.selectedRow)
+            self.patientTable.deleteRows(at: [indexPath], with: .fade)
+            UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+            UserDefaults.standard.synchronize()
+            print("Delete button tapped")
+        }
+        delete.backgroundColor = UIColor.red
+        
+        let archive = UITableViewRowAction(style: .normal, title: "Archive") { action, index in
+            //self.isEditing = false
+            print("Archive button tapped")
+            self.patientRecords[indexPath.row]["Status"] = "Archive"
+            UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+            UserDefaults.standard.synchronize()
+            self.SearchData = self.patientRecords
+            self.patientTable.reloadData()
+        }
+        archive.backgroundColor = UIColor.blue
+        
+        return [edit, delete, archive]
     }
 }
 extension PatientsVC {

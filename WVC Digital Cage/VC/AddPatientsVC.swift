@@ -30,7 +30,7 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     var ownerList = ["The Animal Foundation (TAF)","Henderson Shelter (HS)","Desert Haven Animal Society (DHAS)",
                      "Home for Spot (HFS)","Riverside Shelter (RS)"]
     
-    //var patientRecords:Array<Dictionary<String,String>> = []
+    var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +44,15 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         ownerTF.delegate = self
         kennelTF.delegate = self
         //get local patientID
-        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        //let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         if patientRecords.isEmpty == false
         {
-            let patient = patientRecords[0]
-            let lastPatientID = patient["patientID"]!
-            print("lastPatientID: \(lastPatientID)")
+            let patient = patientRecords.last
+            let lastPatientID = patient!["patientID"]!
+          print("lastPatientID: \(lastPatientID)")
             let incrementalPID = Int(lastPatientID)!+1
             patientIDTF.text = String(incrementalPID)
+            reviewPatientID.text = String(incrementalPID)
         }
 
     }
@@ -74,7 +75,7 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     @IBAction func saveAction(_ sender: Any) {
         saveNewPatientLocally()
-        //self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
+        self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
     }
     @IBAction func closeAction(_ sender: Any) {
         self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
@@ -197,8 +198,7 @@ extension AddPatientsVC{
         }
         //save locally if no missing data
         if missingData == false{
-            let newP:Array<Dictionary<String,String>> =
-                [
+            let newP:Dictionary<String,String> =
                     ["patientID":reviewPatientID.text!,
                      "kennelID":reviewKennel.text!,
                      "Status":"Active",
@@ -207,9 +207,18 @@ extension AddPatientsVC{
                      "group":reviewGroup.text!,
                      "walkDate":""
                     ]
-            ]
-            UserDefaults.standard.set(newP, forKey: "patientRecords")
-            UserDefaults.standard.synchronize()
+            
+            if patientRecords.isEmpty == false
+            {
+                patientRecords.append(newP)
+                UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
+                UserDefaults.standard.synchronize()
+            }
+            else {
+                UserDefaults.standard.set([newP], forKey: "patientRecords")
+                UserDefaults.standard.synchronize()
+            }
+            
         }
     }
     func patientDataConversion(indexV:Int) -> String{
