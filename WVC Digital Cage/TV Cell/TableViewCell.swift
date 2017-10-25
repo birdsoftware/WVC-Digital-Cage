@@ -16,4 +16,5 @@ class PatientTableView: UITableViewCell {
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var intakeDate: UILabel!
     @IBOutlet weak var owner: UILabel!
+    @IBOutlet weak var imageBackgroundView: UIView!
 }

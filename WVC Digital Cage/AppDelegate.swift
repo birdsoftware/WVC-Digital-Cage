@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UXCam.start(withKey: "9ae9c9a738972fa") //wvctester1@gmail.com "b0d743128b2a609" b.bird@wvc.org
+        //UXCam.start(withKey: "9ae9c9a738972fa") //wvctester1@gmail.com "b0d743128b2a609" b.bird@wvc.org
         return true
     }
 
@@ -46,3 +46,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIColor {
+    static func candyGreen() -> UIColor {
+        return UIColor(red: 67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0)
+    }
+    static func DarkRed() -> UIColor {
+        return UIColor(hex:0xaa010e)
+    }
+    static func celestialBlue() -> UIColor {//-Secondary Title Bar
+        return UIColor(hex:0x4A9FCA)
+    }
+    static func columbiaBlue() -> UIColor {//-Third Title Bar
+        return UIColor(hex:0xA1DCF8)
+    }
+    static func Fern() -> UIColor {//-Top and bottum Bar
+        return UIColor(hex:0x468401)
+    }
+    static func Green() -> UIColor {//-Buttons
+        return UIColor(hex:0x028401)
+    }
+    static func peachCream() -> UIColor {
+        return UIColor(hex:0xFFF2DD)
+    }
+    static func seaBuckthorn() -> UIColor {
+        return UIColor(hex:0xFCAB29)
+    }
+    static func polar() -> UIColor {
+        return UIColor(hex:0xE8F8F8)
+    }
+    static func bostonBlue() -> UIColor {//send message button
+        return UIColor(hex:0x3B8DBD)
+    }
+}

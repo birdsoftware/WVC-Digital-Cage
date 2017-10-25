@@ -22,7 +22,7 @@ extension UIViewController {
         
     }
     
-    func simpleTFAlert(title:String, message:String, buttonTitle:String, outputTextView:UITextView, senderTag: Int) {
+    func simpleTFAlert(title:String, message:String, buttonTitle:String, outputTextView:UITextView, senderTag: Int, dispachInstance: DispatchGroup) {
         
         let myAlert = UIAlertController(title: title,
                                         message: message,
@@ -31,6 +31,7 @@ extension UIViewController {
         myAlert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: {
             alert -> Void in
             //TODO: Add UITextField code
+            dispachInstance.leave() // User Responded
         //Section 1
         let myComment = myAlert.textFields![0] as UITextField
         
@@ -39,6 +40,7 @@ extension UIViewController {
             //let firstTwoChars = String(message.characters.prefix(2))
             let original = outputTextView.text!
             outputTextView.text = original + "\n" + String(senderTag) + ") " + String(describing: myComment.text!)
+            
         } else {
             //TODO: Add error handling
         }
