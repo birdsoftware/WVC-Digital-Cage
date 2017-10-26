@@ -278,7 +278,7 @@ extension PatientsVC {
         let email = UITableViewRowAction(style: .normal, title: "Email") { action, index in
             print("Email button tapped")
             let selectedData:Dictionary<String,String> = self.SearchData[indexPath.row]
-            self.sendEmailWithAttachemnt()
+            self.sendEmailWithAttachemnt(patientData: selectedData)
         }
         email.backgroundColor = UIColor.orange
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
@@ -421,47 +421,36 @@ extension PatientsVC {
 }
 extension PatientsVC{
     // MARK: - Email
-    func sendEmail(patientID: String){
-        let fileName: NSString = "patient" + patientID + ".pdf" as NSString
-        let pdfPathWithFileName = returnPDFPath(fileName: fileName)
-        generatePDFs(filePath: "")//pdfPathWithFileName)
-    }
-    func returnPDFPath(fileName: NSString) -> String {
-        let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-        let documentDirectory = path.object(at: 0) as! NSString
-        let PDFPathFileName = documentDirectory.appendingPathComponent(fileName as String)
-        //appendingPathComponent(fileName as String)
-        
-        return PDFPathFileName
-    }
-    func generatePDFs(filePath: String) {
-        UIGraphicsBeginPDFContextToFile(filePath, CGRect.zero, nil)
-        UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0,y: 0 ,width: 850 ,height: 1100), nil)
-        
-        //drawBackground()
-        //drawImage("primaryClientInformation.png")
-        //drawText()
-        
-        UIGraphicsEndPDFContext()
-        let fileName: NSString = "patient" + patientID + ".pdf" as NSString
-        let pdfPathWithFile = returnPDFPath(fileName: fileName)
-        let fileData = NSData(contentsOfFile:pdfPathWithFile)
-        //sendEmailWithAttachemnt(fileData: fileData!)
-        
-        //clearNSUserDefaultData() //remove sensitive data
-    }
-    func sendEmailWithAttachemnt(){//fileData: NSData) {
-        //email pdf
-        let pcName = "ID: 8081132"
-        let emailMessage = "<p> Please see attached for " + String(pcName) + " </p>"
+    func sendEmailWithAttachemnt(patientData: Dictionary<String,String>){
+        let patientID = patientData["patientID"]!
+        let emailMessage = "<p> Please see attached PDF for Patient: " + patientID + " </p>"
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             
-            mail.setToRecipients(["bbirdunlv@yahoo.com"]) //,"bbirdunlv@yahoo.com"])
-            mail.setSubject("New patient")
+            mail.setToRecipients(["bbirdunlv@yahoo.com","b.bird@wvc.org"])
+            mail.setSubject("WVC DCC Patient: " + patientID)
             mail.setMessageBody(emailMessage, isHTML: true)
-            //mail.addAttachmentData(fileData as Data, mimeType: "application/pdf", fileName: "newIntake.pdf")
+            
+            //generate file path then pdf to attach
+            let fileName: NSString = "test.pdf" as NSString
+            
+            let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+            let documentDirectory = path.object(at: 0) as! NSString
+            let PDFPathFileName = documentDirectory.appendingPathComponent(fileName as String)
+            let pdfPathWithFile = PDFPathFileName//returnPDFPath(fileName: fileName)
+            
+            //generate pdf with file path
+            UIGraphicsBeginPDFContextToFile(pdfPathWithFile, CGRect.zero, nil)
+            UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
+            drawBackground()
+            drawImageLogo(imageName: "WVCLogog")
+            drawPatientRecordText(patientData: patientData)
+            UIGraphicsEndPDFContext()
+            
+            let fileData = NSData(contentsOfFile:pdfPathWithFile)
+            
+            mail.addAttachmentData(fileData! as Data, mimeType: "application/pdf", fileName: "test.pdf")
             self.present(mail, animated: true, completion: nil)
         } else {
             // show failure alert
@@ -476,4 +465,56 @@ extension PatientsVC{
         // Dismiss the mail compose view controller.
         controller.dismiss(animated: true, completion: nil)
     }
+    func drawBackground () {
+        let context:CGContext = UIGraphicsGetCurrentContext()!
+        let rect:CGRect = CGRect(x:0, y:0, width:850, height:1100)
+        context.setFillColor(UIColor.white.cgColor)
+        context.fill(rect)
+    }
+    func drawImageLogo(imageName: String) {
+        let imageRect:CGRect = CGRect(x:200, y:30, width:400, height:100)
+        let image = UIImage(named: imageName)//"caseInformation.png")
+        
+        image?.draw(in: imageRect)
+    }
+    func drawPatientRecordText(patientData: Dictionary<String,String>){
+        //set up columns for 850 by 1100 page
+        let logoHeight = 100
+        let xCol1 = 50
+        let xCol2 = 300
+        let xCol3 = 550
+        let textRecWidth = 200
+        let titleRect:CGRect = CGRect(x: xCol1, y:130+20, width:textRecWidth, height:40)
+        let valueRect:CGRect = CGRect(x: xCol1, y:150+20, width:textRecWidth, height:40)
+        
+        let titles = ["Patient ID:","Status:","Intake Date:","Owner:"]
+        
+        titles[0].draw(in: titleRect, withAttributes: returnTitleAttributes())
+        patientData["patientID"]?.draw(in: valueRect, withAttributes: returnTextAttributes())
+        
+    }
+    func returnTitleAttributes() -> [NSAttributedStringKey: NSObject]{
+        let fontTitle = UIFont(name: "Helvetica Bold", size: 16.0)!
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.left
+        let textFontAttributes = [
+            NSAttributedStringKey.font: fontTitle,
+            NSAttributedStringKey.paragraphStyle: textStyle ]
+        return textFontAttributes
+    }
+    func returnTextAttributes() -> [NSAttributedStringKey: NSObject]{
+        let font:UIFont = UIFont(name:"Helvetica", size:14)!
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.left
+        let textFontAttributes = [
+            NSAttributedStringKey.font: font,
+            NSAttributedStringKey.paragraphStyle: textStyle ]
+        return textFontAttributes
+    }
 }
+
+
+
+
+
+

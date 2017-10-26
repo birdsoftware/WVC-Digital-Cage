@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--patientsDB-->
+        <scene sceneID="dzg-e1-mDj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Patients" referencedIdentifier="patientsDB" id="uWA-hg-vmn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="icM-4Y-OSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-306" y="-155"/>
+        </scene>
+        <!--SettingsVC-->
+        <scene sceneID="6sD-rs-9q3">
+            <objects>
+                <viewController storyboardIdentifier="settingsDB" id="Dha-dE-m0l" customClass="SettingsVC" customModule="WVC_Digital_Cage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dbx-bK-oS0">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmf-z4-FAt" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uU4-ec-GiX">
+                                        <rect key="frame" x="20" y="30" width="34" height="30"/>
+                                        <state key="normal" title="Back"/>
+                                        <connections>
+                                            <segue destination="uWA-hg-vmn" kind="presentation" id="256-lY-JZV"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tkf-85-Hgb">
+                                        <rect key="frame" x="476" y="17.5" width="72" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="uU4-ec-GiX" firstAttribute="leading" secondItem="Cmf-z4-FAt" secondAttribute="leading" constant="20" id="4Zr-ug-fOm"/>
+                                    <constraint firstItem="Tkf-85-Hgb" firstAttribute="centerY" secondItem="Cmf-z4-FAt" secondAttribute="centerY" id="LNS-FA-Wrm"/>
+                                    <constraint firstItem="Tkf-85-Hgb" firstAttribute="centerX" secondItem="Cmf-z4-FAt" secondAttribute="centerX" id="XXz-hb-jVZ"/>
+                                    <constraint firstAttribute="height" constant="59" id="kb8-dc-iAY"/>
+                                    <constraint firstItem="uU4-ec-GiX" firstAttribute="top" secondItem="Cmf-z4-FAt" secondAttribute="top" constant="30" id="piK-er-s3v"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cmf-z4-FAt" firstAttribute="trailing" secondItem="7NU-PV-Ofj" secondAttribute="trailing" id="1Ci-ls-kCX"/>
+                            <constraint firstItem="Cmf-z4-FAt" firstAttribute="top" secondItem="dbx-bK-oS0" secondAttribute="top" id="1Xc-io-BYV"/>
+                            <constraint firstItem="Cmf-z4-FAt" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" id="mwY-OG-vQz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7NU-PV-Ofj"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZ2-cO-GKR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="108"/>
+        </scene>
+    </scenes>
+</document>
