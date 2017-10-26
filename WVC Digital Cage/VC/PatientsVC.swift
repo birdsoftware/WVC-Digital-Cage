@@ -446,6 +446,8 @@ extension PatientsVC{
             drawBackground()
             drawImageLogo(imageName: "WVCLogog")
             drawPatientRecordText(patientData: patientData)
+            drawVitalsText(patientID:patientID)
+            drawPhysicalExam(patientID:patientID)
             UIGraphicsEndPDFContext()
             
             let fileData = NSData(contentsOfFile:pdfPathWithFile)
@@ -480,18 +482,103 @@ extension PatientsVC{
     func drawPatientRecordText(patientData: Dictionary<String,String>){
         //set up columns for 850 by 1100 page
         let logoHeight = 100
+        let spacerFifty = 50
+        let spacerTwenty = 20
         let xCol1 = 50
+        //let xCol2 = 300
+        //let xCol3 = 550
+        let textRecWidth = 200
+        
+        var newTotalY = logoHeight+spacerFifty + spacerTwenty
+        //let titleRect:CGRect = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
+        //let valueRect:CGRect = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
+        
+        let titles = ["patientID","Status","intakeDate","owner"]
+        
+        //titles[0].draw(in: titleRect, withAttributes: returnTitleAttributes())
+        //patientData["patientID"]?.draw(in: valueRect, withAttributes: returnTextAttributes())
+        
+        var title = CGRect()
+        var value = CGRect()
+        for item in titles {
+            newTotalY += spacerTwenty
+            title = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
+            newTotalY += spacerTwenty
+            value = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
+            item.draw(in: title, withAttributes: returnTitleAttributes())
+            patientData[item]?.draw(in: value, withAttributes: returnTextAttributes())
+        }
+    }
+    func drawVitalsText(patientID:String){
+        let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+        var vitalData = Dictionary<String,String>()
+        for vital in patientVitals {
+            if vital["patientID"] == patientID {
+                vitalData = vital
+            }
+        }
+        //set up columns for 850 by 1100 page
+        let logoHeight = 100
+        let spacerFifty = 50
+        let spacerTwenty = 20
+        //let xCol1 = 50
         let xCol2 = 300
+        let textRecWidth = 200
+        
+        var newTotalY = logoHeight+spacerFifty + spacerTwenty
+        
+        let titles = ["temperature","pulse","cRT_MM","respiration","weight","exitWeight"]
+        
+        var title = CGRect()
+        var value = CGRect()
+        for item in titles {
+            newTotalY += spacerTwenty
+            title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
+            newTotalY += spacerTwenty
+            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
+            item.draw(in: title, withAttributes: returnTitleAttributes())
+            vitalData[item]?.draw(in: value, withAttributes: returnTextAttributes())
+        }
+    }
+    func drawPhysicalExam(patientID:String){
+        let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+        var physcialExamData = Dictionary<String,String>()
+        for pe in patientPhysicalExam {
+            if pe["patientID"] == patientID {
+                physcialExamData = pe
+            }
+        }
+        //["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "Musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
+        //replace true with normal & flase with abnormal
+        for item in physcialExamData {
+            if item.value == "false" {
+                physcialExamData[item.key] = "Normal"
+            }
+            if item.value == "true" {
+                physcialExamData[item.key] = "Abnormal"
+            }
+        }
+        //set up columns for 850 by 1100 page
+        let logoHeight = 100
+        let spacerFifty = 50
+        let spacerTwenty = 20
         let xCol3 = 550
         let textRecWidth = 200
-        let titleRect:CGRect = CGRect(x: xCol1, y:130+20, width:textRecWidth, height:40)
-        let valueRect:CGRect = CGRect(x: xCol1, y:150+20, width:textRecWidth, height:40)
         
-        let titles = ["Patient ID:","Status:","Intake Date:","Owner:"]
+        var newTotalY = logoHeight+spacerFifty + spacerTwenty
         
-        titles[0].draw(in: titleRect, withAttributes: returnTitleAttributes())
-        patientData["patientID"]?.draw(in: valueRect, withAttributes: returnTextAttributes())
+        let titles = ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore"]
         
+        var title = CGRect()
+        var value = CGRect()
+        for item in titles {
+            newTotalY += spacerTwenty
+            title = CGRect(x: xCol3, y:newTotalY, width:textRecWidth, height:40)
+            newTotalY += spacerTwenty
+            value = CGRect(x: xCol3, y:newTotalY, width:textRecWidth, height:40)
+            item.draw(in: title, withAttributes: returnTitleAttributes())
+            physcialExamData[item]?.draw(in: value, withAttributes: returnTextAttributes())
+        }
     }
     func returnTitleAttributes() -> [NSAttributedStringKey: NSObject]{
         let fontTitle = UIFont(name: "Helvetica Bold", size: 16.0)!
