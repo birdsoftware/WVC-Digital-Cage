@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="GeezaPro.ttc">
+            <string>GeezaPro-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--mainDB-->
         <scene sceneID="1uF-9e-dOa">
@@ -29,36 +34,59 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4I7-AA-OXW" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVH-76-j97">
-                                        <rect key="frame" x="20" y="30" width="34" height="30"/>
-                                        <state key="normal" title="Back"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVH-76-j97">
+                                        <rect key="frame" x="20" y="20" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="6Mt-9d-kcB"/>
+                                            <constraint firstAttribute="height" constant="35" id="UEm-qO-kxZ"/>
+                                        </constraints>
+                                        <state key="normal" image="back"/>
                                         <connections>
                                             <segue destination="Dvi-A1-lJi" kind="presentation" animates="NO" id="iqF-Xr-mEU"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0z-SF-TG9">
-                                        <rect key="frame" x="928" y="30" width="76" height="30"/>
-                                        <state key="normal" title="+ Add New"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0z-SF-TG9">
+                                        <rect key="frame" x="969" y="20" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="Ae7-Xl-ADV"/>
+                                            <constraint firstAttribute="width" constant="35" id="xrh-SE-ALl"/>
+                                        </constraints>
+                                        <state key="normal" image="add">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="9DH-LG-hgd" kind="presentation" animates="NO" id="pfx-hj-c7U"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Active Patients (6)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEW-zB-tni">
-                                        <rect key="frame" x="416.5" y="17.5" width="191" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="402.5" y="20" width="219.5" height="26"/>
+                                        <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="21"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCT-JI-1gi">
+                                        <rect key="frame" x="904" y="20" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="V4Y-AQ-Ea2"/>
+                                            <constraint firstAttribute="width" constant="35" id="kRE-ZU-U4Q"/>
+                                        </constraints>
+                                        <state key="normal" image="share"/>
+                                        <connections>
+                                            <action selector="shareAction:" destination="MAZ-cX-KUD" eventType="touchUpInside" id="Jlq-lX-9af"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="IVH-76-j97" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="top" constant="30" id="44O-oK-1Iq"/>
+                                    <constraint firstItem="IVH-76-j97" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="top" constant="20" id="44O-oK-1Iq"/>
+                                    <constraint firstItem="yCT-JI-1gi" firstAttribute="centerY" secondItem="j0z-SF-TG9" secondAttribute="centerY" id="50e-XL-bsB"/>
                                     <constraint firstItem="IVH-76-j97" firstAttribute="leading" secondItem="4I7-AA-OXW" secondAttribute="leading" constant="20" id="8KL-gX-gL4"/>
+                                    <constraint firstAttribute="trailing" secondItem="j0z-SF-TG9" secondAttribute="trailing" constant="20" id="CYb-6i-jn4"/>
                                     <constraint firstAttribute="height" constant="59" id="FvQ-oV-IMi"/>
-                                    <constraint firstItem="gEW-zB-tni" firstAttribute="centerY" secondItem="4I7-AA-OXW" secondAttribute="centerY" id="QCX-70-Zbq"/>
-                                    <constraint firstAttribute="trailing" secondItem="j0z-SF-TG9" secondAttribute="trailing" constant="20" id="T3B-9H-bjf"/>
                                     <constraint firstItem="gEW-zB-tni" firstAttribute="centerX" secondItem="4I7-AA-OXW" secondAttribute="centerX" id="aJm-N3-8kU"/>
-                                    <constraint firstItem="j0z-SF-TG9" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="top" constant="30" id="alc-jg-SyA"/>
+                                    <constraint firstItem="j0z-SF-TG9" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="top" constant="20" id="alc-jg-SyA"/>
+                                    <constraint firstItem="gEW-zB-tni" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="top" constant="20" id="lKs-4q-NFH"/>
+                                    <constraint firstItem="j0z-SF-TG9" firstAttribute="leading" secondItem="yCT-JI-1gi" secondAttribute="trailing" constant="30" id="oTC-7y-JDP"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -781,6 +809,7 @@
                         <outlet property="respiration" destination="zjA-hg-Mga" id="NMk-Jm-rU1"/>
                         <outlet property="scopeSegmentControl" destination="aSF-DT-ljm" id="Dj5-du-zYy"/>
                         <outlet property="segmentControl" destination="6bR-4s-74J" id="cJ3-zO-qWd"/>
+                        <outlet property="shareButton" destination="yCT-JI-1gi" id="xFe-21-xvV"/>
                         <outlet property="temperature" destination="mda-F0-qRS" id="mWk-4O-DbI"/>
                         <outlet property="uRVBottomLC" destination="12h-qQ-jjr" id="ruq-D8-pQp"/>
                         <outlet property="uRVLeadingLC" destination="1Q4-z4-q7i" id="muD-Cc-t6o"/>
@@ -1268,10 +1297,10 @@
             </objects>
             <point key="canvasLocation" x="255.76171874999997" y="794.921875"/>
         </scene>
-        <!--View Controller-->
+        <!--Patient DemographicsVC-->
         <scene sceneID="hlM-1W-01E">
             <objects>
-                <viewController id="3gt-zV-BJN" sceneMemberID="viewController">
+                <viewController id="3gt-zV-BJN" customClass="PatientDemographicsVC" customModule="WVC_Digital_Cage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rrt-0X-fC2">
                         <rect key="frame" x="0.0" y="0.0" width="645" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1678,10 +1707,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="64" height="64"/>
+        <image name="back" width="64" height="64"/>
         <image name="bell" width="64" height="64"/>
         <image name="calendar" width="32" height="32"/>
         <image name="dog circle" width="80" height="80"/>
         <image name="dog house" width="64" height="64"/>
         <image name="key" width="64" height="64"/>
+        <image name="share" width="64" height="64"/>
     </resources>
 </document>

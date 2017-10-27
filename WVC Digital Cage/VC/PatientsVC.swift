@@ -54,6 +54,7 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     //buttons
     @IBOutlet weak var kennelNumberButton: RoundedButton!
+    @IBOutlet weak var shareButton: UIButton!
     
     //search bar
     @IBOutlet weak var patientSearchBar: UISearchBar!
@@ -61,6 +62,7 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     //table data
     var patientID = ""
+    var selectedData = Dictionary<String,String>()
     
     var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
     
@@ -124,6 +126,44 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBAction func closeUPRAction(_ sender: Any) {
         hideUpdateRecordView()
     }
+    @IBAction func shareAction(_ sender: Any) {
+        //generate file path then pdf to attach
+        let fileName: NSString = "test.pdf" as NSString
+        
+        let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        let documentDirectory = path.object(at: 0) as! NSString
+        let PDFPathFileName = documentDirectory.appendingPathComponent(fileName as String)
+        let pdfPathWithFile = PDFPathFileName//returnPDFPath(fileName: fileName)
+        
+        //generate pdf with file path
+        UIGraphicsBeginPDFContextToFile(pdfPathWithFile, CGRect.zero, nil)
+        UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
+        drawBackground()
+        drawImageLogo(imageName: "WVCLogog")
+        drawPatientRecordText(patientData: selectedData)
+        drawVitalsText(patientID:patientID)
+        drawPhysicalExam(patientID:patientID)
+        UIGraphicsEndPDFContext()
+        
+        let fileData = NSData(contentsOfFile:pdfPathWithFile)
+        loadPDFAndShare(documento: fileData!, documentoPath: pdfPathWithFile)
+    }
+    func loadPDFAndShare(documento: NSData,documentoPath: String){
+        
+        //let fileManager = FileManager.default
+        //let documentoPath = (self.getDirectoryPath() as NSString).appendingPathComponent("documento.pdf")
+        
+        //if fileManager.fileExists(atPath: documentoPath){
+            let documento = NSData(contentsOfFile: documentoPath)
+            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [documento!], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView=self.view
+            present(activityViewController, animated: true, completion: nil)
+        //}
+        //else {
+        //    print("document was not found")
+        //}
+    }
+    
 }
 extension PatientsVC {
     // #MARK: - SEARCH
@@ -177,6 +217,7 @@ extension PatientsVC {
         containerDem.isHidden = true
         containerPro.isHidden = true
         containerAMPM.isHidden = true
+        shareButton.isHidden = true
         viewTitle.text = "My Active Patients (\(patientRecords.count))"
         showHideView()
         hideUpdateRecordView()
@@ -251,9 +292,10 @@ extension PatientsVC {
 //        if let cell = tableView.cellForRow(at: indexPath) {
 //            cell.accessoryType = .checkmark
 //        }
-        var selectedData:Dictionary<String,String> = SearchData[indexPath.row]
+        selectedData = SearchData[indexPath.row]
         hideHideView()
         //UPDATE UI VALUES
+        shareButton.isHidden = false
         patientID = selectedData["patientID"]!
         UserDefaults.standard.set(patientID, forKey: "selectedPatientID")
         UserDefaults.standard.synchronize()
@@ -567,7 +609,7 @@ extension PatientsVC{
         
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
         
-        let titles = ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore"]
+        let titles = ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
         
         var title = CGRect()
         var value = CGRect()
