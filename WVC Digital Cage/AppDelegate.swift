@@ -56,6 +56,9 @@ extension UIColor {
     static func backButtonBlue() -> UIColor {
         return UIColor(hex:0x007AFF)
     }
+    static func textFieldBlue() -> UIColor {
+        return UIColor(hex: 0xF4FAFD)
+    }
     static func celestialBlue() -> UIColor {//-Secondary Title Bar
         return UIColor(hex:0x4A9FCA)
     }
