@@ -11,6 +11,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var patientsBadge: UILabel!
+    @IBOutlet weak var notificationsBadge: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,10 +22,9 @@ class ViewController: UIViewController {
         let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
         let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
         
-        print("patientRecords \(patientRecords.count):\n\(patientRecords)")
-        print("patientVitals \(patientVitals.count):\n\(patientVitals)")
-        print("patientPhysicalExam \(patientPhysicalExam.count):\n\(patientPhysicalExam)")
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam)
         
+        createBadgeFrom(UIlabel:patientsBadge, text: " \(patientRecords.count) ")
 
     }//PieChart (with selection, ...)
 
@@ -55,5 +57,63 @@ class ViewController: UIViewController {
 
     ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
  */
+}
+extension ViewController{
+    //Update UI
+    func printDictionaries(records: Array<Dictionary<String,String>>, vitals: Array<Dictionary<String,String>>, pe: Array<Dictionary<String,String>>){
+        print("patientRecords \(records.count):\n\(records)")
+        print("patientVitals \(vitals.count):\n\(vitals)")
+        print("patientPhysicalExam \(pe.count):\n\(pe)")
+    }
+}
+extension ViewController{
+    func createBadgeFrom(UIlabel:UILabel, text: String) {
+        //if text == " 0 "{
+        //    UIlabel.isHidden = true
+        //} else {
+        UIlabel.isHidden = false
+        UIlabel.clipsToBounds = true
+        UIlabel.layer.cornerRadius = UIlabel.font.pointSize * 1.2 / 2
+        UIlabel.backgroundColor = .white//.bostonBlue()
+        UIlabel.textColor = .DarkRed()
+        UIlabel.text = text
+        //}
+    }
+}
+extension ViewController{
+    func getNotifications(records: Array<Dictionary<String,String>>){
+        //If patient walkMe is not yet
+        for record in records{
+            if record["walkDate"] != "" {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let yourDateString = record["walkDate"]!
+                if let lastWalkDate = formatter.date(from: yourDateString) {
+                    if let diff = Calendar.current.dateComponents([.hour], from: lastWalkDate, to: Date()).hour, diff > 12 {
+                        //do something
+                        isNewAlert()
+                        addNewAlert()
+                    }
+                }
+            } else {
+                //patient walkMe is "not yet"
+                isNewAlert()
+                addNewAlert()
+            }
+        }
+        //If patient walkMe is > 12 hours
+        
+        //If Incision check is not yet
+        
+        //If Incision check is > 12 hours
+        
+        //Custom notification
+    }
+    func isNewAlert(){
+        
+    }
+    func addNewAlert(){
+        
+    }
 }
 

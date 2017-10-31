@@ -43,6 +43,18 @@
                                             <segue destination="lyW-Yf-uUr" kind="presentation" animates="NO" id="0jY-3N-39O"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2U2-bL-WJM" customClass="BorderedLabel" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="8" height="21"/>
+                                        <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.0039215686274509803" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -54,8 +66,10 @@
                                     <constraint firstAttribute="trailing" secondItem="uch-MN-7mc" secondAttribute="trailing" id="WLp-Os-od9"/>
                                     <constraint firstAttribute="bottom" secondItem="uch-MN-7mc" secondAttribute="bottom" id="X1a-hG-KiA"/>
                                     <constraint firstAttribute="width" constant="140" id="YWL-Rm-ahe"/>
+                                    <constraint firstItem="2U2-bL-WJM" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" constant="8" id="Yk2-J7-FN2"/>
                                     <constraint firstItem="uch-MN-7mc" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" id="jJr-tP-dpV"/>
                                     <constraint firstItem="lZP-2n-6qn" firstAttribute="centerX" secondItem="OvM-Il-gFY" secondAttribute="centerX" id="jwx-ph-EC6"/>
+                                    <constraint firstItem="2U2-bL-WJM" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" constant="8" id="ll0-Mj-suE"/>
                                     <constraint firstAttribute="height" constant="190" id="rHj-jd-1cr"/>
                                     <constraint firstItem="lZP-2n-6qn" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" constant="6" id="ri5-Hq-v4N"/>
                                     <constraint firstAttribute="trailing" secondItem="lZP-2n-6qn" secondAttribute="trailing" constant="6" id="tfG-kZ-6PQ"/>
@@ -169,11 +183,20 @@
                                             <segue destination="AHV-Xu-l0b" kind="presentation" animates="NO" id="lZx-hO-hGx"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCr-jW-S9k">
+                                        <rect key="frame" x="8" y="8" width="8" height="21"/>
+                                        <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="LCr-jW-S9k" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" constant="8" id="3Am-ff-Ktd"/>
                                     <constraint firstAttribute="bottom" secondItem="O07-fU-nrm" secondAttribute="bottom" id="5jM-TN-Y5j"/>
                                     <constraint firstItem="BPJ-I5-hsp" firstAttribute="centerX" secondItem="0gh-Fj-2AB" secondAttribute="centerX" id="84s-IG-fSL"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LCr-jW-S9k" secondAttribute="trailing" constant="20" symbolic="YES" id="8Lv-8T-6Ps"/>
                                     <constraint firstAttribute="trailing" secondItem="BPJ-I5-hsp" secondAttribute="trailing" constant="6" id="CPc-e3-J5z"/>
                                     <constraint firstItem="O07-fU-nrm" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" id="KhX-ec-tg1"/>
                                     <constraint firstItem="BPJ-I5-hsp" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" constant="20" id="Kyu-CE-50e"/>
@@ -184,6 +207,7 @@
                                     <constraint firstAttribute="trailing" secondItem="O07-fU-nrm" secondAttribute="trailing" id="oZ0-HQ-AyX"/>
                                     <constraint firstItem="cKw-NK-hNj" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" constant="6" id="pFz-Ce-4xH"/>
                                     <constraint firstItem="O07-fU-nrm" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" id="pSY-Vv-Vzg"/>
+                                    <constraint firstItem="LCr-jW-S9k" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" constant="8" id="teO-0X-2Cm"/>
                                     <constraint firstAttribute="width" constant="140" id="ug2-iI-mJ8"/>
                                     <constraint firstItem="cKw-NK-hNj" firstAttribute="top" secondItem="BPJ-I5-hsp" secondAttribute="bottom" constant="8" id="wNL-84-4fP"/>
                                 </constraints>
@@ -274,10 +298,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7j-AH-Dri" userLabel="analytics" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="590" y="258" width="140" height="190"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="pie chart" translatesAutoresizingMaskIntoConstraints="NO" id="N65-JO-HN6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="syn" translatesAutoresizingMaskIntoConstraints="NO" id="N65-JO-HN6">
                                         <rect key="frame" x="6" y="20" width="128" height="128"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analytics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4d8-Lz-wn8">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sync" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4d8-Lz-wn8">
                                         <rect key="frame" x="6" y="156" width="128" height="26"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -334,10 +358,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="notificationsBadge" destination="2U2-bL-WJM" id="Gf5-SY-cqi"/>
+                        <outlet property="patientsBadge" destination="LCr-jW-S9k" id="3cH-A1-RxF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="33"/>
+            <point key="canvasLocation" x="23.4375" y="32.8125"/>
         </scene>
         <!--patientsDB-->
         <scene sceneID="ApR-x1-0yr">
@@ -387,5 +415,6 @@
         <image name="dog avatar" width="64" height="64"/>
         <image name="history" width="64" height="64"/>
         <image name="pie chart" width="64" height="64"/>
+        <image name="syn" width="64" height="64"/>
     </resources>
 </document>
