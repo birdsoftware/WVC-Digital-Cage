@@ -338,32 +338,62 @@ extension PatientsVC {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let email = UITableViewRowAction(style: .normal, title: "Email") { action, index in
             print("Email button tapped")
-            let selectedData:Dictionary<String,String> = self.SearchData[indexPath.row]
-            self.sendEmailWithAttachemnt(patientData: selectedData)
+            self.emailButtonTapped(indexPathRow: indexPath.row)
         }
         email.backgroundColor = UIColor.orange
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            let removeForThisPID = self.patientRecords[indexPath.row]["patientID"]
-            self.removeVitalsFor(patientID:removeForThisPID!)
-            self.removePhysicalExamFor(patientID:removeForThisPID!)
-            self.patientRecords.remove(at: indexPath.row)
-            UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
-            UserDefaults.standard.synchronize()
-            self.SearchData = self.patientRecords
-            self.patientTable.deleteRows(at: [indexPath], with: .fade)
+            print("Delete button tapped")
+            //self.deleteButtonTapped(indexPath: indexPath)
+            self.deleteRecordAlert(title:"Are you sure you want to remove this Patient?", message:"This will forever remove all records for this patient.", buttonTitle:"OK", cancelButtonTitle: "Cancel", indexPath: indexPath)
         }
         delete.backgroundColor = UIColor.red
         let archive = UITableViewRowAction(style: .normal, title: "Archive") { action, index in
-            //self.isEditing = false
             print("Archive button tapped")
-            self.patientRecords[indexPath.row]["Status"] = "Archive"
-            UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
-            UserDefaults.standard.synchronize()
-            self.SearchData = self.patientRecords
-            self.patientTable.reloadData()
+            self.archiveButtonTapped(indexPath: indexPath)
         }
         archive.backgroundColor = UIColor.blue
         return [email, delete, archive]
+    }
+    func emailButtonTapped(indexPathRow: Int){
+        let selectedData:Dictionary<String,String> = self.SearchData[indexPathRow]
+        self.sendEmailWithAttachemnt(patientData: selectedData)
+    }
+    func deleteButtonTapped(indexPath: IndexPath){
+        let removeForThisPID = self.patientRecords[indexPath.row]["patientID"]
+        self.removeVitalsFor(patientID:removeForThisPID!)
+        self.removePhysicalExamFor(patientID:removeForThisPID!)
+        self.patientRecords.remove(at: indexPath.row)
+        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+        UserDefaults.standard.synchronize()
+        self.SearchData = self.patientRecords
+        self.patientTable.deleteRows(at: [indexPath], with: .fade)
+    }
+    func archiveButtonTapped(indexPath: IndexPath){
+        print("Archive button tapped")
+        self.patientRecords[indexPath.row]["Status"] = "Archive"
+        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+        UserDefaults.standard.synchronize()
+        self.SearchData = self.patientRecords
+        self.patientTable.reloadData()
+    }
+    func deleteRecordAlert(title:String, message:String,
+                           buttonTitle:String,
+                           cancelButtonTitle: String,
+                           indexPath: IndexPath) {
+        
+        let myAlert = UIAlertController(title: title,
+                                        message: message,
+                                        preferredStyle: .alert)
+        
+        myAlert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: {
+            alert -> Void in
+            //DO:
+            self.deleteButtonTapped(indexPath: indexPath)
+        }))
+        
+        myAlert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel) { _ in })
+        
+        present(myAlert, animated: true){}
     }
 }
 extension PatientsVC {

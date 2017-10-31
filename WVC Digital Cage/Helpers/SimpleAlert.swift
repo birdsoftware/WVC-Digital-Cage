@@ -22,7 +22,7 @@ extension UIViewController {
         
     }
     
-    func simpleTFAlert(title:String, message:String, buttonTitle:String, outputTextView:UITextView, senderTag: Int, dispachInstance: DispatchGroup) {
+    func simpleTFAlert(title:String, message:String, buttonTitle:String, outputTextView:UITextView, senderTag: Int /*tag on switch*/, dispachInstance: DispatchGroup) {
         
         let myAlert = UIAlertController(title: title,
                                         message: message,
