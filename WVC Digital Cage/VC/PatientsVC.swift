@@ -10,7 +10,8 @@ import UIKit
 import Foundation
 import MessageUI //send email
 
-class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate {
+class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate, UIImagePickerControllerDelegate /*photoLib*/,
+UINavigationControllerDelegate/*photoLib*/ {
 
     //table view
     @IBOutlet weak var patientTable: UITableView!

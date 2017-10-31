@@ -11,6 +11,7 @@
     <customFonts key="customFonts">
         <array key="GeezaPro.ttc">
             <string>GeezaPro</string>
+            <string>GeezaPro-Bold</string>
         </array>
     </customFonts>
     <scenes>
@@ -58,9 +59,9 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Analytics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGW-2d-lfR">
-                                                        <rect key="frame" x="438" y="17" width="149" height="25"/>
-                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="20"/>
-                                                        <nil key="textColor"/>
+                                                        <rect key="frame" x="427.5" y="16.5" width="170" height="26"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="21"/>
+                                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -95,7 +96,7 @@
                                                     <constraint firstAttribute="width" constant="496" id="yE3-g5-Zoi"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrd-4H-CgU" customClass="PieChartView" customModule="Charts">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrd-4H-CgU" customClass="BarChartView" customModule="Charts">
                                                 <rect key="frame" x="520" y="96" width="496" height="496"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -108,10 +109,18 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        Canine            Feline            Other           " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5u-EK-Ohb">
+                                                <rect key="frame" x="517" y="572" width="502" height="29"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Jrb-FD-uuR" firstAttribute="top" secondItem="ag2-nz-IzB" secondAttribute="bottom" constant="4" id="6Pq-Hd-cjv"/>
+                                            <constraint firstItem="q5u-EK-Ohb" firstAttribute="top" secondItem="zrd-4H-CgU" secondAttribute="bottom" constant="-20" id="BH6-uE-ae1"/>
                                             <constraint firstItem="ag2-nz-IzB" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" id="Di5-TL-VjG"/>
                                             <constraint firstItem="bqo-Cg-4dn" firstAttribute="leading" secondItem="nN9-xy-YTq" secondAttribute="leading" constant="7" id="EQ4-9q-mdY"/>
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="centerX" secondItem="nN9-xy-YTq" secondAttribute="centerX" id="EtP-EF-4jf"/>
@@ -125,6 +134,7 @@
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="leading" secondItem="bqo-Cg-4dn" secondAttribute="trailing" constant="8" id="bYs-S8-pSh"/>
                                             <constraint firstAttribute="bottom" secondItem="N3b-2I-W20" secondAttribute="bottom" id="byt-zW-g1s"/>
                                             <constraint firstAttribute="trailing" secondItem="ag2-nz-IzB" secondAttribute="trailing" id="kgr-VK-Z47"/>
+                                            <constraint firstItem="q5u-EK-Ohb" firstAttribute="centerX" secondItem="zrd-4H-CgU" secondAttribute="centerX" id="lUp-Ms-AFM"/>
                                             <constraint firstItem="J3B-Hz-IKG" firstAttribute="centerX" secondItem="zrd-4H-CgU" secondAttribute="centerX" id="rcY-M5-OVR"/>
                                             <constraint firstItem="zrd-4H-CgU" firstAttribute="leading" secondItem="N3b-2I-W20" secondAttribute="trailing" constant="8" id="reP-JL-cKQ"/>
                                             <constraint firstAttribute="trailing" secondItem="zrd-4H-CgU" secondAttribute="trailing" constant="8" id="sC9-pt-DLG"/>
@@ -152,6 +162,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1024" height="1200"/>
                     <connections>
+                        <outlet property="barChart" destination="zrd-4H-CgU" id="Zn3-VN-0Kh"/>
                         <outlet property="patientChart" destination="bqo-Cg-4dn" id="8EM-48-HHg"/>
                     </connections>
                 </viewController>
