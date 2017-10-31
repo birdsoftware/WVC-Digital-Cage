@@ -53,6 +53,7 @@ UINavigationControllerDelegate/*photoLib*/ {
     @IBOutlet weak var respiration: UITextField!
     @IBOutlet weak var weight: UITextField!
     @IBOutlet weak var exitWeight: UITextField!
+    @IBOutlet weak var initialsVitals: UITextField!
     
     //buttons
     @IBOutlet weak var kennelNumberButton: RoundedButton!
@@ -407,7 +408,8 @@ extension PatientsVC {
             "cRT_MM":cRT_MM.text!,
             "respiration":respiration.text!,
             "weight":weight.text!,
-            "exitWeight":exitWeight.text!
+            "exitWeight":exitWeight.text!,
+            "initialsVitals":initialsVitals.text!
             ]
         var found = false
         if patientVitals.isEmpty {//create new record/TABLE if DNE
@@ -423,6 +425,7 @@ extension PatientsVC {
                     patientVitals[index]["temperature"] = temperature.text!
                     patientVitals[index]["weight"] = weight.text!
                     patientVitals[index]["exitWeight"] = exitWeight.text!
+                    patientVitals[index]["initialsVitals"] = initialsVitals.text!
                     UserDefaults.standard.set(patientVitals, forKey: "patientVitals")
                     UserDefaults.standard.synchronize()
                     found = true
@@ -448,6 +451,7 @@ extension PatientsVC {
                 temperature.text = patientVitals[index]["temperature"]
                 weight.text = patientVitals[index]["weight"]
                 exitWeight.text = patientVitals[index]["exitWeight"]
+                initialsVitals.text = patientVitals[index]["initialsVitals"]
                 return
             }
             else {
@@ -458,6 +462,7 @@ extension PatientsVC {
                 temperature.text = ""
                 weight.text = ""
                 exitWeight.text = ""
+                initialsVitals.text = ""
             }
         }
     }
@@ -596,7 +601,7 @@ extension PatientsVC{
         
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
         
-        let titles = ["temperature","pulse","cRT_MM","respiration","weight","exitWeight"]
+        let titles = ["temperature","pulse","cRT_MM","respiration","weight","exitWeight","initialsVitals"]
         
         var title = CGRect()
         var value = CGRect()

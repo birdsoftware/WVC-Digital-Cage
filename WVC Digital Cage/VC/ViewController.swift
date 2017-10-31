@@ -34,7 +34,8 @@ class ViewController: UIViewController {
     "cRT_MM":cRT_MM.text!,
     "respiration":respiration.text!,
     "weight":weight.text!,
-    "exitWeight":exitWeight.text!
+    "exitWeight":exitWeight.text!,
+    "initialsVitals":initialsVitals.text!
     */
 
     //patientRecords

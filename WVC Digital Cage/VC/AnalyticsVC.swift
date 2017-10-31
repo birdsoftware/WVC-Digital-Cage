@@ -14,6 +14,7 @@ class AnalyticsVC: UIViewController {
 
     @IBOutlet weak var patientChart: PieChartView! //chnged class to PieChartView
     @IBOutlet weak var barChart: BarChartView!
+    @IBOutlet weak var bodyCondtionScore: PieChartView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,23 @@ class AnalyticsVC: UIViewController {
                 otherCount = otherCount + 1
             }
         }
+        var bodyConditionScore = [0,0,0,0,0]
+        
+        for exam in patientPhysicalExam{
+            if (exam["bodyConditionScore"] == "1") {
+                bodyConditionScore[0] = bodyConditionScore[0] + 1
+            } else if (exam["bodyConditionScore"] == "2") {
+                bodyConditionScore[1] = bodyConditionScore[1] + 1
+            } else if (exam["bodyConditionScore"] == "3") {
+                bodyConditionScore[2] = bodyConditionScore[2] + 1
+            } else if (exam["bodyConditionScore"] == "4") {
+                bodyConditionScore[3] = bodyConditionScore[3] + 1
+            } else if (exam["bodyConditionScore"] == "5") {
+                bodyConditionScore[4] = bodyConditionScore[4] + 1
+            }
+        }
         barChartUpdate (canine: Double(canineCount), feline: Double(felineCount), other: Double(otherCount))
+        bodyConditionScoreUpdate(s1: Double(bodyConditionScore[0]), s2: Double(bodyConditionScore[1]), s3: Double(bodyConditionScore[2]), s4: Double(bodyConditionScore[3]), s5: Double(bodyConditionScore[4]))
     }
 }
 
@@ -63,6 +80,24 @@ extension AnalyticsVC{
         
         //This must stay at end of function
         patientChart.notifyDataSetChanged()
+    }
+    func bodyConditionScoreUpdate(s1: Double, s2: Double, s3: Double, s4: Double, s5: Double){
+        let entry1 = PieChartDataEntry(value: s1, label: "Score of 1")
+        let entry2 = PieChartDataEntry(value: s2, label: "Score of 2")
+        let entry3 = PieChartDataEntry(value: s3, label: "Score of 3")
+        let entry4 = PieChartDataEntry(value: s4, label: "Score of 4")
+        let entry5 = PieChartDataEntry(value: s3, label: "Score of 5")
+        let dataSet = PieChartDataSet(values: [entry1, entry2, entry3, entry4, entry5], label: "Record Type")
+        let data = PieChartData(dataSet: dataSet)
+        bodyCondtionScore.data = data
+        bodyCondtionScore.chartDescription?.text = "Patients by Record Type"
+        
+        //All other additions to this function will go here
+        dataSet.colors = ChartColorTemplates.vordiplom()
+        dataSet.valueColors = [UIColor.black]
+        
+        //This must stay at end of function
+        bodyCondtionScore.notifyDataSetChanged()
     }
 }
 extension AnalyticsVC{

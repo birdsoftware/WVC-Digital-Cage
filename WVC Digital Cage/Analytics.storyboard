@@ -31,8 +31,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ag2-nz-IzB" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8C-gm-PHp">
+                                        <rect key="frame" x="20" y="20" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="2MB-lU-0wV"/>
+                                            <constraint firstAttribute="height" constant="35" id="EIV-DZ-ZZg"/>
+                                        </constraints>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <segue destination="k2K-Xy-aE2" kind="presentation" animates="NO" id="kmP-WR-0TB"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Analytics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGW-2d-lfR">
+                                        <rect key="frame" x="427.5" y="16.5" width="170" height="26"/>
+                                        <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="21"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="qGW-2d-lfR" firstAttribute="centerY" secondItem="ag2-nz-IzB" secondAttribute="centerY" id="6P4-Vh-ggr"/>
+                                    <constraint firstAttribute="height" constant="59" id="9v6-uF-WCS"/>
+                                    <constraint firstItem="U8C-gm-PHp" firstAttribute="top" secondItem="ag2-nz-IzB" secondAttribute="top" constant="20" id="M4c-Ya-5jb"/>
+                                    <constraint firstItem="U8C-gm-PHp" firstAttribute="leading" secondItem="ag2-nz-IzB" secondAttribute="leading" constant="20" id="eBM-pu-viu"/>
+                                    <constraint firstItem="qGW-2d-lfR" firstAttribute="centerX" secondItem="ag2-nz-IzB" secondAttribute="centerX" id="n9N-Vr-UJS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCI-AK-pZk">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1200"/>
+                                <rect key="frame" x="0.0" y="59" width="1024" height="1141"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nN9-xy-YTq" userLabel="Viewb">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1200"/>
@@ -44,52 +82,20 @@
                                                     <constraint firstAttribute="width" constant="1" id="XXb-bZ-WoJ"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ag2-nz-IzB" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8C-gm-PHp">
-                                                        <rect key="frame" x="20" y="20" width="35" height="35"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="35" id="2MB-lU-0wV"/>
-                                                            <constraint firstAttribute="height" constant="35" id="EIV-DZ-ZZg"/>
-                                                        </constraints>
-                                                        <state key="normal" image="back"/>
-                                                        <connections>
-                                                            <segue destination="k2K-Xy-aE2" kind="presentation" animates="NO" id="kmP-WR-0TB"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Analytics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGW-2d-lfR">
-                                                        <rect key="frame" x="427.5" y="16.5" width="170" height="26"/>
-                                                        <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="21"/>
-                                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="qGW-2d-lfR" firstAttribute="centerY" secondItem="ag2-nz-IzB" secondAttribute="centerY" id="6P4-Vh-ggr"/>
-                                                    <constraint firstAttribute="height" constant="59" id="9v6-uF-WCS"/>
-                                                    <constraint firstItem="U8C-gm-PHp" firstAttribute="top" secondItem="ag2-nz-IzB" secondAttribute="top" constant="20" id="M4c-Ya-5jb"/>
-                                                    <constraint firstItem="U8C-gm-PHp" firstAttribute="leading" secondItem="ag2-nz-IzB" secondAttribute="leading" constant="20" id="eBM-pu-viu"/>
-                                                    <constraint firstItem="qGW-2d-lfR" firstAttribute="centerX" secondItem="ag2-nz-IzB" secondAttribute="centerX" id="n9N-Vr-UJS"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Records by Record Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jrb-FD-uuR">
-                                                <rect key="frame" x="88" y="63" width="335" height="29"/>
+                                                <rect key="frame" x="88" y="5" width="335" height="29"/>
+                                                <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body Condition Score Totals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djg-Rp-MJi">
+                                                <rect key="frame" x="109.5" y="574" width="291.5" height="29"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqo-Cg-4dn" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="7" y="96" width="496" height="496"/>
+                                                <rect key="frame" x="7" y="38" width="496" height="496"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="496" id="LbH-ZA-rKx"/>
@@ -97,44 +103,54 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrd-4H-CgU" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="520" y="96" width="496" height="496"/>
+                                                <rect key="frame" x="520" y="38" width="496" height="496"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="496" id="Dvu-M6-wxR"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient by Species" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3B-Hz-IKG">
-                                                <rect key="frame" x="672" y="63" width="193" height="29"/>
+                                                <rect key="frame" x="672" y="5" width="193" height="29"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        Canine            Feline            Other           " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5u-EK-Ohb">
-                                                <rect key="frame" x="517" y="572" width="502" height="29"/>
+                                                <rect key="frame" x="517" y="514" width="502" height="29"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fR6-iM-L41" customClass="PieChartView" customModule="Charts">
+                                                <rect key="frame" x="7" y="607" width="496" height="496"/>
+                                                <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="496" id="7Wr-7I-lZ0"/>
+                                                    <constraint firstAttribute="height" constant="496" id="oaJ-Fj-OeH"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Jrb-FD-uuR" firstAttribute="top" secondItem="ag2-nz-IzB" secondAttribute="bottom" constant="4" id="6Pq-Hd-cjv"/>
                                             <constraint firstItem="q5u-EK-Ohb" firstAttribute="top" secondItem="zrd-4H-CgU" secondAttribute="bottom" constant="-20" id="BH6-uE-ae1"/>
-                                            <constraint firstItem="ag2-nz-IzB" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" id="Di5-TL-VjG"/>
+                                            <constraint firstItem="N3b-2I-W20" firstAttribute="leading" secondItem="fR6-iM-L41" secondAttribute="trailing" constant="8" id="Bh7-Zh-u7O"/>
                                             <constraint firstItem="bqo-Cg-4dn" firstAttribute="leading" secondItem="nN9-xy-YTq" secondAttribute="leading" constant="7" id="EQ4-9q-mdY"/>
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="centerX" secondItem="nN9-xy-YTq" secondAttribute="centerX" id="EtP-EF-4jf"/>
-                                            <constraint firstItem="J3B-Hz-IKG" firstAttribute="top" secondItem="ag2-nz-IzB" secondAttribute="bottom" constant="4" id="Kgi-Eg-X27"/>
+                                            <constraint firstItem="djg-Rp-MJi" firstAttribute="top" secondItem="bqo-Cg-4dn" secondAttribute="bottom" constant="40" id="I0L-oU-c5a"/>
                                             <constraint firstItem="Jrb-FD-uuR" firstAttribute="centerX" secondItem="bqo-Cg-4dn" secondAttribute="centerX" id="Nh6-aX-S0N"/>
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" id="S6g-0U-uAb"/>
+                                            <constraint firstItem="J3B-Hz-IKG" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="5" id="UOB-D5-Q7F"/>
                                             <constraint firstItem="bqo-Cg-4dn" firstAttribute="top" secondItem="Jrb-FD-uuR" secondAttribute="bottom" constant="4" id="WJX-9s-Rml"/>
                                             <constraint firstItem="zrd-4H-CgU" firstAttribute="top" secondItem="J3B-Hz-IKG" secondAttribute="bottom" constant="4" id="Yeb-0O-eV0"/>
-                                            <constraint firstItem="ag2-nz-IzB" firstAttribute="leading" secondItem="nN9-xy-YTq" secondAttribute="leading" id="ZMa-BO-9Zg"/>
+                                            <constraint firstItem="fR6-iM-L41" firstAttribute="leading" secondItem="nN9-xy-YTq" secondAttribute="leading" constant="7" id="ZW2-20-8Bg"/>
+                                            <constraint firstItem="djg-Rp-MJi" firstAttribute="centerX" secondItem="bqo-Cg-4dn" secondAttribute="centerX" id="bG2-hb-ZAT"/>
                                             <constraint firstAttribute="height" constant="1200" id="bM3-6v-bYn"/>
+                                            <constraint firstItem="Jrb-FD-uuR" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="5" id="bTc-X3-kJ0"/>
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="leading" secondItem="bqo-Cg-4dn" secondAttribute="trailing" constant="8" id="bYs-S8-pSh"/>
                                             <constraint firstAttribute="bottom" secondItem="N3b-2I-W20" secondAttribute="bottom" id="byt-zW-g1s"/>
-                                            <constraint firstAttribute="trailing" secondItem="ag2-nz-IzB" secondAttribute="trailing" id="kgr-VK-Z47"/>
                                             <constraint firstItem="q5u-EK-Ohb" firstAttribute="centerX" secondItem="zrd-4H-CgU" secondAttribute="centerX" id="lUp-Ms-AFM"/>
+                                            <constraint firstItem="fR6-iM-L41" firstAttribute="top" secondItem="djg-Rp-MJi" secondAttribute="bottom" constant="4" id="qwV-Lp-sRS"/>
                                             <constraint firstItem="J3B-Hz-IKG" firstAttribute="centerX" secondItem="zrd-4H-CgU" secondAttribute="centerX" id="rcY-M5-OVR"/>
                                             <constraint firstItem="zrd-4H-CgU" firstAttribute="leading" secondItem="N3b-2I-W20" secondAttribute="trailing" constant="8" id="reP-JL-cKQ"/>
                                             <constraint firstAttribute="trailing" secondItem="zrd-4H-CgU" secondAttribute="trailing" constant="8" id="sC9-pt-DLG"/>
@@ -154,7 +170,10 @@
                             <constraint firstItem="nN9-xy-YTq" firstAttribute="width" secondItem="mUF-Di-U7n" secondAttribute="width" id="Eed-Qm-zWt"/>
                             <constraint firstItem="WCI-AK-pZk" firstAttribute="leading" secondItem="KKC-T8-YmR" secondAttribute="leading" id="FgK-Qa-FLZ"/>
                             <constraint firstItem="WCI-AK-pZk" firstAttribute="bottom" secondItem="KKC-T8-YmR" secondAttribute="bottom" id="GDL-YV-3b3"/>
-                            <constraint firstItem="WCI-AK-pZk" firstAttribute="top" secondItem="mUF-Di-U7n" secondAttribute="top" id="Pik-Ut-unj"/>
+                            <constraint firstItem="WCI-AK-pZk" firstAttribute="top" secondItem="ag2-nz-IzB" secondAttribute="bottom" id="UgA-YT-JV3"/>
+                            <constraint firstItem="ag2-nz-IzB" firstAttribute="top" secondItem="mUF-Di-U7n" secondAttribute="top" id="WFj-2X-0Ct"/>
+                            <constraint firstItem="ag2-nz-IzB" firstAttribute="leading" secondItem="KKC-T8-YmR" secondAttribute="leading" id="cBW-dn-Jbq"/>
+                            <constraint firstItem="ag2-nz-IzB" firstAttribute="trailing" secondItem="KKC-T8-YmR" secondAttribute="trailing" id="fQG-KZ-aO0"/>
                             <constraint firstItem="WCI-AK-pZk" firstAttribute="trailing" secondItem="KKC-T8-YmR" secondAttribute="trailing" id="zD3-o4-xhC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KKC-T8-YmR"/>
@@ -163,6 +182,7 @@
                     <size key="freeformSize" width="1024" height="1200"/>
                     <connections>
                         <outlet property="barChart" destination="zrd-4H-CgU" id="Zn3-VN-0Kh"/>
+                        <outlet property="bodyCondtionScore" destination="fR6-iM-L41" id="eGa-5M-Ais"/>
                         <outlet property="patientChart" destination="bqo-Cg-4dn" id="8EM-48-HHg"/>
                     </connections>
                 </viewController>
