@@ -40,17 +40,9 @@ extension UIViewController {
         
     }
     
-//    public func sendEmail(patientID: String){
-//        let fileName: NSString = "patient" + patientID + ".pdf" as NSString
-//        let pdfPathWithFileName = returnPDFPath(fileName: fileName)
-//        //generatePDFs(pdfPathWithFileName)
-//    }
-//    func returnPDFPath(fileName: NSString) -> String {
-//        let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-//        let documentDirectory: AnyObject = path.object(at: 0) as AnyObject
-//        let PDFPathFileName = documentDirectory.appendingPathComponent(fileName as String)
-//
-//        return PDFPathFileName
-//    }
+    public func camelCaseToUnformatted(camelCase: String) -> String{
+        
+        return ""
+    }
     
 }

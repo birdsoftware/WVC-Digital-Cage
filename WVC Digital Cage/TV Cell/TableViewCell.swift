@@ -18,3 +18,9 @@ class PatientTableView: UITableViewCell {
     @IBOutlet weak var owner: UILabel!
     @IBOutlet weak var imageBackgroundView: UIView!
 }
+
+class ProcedureIncisionCheck: UITableViewCell {
+    //identifier: incisionCell
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var initials: UILabel!
+}

@@ -16,6 +16,12 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     //text fields
     @IBOutlet weak var ownerTF: UITextField!
     @IBOutlet weak var kennelTF: UITextField!
+    @IBOutlet weak var ageTF: UITextField!
+    @IBOutlet weak var patientIDTF: UITextField!
+    @IBOutlet weak var breedTF: UITextField!
+    //switches
+    @IBOutlet weak var switchSex: UISwitch!
+    @IBOutlet weak var switchStatus: UISwitch!
     
     var kennelIntArray = Array(1...45)
     var ownerList = ["The Animal Foundation (TAF)","Henderson Shelter (HS)","Desert Haven Animal Society (DHAS)",
@@ -23,13 +29,16 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Delegates
         ownerPicker.delegate = self
         ownerPicker.dataSource = self
         kennelPicker.delegate = self
         kennelPicker.dataSource = self
-        setUpUI()
+        //call func showPhysicalExam from PatientsVC.swift
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(showDemographics),
+                                               name: NSNotification.Name(rawValue: "showDemographics"),
+                                               object: nil)
     }
 
 
@@ -92,9 +101,30 @@ extension PatientDemographicsVC{
 }
 extension PatientDemographicsVC {
     // #MARK: - UI Set Up
-    func setUpUI(){
-        let selectedPatientID = UserDefaults.standard.object(forKey: "selectedPatientID") as! String  ?? ""
+    @objc func showDemographics(){
+        //get defaults
+        let selectedPatientID = UserDefaults.standard.string(forKey: "selectedPatientID") ?? ""
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         
+        //update UI
+        patientIDTF.text = selectedPatientID
+        //ownerTF.text = "here"
+        //kennelTF.text = "here"
+        for patient in patientRecords {
+            if patient["patientID"] == selectedPatientID {
+                ownerTF.text = patient["owner"]
+                kennelTF.text = patient["kennelID"]
+                moveSwitchState(switchName: switchStatus, isTrue: patient["Status"]!)
+                print("here")
+            }
+        }
+    }
+    func moveSwitchState(switchName: UISwitch, isTrue:String){
+        if isTrue == "true" || isTrue == "Archive"{
+            switchName.setOn(true, animated: false)
+        } else {
+            switchName.setOn(false, animated: false)
+        }
     }
 }
 

@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import UXCam
+//import UXCam
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
+        //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
         let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
         let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
@@ -22,13 +22,37 @@ class ViewController: UIViewController {
         print("patientRecords \(patientRecords.count):\n\(patientRecords)")
         print("patientVitals \(patientVitals.count):\n\(patientVitals)")
         print("patientPhysicalExam \(patientPhysicalExam.count):\n\(patientPhysicalExam)")
-    }
+        
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    }//PieChart (with selection, ...)
 
+    //patientVitals
+    /*
+    "patientID":patientID,
+    "temperature":temperature.text!,
+    "pulse":pulse.text!,
+    "cRT_MM":cRT_MM.text!,
+    "respiration":respiration.text!,
+    "weight":weight.text!,
+    "exitWeight":exitWeight.text!
+    */
 
+    //patientRecords
+    /*
+    "patientID":reviewPatientID.text!,
+    "kennelID":reviewKennel.text!,
+    "Status":"Active",
+    "intakeDate":reviewDateLabel.text!,
+    "owner":reviewOwner.text!,
+    "group":reviewGroup.text!,
+    "walkDate":""
+    */
+    
+    //patientPhysicalExam
+    /*
+    ["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "Musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
+
+    ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
+ */
 }
 

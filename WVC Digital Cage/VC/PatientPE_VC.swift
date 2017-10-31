@@ -249,7 +249,7 @@ extension PatientPE_VC{
                     moveSwitchState(switchName: switchTen, isTrue: patientPhysicalExam[index]["eyes"]!)
                     moveSwitchState(switchName: switchEleven, isTrue: patientPhysicalExam[index]["urogenital"]!)
                     textViewPE.text = patientPhysicalExam[index]["comments"]!
-                    var sliderScore = patientPhysicalExam[index]["bodyConditionScore"]!
+                    let sliderScore = patientPhysicalExam[index]["bodyConditionScore"]!
                     sliderValueLabel.text = sliderScore
                     sliderPE.setValue(Float(sliderScore)!, animated: false)
                     found = true

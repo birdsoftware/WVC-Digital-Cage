@@ -43,6 +43,7 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var walkMeLabel: UILabel!
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var patientIDLabel: UILabel!
+    @IBOutlet weak var pdfLabel: UILabel!
     
     //vitals
     @IBOutlet weak var temperature: UITextField!
@@ -55,10 +56,15 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     //buttons
     @IBOutlet weak var kennelNumberButton: RoundedButton!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var screenShareButton: UIButton!
     
     //search bar
     @IBOutlet weak var patientSearchBar: UISearchBar!
+    
+    //Boolean Flags
     var searchActive = false
+    var shareActive = false
+    var emailActive = false
     
     //table data
     var patientID = ""
@@ -126,44 +132,43 @@ class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBAction func closeUPRAction(_ sender: Any) {
         hideUpdateRecordView()
     }
+    @IBAction func shareScreenAction(_ sender: Any) {
+        shareActive = true
+        let bounds = UIScreen.main.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        self.view.drawHierarchy(in: bounds, afterScreenUpdates: false)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        let activityViewController = UIActivityViewController(activityItems: ["DCC App Screen Grab",img!], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = sender as? UIView//self.view
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed { // User canceled
+                self.shareActive = false
+                return
+            } // User completed activity
+            self.shareActive = false
+        }
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     @IBAction func shareAction(_ sender: Any) {
+        shareActive = true
         //generate file path then pdf to attach
-        let fileName: NSString = "test.pdf" as NSString
-        
-        let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-        let documentDirectory = path.object(at: 0) as! NSString
-        let PDFPathFileName = documentDirectory.appendingPathComponent(fileName as String)
-        let pdfPathWithFile = PDFPathFileName//returnPDFPath(fileName: fileName)
-        
-        //generate pdf with file path
-        UIGraphicsBeginPDFContextToFile(pdfPathWithFile, CGRect.zero, nil)
-        UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
-        drawBackground()
-        drawImageLogo(imageName: "WVCLogog")
-        drawPatientRecordText(patientData: selectedData)
-        drawVitalsText(patientID:patientID)
-        drawPhysicalExam(patientID:patientID)
-        UIGraphicsEndPDFContext()
-        
-        let fileData = NSData(contentsOfFile:pdfPathWithFile)
-        loadPDFAndShare(documento: fileData!, documentoPath: pdfPathWithFile)
+        let pdfPathWithFile = generatePDFFile(patientData: selectedData)
+        // set up activity view controller
+        let document = NSData(contentsOfFile: pdfPathWithFile)
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: ["DCC App PDF Post",document!], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = sender as? UIView//self.view
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [UIActivityType.markupAsPDF]
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed { // User canceled
+                self.shareActive = false
+                return
+            } // User completed activity
+            self.shareActive = false
+        }
+        present(activityViewController, animated: true, completion: nil)
     }
-    func loadPDFAndShare(documento: NSData,documentoPath: String){
-        
-        //let fileManager = FileManager.default
-        //let documentoPath = (self.getDirectoryPath() as NSString).appendingPathComponent("documento.pdf")
-        
-        //if fileManager.fileExists(atPath: documentoPath){
-            let documento = NSData(contentsOfFile: documentoPath)
-            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [documento!], applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView=self.view
-            present(activityViewController, animated: true, completion: nil)
-        //}
-        //else {
-        //    print("document was not found")
-        //}
-    }
-    
 }
 extension PatientsVC {
     // #MARK: - SEARCH
@@ -186,15 +191,20 @@ extension PatientsVC {
         let orPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.or, subpredicates: [patientIdPredicate, intakeDatePredicate, ownerPredicate])
         
         predicateFilter(scopePredicate:orPredicate)//<- reload table occurs in this function
-
         viewTitle.text = "My Active Patients (\(SearchData.count))"
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true
     }
-    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchActive = false
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        SearchData=patientRecords
+        patientTable.reloadData()
     }
 }
 extension PatientsVC {
@@ -206,7 +216,7 @@ extension PatientsVC {
     @objc func dismissKeyboard(){ view.endEditing(true) }
     // #MARK: - When Keyboard hides DO: Move text view up
     @objc func keyboardWillShow(sender: NSNotification){
-        if searchActive ==  false { showUpdateRecordView() }
+        if searchActive == false && emailActive == false && shareActive == false{ showUpdateRecordView() }
     }// #MARK: - When Keyboard shws DO: Move text view down
     @objc func keyboardWillHide(sender: NSNotification){
 
@@ -218,6 +228,8 @@ extension PatientsVC {
         containerPro.isHidden = true
         containerAMPM.isHidden = true
         shareButton.isHidden = true
+        pdfLabel.isHidden = true
+        screenShareButton.isHidden = true
         viewTitle.text = "My Active Patients (\(patientRecords.count))"
         showHideView()
         hideUpdateRecordView()
@@ -285,6 +297,8 @@ extension PatientsVC {
         }
         if thisPatient["Status"] == "Archive" {
             cell.backgroundColor = UIColor.polar()
+        } else {
+            cell.backgroundColor = .white
         }
         return cell
     }
@@ -296,6 +310,8 @@ extension PatientsVC {
         hideHideView()
         //UPDATE UI VALUES
         shareButton.isHidden = false
+        pdfLabel.isHidden = false
+        screenShareButton.isHidden = false
         patientID = selectedData["patientID"]!
         UserDefaults.standard.set(patientID, forKey: "selectedPatientID")
         UserDefaults.standard.synchronize()
@@ -315,6 +331,7 @@ extension PatientsVC {
             walkMeLabel.text = "not yet"
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let email = UITableViewRowAction(style: .normal, title: "Email") { action, index in
@@ -378,6 +395,7 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
+    // #MARK: - Save Vitals, Show Vitals, Remove Vitals
     func saveVitals(){
         var patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
         let newV:Dictionary<String,String> =
@@ -464,50 +482,58 @@ extension PatientsVC {
 extension PatientsVC{
     // MARK: - Email
     func sendEmailWithAttachemnt(patientData: Dictionary<String,String>){
+        
+        emailActive = true
+        
+        let savedUserEmailAddress = UserDefaults.standard.string(forKey: "userEmailAddress") ?? ""
+        
         let patientID = patientData["patientID"]!
         let emailMessage = "<p> Please see attached PDF for Patient: " + patientID + " </p>"
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             
-            mail.setToRecipients(["bbirdunlv@yahoo.com","b.bird@wvc.org"])
+            mail.setToRecipients([savedUserEmailAddress])//"bbirdunlv@yahoo.com","b.bird@wvc.org"])
             mail.setSubject("WVC DCC Patient: " + patientID)
             mail.setMessageBody(emailMessage, isHTML: true)
             
-            //generate file path then pdf to attach
-            let fileName: NSString = "test.pdf" as NSString
-            
-            let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-            let documentDirectory = path.object(at: 0) as! NSString
-            let PDFPathFileName = documentDirectory.appendingPathComponent(fileName as String)
-            let pdfPathWithFile = PDFPathFileName//returnPDFPath(fileName: fileName)
-            
-            //generate pdf with file path
-            UIGraphicsBeginPDFContextToFile(pdfPathWithFile, CGRect.zero, nil)
-            UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
-            drawBackground()
-            drawImageLogo(imageName: "WVCLogog")
-            drawPatientRecordText(patientData: patientData)
-            drawVitalsText(patientID:patientID)
-            drawPhysicalExam(patientID:patientID)
-            UIGraphicsEndPDFContext()
-            
+            let pdfPathWithFile = generatePDFFile(patientData: patientData)
             let fileData = NSData(contentsOfFile:pdfPathWithFile)
-            
             mail.addAttachmentData(fileData! as Data, mimeType: "application/pdf", fileName: "test.pdf")
             self.present(mail, animated: true, completion: nil)
         } else {
-            // show failure alert
             let alert = UIAlertController(title: "Could Not Send Email", message:"Your device must have an acctive mail account.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in })
             self.present(alert, animated: true){}
         }
     }
+    // #MARK: -  Dismiss Email Controller
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult, error: Error?) {
-        // Check the result or perform other tasks.
         // Dismiss the mail compose view controller.
+        emailActive = false
         controller.dismiss(animated: true, completion: nil)
+    }
+    // #MARK: - Generate PDF File
+    func generatePDFFile(patientData: Dictionary<String,String>) -> String {
+        // 1. Generate file path then pdf to attach ---
+        let fileName: NSString = "test.pdf" as NSString
+        
+        let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        let documentDirectory = path.object(at: 0) as! NSString
+        let pdfPathWithFile = documentDirectory.appendingPathComponent(fileName as String)
+        
+        // 2. Generate PDF with file path ---
+        UIGraphicsBeginPDFContextToFile(pdfPathWithFile, CGRect.zero, nil)
+        UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
+        drawBackground()
+        drawImageLogo(imageName: "WVCLogog")
+        drawPatientRecordText(patientData: patientData)
+        drawVitalsText(patientID:patientID)
+        drawPhysicalExam(patientID:patientID)
+        UIGraphicsEndPDFContext()
+        
+        return pdfPathWithFile
     }
     func drawBackground () {
         let context:CGContext = UIGraphicsGetCurrentContext()!

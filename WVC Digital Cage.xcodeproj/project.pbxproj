@@ -29,8 +29,13 @@
 		582836AB1F916092003F18FE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836AA1F916092003F18FE /* TableViewCell.swift */; };
 		584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */; };
 		584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E51FA0E21C009E56BE /* Dictionaries.swift */; };
+		5841C62850E3FA84D345A129 /* Pods_WVC_Digital_Cage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */; };
 		58C9B3391FA27296006DE233 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C9B3381FA27296006DE233 /* Settings.storyboard */; };
 		58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9B33A1FA27339006DE233 /* SettingsVC.swift */; };
+		58C9B33F1FA3F4E8006DE233 /* PatientProcedureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9B33E1FA3F4E8006DE233 /* PatientProcedureVC.swift */; };
+		58C9B3411FA7896B006DE233 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9B3401FA7896B006DE233 /* StringExtensions.swift */; };
+		58C9B3551FA7E6CB006DE233 /* Analytics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C9B3541FA7E6CB006DE233 /* Analytics.storyboard */; };
+		58C9B3571FA7E778006DE233 /* AnalyticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */; };
 		58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */; };
 		58E8A52F1F9802D4004E6640 /* AddNewPatient.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */; };
 		58E8A5311F9808A9004E6640 /* AddPatientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */; };
@@ -64,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D394878273E3C835DADA842 /* Pods-WVC Digital Cage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WVC Digital Cage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WVC Digital Cage/Pods-WVC Digital Cage.debug.xcconfig"; sourceTree = "<group>"; };
+		55576F354A2604E9C89157FA /* Pods-WVC Digital Cage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WVC Digital Cage.release.xcconfig"; path = "Pods/Target Support Files/Pods-WVC Digital Cage/Pods-WVC Digital Cage.release.xcconfig"; sourceTree = "<group>"; };
 		582836501F9143AC003F18FE /* WVC Digital Cage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WVC Digital Cage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		582836531F9143AC003F18FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		582836551F9143AC003F18FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +101,10 @@
 		584009E51FA0E21C009E56BE /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
 		58C9B3381FA27296006DE233 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		58C9B33A1FA27339006DE233 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		58C9B33E1FA3F4E8006DE233 /* PatientProcedureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProcedureVC.swift; sourceTree = "<group>"; };
+		58C9B3401FA7896B006DE233 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		58C9B3541FA7E6CB006DE233 /* Analytics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analytics.storyboard; sourceTree = "<group>"; };
+		58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsVC.swift; sourceTree = "<group>"; };
 		58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPE_VC.swift; sourceTree = "<group>"; };
 		58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddNewPatient.storyboard; sourceTree = "<group>"; };
 		58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientsVC.swift; sourceTree = "<group>"; };
@@ -107,6 +118,7 @@
 		58E8A5401F9A57A9004E6640 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		58E8A5421F9A57B1004E6640 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		58E8A5441F9A57B8004E6640 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WVC_Digital_Cage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +134,7 @@
 				58E8A53B1F9A578A004E6640 /* CoreGraphics.framework in Frameworks */,
 				58E8A5461F9A57E4004E6640 /* UXCam.framework in Frameworks */,
 				58E8A5391F9A5780004E6640 /* AVFoundation.framework in Frameworks */,
+				5841C62850E3FA84D345A129 /* Pods_WVC_Digital_Cage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +164,7 @@
 				582836511F9143AC003F18FE /* Products */,
 				58E8A5361F9A5424004E6640 /* UXCam.framework */,
 				58E8A5371F9A577F004E6640 /* Frameworks */,
+				D37E1D84AB17D7401CF77AFA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,6 +189,7 @@
 				5828369E1F914F73003F18FE /* Notifications.storyboard */,
 				582836A01F914F7D003F18FE /* History.storyboard */,
 				58C9B3381FA27296006DE233 /* Settings.storyboard */,
+				58C9B3541FA7E6CB006DE233 /* Analytics.storyboard */,
 				582836A91F91606E003F18FE /* TV Cell */,
 				582836A21F914FA8003F18FE /* VC */,
 				5828365A1F9143AC003F18FE /* Assets.xcassets */,
@@ -213,6 +228,7 @@
 				582836911F914840003F18FE /* SimpleAlert.swift */,
 				582836931F914840003F18FE /* toast.swift */,
 				58E8A5341F990977004E6640 /* ExtensionsForVC.swift */,
+				58C9B3401FA7896B006DE233 /* StringExtensions.swift */,
 				584009E51FA0E21C009E56BE /* Dictionaries.swift */,
 			);
 			path = Helpers;
@@ -225,10 +241,12 @@
 				582836A31F914FC9003F18FE /* PatientsVC.swift */,
 				58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */,
 				584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */,
+				58C9B33E1FA3F4E8006DE233 /* PatientProcedureVC.swift */,
 				58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */,
 				582836A51F914FDF003F18FE /* NotificationsVC.swift */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 				58C9B33A1FA27339006DE233 /* SettingsVC.swift */,
+				58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -251,8 +269,18 @@
 				58E8A53C1F9A5791004E6640 /* CoreMedia.framework */,
 				58E8A53A1F9A578A004E6640 /* CoreGraphics.framework */,
 				58E8A5381F9A5780004E6640 /* AVFoundation.framework */,
+				73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D37E1D84AB17D7401CF77AFA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2D394878273E3C835DADA842 /* Pods-WVC Digital Cage.debug.xcconfig */,
+				55576F354A2604E9C89157FA /* Pods-WVC Digital Cage.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +290,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 582836781F9143AC003F18FE /* Build configuration list for PBXNativeTarget "WVC Digital Cage" */;
 			buildPhases = (
+				A4CB50E886768FC8D2B638BE /* [CP] Check Pods Manifest.lock */,
 				5828364C1F9143AC003F18FE /* Sources */,
 				5828364D1F9143AC003F18FE /* Frameworks */,
 				5828364E1F9143AC003F18FE /* Resources */,
+				6243F435ABCA9F1B74139402 /* [CP] Embed Pods Frameworks */,
+				D175DE451EAAD4500ECA3FC1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -363,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5828365E1F9143AC003F18FE /* LaunchScreen.storyboard in Resources */,
+				58C9B3551FA7E6CB006DE233 /* Analytics.storyboard in Resources */,
 				5828369F1F914F73003F18FE /* Notifications.storyboard in Resources */,
 				5828365B1F9143AC003F18FE /* Assets.xcassets in Resources */,
 				58C9B3391FA27296006DE233 /* Settings.storyboard in Resources */,
@@ -389,6 +421,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6243F435ABCA9F1B74139402 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WVC Digital Cage/Pods-WVC Digital Cage-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WVC Digital Cage/Pods-WVC Digital Cage-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4CB50E886768FC8D2B638BE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WVC Digital Cage-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D175DE451EAAD4500ECA3FC1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WVC Digital Cage/Pods-WVC Digital Cage-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5828364C1F9143AC003F18FE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -397,9 +483,11 @@
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,
+				58C9B3411FA7896B006DE233 /* StringExtensions.swift in Sources */,
 				582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */,
 				584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */,
 				582836991F914840003F18FE /* toast.swift in Sources */,
+				58C9B33F1FA3F4E8006DE233 /* PatientProcedureVC.swift in Sources */,
 				582836561F9143AC003F18FE /* ViewController.swift in Sources */,
 				58E8A5311F9808A9004E6640 /* AddPatientsVC.swift in Sources */,
 				582836A41F914FC9003F18FE /* PatientsVC.swift in Sources */,
@@ -413,6 +501,7 @@
 				582836961F914840003F18FE /* Bordered.swift in Sources */,
 				582836541F9143AC003F18FE /* AppDelegate.swift in Sources */,
 				58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */,
+				58C9B3571FA7E778006DE233 /* AnalyticsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +665,7 @@
 		};
 		582836791F9143AC003F18FE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D394878273E3C835DADA842 /* Pods-WVC Digital Cage.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -585,7 +675,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"$(OTHER_LDFLAGS)",
@@ -600,6 +690,7 @@
 		};
 		5828367A1F9143AC003F18FE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55576F354A2604E9C89157FA /* Pods-WVC Digital Cage.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -609,7 +700,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "WVC Digital Cage/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"$(OTHER_LDFLAGS)",
