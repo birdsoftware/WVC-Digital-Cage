@@ -14,20 +14,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var patientsBadge: UILabel!
     @IBOutlet weak var notificationsBadge: UILabel!
     
+    var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+    let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+    var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
-        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-        let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-        let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
         
-        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam)
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications)
         
-        createBadgeFrom(UIlabel:patientsBadge, text: " \(patientRecords.count) ")
+        
 
+        //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
 
+    override func viewWillAppear(_ animated: Bool) {
+        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+        //let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+        myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+        getNotifications(records: patientRecords)
+        
+        createBadgeFrom(UIlabel:patientsBadge, text: " \(patientRecords.count) ")
+        createBadgeFrom(UIlabel:notificationsBadge, text: " \(myNotifications.count) ")
+    }
+   
     //patientVitals
     /*
     "patientID":patientID,
@@ -60,10 +73,11 @@ class ViewController: UIViewController {
 }
 extension ViewController{
     //Update UI
-    func printDictionaries(records: Array<Dictionary<String,String>>, vitals: Array<Dictionary<String,String>>, pe: Array<Dictionary<String,String>>){
+    func printDictionaries(records: Array<Dictionary<String,String>>, vitals: Array<Dictionary<String,String>>, pe: Array<Dictionary<String,String>>, notifications: Array<Dictionary<String,String>>){
         print("patientRecords \(records.count):\n\(records)")
         print("patientVitals \(vitals.count):\n\(vitals)")
         print("patientPhysicalExam \(pe.count):\n\(pe)")
+        print("notifications \(notifications.count):\n\(notifications)")
     }
 }
 extension ViewController{
@@ -82,38 +96,98 @@ extension ViewController{
 }
 extension ViewController{
     func getNotifications(records: Array<Dictionary<String,String>>){
-        //If patient walkMe is not yet
+        //Code 1 - If patient walkMe is not yet
+        //Code 2 - If patient walkMe is > 12 hours
         for record in records{
             if record["walkDate"] != "" {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                let yourDateString = record["walkDate"]!
-                if let lastWalkDate = formatter.date(from: yourDateString) {
-                    if let diff = Calendar.current.dateComponents([.hour], from: lastWalkDate, to: Date()).hour, diff > 12 {
-                        //do something
-                        isNewAlert()
-                        addNewAlert()
-                    }
+                if isDateMoreThan(hours: 1,
+                                  dateString: record["walkDate"]!) {
+                    addNewAlert(code: "2", patientID: record["patientID"]!)
+                    print("code 2 for patientID: \(record["patientID"]!)")
                 }
             } else {
                 //patient walkMe is "not yet"
-                isNewAlert()
-                addNewAlert()
+                addNewAlert(code: "1", patientID: record["patientID"]!)
+                print("code 1 for patientID: \(record["patientID"]!)")
             }
         }
-        //If patient walkMe is > 12 hours
         
-        //If Incision check is not yet
+        //Code 3 - If Incision check is not yet
         
-        //If Incision check is > 12 hours
+        //Code 4 - If Incision check is > 12 hours
         
-        //Custom notification
+        //Code 5 - Treatment
+        
+        //Code 6 - Custom notification
     }
-    func isNewAlert(){
+
+    func addNewAlert(code: String, patientID: String){
+        var isUnique = false
+        //isUnique same code, same patientID == not unique -> return
+        if myNotifications.isEmpty {
+            isUnique = true
+        } else { //NOT EMPTY
+            if arrayContains(array: myNotifications, value: patientID) {
+                //see if it also contains code
+                for notification in myNotifications {
+                    if (notification["patientID"] == patientID &&
+                        notification["code"] != code) {
+                        isUnique = true
+                        print("patientID \(patientID) match code \(code) not match")
+                    } else {
+                        isUnique = false
+                        print("had patientID but code matched - dont add")
+                    }
+                }
+            } else {print("no patientID \(patientID)")
+                isUnique = true
+            }
+        }
         
-    }
-    func addNewAlert(){
-        
+        if isUnique {
+            print("isUnique")
+            myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+            var message = ""
+            switch code {
+            case "1":
+                message = "Hasn't been walked yet."
+            case "2":
+                message = "Hasn't been walked for over 12 hours."
+            case "3":
+                message = "Incision hasn't been checked yet."
+            case "4":
+                message = "Incision hasn't been checked for over 12 hours."
+            case "5":
+                message = "Treatment."
+            case "6":
+                message = "Custom."
+            default:
+                return
+            }
+            // Date now
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let nowString = formatter.string(from: Date())
+            
+            let newAlert:Dictionary<String,String> =
+                [
+                    "type":"walk",//"suture,treatment,custom"
+                    "code":code,
+                    "patientID":patientID,
+                    "dateLong":nowString,
+                    "message":message,
+                    "image":""
+            ]
+            //add new notification
+            if myNotifications.isEmpty {
+                UserDefaults.standard.set([newAlert], forKey: "notifications")
+                UserDefaults.standard.synchronize()
+            } else {
+                myNotifications.append(newAlert)
+                UserDefaults.standard.set(myNotifications, forKey: "notifications")
+                UserDefaults.standard.synchronize()
+            }
+        }
     }
 }
 

@@ -25,4 +25,24 @@ extension UIViewController {
         //     array.remove(at: index)
         // }
     }
+    func arrayContainsPatientIDCode(array:[[String:String]], value:[String:String], code: String) -> Bool {
+        for item in array {
+            if item == value {//return true
+                if item["code"] == code {
+                    return false //DONT ADD
+                } else {
+                    return true //ADD
+                }
+            }
+        }
+        return false //DONT ADD
+    }
+    func arrayContains(array:[[String:String]], value:String) -> Bool {
+        for item in array {
+            if item["patientID"] == value {//
+                return true
+            }
+        }
+        return false
+    }
 }

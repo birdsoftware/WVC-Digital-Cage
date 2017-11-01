@@ -8,28 +8,117 @@
 
 import UIKit
 
-class NotificationsVC: UIViewController {
+class NotificationsVC: UIViewController , UITableViewDelegate, UITableViewDataSource{
 
+    //table view
+    @IBOutlet weak var notificationsTable: UITableView!
+    
+    //var patientRecords = Array<Dictionary<String,String>>()
+    var myNotifications = Array<Dictionary<String,String>>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        notificationsTable.delegate = self
+        notificationsTable.dataSource = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        //patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+    }
+    //NotificationsTableView: UITableViewCell {
+    //identifier: notificationCell
+//    "type":"walk",//"suture,treatment,custom"
+//    "code":code,
+//    "patientID":patientID,
+//    "dateLong":nowString,
+//    "message":message,
+//    "image":""
+}
+extension NotificationsVC {
+    // #MARK: - Table View
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myNotifications.count//patientRecords.count
+    }
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
+        let cell: NotificationsTableView = tableView.dequeueReusableCell(withIdentifier: "notificationCell") as! NotificationsTableView
+        let this = myNotifications[IndexPath.row]
+        //cell.imageType.image =
+        cell.dateTime.text = this["dateLong"]
+        cell.patientID.text = this["patientID"]
+        cell.message.text = this["message"]
+        
+        return cell
+    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        //        if let cell = tableView.cellForRow(at: indexPath) {
+//        //            cell.accessoryType = .checkmark
+//        //        }
+//        selectedData = SearchData[indexPath.row]
+//        hideHideView()
+//        //UPDATE UI VALUES
+//        shareButton.isHidden = false
+//        pdfLabel.isHidden = false
+//        screenShareButton.isHidden = false
+//        patientID = selectedData["patientID"]!
+//        UserDefaults.standard.set(patientID, forKey: "selectedPatientID")
+//        UserDefaults.standard.synchronize()
+//        print("patientID: \(patientID)")
+//        showVitals(pid:patientID)
+//        //showPhysicalExam(pid:patientID)
+//        patientIDLabel.text = patientID
+//        let kennelID = selectedData["kennelID"]!
+//        kennelNumberButton.setTitle(kennelID, for: .normal)
+//        if selectedData["walkDate"]! != ""{
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//            let yourDateString = selectedData["walkDate"]!
+//            let lastWalkDate = formatter.date(from: yourDateString)
+//            walkMeLabel.text = lastWalkDate!.timeAgo()
+//        } else {
+//            walkMeLabel.text = "not yet"
+//        }
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
+//    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
-        // Do any additional setup after loading the view.
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            print("Delete button tapped")
+            //self.deleteButtonTapped(indexPath: indexPath)
+            self.deleteRecordAlert(title:"Are you sure you want to remove this Notification?", message:"This will forever remove it.", buttonTitle:"OK", cancelButtonTitle: "Cancel", indexPath: indexPath)
+        }
+        delete.backgroundColor = UIColor.red
+        return [delete]
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func deleteButtonTapped(indexPath: IndexPath){
+//        let removeForThisPID = self.patientRecords[indexPath.row]["patientID"]
+//        self.removeVitalsFor(patientID:removeForThisPID!)
+//        self.removePhysicalExamFor(patientID:removeForThisPID!)
+//        self.patientRecords.remove(at: indexPath.row)
+//        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+//        UserDefaults.standard.synchronize()
+        self.notificationsTable.deleteRows(at: [indexPath], with: .fade)
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func deleteRecordAlert(title:String, message:String,
+                           buttonTitle:String,
+                           cancelButtonTitle: String,
+                           indexPath: IndexPath) {
+        
+        let myAlert = UIAlertController(title: title,
+                                        message: message,
+                                        preferredStyle: .alert)
+        
+        myAlert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: {
+            alert -> Void in
+            //DO:
+            self.deleteButtonTapped(indexPath: indexPath)
+        }))
+        
+        myAlert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel) { _ in })
+        
+        present(myAlert, animated: true){}
     }
-    */
-
 }

@@ -24,3 +24,12 @@ class ProcedureIncisionCheck: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var initials: UILabel!
 }
+
+class NotificationsTableView: UITableViewCell {
+    //identifier: notificationCell
+    @IBOutlet weak var imageType: UIImageView!
+    @IBOutlet weak var patientID: UILabel!
+    @IBOutlet weak var dateTime: UILabel!
+    @IBOutlet weak var message: UILabel!
+    
+}
