@@ -24,13 +24,12 @@ class ViewController: UIViewController {
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
         
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications)
-        
-        
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
 
     override func viewWillAppear(_ animated: Bool) {
+        
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
         //let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
@@ -39,8 +38,28 @@ class ViewController: UIViewController {
         
         createBadgeFrom(UIlabel:patientsBadge, text: " \(patientRecords.count) ")
         createBadgeFrom(UIlabel:notificationsBadge, text: " \(myNotifications.count) ")
+        
+        if patientRecords.count == 0{
+            patientsBadge.isHidden = true} else {
+            patientsBadge.isHidden = false
+        }
+        if myNotifications.count == 0{
+            notificationsBadge.isHidden = true} else {
+            notificationsBadge.isHidden = false
+        }
+
     }
-   
+    //patientRecords
+    /*
+     "patientID":reviewPatientID.text!,
+     "kennelID":reviewKennel.text!,
+     "Status":"Active",
+     "intakeDate":reviewDateLabel.text!,
+     "owner":reviewOwner.text!,
+     "group":reviewGroup.text!,
+     "walkDate":""
+     */
+    
     //patientVitals
     /*
     "patientID":patientID,
@@ -52,23 +71,12 @@ class ViewController: UIViewController {
     "exitWeight":exitWeight.text!,
     "initialsVitals":initialsVitals.text!
     */
-
-    //patientRecords
-    /*
-    "patientID":reviewPatientID.text!,
-    "kennelID":reviewKennel.text!,
-    "Status":"Active",
-    "intakeDate":reviewDateLabel.text!,
-    "owner":reviewOwner.text!,
-    "group":reviewGroup.text!,
-    "walkDate":""
-    */
     
     //patientPhysicalExam
     /*
-    ["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "Musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
+    ["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
 
-    ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
+    ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
  */
 }
 extension ViewController{
@@ -85,7 +93,7 @@ extension ViewController{
         //if text == " 0 "{
         //    UIlabel.isHidden = true
         //} else {
-        UIlabel.isHidden = false
+        //UIlabel.isHidden = false
         UIlabel.clipsToBounds = true
         UIlabel.layer.cornerRadius = UIlabel.font.pointSize * 1.2 / 2
         UIlabel.backgroundColor = .white//.bostonBlue()
@@ -100,7 +108,7 @@ extension ViewController{
         //Code 2 - If patient walkMe is > 12 hours
         for record in records{
             if record["walkDate"] != "" {
-                if isDateMoreThan(hours: 1,
+                if isDateMoreThan(hours: 12,
                                   dateString: record["walkDate"]!) {
                     addNewAlert(code: "2", patientID: record["patientID"]!)
                     print("code 2 for patientID: \(record["patientID"]!)")
@@ -134,9 +142,10 @@ extension ViewController{
                         notification["code"] != code) {
                         isUnique = true
                         print("patientID \(patientID) match code \(code) not match")
+                        break
                     } else {
                         isUnique = false
-                        print("had patientID but code matched - dont add")
+                        print("had patientID \(patientID) but code  \(code) matched - dont add")
                     }
                 }
             } else {print("no patientID \(patientID)")

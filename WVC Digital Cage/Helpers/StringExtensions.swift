@@ -9,19 +9,20 @@
 import Foundation
 
 extension String {
-    
     func camelCaseToWords() -> String {
-        
         return unicodeScalars.reduce("") {
-            
             if CharacterSet.uppercaseLetters.contains($1) == true {
-                
                 return ($0 + " " + String($1))
             }
             else {
-                
                 return $0 + String($1)
             }
         }
+    }
+    //var camelCase = "generalAppearance"
+    //camelCase = camelCase.camelCaseToWords()
+    var firstUppercased: String {
+        guard let first = first else { return "" }
+        return String(first).uppercased() + dropFirst()
     }
 }

@@ -22,6 +22,17 @@ extension UIViewController {
         
     }
     
+    func updateDictStringAlert(ditc: Dictionary<String,String>, title:String, message:String, buttonTitle:String) {
+        
+        let myAlert = UIAlertController(title: title,
+                                        message: message,
+                                        preferredStyle: .alert)
+        
+        myAlert.addAction(UIAlertAction(title: buttonTitle, style: .default) { _ in })
+        present(myAlert, animated: true){}
+        
+    }
+    
     func simpleTFAlert(title:String, message:String, buttonTitle:String, outputTextView:UITextView, senderTag: Int /*tag on switch*/, dispachInstance: DispatchGroup) {
         
         let myAlert = UIAlertController(title: title,

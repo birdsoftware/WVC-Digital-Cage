@@ -196,6 +196,13 @@ extension AddPatientsVC{
                 simpleAlert(title: p + " is missing", message: "enter value and try again before Saving.", buttonTitle: "OK")
             }
         }
+        //check if name already taken
+        for item in patientRecords {
+            if item["patientID"] == reviewPatientID.text!{
+                missingData = true
+                simpleAlert(title: "Patient ID " + reviewPatientID.text! + " already in use", message: "Enter a unique Patient ID before saving.", buttonTitle: "OK")
+            }
+        }
         //save locally if no missing data
         if missingData == false{
             let newP:Dictionary<String,String> =

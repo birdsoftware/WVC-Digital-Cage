@@ -106,6 +106,8 @@ UINavigationControllerDelegate/*photoLib*/ {
         //walkMeLabel
         //timer value exits? creat new : reset time
         updateWalkTime()
+        removeNotification(code: "1", patientID: patientID) //TOCHECK:::
+        removeNotification(code: "2", patientID: patientID) //TOCHECK:::
     }
     @IBAction func scopeSegmentAction(_ sender: Any) {
         var scopePredicate:NSPredicate
@@ -336,6 +338,7 @@ extension PatientsVC {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    
         let email = UITableViewRowAction(style: .normal, title: "Email") { action, index in
             print("Email button tapped")
             self.emailButtonTapped(indexPathRow: indexPath.row)
@@ -565,8 +568,9 @@ extension PatientsVC{
         drawBackground()
         drawImageLogo(imageName: "WVCLogog")
         drawPatientRecordText(patientData: patientData)
-        drawVitalsText(patientID:patientID)
-        drawPhysicalExam(patientID:patientID)
+        let patientIDHere = patientData["patientID"]
+        drawVitalsText(patientID:patientIDHere!)
+        drawPhysicalExam(patientID:patientIDHere!)
         UIGraphicsEndPDFContext()
         
         return pdfPathWithFile
@@ -594,22 +598,19 @@ extension PatientsVC{
         let textRecWidth = 200
         
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
-        //let titleRect:CGRect = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
-        //let valueRect:CGRect = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
         
         let titles = ["patientID","Status","intakeDate","owner"]
-        
-        //titles[0].draw(in: titleRect, withAttributes: returnTitleAttributes())
-        //patientData["patientID"]?.draw(in: valueRect, withAttributes: returnTextAttributes())
         
         var title = CGRect()
         var value = CGRect()
         for item in titles {
+            let word = item.camelCaseToWords()
+            let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
             title = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
             newTotalY += spacerTwenty
-            value = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
-            item.draw(in: title, withAttributes: returnTitleAttributes())
+            value = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:60)
+            uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             patientData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
     }
@@ -636,11 +637,13 @@ extension PatientsVC{
         var title = CGRect()
         var value = CGRect()
         for item in titles {
+            let word = item.camelCaseToWords()
+            let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
             title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
             newTotalY += spacerTwenty
-            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
-            item.draw(in: title, withAttributes: returnTitleAttributes())
+            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:60)
+            uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             vitalData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
     }
@@ -652,7 +655,7 @@ extension PatientsVC{
                 physcialExamData = pe
             }
         }
-        //["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "Musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
+        //["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
         //replace true with normal & flase with abnormal
         for item in physcialExamData {
             if item.value == "false" {
@@ -666,21 +669,27 @@ extension PatientsVC{
         let logoHeight = 100
         let spacerFifty = 50
         let spacerTwenty = 20
-        let xCol3 = 550
-        let textRecWidth = 200
+        let xCol3 = 500
+        let textRecWidth = 300
+        var valueHeight = 60
         
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
         
-        let titles = ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
+        let titles = ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
         
         var title = CGRect()
         var value = CGRect()
         for item in titles {
+            let word = item.camelCaseToWords()
+            let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
             title = CGRect(x: xCol3, y:newTotalY, width:textRecWidth, height:40)
             newTotalY += spacerTwenty
-            value = CGRect(x: xCol3, y:newTotalY, width:textRecWidth, height:40)
-            item.draw(in: title, withAttributes: returnTitleAttributes())
+            if item == "comments"{
+                valueHeight = 200
+            }
+            value = CGRect(x: xCol3, y:newTotalY, width:textRecWidth, height:valueHeight)
+            uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             physcialExamData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
     }

@@ -86,19 +86,18 @@ extension NotificationsVC {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             print("Delete button tapped")
             //self.deleteButtonTapped(indexPath: indexPath)
-            self.deleteRecordAlert(title:"Are you sure you want to remove this Notification?", message:"This will forever remove it.", buttonTitle:"OK", cancelButtonTitle: "Cancel", indexPath: indexPath)
+            //self.deleteRecordAlert(title:"Are you sure you want to remove this Notification?", message:"This will forever remove it.", buttonTitle:"OK", cancelButtonTitle: "Cancel", indexPath: indexPath)
+            self.deleteButtonTapped(indexPath: indexPath)
         }
         delete.backgroundColor = UIColor.red
         return [delete]
     }
 
     func deleteButtonTapped(indexPath: IndexPath){
-//        let removeForThisPID = self.patientRecords[indexPath.row]["patientID"]
-//        self.removeVitalsFor(patientID:removeForThisPID!)
-//        self.removePhysicalExamFor(patientID:removeForThisPID!)
-//        self.patientRecords.remove(at: indexPath.row)
-//        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
-//        UserDefaults.standard.synchronize()
+        
+        self.myNotifications.remove(at: indexPath.row)
+        UserDefaults.standard.set(self.myNotifications, forKey: "notifications")
+        UserDefaults.standard.synchronize()
         self.notificationsTable.deleteRows(at: [indexPath], with: .fade)
     }
 

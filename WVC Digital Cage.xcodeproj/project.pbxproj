@@ -27,6 +27,7 @@
 		582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836A51F914FDF003F18FE /* NotificationsVC.swift */; };
 		582836A81F914FED003F18FE /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836A71F914FED003F18FE /* HistoryVC.swift */; };
 		582836AB1F916092003F18FE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836AA1F916092003F18FE /* TableViewCell.swift */; };
+		5837803D1FAB850C00905B3C /* String Manip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5837803C1FAB850C00905B3C /* String Manip.swift */; };
 		584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */; };
 		584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E51FA0E21C009E56BE /* Dictionaries.swift */; };
 		5841C62850E3FA84D345A129 /* Pods_WVC_Digital_Cage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */; };
@@ -97,6 +98,7 @@
 		582836A51F914FDF003F18FE /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		582836A71F914FED003F18FE /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
 		582836AA1F916092003F18FE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		5837803C1FAB850C00905B3C /* String Manip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Manip.swift"; sourceTree = "<group>"; };
 		584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDemographicsVC.swift; sourceTree = "<group>"; };
 		584009E51FA0E21C009E56BE /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
 		58C9B3381FA27296006DE233 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				582836911F914840003F18FE /* SimpleAlert.swift */,
 				582836931F914840003F18FE /* toast.swift */,
 				58E8A5341F990977004E6640 /* ExtensionsForVC.swift */,
+				5837803C1FAB850C00905B3C /* String Manip.swift */,
 				58C9B3401FA7896B006DE233 /* StringExtensions.swift */,
 				584009E51FA0E21C009E56BE /* Dictionaries.swift */,
 			);
@@ -502,6 +505,7 @@
 				582836541F9143AC003F18FE /* AppDelegate.swift in Sources */,
 				58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */,
 				58C9B3571FA7E778006DE233 /* AnalyticsVC.swift in Sources */,
+				5837803D1FAB850C00905B3C /* String Manip.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

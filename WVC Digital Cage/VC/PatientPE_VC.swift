@@ -42,7 +42,7 @@ class PatientPE_VC: UIViewController {
             "comments":"",
             "generalAppearance":"",
             "skinFeetHair":"",
-            "Musculoskeletal":"",
+            "musculoskeletal":"",
             "nose":"",
             "digestiveTeeth":"",
             "respiratory":"",
@@ -180,7 +180,7 @@ extension PatientPE_VC{
                 "comments":textViewPE.text!,
                 "generalAppearance":"false",
                 "skinFeetHair":"false",
-                "Musculoskeletal":"false",
+                "musculoskeletal":"false",
                 "nose":"false",
                 "digestiveTeeth":"false",
                 "respiratory":"false",
@@ -195,7 +195,7 @@ extension PatientPE_VC{
     func savePhysicalExamSwitchValue(senderTag:Int, isSwitchOpen: Bool){
         var patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
         let pid = returnSelectedPatientID()
-        let switchStringNames = ["generalAppearance","skinFeetHair","Musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital"]
+        let switchStringNames = ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital"]
         var found = false
         updatePEDataObject()
         
@@ -239,7 +239,7 @@ extension PatientPE_VC{
                 if patientPhysicalExam[index]["patientID"] == pid {//UPDATE UI by PID
                     moveSwitchState(switchName: switchOne, isTrue: patientPhysicalExam[index]["generalAppearance"]!)
                     moveSwitchState(switchName: switchTwo, isTrue: patientPhysicalExam[index]["skinFeetHair"]!)
-                    moveSwitchState(switchName: switchThree, isTrue: patientPhysicalExam[index]["Musculoskeletal"]!)
+                    moveSwitchState(switchName: switchThree, isTrue: patientPhysicalExam[index]["musculoskeletal"]!)
                     moveSwitchState(switchName: switchFour, isTrue: patientPhysicalExam[index]["nose"]!)
                     moveSwitchState(switchName: switchFive, isTrue: patientPhysicalExam[index]["digestiveTeeth"]!)
                     moveSwitchState(switchName: switchSix, isTrue: patientPhysicalExam[index]["respiratory"]!)

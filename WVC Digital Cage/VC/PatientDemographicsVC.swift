@@ -21,7 +21,7 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var breedTF: UITextField!
     //switches
     @IBOutlet weak var switchSex: UISwitch!
-    @IBOutlet weak var switchStatus: UISwitch!
+    
     
     var kennelIntArray = Array(1...45)
     var ownerList = ["The Animal Foundation (TAF)","Henderson Shelter (HS)","Desert Haven Animal Society (DHAS)",
@@ -70,10 +70,12 @@ extension PatientDemographicsVC{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if pickerView == kennelPicker {
             //kennelTF.text = String(kennelIntArray[row])
-            flashGreenTextField(textField: kennelTF, displayText: String(kennelIntArray[row]))
+            //flashGreenTextField(textField: kennelTF, displayText: String(kennelIntArray[row]))
+            askToChange(selectedStringToChange: String(kennelIntArray[row]), textField: kennelTF, whatIsChanging: "Kennel#", dictDefaultsKey: "patientRecords", dictKey: "kennelID")
         } else {
             //ownerTF.text = ownerList[row]
-            flashGreenTextField(textField: ownerTF, displayText: ownerList[row])
+            //flashGreenTextField(textField: ownerTF, displayText: ownerList[row])
+            askToChange(selectedStringToChange: String(ownerList[row]), textField: ownerTF, whatIsChanging: "Owner", dictDefaultsKey: "patientRecords", dictKey: "owner")
         }
     }
 }
@@ -114,7 +116,7 @@ extension PatientDemographicsVC {
             if patient["patientID"] == selectedPatientID {
                 ownerTF.text = patient["owner"]
                 kennelTF.text = patient["kennelID"]
-                moveSwitchState(switchName: switchStatus, isTrue: patient["Status"]!)
+                //moveSwitchState(switchName: switchStatus, isTrue: patient["Status"]!)
                 print("here")
             }
         }
@@ -125,6 +127,61 @@ extension PatientDemographicsVC {
         } else {
             switchName.setOn(false, animated: false)
         }
+    }
+}
+extension PatientDemographicsVC {
+    //make changes
+    func askToChange(selectedStringToChange: String,
+                     textField: UITextField,
+                     whatIsChanging: String,
+                     dictDefaultsKey: String,
+                     dictKey: String){
+        let selectedPatientID = UserDefaults.standard.string(forKey: "selectedPatientID") ?? ""
+        changeRecordAlert(title: "Change \(whatIsChanging) \(textField.text!)",
+            message: "\(selectedStringToChange) will replace \(textField.text!) for \(whatIsChanging).",
+            buttonTitle: "Save",
+            cancelButtonTitle: "Cancel",
+            selectedPatientID: selectedPatientID,
+            selectedStringToChange: selectedStringToChange,
+            textField: textField,
+            dictDefaultsKey: dictDefaultsKey,
+            dictKey: dictKey)
+    }
+    func changeButtonTapped(selectedPatientID: String, selectedStringToChange: String, textField: UITextField,dictDefaultsKey: String,dictKey: String){
+        flashGreenTextField(textField: textField, displayText: selectedStringToChange)
+        var dictArray = UserDefaults.standard.object(forKey: dictDefaultsKey) as? Array<Dictionary<String,String>> ?? []
+        for index in 0..<dictArray.count {
+            if dictArray[index]["patientID"] == selectedPatientID {
+                //print("selectedPatientID \(selectedPatientID) dictDefaultsKey \(dictDefaultsKey) dictKey \(dictKey)")
+                dictArray[index][dictKey] = selectedStringToChange
+                UserDefaults.standard.set(dictArray, forKey: dictDefaultsKey)
+                UserDefaults.standard.synchronize()
+                //REFRESH VIEW TODO:::
+            }
+        }
+    }
+    func changeRecordAlert(title:String, message:String,
+                           buttonTitle:String,
+                           cancelButtonTitle: String,
+                           selectedPatientID: String,
+                           selectedStringToChange: String,
+                           textField: UITextField,
+                           dictDefaultsKey: String,
+                           dictKey: String) {
+        
+        let myAlert = UIAlertController(title: title,
+                                        message: message,
+                                        preferredStyle: .alert)
+        
+        myAlert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: {
+            alert -> Void in
+            //DO:
+            self.changeButtonTapped(selectedPatientID: selectedPatientID, selectedStringToChange: selectedStringToChange, textField: textField, dictDefaultsKey: dictDefaultsKey, dictKey: dictKey)
+        }))
+        
+        myAlert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel) { _ in })
+        
+        present(myAlert, animated: true){}
     }
 }
 

@@ -53,9 +53,22 @@ extension UIViewController {
         return false
     }
     
-    public func camelCaseToUnformatted(camelCase: String) -> String{
-        
-        return ""
+    public func removeNotification(code: String, patientID: String) {
+        var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+        print("patientID \(patientID) code \(code)")
+        if patientID != "" && code != "" {
+            for index in 0..<myNotifications.count {
+                if myNotifications[index]["patientID"] == patientID &&
+                    myNotifications[index]["code"] == code
+                {
+                    myNotifications.remove(at: index)
+                    UserDefaults.standard.set(myNotifications, forKey: "notifications")
+                    UserDefaults.standard.synchronize()
+                    break
+                }
+            }
+        }
     }
+    
     
 }
