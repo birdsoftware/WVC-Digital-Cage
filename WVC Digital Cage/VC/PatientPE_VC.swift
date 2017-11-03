@@ -310,9 +310,6 @@ extension PatientPE_VC{
             }
         }
     }
-    func returnSelectedPatientID() -> String {
-        let selectedPID = UserDefaults.standard.object(forKey: "selectedPatientID") as? String ?? ""
-        return selectedPID
-    }
+    
 }
 

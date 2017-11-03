@@ -18,12 +18,13 @@ class ViewController: UIViewController {
     let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
     let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
     var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+    var myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
         
-        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications)
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
@@ -81,11 +82,16 @@ class ViewController: UIViewController {
 }
 extension ViewController{
     //Update UI
-    func printDictionaries(records: Array<Dictionary<String,String>>, vitals: Array<Dictionary<String,String>>, pe: Array<Dictionary<String,String>>, notifications: Array<Dictionary<String,String>>){
+    func printDictionaries(records: Array<Dictionary<String,String>>,
+                           vitals: Array<Dictionary<String,String>>,
+                           pe: Array<Dictionary<String,String>>,
+                           notifications: Array<Dictionary<String,String>>,
+                           myDemographics: Array<Dictionary<String,String>>){
         print("patientRecords \(records.count):\n\(records)")
         print("patientVitals \(vitals.count):\n\(vitals)")
         print("patientPhysicalExam \(pe.count):\n\(pe)")
         print("notifications \(notifications.count):\n\(notifications)")
+        print("demographics \(myDemographics.count):\n\(myDemographics)")
     }
 }
 extension ViewController{

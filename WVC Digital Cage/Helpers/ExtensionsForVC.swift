@@ -39,6 +39,10 @@ extension UIViewController {
 //        }
 //
 //    }
+    func returnSelectedPatientID() -> String {
+        let selectedPID = UserDefaults.standard.object(forKey: "selectedPatientID") as? String ?? ""
+        return selectedPID
+    }
     
     public func isDateMoreThan(hours: Int,
                                dateString: String) -> Bool {

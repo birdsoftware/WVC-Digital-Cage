@@ -59,6 +59,7 @@ UINavigationControllerDelegate/*photoLib*/ {
     @IBOutlet weak var kennelNumberButton: RoundedButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var screenShareButton: UIButton!
+    //SAVE Button is Action saveUPRAction
     
     //search bar
     @IBOutlet weak var patientSearchBar: UISearchBar!
@@ -131,6 +132,7 @@ UINavigationControllerDelegate/*photoLib*/ {
     }
     @IBAction func saveUPRAction(_ sender: Any) {
         saveVitals()
+        saveDemographics()
         hideUpdateRecordView()
     }
     @IBAction func closeUPRAction(_ sender: Any) {
@@ -430,6 +432,10 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
+    // #MARK: - Save Demographics
+    func saveDemographics(){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "saveDemographics"), object: nil)
+    }
     // #MARK: - Save Vitals, Show Vitals, Remove Vitals
     func saveVitals(){
         var patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []

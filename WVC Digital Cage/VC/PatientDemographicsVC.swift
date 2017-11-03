@@ -16,12 +16,22 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     //text fields
     @IBOutlet weak var ownerTF: UITextField!
     @IBOutlet weak var kennelTF: UITextField!
+    
+    //Demographics paramaters---------------
     @IBOutlet weak var ageTF: UITextField!
     @IBOutlet weak var patientIDTF: UITextField!
     @IBOutlet weak var breedTF: UITextField!
     //switches
     @IBOutlet weak var switchSex: UISwitch!
+    //---------------
     
+    var newDemographics:Dictionary<String,String> =
+        [
+            "patientID":"",
+            "age":"",
+            "breed":"",
+            "sex":""
+    ]
     
     var kennelIntArray = Array(1...45)
     var ownerList = ["The Animal Foundation (TAF)","Henderson Shelter (HS)","Desert Haven Animal Society (DHAS)",
@@ -39,6 +49,10 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
                                                selector:#selector(showDemographics),
                                                name: NSNotification.Name(rawValue: "showDemographics"),
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(saveDemographics),
+                                                name: NSNotification.Name(rawValue: "saveDemographics"),
+                                                object: nil)
     }
 
 
@@ -107,17 +121,23 @@ extension PatientDemographicsVC {
         //get defaults
         let selectedPatientID = UserDefaults.standard.string(forKey: "selectedPatientID") ?? ""
         let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        let myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
         
         //update UI
         patientIDTF.text = selectedPatientID
-        //ownerTF.text = "here"
-        //kennelTF.text = "here"
         for patient in patientRecords {
             if patient["patientID"] == selectedPatientID {
                 ownerTF.text = patient["owner"]
                 kennelTF.text = patient["kennelID"]
                 //moveSwitchState(switchName: switchStatus, isTrue: patient["Status"]!)
                 print("here")
+            }
+        }
+        for patient in myDemographics {
+            if patient["patientID"] == selectedPatientID {
+                moveSwitchState(switchName: switchSex, isTrue: patient["sex"]!)
+                ageTF.text = patient["age"]
+                breedTF.text = patient["breed"]
             }
         }
     }
@@ -130,7 +150,7 @@ extension PatientDemographicsVC {
     }
 }
 extension PatientDemographicsVC {
-    //make changes
+    //make changes to owner and kennel#
     func askToChange(selectedStringToChange: String,
                      textField: UITextField,
                      whatIsChanging: String,
@@ -184,4 +204,29 @@ extension PatientDemographicsVC {
         present(myAlert, animated: true){}
     }
 }
-
+extension PatientDemographicsVC {
+    //add update save create Demographics: Age, Breed, Sex
+    func updateDemographicsObject(){
+        let pid = returnSelectedPatientID()
+        newDemographics =
+            [
+                "patientID":pid,
+                "age":ageTF.text!,
+                "breed":breedTF.text!,
+                "sex":String(switchSex.isOn)//true = Male
+        ]
+    }
+    @objc func saveDemographics(){
+        var dic = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+        updateDemographicsObject()
+        if dic.isEmpty {
+            UserDefaults.standard.set([newDemographics], forKey: "demographics")
+            UserDefaults.standard.synchronize()
+        } else {
+            dic.append(newDemographics)
+            UserDefaults.standard.set(dic, forKey: "demographics")
+            UserDefaults.standard.synchronize()
+            
+        }
+    }
+}

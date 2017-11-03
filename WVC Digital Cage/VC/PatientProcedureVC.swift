@@ -10,9 +10,32 @@ import UIKit
 
 class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
+    //table
     @IBOutlet weak var incisionTable: UITableView!
+    //button
+    @IBOutlet weak var bloodWorkButton: UIButton!
     
     var incisions = [["date":"10/27/17 10:22 AM","initials":"B.B."],["date":"10/26/17 11:02 AM","initials":"C.J."]]
+    
+    var toggleBloodWork = false
+    
+    var newProcedure:Dictionary<String,String> =
+        [
+            "patientID":"",
+            "bloodWork":"",
+            "surgeryDate":"",
+            "suture":"",
+            "radiographs":"",
+            "lab":""
+    ]
+    @IBAction func bloodWorkAction(_ sender: Any) {
+        if (toggleBloodWork) {
+            bloodWorkButton.setImage(UIImage.init(named: "box"), for: .normal)
+            toggleBloodWork = false
+        } else {
+            bloodWorkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal)
+            toggleBloodWork = true }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
