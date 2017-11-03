@@ -33,3 +33,16 @@ class NotificationsTableView: UITableViewCell {
     @IBOutlet weak var message: UILabel!
     
 }
+
+class AMPMTableView: UITableViewCell {
+    //ident: ampmCell
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var attitude: UILabel!
+    @IBOutlet weak var feces: UILabel!
+    @IBOutlet weak var urine: UILabel!
+    @IBOutlet weak var appetite: UILabel!
+    @IBOutlet weak var VDCS: UILabel!
+    @IBOutlet weak var initials: UILabel!
+    @IBOutlet weak var ampmEmoji: UILabel!
+    
+}
