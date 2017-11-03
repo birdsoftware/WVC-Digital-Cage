@@ -5,6 +5,59 @@
 //  Created by Brian Bird on 10/13/17.
 //  Copyright © 2017 Brian Bird. All rights reserved.
 //
+//patientRecords
+/*
+ "patientID":reviewPatientID.text!,
+ "kennelID":reviewKennel.text!,
+ "Status":"Active",
+ "intakeDate":reviewDateLabel.text!,
+ "owner":reviewOwner.text!,
+ "group":reviewGroup.text!,
+ "walkDate":""
+ */
+
+//patientVitals
+/*
+ "patientID":patientID,
+ "temperature":temperature.text!,
+ "pulse":pulse.text!,
+ "cRT_MM":cRT_MM.text!,
+ "respiration":respiration.text!,
+ "weight":weight.text!,
+ "exitWeight":exitWeight.text!,
+ "initialsVitals":initialsVitals.text!
+ */
+
+//patientPhysicalExam
+/*
+ "urogenital": "false",
+ "nervousSystem": "false",
+ "respiratory": "true",
+ "digestiveTeeth": "false",
+ "ears": "false",
+ "musculoskeletal": "false",
+ "patientID": "81231",
+ "nose": "false",
+ "generalAppearance": "true",
+ "lymphNodes": "false",
+ "skinFeetHair": "false",
+ "eyes":"false",
+ "comments": "\n1) hbhjblhj\n6) breathing good",
+ "bodyConditionScore": "5"
+ 
+ ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
+ */
+//ampms
+/*
+ "patientID":"123",
+ "date":"10/22/2017 AM",
+ "attitude":"happy",
+ "feces":"feces 5",
+ "urine":"u 12",
+ "appetite%":"appetite",
+ "V/D/C/S":"vdcs",
+ "initials":"b.b."
+ */
 
 import UIKit
 //import UXCam
@@ -19,12 +72,13 @@ class ViewController: UIViewController {
     let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
     var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
     var myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+    var myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
         
-        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics)
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
@@ -32,8 +86,6 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-        //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-        //let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
         getNotifications(records: patientRecords)
         
@@ -50,35 +102,7 @@ class ViewController: UIViewController {
         }
 
     }
-    //patientRecords
-    /*
-     "patientID":reviewPatientID.text!,
-     "kennelID":reviewKennel.text!,
-     "Status":"Active",
-     "intakeDate":reviewDateLabel.text!,
-     "owner":reviewOwner.text!,
-     "group":reviewGroup.text!,
-     "walkDate":""
-     */
     
-    //patientVitals
-    /*
-    "patientID":patientID,
-    "temperature":temperature.text!,
-    "pulse":pulse.text!,
-    "cRT_MM":cRT_MM.text!,
-    "respiration":respiration.text!,
-    "weight":weight.text!,
-    "exitWeight":exitWeight.text!,
-    "initialsVitals":initialsVitals.text!
-    */
-    
-    //patientPhysicalExam
-    /*
-    ["urogenital": "false", "nervousSystem": "false", "respiratory": "true", "digestiveTeeth": "false", "ears": "false", "musculoskeletal": "false", "patientID": "81231", "nose": "false", "generalAppearance": "true", "lymphNodes": "false", "skinFeetHair": "false", "eyes": "false", "comments": "\n1) hbhjblhj\n6) breathing good", "bodyConditionScore": "5"]
-
-    ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital","bodyConditionScore","comments"]
- */
 }
 extension ViewController{
     //Update UI
@@ -86,12 +110,14 @@ extension ViewController{
                            vitals: Array<Dictionary<String,String>>,
                            pe: Array<Dictionary<String,String>>,
                            notifications: Array<Dictionary<String,String>>,
-                           myDemographics: Array<Dictionary<String,String>>){
+                           myDemographics: Array<Dictionary<String,String>>,
+                           myAmpms: Array<Dictionary<String,String>>){
         print("patientRecords \(records.count):\n\(records)")
         print("patientVitals \(vitals.count):\n\(vitals)")
         print("patientPhysicalExam \(pe.count):\n\(pe)")
         print("notifications \(notifications.count):\n\(notifications)")
         print("demographics \(myDemographics.count):\n\(myDemographics)")
+        print("ampms \(myAmpms.count):\n\(myAmpms)")
     }
 }
 extension ViewController{

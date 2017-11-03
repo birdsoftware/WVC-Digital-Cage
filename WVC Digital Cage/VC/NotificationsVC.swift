@@ -22,7 +22,6 @@ class NotificationsVC: UIViewController , UITableViewDelegate, UITableViewDataSo
         notificationsTable.dataSource = self
     }
     override func viewWillAppear(_ animated: Bool) {
-        //patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
     }
     //NotificationsTableView: UITableViewCell {

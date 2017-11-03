@@ -38,6 +38,7 @@
 		58C9B3551FA7E6CB006DE233 /* Analytics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C9B3541FA7E6CB006DE233 /* Analytics.storyboard */; };
 		58C9B3571FA7E778006DE233 /* AnalyticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */; };
 		58D920911FACCE4D00713C72 /* AMPMVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D920901FACCE4D00713C72 /* AMPMVC.swift */; };
+		58D920951FACD6C000713C72 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D920941FACD6C000713C72 /* IntExtension.swift */; };
 		58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */; };
 		58E8A52F1F9802D4004E6640 /* AddNewPatient.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */; };
 		58E8A5311F9808A9004E6640 /* AddPatientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */; };
@@ -109,6 +110,7 @@
 		58C9B3541FA7E6CB006DE233 /* Analytics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analytics.storyboard; sourceTree = "<group>"; };
 		58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsVC.swift; sourceTree = "<group>"; };
 		58D920901FACCE4D00713C72 /* AMPMVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPMVC.swift; sourceTree = "<group>"; };
+		58D920941FACD6C000713C72 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPE_VC.swift; sourceTree = "<group>"; };
 		58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddNewPatient.storyboard; sourceTree = "<group>"; };
 		58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientsVC.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				58E8A5321F98187A004E6640 /* DatePickerDialog.swift */,
 				582836921F914840003F18FE /* Date.swift */,
 				5828368E1F914840003F18FE /* HexColor.swift */,
+				58D920941FACD6C000713C72 /* IntExtension.swift */,
 				5828368F1F914840003F18FE /* Rounded.swift */,
 				582836911F914840003F18FE /* SimpleAlert.swift */,
 				582836931F914840003F18FE /* toast.swift */,
@@ -489,6 +492,7 @@
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,
+				58D920951FACD6C000713C72 /* IntExtension.swift in Sources */,
 				58C9B3411FA7896B006DE233 /* StringExtensions.swift in Sources */,
 				582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */,
 				584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */,

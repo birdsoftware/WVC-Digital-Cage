@@ -338,6 +338,7 @@ extension PatientsVC {
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
