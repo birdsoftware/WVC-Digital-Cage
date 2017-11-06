@@ -34,6 +34,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var newAMPM:Dictionary<String,String> =
         [
             "patientID":"",
+            "filterID":"",
             "date":"",
             "attitude":"",
             "feces":"",
@@ -45,6 +46,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let clear:Dictionary<String,String> =
     [
     "patientID":"",
+    "filterID":"",
     "date":"",
     "attitude":"",
     "feces":"",
@@ -85,6 +87,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         showAmpm()
         ampmTable.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideUpdateRecordView"), object: nil)
     }
     @IBAction func switchAction(_ sender: Any) {
         if ampmSwitch.isOn {
@@ -200,10 +203,30 @@ extension AMPMVC {
         return [delete]
     }
     func deleteButtonTapped(indexPath: IndexPath){
-        self.myAmpms.remove(at: indexPath.row)
+        let selectedDict = filteredAMPM[indexPath.row]
+        let selectedFilterID = selectedDict["filterID"]
+        
+        if let index = dictIndexFrom(array: myAmpms, usingKey:"filterID", usingValue: selectedFilterID!) {
+                 myAmpms.remove(at: index)
+         }
+  
+        //self.myAmpms.remove(at: indexPath.row)//not correct indexPath.rom is for filteredAMPM displayed NEED ID
         UserDefaults.standard.set(self.myAmpms, forKey: "ampms")
         UserDefaults.standard.synchronize()
-        self.ampmTable.deleteRows(at: [indexPath], with: .fade)
+        //----------------filter it
+        let pid = returnSelectedPatientID()
+        var scopePredicate:NSPredicate
+
+        scopePredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", pid)
+        let arr=(myAmpms as NSArray).filtered(using: scopePredicate)
+        if arr.count > 0
+        {
+            filteredAMPM=arr as! Array<Dictionary<String,String>>
+        } else {
+            filteredAMPM=[clear]
+        }
+        ampmTable.reloadData()
+        //self.ampmTable.deleteRows(at: [indexPath], with: .fade)
     }
 
 }
@@ -211,9 +234,16 @@ extension AMPMVC {
 // #MARK: - Save AMPM
     func updateAMPMObject(){
         let pid = returnSelectedPatientID()
+        var filterID = "0"
+        if myAmpms.isEmpty == false {
+            let dict = myAmpms.last
+            let lastFilerID = dict!["filterID"]!
+            filterID = String(Int(lastFilerID)! + 1)
+        }
         newAMPM =
         [
         "patientID":pid,
+        "filterID":filterID,
         "date":dateNow.text!,
         "attitude":attitudeTF.text!,
         "feces":fecesTF.text!,
@@ -230,6 +260,9 @@ extension AMPMVC {
             UserDefaults.standard.synchronize()
         }
         else {
+            let dict = myAmpms.last
+            let lastFilerID = dict!["filterID"]!
+            let newFilerID = Int(lastFilerID)! + 1
             myAmpms.append(newAMPM)
             UserDefaults.standard.set(myAmpms, forKey: "ampms")
             UserDefaults.standard.synchronize()

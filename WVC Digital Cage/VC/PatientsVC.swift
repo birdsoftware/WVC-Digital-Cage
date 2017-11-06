@@ -98,6 +98,10 @@ UINavigationControllerDelegate/*photoLib*/ {
                            selector: #selector(keyboardWillHide),
                            name: .UIKeyboardWillHide,
                            object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(hideUpdateRecordView),
+                                               name: NSNotification.Name(rawValue: "hideUpdateRecordView"),
+                                               object: nil)
     }
     //#MARK - Actions
     @IBAction func segmentControlAction(_ sender: Any) {
@@ -273,7 +277,7 @@ extension PatientsVC {
         uRVLeadingLC.constant = 0
         uRVTrailingLC.constant = 0
     }
-    func hideUpdateRecordView(){
+    @objc func hideUpdateRecordView(){
         URview.isHidden = true
     }
 }
