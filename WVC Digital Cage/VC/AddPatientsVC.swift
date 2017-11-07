@@ -217,7 +217,8 @@ extension AddPatientsVC{
                      "intakeDate":reviewDateLabel.text!,
                      "owner":reviewOwner.text!,
                      "group":reviewGroup.text!,
-                     "walkDate":""
+                     "walkDate":"",
+                     "photo":""
                     ]
             
             if patientRecords.isEmpty == false

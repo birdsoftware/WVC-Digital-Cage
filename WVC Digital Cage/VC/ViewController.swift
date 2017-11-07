@@ -141,14 +141,34 @@ extension ViewController{
         for record in records{
             if record["walkDate"] != "" {
                 if isDateMoreThan(hours: 12,
-                                  dateString: record["walkDate"]!) {
-                    addNewAlert(code: "2", patientID: record["patientID"]!)
-                    print("code 2 for patientID: \(record["patientID"]!)")
+                                  dateString: record["walkDate"]!)
+                { //check if patientID AND code == 2
+                    let pid = record["patientID"]!
+                    let pidPredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", pid)
+                    let codePredicate = NSPredicate(format: "SELF.code MATCHES[cd] %@", "2")
+                    let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [pidPredicate, codePredicate])
+                    let filtertedNotificationsWithPatientID=(myNotifications as NSArray).filtered(using: andPredicate)
+                    if filtertedNotificationsWithPatientID.count > 0{
+                        //we have patientID and code 2
+                    } else {
+                        addNewAlert(code: "2", patientID: pid)
+                        print("code 2 for patientID: \(pid)")
+                    }
                 }
             } else {
-                //patient walkMe is "not yet"
-                addNewAlert(code: "1", patientID: record["patientID"]!)
-                print("code 1 for patientID: \(record["patientID"]!)")
+                //patient walkMe is "not yet" because record["walkDate"] == ""
+                //check if patientID AND code == 2
+                let pid = record["patientID"]!
+                let pidPredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", pid)
+                let codePredicate = NSPredicate(format: "SELF.code MATCHES[cd] %@", "1")
+                let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [pidPredicate, codePredicate])
+                let filtertedNotificationsWithPatientID=(myNotifications as NSArray).filtered(using: andPredicate)
+                if filtertedNotificationsWithPatientID.count > 0{
+                    //we have patientID and code 1
+                } else {
+                    addNewAlert(code: "1", patientID: record["patientID"]!)
+                    print("code 1 for patientID: \(record["patientID"]!)")
+                }
             }
         }
         
@@ -162,31 +182,6 @@ extension ViewController{
     }
 
     func addNewAlert(code: String, patientID: String){
-        var isUnique = false
-        //isUnique same code, same patientID == not unique -> return
-        if myNotifications.isEmpty {
-            isUnique = true
-        } else { //NOT EMPTY
-            if arrayContains(array: myNotifications, value: patientID) {
-                //see if it also contains code
-                for notification in myNotifications {
-                    if (notification["patientID"] == patientID &&
-                        notification["code"] != code) {
-                        isUnique = true
-                        print("patientID \(patientID) match code \(code) not match")
-                        break
-                    } else {
-                        isUnique = false
-                        print("had patientID \(patientID) but code  \(code) matched - dont add")
-                    }
-                }
-            } else {print("no patientID \(patientID)")
-                isUnique = true
-            }
-        }
-        
-        if isUnique {
-            print("isUnique")
             myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
             var message = ""
             switch code {
@@ -230,5 +225,5 @@ extension ViewController{
             }
         }
     }
-}
+
 

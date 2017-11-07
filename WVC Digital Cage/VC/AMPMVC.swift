@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
 
     //label
     @IBOutlet weak var dateNow: UILabel!
@@ -20,6 +20,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var appetiteTF: UITextField!
     @IBOutlet weak var vdcsTF: UITextField!
     @IBOutlet weak var initialsTF: UITextField!
+    
     //table
     @IBOutlet weak var ampmTable: UITableView!
     //switch
@@ -62,6 +63,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ampmTable.delegate = self
         ampmTable.dataSource = self
         setupUI()
+        textFieldsDelegates()
         NotificationCenter.default.addObserver(self,
                                                selector:#selector(showAmpm),
                                                name: NSNotification.Name(rawValue: "showAmpm"),
@@ -80,6 +82,15 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         //filteredAMPM = myAmpms
         showAmpm()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            return true;
+        }
+        return false
     }
     //Button Action
     @IBAction func updateNowAction(_ sender: Any) {
@@ -118,9 +129,29 @@ extension AMPMVC {
 }
 extension AMPMVC {
     // #MARK: - Setup UI
+    func textFieldsDelegates(){
+        attitudeTF.delegate = self
+        attitudeTF.returnKeyType = UIReturnKeyType.next
+        attitudeTF.tag = 0
+        fecesTF.delegate = self
+        fecesTF.returnKeyType = UIReturnKeyType.next
+        fecesTF.tag = 1
+        urineTF.delegate = self
+        urineTF.returnKeyType = UIReturnKeyType.next
+        urineTF.tag = 2
+        appetiteTF.delegate = self
+        appetiteTF.returnKeyType = UIReturnKeyType.next
+        appetiteTF.tag = 3
+        vdcsTF.delegate = self
+        vdcsTF.returnKeyType = UIReturnKeyType.next
+        vdcsTF.tag = 4
+        initialsTF.delegate = self
+        initialsTF.returnKeyType = UIReturnKeyType.go
+        initialsTF.tag = 5
+    }
     func setupUI(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy  a"
+        formatter.dateFormat = "MM/dd/yy  a"
         let nowString = formatter.string(from: Date()) // "1/27/10, 1:00 PM"
         dateNow.text = nowString
         emojiLabel.text = returnEmojiFrom(dateString: nowString)
@@ -260,9 +291,9 @@ extension AMPMVC {
             UserDefaults.standard.synchronize()
         }
         else {
-            let dict = myAmpms.last
-            let lastFilerID = dict!["filterID"]!
-            let newFilerID = Int(lastFilerID)! + 1
+            //let dict = myAmpms.last
+            //let lastFilerID = dict!["filterID"]!
+            //let newFilerID = Int(lastFilerID)! + 1
             myAmpms.append(newAMPM)
             UserDefaults.standard.set(myAmpms, forKey: "ampms")
             UserDefaults.standard.synchronize()

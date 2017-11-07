@@ -61,7 +61,7 @@ UINavigationControllerDelegate/*photoLib*/ {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var screenShareButton: UIButton!
     
-    @IBOutlet weak var patientPicture: RoundedImageView!
+    @IBOutlet weak var patientPicture: UIImageView!
     
     //search bar
     @IBOutlet weak var patientSearchBar: UISearchBar!
@@ -119,7 +119,7 @@ UINavigationControllerDelegate/*photoLib*/ {
         removeNotification(code: "2", patientID: patientID) //TOCHECK:::
     }
     @IBAction func takePhotoAction(_ sender: Any) {
-        //patientPicture
+        //TAKR Patient Picture
         imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = .camera
@@ -306,6 +306,7 @@ extension PatientsVC {
         cell.kennelID.text = thisPatient["kennelID"]
         cell.status.text = thisPatient["Status"]
         cell.owner.text = thisPatient["owner"]
+        cell.dogPhoto.image = returnImage(imageName: thisPatient["patientID"]! + ".png")
         switch thisPatient["group"]! {
             case "Canine":
                 cell.imageBackgroundView.backgroundColor = UIColor.DarkRed()
@@ -338,6 +339,7 @@ extension PatientsVC {
         UserDefaults.standard.synchronize()
         print("patientID: \(patientID)")
         showVitals(pid:patientID)
+        getImage(imageName: patientID + ".png", imageView: patientPicture)
         //showPhysicalExam(pid:patientID)
         patientIDLabel.text = patientID
         let kennelID = selectedData["kennelID"]!
@@ -591,6 +593,7 @@ extension PatientsVC{
         drawImageLogo(imageName: "WVCLogog")
         drawPatientRecordText(patientData: patientData)
         let patientIDHere = patientData["patientID"]
+        drawPatientPicture(imageName: patientIDHere! + ".png")
         drawVitalsText(patientID:patientIDHere!)
         drawPhysicalExam(patientID:patientIDHere!)
         UIGraphicsEndPDFContext()
@@ -604,14 +607,20 @@ extension PatientsVC{
         context.fill(rect)
     }
     func drawImageLogo(imageName: String) {
-        let imageRect:CGRect = CGRect(x:200, y:30, width:400, height:100)
-        let image = UIImage(named: imageName)//"caseInformation.png")
+        let imageRect:CGRect = CGRect(x:350, y:30, width:200, height:63)
+        let image = UIImage(named: imageName)
         
         image?.draw(in: imageRect)
     }
+    func drawPatientPicture(imageName: String) {
+    let imageRect:CGRect = CGRect(x:20, y:120, width:170, height:170)
+    let image = returnImage(imageName: imageName)
+    
+    image.draw(in: imageRect)
+    }
     func drawPatientRecordText(patientData: Dictionary<String,String>){
         //set up columns for 850 by 1100 page
-        let logoHeight = 100
+        let logoHeight = 210
         let spacerFifty = 50
         let spacerTwenty = 20
         let xCol1 = 50
@@ -755,9 +764,29 @@ extension PatientsVC{
     //https://appsandbiscuits.com/take-save-and-retrieve-a-photo-ios-13-4312f96793ff
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imagePickerController.dismiss(animated: true, completion: nil)
-        patientPicture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        // RESIZE IMAGE
+           let smallerSizeImage = resizeImage(image: (info[UIImagePickerControllerOriginalImage] as? UIImage)!, newWidth: 200)
+        // UPDATE UI IMAGE
+           patientPicture.image = smallerSizeImage
+        // SAVE IMAGE TO APP LOCAL DIR
+           saveImage(imageName: patientID + ".png")
+           saveImageNameToPatientRecords(imageName: patientID + ".png")
+        self.patientTable.reloadData()
+    }
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     func saveImage(imageName: String){
+        print("Image \(imageName) saved")
         //create an instance of the FileManager
         let fileManager = FileManager.default
         //get the image path
@@ -766,7 +795,38 @@ extension PatientsVC{
         let image = patientPicture.image!
         //get the PNG data for this image
         let data = UIImagePNGRepresentation(image)
-        //store it in the document directory    fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+        //store it in the document directory
+        fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+    }
+    func saveImageNameToPatientRecords(imageName: String) {
+        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        if let index = dictIndexFrom(array: patientRecords, usingKey:"patientID", usingValue: patientID)
+        {
+            print("Saving photo: \(imageName) to index: \(index) for patientID: \(patientID)")
+            patientRecords[index]["photo"] = imageName
+            UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    func getImage(imageName: String, imageView: UIImageView){
+        let fileManager = FileManager.default
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        if fileManager.fileExists(atPath: imagePath){
+            imageView.image = UIImage(contentsOfFile: imagePath)
+        }else{
+            print("Panic! No Image!")
+            imageView.image = UIImage(named: "dog circle")
+        }
+    }
+    func returnImage(imageName: String) -> UIImage {
+        let fileManager = FileManager.default
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        if fileManager.fileExists(atPath: imagePath){
+            return UIImage(contentsOfFile: imagePath)!
+        }else{
+            print("Panic! No Image!")
+            return UIImage(named: "dog circle")!
+        }
     }
 }
 
