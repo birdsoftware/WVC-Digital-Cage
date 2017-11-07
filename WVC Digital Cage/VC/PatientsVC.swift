@@ -55,11 +55,13 @@ UINavigationControllerDelegate/*photoLib*/ {
     @IBOutlet weak var exitWeight: UITextField!
     @IBOutlet weak var initialsVitals: UITextField!
     
-    //buttons
+      //buttons
+    @IBOutlet weak var takePhotoButton: UIButton!
     @IBOutlet weak var kennelNumberButton: RoundedButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var screenShareButton: UIButton!
-    //SAVE Button is Action saveUPRAction
+    
+    @IBOutlet weak var patientPicture: RoundedImageView!
     
     //search bar
     @IBOutlet weak var patientSearchBar: UISearchBar!
@@ -76,6 +78,8 @@ UINavigationControllerDelegate/*photoLib*/ {
     var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
     
     var SearchData = Array<Dictionary<String,String>>()
+    
+    var imagePickerController : UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +117,13 @@ UINavigationControllerDelegate/*photoLib*/ {
         updateWalkTime()
         removeNotification(code: "1", patientID: patientID) //TOCHECK:::
         removeNotification(code: "2", patientID: patientID) //TOCHECK:::
+    }
+    @IBAction func takePhotoAction(_ sender: Any) {
+        //patientPicture
+        imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .camera
+        present(imagePickerController, animated: true, completion: nil)
     }
     @IBAction func scopeSegmentAction(_ sender: Any) {
         var scopePredicate:NSPredicate
@@ -723,8 +734,41 @@ extension PatientsVC{
         return textFontAttributes
     }
 }
-
-
+extension PatientsVC {
+    //
+    // #MARK: - Navigation
+    //
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueCustomNotification" {//
+            //let selectedRow = ((inboxTable.indexPathForSelectedRow as NSIndexPath?)?.row)! //returns int
+            //var Data = Dictionary<String,String>()//restInbox[selectedRow]
+            if let toViewController = segue.destination as? customNotifVC {
+                toViewController.segueWhereThisViewWasLanchedFrom = "patientsVC"//
+                toViewController.seguePatientID = patientID
+            }
+        }
+    }
+}
+extension PatientsVC{
+    // #MARK: - Image picker form camera
+    //camera delegate func called after take photo
+    //https://appsandbiscuits.com/take-save-and-retrieve-a-photo-ios-13-4312f96793ff
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePickerController.dismiss(animated: true, completion: nil)
+        patientPicture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    }
+    func saveImage(imageName: String){
+        //create an instance of the FileManager
+        let fileManager = FileManager.default
+        //get the image path
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        //get the image we took with camera
+        let image = patientPicture.image!
+        //get the PNG data for this image
+        let data = UIImagePNGRepresentation(image)
+        //store it in the document directory    fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+    }
+}
 
 
 

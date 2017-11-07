@@ -23,6 +23,7 @@ class NotificationsVC: UIViewController , UITableViewDelegate, UITableViewDataSo
     }
     override func viewWillAppear(_ animated: Bool) {
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+        notificationsTable.reloadData()
     }
     //NotificationsTableView: UITableViewCell {
     //identifier: notificationCell
@@ -46,13 +47,19 @@ extension NotificationsVC {
         cell.dateTime.text = this["dateLong"]
         cell.patientID.text = this["patientID"]
         cell.message.text = this["message"]
+        if this["type"] == "walk"{
+            cell.imageType.image = UIImage(named: "walk dog")
+        } else if this["type"] == "custom"{
+            cell.imageType.image = UIImage(named: "custom notification")
+        }
         
         return cell
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        //        if let cell = tableView.cellForRow(at: indexPath) {
-//        //            cell.accessoryType = .checkmark
-//        //        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "segueNotificationsToPatients", sender: self)
+        //        if let cell = tableView.cellForRow(at: indexPath) {
+        //            cell.accessoryType = .checkmark
+        //        }
 //        selectedData = SearchData[indexPath.row]
 //        hideHideView()
 //        //UPDATE UI VALUES
@@ -79,7 +86,7 @@ extension NotificationsVC {
 //        }
 //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
 //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
-//    }
+    }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
@@ -118,5 +125,20 @@ extension NotificationsVC {
         myAlert.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel) { _ in })
         
         present(myAlert, animated: true){}
+    }
+}
+extension NotificationsVC {
+    //
+    // MARK: - Navigation
+    //
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueAddNotification" {
+            //let selectedRow = ((inboxTable.indexPathForSelectedRow as NSIndexPath?)?.row)! //returns int
+            //var Data = Dictionary<String,String>()//restInbox[selectedRow]
+            if let toViewController = segue.destination as? customNotifVC {
+                toViewController.segueWhereThisViewWasLanchedFrom = "notificationsVC"
+                toViewController.seguePatientID = ""
+            }
+        }
     }
 }

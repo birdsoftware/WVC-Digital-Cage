@@ -207,7 +207,7 @@ extension ViewController{
             }
             // Date now
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            formatter.dateFormat = "MM/dd/yyyy hh:mm a"
             let nowString = formatter.string(from: Date())
             
             let newAlert:Dictionary<String,String> =

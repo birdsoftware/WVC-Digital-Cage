@@ -742,6 +742,9 @@
                                         <real key="value" value="0.20000000000000001"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="Z2K-QL-LfJ" kind="show" identifier="segueCustomNotification" animates="NO" id="KM1-hK-rzT"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="802303" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lnf-29-7oN">
                                 <rect key="frame" x="429" y="239" width="88" height="29"/>
@@ -774,6 +777,12 @@
                                     <constraint firstItem="9z7-K1-G94" firstAttribute="centerY" secondItem="3Fm-o9-llY" secondAttribute="centerY" id="mb0-qj-jAM"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gf6-7I-vEt">
+                                <rect key="frame" x="376" y="59" width="180" height="180"/>
+                                <connections>
+                                    <action selector="takePhotoAction:" destination="MAZ-cX-KUD" eventType="touchUpInside" id="B8Y-hQ-afI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -781,6 +790,7 @@
                             <constraint firstItem="zZP-tR-Gle" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="8" id="2Va-fz-lWY"/>
                             <constraint firstItem="ceQ-rU-fkc" firstAttribute="centerY" secondItem="DSy-LD-g8t" secondAttribute="centerY" id="2fK-Kk-rNJ"/>
                             <constraint firstItem="DSy-LD-g8t" firstAttribute="leading" secondItem="ceQ-rU-fkc" secondAttribute="trailing" constant="-76" id="4o4-NR-p9b"/>
+                            <constraint firstItem="gf6-7I-vEt" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="bottom" id="6cg-x0-qtp"/>
                             <constraint firstItem="mC1-GR-qEd" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="8" id="7Bs-4M-z6u"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="trailing" secondItem="TKj-vH-XLd" secondAttribute="trailing" constant="5" id="8IK-4A-Y86"/>
                             <constraint firstItem="6bR-4s-74J" firstAttribute="top" secondItem="XaN-UT-EBD" secondAttribute="bottom" id="98F-lv-2nJ"/>
@@ -818,7 +828,9 @@
                             <constraint firstItem="DSy-LD-g8t" firstAttribute="leading" secondItem="mC1-GR-qEd" secondAttribute="trailing" constant="10" id="cJp-V4-2kd"/>
                             <constraint firstItem="6bR-4s-74J" firstAttribute="top" secondItem="TKj-vH-XLd" secondAttribute="bottom" id="dMO-SG-IYA"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="trailing" secondItem="zZP-tR-Gle" secondAttribute="trailing" constant="5" id="dOR-za-heS"/>
+                            <constraint firstItem="Lnf-29-7oN" firstAttribute="top" secondItem="gf6-7I-vEt" secondAttribute="bottom" id="dXp-b5-s4M"/>
                             <constraint firstItem="6bR-4s-74J" firstAttribute="top" secondItem="u7b-ix-jrT" secondAttribute="bottom" id="eDa-Rv-QR3"/>
+                            <constraint firstItem="SyT-Ks-Bh6" firstAttribute="leading" secondItem="gf6-7I-vEt" secondAttribute="trailing" constant="8" id="gBN-NS-Hwj"/>
                             <constraint firstItem="Lnf-29-7oN" firstAttribute="leading" secondItem="V16-yd-EjQ" secondAttribute="trailing" id="gKO-vA-Wvh"/>
                             <constraint firstItem="z5u-Yz-ChT" firstAttribute="leading" secondItem="ceQ-rU-fkc" secondAttribute="trailing" priority="999" constant="66" id="gyL-4k-guI"/>
                             <constraint firstItem="ceQ-rU-fkc" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="bottom" constant="8" id="im6-5l-YFM"/>
@@ -826,6 +838,7 @@
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="trailing" secondItem="u7b-ix-jrT" secondAttribute="trailing" constant="5" id="ldC-Ew-dEu"/>
                             <constraint firstItem="3Fm-o9-llY" firstAttribute="trailing" secondItem="B4e-IZ-odx" secondAttribute="trailing" id="nTJ-kG-HWJ"/>
                             <constraint firstItem="ISA-Ks-PLW" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="bottom" constant="1" id="nlm-Yk-fjQ"/>
+                            <constraint firstItem="gf6-7I-vEt" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="10" id="o6r-LS-562"/>
                             <constraint firstItem="3Fm-o9-llY" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="bottom" constant="190" id="pqx-AQ-gGK"/>
                             <constraint firstItem="u7b-ix-jrT" firstAttribute="top" secondItem="V16-yd-EjQ" secondAttribute="bottom" constant="9" id="sPF-XQ-1AB"/>
                             <constraint firstItem="TKj-vH-XLd" firstAttribute="top" secondItem="V16-yd-EjQ" secondAttribute="bottom" constant="9" id="uah-bv-hqf"/>
@@ -852,6 +865,7 @@
                         <outlet property="initialsVitals" destination="Kkp-bK-9IJ" id="XcX-yI-XWN"/>
                         <outlet property="kennelNumberButton" destination="WCe-LM-KJB" id="ioh-t6-xww"/>
                         <outlet property="patientIDLabel" destination="Lnf-29-7oN" id="AVB-rk-TT8"/>
+                        <outlet property="patientPicture" destination="mC1-GR-qEd" id="Udp-Yz-3QC"/>
                         <outlet property="patientSearchBar" destination="u2H-SX-0Xq" id="9UK-re-oSU"/>
                         <outlet property="patientTable" destination="hvb-MT-b3r" id="6U9-KN-esu"/>
                         <outlet property="pdfLabel" destination="y8m-bg-qon" id="bbM-uZ-H3K"/>
@@ -861,6 +875,7 @@
                         <outlet property="screenShareButton" destination="NVH-qF-n9Z" id="TCN-Cw-0nm"/>
                         <outlet property="segmentControl" destination="6bR-4s-74J" id="cJ3-zO-qWd"/>
                         <outlet property="shareButton" destination="yCT-JI-1gi" id="xFe-21-xvV"/>
+                        <outlet property="takePhotoButton" destination="gf6-7I-vEt" id="ule-Iy-1vJ"/>
                         <outlet property="temperature" destination="mda-F0-qRS" id="mWk-4O-DbI"/>
                         <outlet property="uRVBottomLC" destination="12h-qQ-jjr" id="ruq-D8-pQp"/>
                         <outlet property="uRVLeadingLC" destination="1Q4-z4-q7i" id="muD-Cc-t6o"/>
@@ -1731,6 +1746,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UW8-qC-XXc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-144.43359375" y="794.921875"/>
+        </scene>
+        <!--customNotification-->
+        <scene sceneID="Z1s-SE-maY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Notifications" referencedIdentifier="customNotification" id="Z2K-QL-LfJ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="dSy-3N-IYH"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9IY-Xf-FjN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="561" y="-234"/>
         </scene>
         <!--addPatientsVC-->
         <scene sceneID="2Tx-Fi-PZ2">

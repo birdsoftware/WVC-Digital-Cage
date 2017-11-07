@@ -28,6 +28,8 @@
 		582836A81F914FED003F18FE /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836A71F914FED003F18FE /* HistoryVC.swift */; };
 		582836AB1F916092003F18FE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836AA1F916092003F18FE /* TableViewCell.swift */; };
 		5837803D1FAB850C00905B3C /* String Manip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5837803C1FAB850C00905B3C /* String Manip.swift */; };
+		583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */; };
+		583CCD2E1FB12C6000F03DF1 /* Injuries.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 583CCD2D1FB12C6000F03DF1 /* Injuries.storyboard */; };
 		584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */; };
 		584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E51FA0E21C009E56BE /* Dictionaries.swift */; };
 		5841C62850E3FA84D345A129 /* Pods_WVC_Digital_Cage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */; };
@@ -101,6 +103,8 @@
 		582836A71F914FED003F18FE /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
 		582836AA1F916092003F18FE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		5837803C1FAB850C00905B3C /* String Manip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Manip.swift"; sourceTree = "<group>"; };
+		583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customNotifVC.swift; sourceTree = "<group>"; };
+		583CCD2D1FB12C6000F03DF1 /* Injuries.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Injuries.storyboard; sourceTree = "<group>"; };
 		584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDemographicsVC.swift; sourceTree = "<group>"; };
 		584009E51FA0E21C009E56BE /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
 		58C9B3381FA27296006DE233 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				582836A01F914F7D003F18FE /* History.storyboard */,
 				58C9B3381FA27296006DE233 /* Settings.storyboard */,
 				58C9B3541FA7E6CB006DE233 /* Analytics.storyboard */,
+				583CCD2D1FB12C6000F03DF1 /* Injuries.storyboard */,
 				582836A91F91606E003F18FE /* TV Cell */,
 				582836A21F914FA8003F18FE /* VC */,
 				5828365A1F9143AC003F18FE /* Assets.xcassets */,
@@ -253,6 +258,7 @@
 				58D920901FACCE4D00713C72 /* AMPMVC.swift */,
 				58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */,
 				582836A51F914FDF003F18FE /* NotificationsVC.swift */,
+				583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 				58C9B33A1FA27339006DE233 /* SettingsVC.swift */,
 				58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */,
@@ -405,6 +411,7 @@
 				5828365E1F9143AC003F18FE /* LaunchScreen.storyboard in Resources */,
 				58C9B3551FA7E6CB006DE233 /* Analytics.storyboard in Resources */,
 				5828369F1F914F73003F18FE /* Notifications.storyboard in Resources */,
+				583CCD2E1FB12C6000F03DF1 /* Injuries.storyboard in Resources */,
 				5828365B1F9143AC003F18FE /* Assets.xcassets in Resources */,
 				58C9B3391FA27296006DE233 /* Settings.storyboard in Resources */,
 				5828369D1F914F5A003F18FE /* Patients.storyboard in Resources */,
@@ -491,6 +498,7 @@
 			files = (
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
+				583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */,
 				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,
 				58D920951FACD6C000713C72 /* IntExtension.swift in Sources */,
 				58C9B3411FA7896B006DE233 /* StringExtensions.swift in Sources */,
