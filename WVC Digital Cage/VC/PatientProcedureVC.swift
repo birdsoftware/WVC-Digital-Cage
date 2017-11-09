@@ -17,21 +17,19 @@ class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var sutureTF: UITextField!
     @IBOutlet weak var radiographTF: UITextField!
     @IBOutlet weak var labTF: UITextField!
-    
     //labels
     @IBOutlet weak var incisionDate: UILabel!
     @IBOutlet weak var surgeryDate: UILabel!
     @IBOutlet weak var incisionLastChecked: UILabel!
-    
     //button
     @IBOutlet weak var bloodWorkButton: UIButton!
+    //constraints
+    @IBOutlet weak var aMPMTopConstraint: NSLayoutConstraint!
     
     var toggleBloodWork = false
-    
     var incisions = Array<Dictionary<String,String>>()
     var filteredIncisions = Array<Dictionary<String,String>>()
     var procedures = Array<Dictionary<String,String>>()
-    
     var newProcedure:Dictionary<String,String> =
         [
             "patientID":"",
@@ -94,11 +92,34 @@ class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewData
                                                selector:#selector(showProcedure),
                                                name: NSNotification.Name(rawValue: "showProcedure"),
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                           selector: #selector(keyboardWillHideProcedure),
+                           name: .UIKeyboardWillHide,
+                           object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShowProcedure),
+                                               name: .UIKeyboardWillShow,
+                                               object: nil)
     }
     override func viewWillAppear(_ animated: Bool){
         incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
         procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
         showProcedure()
+    }
+}
+extension PatientProcedureVC {
+    // #MARK: - Keboard
+    @objc func keyboardWillShowProcedure(sender: NSNotification){
+        //AMPMTextFieldsViewTopLayoutConstraint.constant = -300
+        UIView.animate(withDuration: 0.2, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+    }
+    @objc func keyboardWillHideProcedure(sender: NSNotification){
+        aMPMTopConstraint.constant = 2
+        UIView.animate(withDuration: 0.2, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
 }
 extension PatientProcedureVC {
@@ -225,6 +246,13 @@ extension PatientProcedureVC {
         labTF.delegate = self
         labTF.returnKeyType = UIReturnKeyType.go
         labTF.tag = 2
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField.tag >= 0 && textField.tag <= 2{
+            aMPMTopConstraint.constant = -300
+        }
+        return true
     }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.tag >= 0 && textField.tag <= 2{

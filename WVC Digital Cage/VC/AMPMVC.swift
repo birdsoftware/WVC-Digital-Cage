@@ -20,13 +20,12 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @IBOutlet weak var appetiteTF: UITextField!
     @IBOutlet weak var vdcsTF: UITextField!
     @IBOutlet weak var initialsTF: UITextField!
-    
     //table
     @IBOutlet weak var ampmTable: UITableView!
     //switch
     @IBOutlet weak var ampmSwitch: UISwitch!
-    
-    @IBOutlet weak var AMPMTextFieldsViewBottomLayoutConstraint: NSLayoutConstraint!
+    //constraints
+    @IBOutlet weak var AMPMTextFieldsViewBottomLayoutConstraint: NSLayoutConstraint!//not used
     @IBOutlet weak var AMPMTextFieldsViewTopLayoutConstraint: NSLayoutConstraint!
     
     var myAmpms = Array<Dictionary<String,String>>()
@@ -80,25 +79,9 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     override func viewWillAppear(_ animated: Bool) {
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
-        //filteredAMPM = myAmpms
         showAmpm()
     }
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        if textField.tag >= 0 && textField.tag <= 6{
-            AMPMTextFieldsViewTopLayoutConstraint.constant = -300
-        }
-        return true
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
-            nextField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-            return true;
-        }
-        return false
-    }
+    
     //Button Actions
     @IBAction func updateNowAction(_ sender: Any) {
         saveAMPMObject()
@@ -160,6 +143,22 @@ extension AMPMVC {
         initialsTF.returnKeyType = UIReturnKeyType.go
         initialsTF.tag = 5
     }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField.tag >= 0 && textField.tag <= 6{
+            AMPMTextFieldsViewTopLayoutConstraint.constant = -300
+        }
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            return true;
+        }
+        return false
+    }
     func setupUI(){
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yy  a"
@@ -203,6 +202,7 @@ extension AMPMVC {
         } else {
             filteredAMPM=[clear]
         }
+        filteredAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
         ampmTable.reloadData()
         
         //clear Text Fields
@@ -217,7 +217,7 @@ extension AMPMVC {
     }
 }
 extension AMPMVC {
-    // #MARK: - Table View
+    // #MARK: - Table View //patientData.sort { $0["patientName"]! < $1["patientName"]! }//sort arry in place
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredAMPM.count
     }
@@ -269,6 +269,7 @@ extension AMPMVC {
         } else {
             filteredAMPM=[clear]
         }
+        filteredAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
         ampmTable.reloadData()
         //self.ampmTable.deleteRows(at: [indexPath], with: .fade)
     }
