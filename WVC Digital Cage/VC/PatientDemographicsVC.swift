@@ -142,7 +142,7 @@ extension PatientDemographicsVC {
                 ownerTF.text = patient["owner"]
                 kennelTF.text = patient["kennelID"]
                 intakeDateLabel.text = patient["intakeDate"]
-                //moveSwitchState(switchName: switchStatus, isTrue: patient["Status"]!)
+                //moveSwitchState(switchName: switchStatus, isTrue: patient["status"]!)
                 found = true
             }
         }

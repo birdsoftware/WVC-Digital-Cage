@@ -41,7 +41,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             "feces":"",
             "urine":"",
             "appetite%":"",
-            "V/D/C/S":"",
+            "v/D/C/S":"",
             "initials":""
         ]
     let clear:Dictionary<String,String> =
@@ -53,7 +53,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     "feces":"",
     "urine":"",
     "appetite%":"",
-    "V/D/C/S":"",
+    "v/D/C/S":"",
     "initials":""
     ]
     
@@ -230,7 +230,7 @@ extension AMPMVC {
             cell.feces.text = this["feces"]
             cell.urine.text = this["urine"]
             cell.appetite.text = this["appetite%"]
-            cell.VDCS.text = this["V/D/C/S"]
+            cell.VDCS.text = this["v/D/C/S"]
             cell.initials.text = this["initials"]
             cell.ampmEmoji.text = returnEmojiFrom(dateString: this["date"]!)
         
@@ -293,7 +293,7 @@ extension AMPMVC {
         "feces":fecesTF.text!,
         "urine":urineTF.text!,
         "appetite%":appetiteTF.text!,
-        "V/D/C/S":vdcsTF.text!,
+        "v/D/C/S":vdcsTF.text!,
         "initials":initialsTF.text!
         ]
     }

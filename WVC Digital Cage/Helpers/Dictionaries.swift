@@ -45,4 +45,18 @@ extension UIViewController {
         }
         return false
     }
+    
+    //change all keys in DICT ARRRAY
+    /*
+    var dict = Dictionary<String,String>()
+    for index in 0..<patientRecords.count {
+     dict = patientRecords[index]
+     switchKey(&dict, fromKey: "Status", toKey: "status")
+     patientRecords[index] = dict
+    }
+    UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
+    UserDefaults.standard.synchronize()
+    patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+ */
+    
 }

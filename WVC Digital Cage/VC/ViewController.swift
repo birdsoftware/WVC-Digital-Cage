@@ -9,7 +9,7 @@
 /*
  "patientID":reviewPatientID.text!,
  "kennelID":reviewKennel.text!,
- "Status":"Active",
+ "status":"Active",
  "intakeDate":reviewDateLabel.text!,
  "owner":reviewOwner.text!,
  "group":reviewGroup.text!,
@@ -81,11 +81,17 @@ class ViewController: UIViewController {
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
         //clear(arrayDicName: "procedures")
         //clear(arrayDicName: "demographics")
+        
+        
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
-
+    func switchKey<T, U>(_ myDict: inout [T:U], fromKey: T, toKey: T) {
+        if let entry = myDict.removeValue(forKey: fromKey) {
+            myDict[toKey] = entry
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
