@@ -11,7 +11,7 @@ import Foundation
 import MessageUI //send email
 
 class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate, UIImagePickerControllerDelegate /*photoLib*/,
-UINavigationControllerDelegate/*photoLib*/ {
+UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
 
     //table view
     @IBOutlet weak var patientTable: UITableView!
@@ -33,20 +33,13 @@ UINavigationControllerDelegate/*photoLib*/ {
     @IBOutlet weak var hideBottomLC: NSLayoutConstraint!
     @IBOutlet weak var hideTopLC: NSLayoutConstraint!
     
-    //update record view URView
-    @IBOutlet weak var URview: UIView!
-    @IBOutlet weak var uRVTrailingLC: NSLayoutConstraint!
-    @IBOutlet weak var uRVLeadingLC: NSLayoutConstraint!
-    @IBOutlet weak var uRVBottomLC: NSLayoutConstraint!
-    @IBOutlet weak var uRVTopLC: NSLayoutConstraint!
-    
     //labels
     @IBOutlet weak var walkMeLabel: UILabel!
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var patientIDLabel: UILabel!
     @IBOutlet weak var pdfLabel: UILabel!
     
-    //vitals
+    //test fields
     @IBOutlet weak var temperature: UITextField!
     @IBOutlet weak var pulse: UITextField!
     @IBOutlet weak var cRT_MM: UITextField!
@@ -83,15 +76,8 @@ UINavigationControllerDelegate/*photoLib*/ {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tapDismissKeyboard()
+        textFieldsDelegates()
         setUpUI()
-        //Delegates
-        patientTable.delegate = self
-        patientTable.dataSource = self
-        //search delegate
-        patientSearchBar.delegate = self
-        SearchData=patientRecords
-
         //keyboard notification for update patient record
         let center = NotificationCenter.default
         center.addObserver(self,
@@ -103,8 +89,8 @@ UINavigationControllerDelegate/*photoLib*/ {
                            name: .UIKeyboardWillHide,
                            object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector:#selector(hideUpdateRecordView),
-                                               name: NSNotification.Name(rawValue: "hideUpdateRecordView"),
+                                               selector: #selector(refreshPatientsTable),
+                                               name: NSNotification.Name(rawValue: "refreshPatientsTable"),
                                                object: nil)
     }
     //#MARK - Actions
@@ -144,14 +130,6 @@ UINavigationControllerDelegate/*photoLib*/ {
         default:
             break;
         }
-    }
-    @IBAction func saveUPRAction(_ sender: Any) {
-        saveVitals()
-        saveDemographics()
-        hideUpdateRecordView()
-    }
-    @IBAction func closeUPRAction(_ sender: Any) {
-        hideUpdateRecordView()
     }
     @IBAction func shareScreenAction(_ sender: Any) {
         shareActive = true
@@ -237,10 +215,18 @@ extension PatientsVC {
     @objc func dismissKeyboard(){ view.endEditing(true) }
     // #MARK: - When Keyboard hides DO: Move text view up
     @objc func keyboardWillShow(sender: NSNotification){
-        if searchActive == false && emailActive == false && shareActive == false{ showUpdateRecordView() }
+        if searchActive == false && emailActive == false && shareActive == false{
+            //showUpdateRecordView()
+            
+        }
     }// #MARK: - When Keyboard shws DO: Move text view down
     @objc func keyboardWillHide(sender: NSNotification){
-
+        
+    }
+    @objc func refreshPatientsTable(){
+        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        SearchData = patientRecords
+        patientTable.reloadData()
     }
     // #MARK: - UI Set Up
     func setUpUI(){
@@ -253,7 +239,12 @@ extension PatientsVC {
         screenShareButton.isHidden = true
         viewTitle.text = "My Active Patients (\(patientRecords.count))"
         showHideView()
-        hideUpdateRecordView()
+        //Delegates
+        patientTable.delegate = self
+        patientTable.dataSource = self
+        //search delegate
+        patientSearchBar.delegate = self
+        SearchData=patientRecords
     }
     func updateWalkTime(){
         //let patientID = "804348"
@@ -280,16 +271,6 @@ extension PatientsVC {
     }
     func hideHideView(){
         hideView.isHidden = true
-    }
-    func showUpdateRecordView(){
-        URview.isHidden = false
-        uRVTopLC.constant = 0
-        uRVBottomLC.constant = 0
-        uRVLeadingLC.constant = 0
-        uRVTrailingLC.constant = 0
-    }
-    @objc func hideUpdateRecordView(){
-        URview.isHidden = true
     }
 }
 extension PatientsVC {
@@ -356,6 +337,7 @@ extension PatientsVC {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showProcedure"), object: nil)
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
@@ -383,8 +365,15 @@ extension PatientsVC {
     }
     func deleteButtonTapped(indexPath: IndexPath){
         let removeForThisPID = self.patientRecords[indexPath.row]["patientID"]
+        
         self.removeVitalsFor(patientID:removeForThisPID!)
         self.removePhysicalExamFor(patientID:removeForThisPID!)
+        self.removeDemographicsFor(patientID:removeForThisPID!)
+        self.removeProcedure(patientID:removeForThisPID!)
+        self.removeIncisions(patientID:removeForThisPID!)
+        self.removeAMPM(patientID:removeForThisPID!)
+        self.removeAllNotificationFor(patientID:removeForThisPID!)
+        
         self.patientRecords.remove(at: indexPath.row)
         UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
         UserDefaults.standard.synchronize()
@@ -450,10 +439,6 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
-    // #MARK: - Save Demographics
-    func saveDemographics(){
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "saveDemographics"), object: nil)
-    }
     // #MARK: - Save Vitals, Show Vitals, Remove Vitals
     func saveVitals(){
         var patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
@@ -486,6 +471,7 @@ extension PatientsVC {
                     UserDefaults.standard.set(patientVitals, forKey: "patientVitals")
                     UserDefaults.standard.synchronize()
                     found = true
+                    return
                 }
             }
             if found == false {//APPEND NEW
@@ -540,6 +526,70 @@ extension PatientsVC {
             UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
             UserDefaults.standard.synchronize()
         }
+    }
+    func removeDemographicsFor(patientID:String){
+        var demographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+        if let index = dictIndexFrom(array: demographics, usingKey: "patientID", usingValue: patientID) {
+            demographics.remove(at: index)
+            print("removed demographics \(demographics.count)")
+            UserDefaults.standard.set(demographics, forKey: "demographics")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    func removeProcedure(patientID:String){
+        var procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
+        if let index = dictIndexFrom(array: procedures, usingKey: "patientID", usingValue: patientID) {
+            procedures.remove(at: index)
+            print("removed procedures \(procedures.count)")
+            UserDefaults.standard.set(procedures, forKey: "procedures")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    //REMOVE 1 OR MORE MATCHES
+    func removeAMPM(patientID:String){
+        let ampms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+        var ampmRecordsWithPatientID = Array<Dictionary<String,String>>()
+        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)
+        let arr=(ampms as NSArray).filtered(using: scopePredicate)
+        if arr.count > 0
+        {
+            ampmRecordsWithPatientID=arr as! Array<Dictionary<String,String>>
+        } else {
+            ampmRecordsWithPatientID=ampms
+        }
+        print("removed ampms \(ampmRecordsWithPatientID.count)")
+        UserDefaults.standard.set(ampmRecordsWithPatientID, forKey: "ampms")
+        UserDefaults.standard.synchronize()
+    }
+    func removeIncisions(patientID:String){
+        let incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+        var incisionsWithPatientID = Array<Dictionary<String,String>>()
+        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)
+        let arr=(incisions as NSArray).filtered(using: scopePredicate)
+        if arr.count > 0
+        {
+            incisionsWithPatientID=arr as! Array<Dictionary<String,String>>
+        } else {
+            incisionsWithPatientID=incisions
+        }
+        print("removed incisions \(incisionsWithPatientID.count)")
+        UserDefaults.standard.set(incisionsWithPatientID, forKey: "incisions")
+        UserDefaults.standard.synchronize()
+    }
+    func removeAllNotificationFor(patientID: String) {
+        let notifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+        var notificationsWithPatientID = Array<Dictionary<String,String>>()
+        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)//"SELF.patientID MATCHES[cd] %@"
+        let arr=(notifications as NSArray).filtered(using: scopePredicate)
+        if arr.count > 0
+        {
+            notificationsWithPatientID=arr as! Array<Dictionary<String,String>>
+        } else {
+            notificationsWithPatientID=notifications
+        }
+        print("removed notifications \(notificationsWithPatientID.count)")
+        UserDefaults.standard.set(notificationsWithPatientID, forKey: "notifications")
+        UserDefaults.standard.synchronize()
     }
 }
 extension PatientsVC{
@@ -600,6 +650,7 @@ extension PatientsVC{
         
         return pdfPathWithFile
     }
+    // PDF GEN ```````````````````````````````````````````````````` PDF
     func drawBackground () {
         let context:CGContext = UIGraphicsGetCurrentContext()!
         let rect:CGRect = CGRect(x:0, y:0, width:850, height:1100)
@@ -613,18 +664,18 @@ extension PatientsVC{
         image?.draw(in: imageRect)
     }
     func drawPatientPicture(imageName: String) {
-    let imageRect:CGRect = CGRect(x:20, y:120, width:170, height:170)
+    let imageRect:CGRect = CGRect(x:40, y:120, width:170, height:170)
     let image = returnImage(imageName: imageName)
     
     image.draw(in: imageRect)
     }
     func drawPatientRecordText(patientData: Dictionary<String,String>){
         //set up columns for 850 by 1100 page
-        let logoHeight = 210
+        let logoHeight = 60
         let spacerFifty = 50
         let spacerTwenty = 20
-        let xCol1 = 50
-        //let xCol2 = 300
+        //let xCol1 = 50
+        let xCol2 = 250
         //let xCol3 = 550
         let textRecWidth = 200
         
@@ -638,9 +689,9 @@ extension PatientsVC{
             let word = item.camelCaseToWords()
             let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
-            title = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
+            title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
             newTotalY += spacerTwenty
-            value = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:60)
+            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:60)
             uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             patientData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
@@ -654,11 +705,11 @@ extension PatientsVC{
             }
         }
         //set up columns for 850 by 1100 page
-        let logoHeight = 100
+        let logoHeight = 210
         let spacerFifty = 50
         let spacerTwenty = 20
-        //let xCol1 = 50
-        let xCol2 = 300
+        let xCol1 = 50
+        //let xCol2 = 300
         let textRecWidth = 200
         
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
@@ -671,9 +722,9 @@ extension PatientsVC{
             let word = item.camelCaseToWords()
             let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
-            title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
+            title = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
             newTotalY += spacerTwenty
-            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:60)
+            value = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:60)
             uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             vitalData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
@@ -697,12 +748,16 @@ extension PatientsVC{
             }
         }
         //set up columns for 850 by 1100 page
-        let logoHeight = 100
+        let logoHeight = 60
         let spacerFifty = 50
         let spacerTwenty = 20
         let xCol3 = 500
         let textRecWidth = 300
         var valueHeight = 60
+        
+        let titleTop = CGRect(x: xCol3, y:120, width:textRecWidth, height:40)
+        let titleTopString = "Physical Examination"
+        titleTopString.draw(in: titleTop, withAttributes: returnTitle1Attributes())
         
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
         
@@ -723,6 +778,15 @@ extension PatientsVC{
             uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             physcialExamData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
+    }
+    func returnTitle1Attributes() -> [NSAttributedStringKey: NSObject]{
+        let fontTitle = UIFont(name: "Helvetica Bold", size: 18.0)!
+        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.left
+        let textFontAttributes = [
+            NSAttributedStringKey.font: fontTitle,
+            NSAttributedStringKey.paragraphStyle: textStyle ]
+        return textFontAttributes
     }
     func returnTitleAttributes() -> [NSAttributedStringKey: NSObject]{
         let fontTitle = UIFont(name: "Helvetica Bold", size: 16.0)!
@@ -829,7 +893,46 @@ extension PatientsVC{
         }
     }
 }
-
-
+extension PatientsVC {
+    // #MARK: - Setup Text Field Delegates
+    func textFieldsDelegates(){
+        temperature.delegate = self
+        temperature.returnKeyType = UIReturnKeyType.next
+        temperature.tag = 0
+        pulse.delegate = self
+        pulse.returnKeyType = UIReturnKeyType.next
+        pulse.tag = 1
+        cRT_MM.delegate = self
+        cRT_MM.returnKeyType = UIReturnKeyType.next
+        cRT_MM.tag = 2
+        respiration.delegate = self
+        respiration.returnKeyType = UIReturnKeyType.next
+        respiration.tag = 3
+        weight.delegate = self
+        weight.returnKeyType = UIReturnKeyType.next
+        weight.tag = 4
+        exitWeight.delegate = self
+        exitWeight.returnKeyType = UIReturnKeyType.next
+        exitWeight.tag = 5
+        initialsVitals.delegate = self
+        initialsVitals.returnKeyType = UIReturnKeyType.go
+        initialsVitals.tag = 6
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.tag >= 0 && textField.tag <= 6{
+            saveVitals()
+        }
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            return true;
+        }
+        return false
+    }
+}
 
 

@@ -16,12 +16,32 @@ class AnalyticsVC: UIViewController {
     @IBOutlet weak var barChart: BarChartView!
     @IBOutlet weak var bodyCondtionScore: PieChartView!
     
+    //summary labels
+    @IBOutlet weak var patientRecordsL: UILabel!
+    @IBOutlet weak var vitalsL: UILabel!
+    @IBOutlet weak var physicalExamsL: UILabel!
+    @IBOutlet weak var demographicsL: UILabel!
+    @IBOutlet weak var proceduresL: UILabel!
+    @IBOutlet weak var incisionsL: UILabel!
+    @IBOutlet weak var ampmL: UILabel!
+    @IBOutlet weak var notificationsL: UILabel!
+    
+    var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+    let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+    var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+    var myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+    var myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+    var incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+    var procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Data:
-        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-        let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-        let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+        //let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+        //let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures)
         //pie chart:
         pieChartUpdate(patientRecords: Double(patientRecords.count), vitals: Double(patientVitals.count), pysExams: Double(patientPhysicalExam.count))
         //bar chart:
@@ -56,7 +76,26 @@ class AnalyticsVC: UIViewController {
         bodyConditionScoreUpdate(s1: Double(bodyConditionScore[0]), s2: Double(bodyConditionScore[1]), s3: Double(bodyConditionScore[2]), s4: Double(bodyConditionScore[3]), s5: Double(bodyConditionScore[4]))
     }
 }
-
+extension AnalyticsVC{
+    //Update UI
+    func printDictionaries(records: Array<Dictionary<String,String>>,
+                           vitals: Array<Dictionary<String,String>>,
+                           pe: Array<Dictionary<String,String>>,
+                           notifications: Array<Dictionary<String,String>>,
+                           myDemographics: Array<Dictionary<String,String>>,
+                           myAmpms: Array<Dictionary<String,String>>,
+                           incisions: Array<Dictionary<String,String>>,
+                           procedures: Array<Dictionary<String,String>>){
+        patientRecordsL.text = String(records.count)
+        vitalsL.text = String(vitals.count)
+        physicalExamsL.text = String(pe.count)
+        notificationsL.text = String(notifications.count)
+        demographicsL.text = String(myDemographics.count)
+        ampmL.text = String(myAmpms.count)
+        incisionsL.text = String(incisions.count)
+        proceduresL.text = String(procedures.count)
+    }
+}
 extension AnalyticsVC{
     //pie charts
     func pieChartUpdate(patientRecords: Double, vitals: Double, pysExams: Double){

@@ -28,7 +28,7 @@
             <objects>
                 <viewController storyboardIdentifier="analyticsDB" id="BH3-jM-ubs" customClass="AnalyticsVC" customModule="WVC_Digital_Cage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mUF-Di-U7n" userLabel="Viewa">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ag2-nz-IzB" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
@@ -70,32 +70,32 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WCI-AK-pZk">
-                                <rect key="frame" x="0.0" y="59" width="1024" height="1141"/>
+                                <rect key="frame" x="0.0" y="59" width="1024" height="1341"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nN9-xy-YTq" userLabel="Viewb">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1340"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3b-2I-W20">
-                                                <rect key="frame" x="511" y="0.0" width="1" height="1200"/>
+                                                <rect key="frame" x="511" y="200" width="1" height="1140"/>
                                                 <color key="backgroundColor" red="0.82345682379999996" green="0.82357603310000005" blue="0.82343071700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="1" id="XXb-bZ-WoJ"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient Records by Record Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jrb-FD-uuR">
-                                                <rect key="frame" x="88" y="5" width="335" height="29"/>
+                                                <rect key="frame" x="88" y="200" width="335" height="29"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body Condition Score Totals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djg-Rp-MJi">
-                                                <rect key="frame" x="109.5" y="574" width="291.5" height="29"/>
+                                                <rect key="frame" x="109.5" y="769" width="291.5" height="29"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqo-Cg-4dn" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="7" y="38" width="496" height="496"/>
+                                                <rect key="frame" x="7" y="233" width="496" height="496"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="496" id="LbH-ZA-rKx"/>
@@ -103,31 +103,199 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrd-4H-CgU" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="520" y="38" width="496" height="496"/>
+                                                <rect key="frame" x="520" y="233" width="496" height="496"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="496" id="Dvu-M6-wxR"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient by Species" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3B-Hz-IKG">
-                                                <rect key="frame" x="672" y="5" width="193" height="29"/>
+                                                <rect key="frame" x="672" y="200" width="193" height="29"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        Canine            Feline            Other           " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5u-EK-Ohb">
-                                                <rect key="frame" x="517" y="514" width="502" height="29"/>
+                                                <rect key="frame" x="517" y="709" width="502" height="29"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fR6-iM-L41" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="7" y="607" width="496" height="496"/>
+                                                <rect key="frame" x="7" y="802" width="496" height="496"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.98039215690000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="496" id="7Wr-7I-lZ0"/>
                                                     <constraint firstAttribute="height" constant="496" id="oaJ-Fj-OeH"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1eZ-gr-0gk">
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="192"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary Statistics:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIh-Tr-Ejk">
+                                                        <rect key="frame" x="8" y="8" width="222" height="29"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="23"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Patient Records:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-eg-6M9">
+                                                        <rect key="frame" x="8" y="45" width="217" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yY8-As-qgo">
+                                                        <rect key="frame" x="295" y="150" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="TMM-8o-zEt"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANA-ij-jDc">
+                                                        <rect key="frame" x="295" y="115" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="wcz-ka-dhl"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5Y-4t-988">
+                                                        <rect key="frame" x="295" y="80" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="kfM-DU-A9J"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huu-jN-19W">
+                                                        <rect key="frame" x="295" y="45" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="BqP-Mv-LjA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Vital Records:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rht-MV-QbI">
+                                                        <rect key="frame" x="8" y="80" width="191" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Physical Exams:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4i-9s-UNT">
+                                                        <rect key="frame" x="8" y="115" width="215.5" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Demographic Records:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJt-WX-nAY">
+                                                        <rect key="frame" x="8" y="150" width="279.5" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Procedures:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dp9-YV-vXt">
+                                                        <rect key="frame" x="515" y="45" width="172" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Incision Checks:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7P-DS-0ld">
+                                                        <rect key="frame" x="515" y="80" width="214.5" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total AM/PM Records:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en1-tq-OaU">
+                                                        <rect key="frame" x="515" y="115" width="220.5" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Notifications:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAD-ng-fOW">
+                                                        <rect key="frame" x="515" y="150" width="179.5" height="27"/>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJ7-sA-Wob">
+                                                        <rect key="frame" x="763" y="150" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="9pg-xg-vh0"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0I-19-Eoe">
+                                                        <rect key="frame" x="763" y="115" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="CqB-7Q-UeA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0M-S3-1Ls">
+                                                        <rect key="frame" x="763" y="80" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="DJa-RM-ZgA"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vu-Yb-n9v">
+                                                        <rect key="frame" x="763" y="45" width="100" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="3lp-cw-H0B"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.94573825600000005" green="0.95299977059999996" blue="0.95291596649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="huu-jN-19W" firstAttribute="centerY" secondItem="c6p-eg-6M9" secondAttribute="centerY" id="0FI-LN-idR"/>
+                                                    <constraint firstItem="yY8-As-qgo" firstAttribute="centerY" secondItem="qJt-WX-nAY" secondAttribute="centerY" id="1Mn-nf-bbL"/>
+                                                    <constraint firstItem="ANA-ij-jDc" firstAttribute="leading" secondItem="d4i-9s-UNT" secondAttribute="trailing" constant="71.5" id="1g2-mQ-wAq"/>
+                                                    <constraint firstItem="d4i-9s-UNT" firstAttribute="top" secondItem="Rht-MV-QbI" secondAttribute="bottom" constant="8" id="3ib-t2-8ka"/>
+                                                    <constraint firstItem="U5Y-4t-988" firstAttribute="leading" secondItem="Rht-MV-QbI" secondAttribute="trailing" constant="96" id="3nT-pQ-Asi"/>
+                                                    <constraint firstItem="MAD-ng-fOW" firstAttribute="top" secondItem="en1-tq-OaU" secondAttribute="bottom" constant="8" id="4DG-Cq-Cha"/>
+                                                    <constraint firstItem="en1-tq-OaU" firstAttribute="top" secondItem="F7P-DS-0ld" secondAttribute="bottom" constant="8" id="56h-6W-zwv"/>
+                                                    <constraint firstItem="Rht-MV-QbI" firstAttribute="leading" secondItem="1eZ-gr-0gk" secondAttribute="leading" constant="8" id="5iI-40-FkY"/>
+                                                    <constraint firstItem="rJ7-sA-Wob" firstAttribute="top" secondItem="L0I-19-Eoe" secondAttribute="bottom" constant="8" id="7n6-f8-4PN"/>
+                                                    <constraint firstItem="qJt-WX-nAY" firstAttribute="top" secondItem="d4i-9s-UNT" secondAttribute="bottom" constant="8" id="Ecv-fI-ZKb"/>
+                                                    <constraint firstItem="rIh-Tr-Ejk" firstAttribute="top" secondItem="1eZ-gr-0gk" secondAttribute="top" constant="8" id="Ekl-te-ne3"/>
+                                                    <constraint firstAttribute="bottom" secondItem="MAD-ng-fOW" secondAttribute="bottom" constant="15" id="HC1-xP-1zP"/>
+                                                    <constraint firstItem="Rht-MV-QbI" firstAttribute="top" secondItem="c6p-eg-6M9" secondAttribute="bottom" constant="8" id="ISC-im-aaB"/>
+                                                    <constraint firstItem="F7P-DS-0ld" firstAttribute="leading" secondItem="en1-tq-OaU" secondAttribute="leading" id="Lko-43-bK0"/>
+                                                    <constraint firstItem="2vu-Yb-n9v" firstAttribute="leading" secondItem="U0M-S3-1Ls" secondAttribute="leading" id="O8C-v7-yGN"/>
+                                                    <constraint firstItem="rJ7-sA-Wob" firstAttribute="leading" secondItem="MAD-ng-fOW" secondAttribute="trailing" constant="68.5" id="PJ1-SD-eAN"/>
+                                                    <constraint firstItem="yY8-As-qgo" firstAttribute="leading" secondItem="qJt-WX-nAY" secondAttribute="trailing" constant="8" id="Q1T-fE-nMd"/>
+                                                    <constraint firstItem="L0I-19-Eoe" firstAttribute="top" secondItem="U0M-S3-1Ls" secondAttribute="bottom" constant="8" id="QmH-mp-LnW"/>
+                                                    <constraint firstItem="d4i-9s-UNT" firstAttribute="leading" secondItem="1eZ-gr-0gk" secondAttribute="leading" constant="8" id="SdY-1S-6uA"/>
+                                                    <constraint firstItem="U0M-S3-1Ls" firstAttribute="top" secondItem="2vu-Yb-n9v" secondAttribute="bottom" constant="8" id="VdH-JI-TP9"/>
+                                                    <constraint firstItem="F7P-DS-0ld" firstAttribute="top" secondItem="Dp9-YV-vXt" secondAttribute="bottom" constant="8" id="Wek-LZ-pGL"/>
+                                                    <constraint firstItem="U0M-S3-1Ls" firstAttribute="leading" secondItem="L0I-19-Eoe" secondAttribute="leading" id="Z47-Za-cVQ"/>
+                                                    <constraint firstItem="qJt-WX-nAY" firstAttribute="leading" secondItem="1eZ-gr-0gk" secondAttribute="leading" constant="8" id="c3D-KC-FkG"/>
+                                                    <constraint firstItem="c6p-eg-6M9" firstAttribute="leading" secondItem="1eZ-gr-0gk" secondAttribute="leading" constant="8" id="cCg-Ii-DdL"/>
+                                                    <constraint firstItem="en1-tq-OaU" firstAttribute="leading" secondItem="MAD-ng-fOW" secondAttribute="leading" id="fWt-D6-oPe"/>
+                                                    <constraint firstItem="c6p-eg-6M9" firstAttribute="top" secondItem="rIh-Tr-Ejk" secondAttribute="bottom" constant="8" id="ffa-5Q-yH4"/>
+                                                    <constraint firstItem="Dp9-YV-vXt" firstAttribute="leading" secondItem="F7P-DS-0ld" secondAttribute="leading" id="hvc-QO-pmW"/>
+                                                    <constraint firstItem="rJ7-sA-Wob" firstAttribute="centerY" secondItem="MAD-ng-fOW" secondAttribute="centerY" id="niH-uP-BYy"/>
+                                                    <constraint firstItem="MAD-ng-fOW" firstAttribute="leading" secondItem="yY8-As-qgo" secondAttribute="trailing" constant="120" id="oO3-uy-CK5"/>
+                                                    <constraint firstItem="huu-jN-19W" firstAttribute="leading" secondItem="c6p-eg-6M9" secondAttribute="trailing" constant="70" id="p3o-YZ-7td"/>
+                                                    <constraint firstItem="U5Y-4t-988" firstAttribute="centerY" secondItem="Rht-MV-QbI" secondAttribute="centerY" id="tdP-8g-QjO"/>
+                                                    <constraint firstItem="ANA-ij-jDc" firstAttribute="centerY" secondItem="d4i-9s-UNT" secondAttribute="centerY" id="txq-iS-xxF"/>
+                                                    <constraint firstItem="rIh-Tr-Ejk" firstAttribute="leading" secondItem="1eZ-gr-0gk" secondAttribute="leading" constant="8" id="wj5-aP-fpf"/>
+                                                    <constraint firstItem="L0I-19-Eoe" firstAttribute="leading" secondItem="rJ7-sA-Wob" secondAttribute="leading" id="yeJ-Qe-LdL"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -139,16 +307,20 @@
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="centerX" secondItem="nN9-xy-YTq" secondAttribute="centerX" id="EtP-EF-4jf"/>
                                             <constraint firstItem="djg-Rp-MJi" firstAttribute="top" secondItem="bqo-Cg-4dn" secondAttribute="bottom" constant="40" id="I0L-oU-c5a"/>
                                             <constraint firstItem="Jrb-FD-uuR" firstAttribute="centerX" secondItem="bqo-Cg-4dn" secondAttribute="centerX" id="Nh6-aX-S0N"/>
-                                            <constraint firstItem="N3b-2I-W20" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" id="S6g-0U-uAb"/>
-                                            <constraint firstItem="J3B-Hz-IKG" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="5" id="UOB-D5-Q7F"/>
+                                            <constraint firstItem="N3b-2I-W20" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="200" id="S6g-0U-uAb"/>
+                                            <constraint firstAttribute="trailing" secondItem="1eZ-gr-0gk" secondAttribute="trailing" id="TOy-bB-HnN"/>
+                                            <constraint firstItem="J3B-Hz-IKG" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="200" id="UOB-D5-Q7F"/>
                                             <constraint firstItem="bqo-Cg-4dn" firstAttribute="top" secondItem="Jrb-FD-uuR" secondAttribute="bottom" constant="4" id="WJX-9s-Rml"/>
                                             <constraint firstItem="zrd-4H-CgU" firstAttribute="top" secondItem="J3B-Hz-IKG" secondAttribute="bottom" constant="4" id="Yeb-0O-eV0"/>
                                             <constraint firstItem="fR6-iM-L41" firstAttribute="leading" secondItem="nN9-xy-YTq" secondAttribute="leading" constant="7" id="ZW2-20-8Bg"/>
+                                            <constraint firstItem="Jrb-FD-uuR" firstAttribute="top" secondItem="1eZ-gr-0gk" secondAttribute="bottom" constant="8" id="bEI-ua-EFQ"/>
                                             <constraint firstItem="djg-Rp-MJi" firstAttribute="centerX" secondItem="bqo-Cg-4dn" secondAttribute="centerX" id="bG2-hb-ZAT"/>
-                                            <constraint firstAttribute="height" constant="1200" id="bM3-6v-bYn"/>
-                                            <constraint firstItem="Jrb-FD-uuR" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="5" id="bTc-X3-kJ0"/>
+                                            <constraint firstAttribute="height" constant="1340" id="bM3-6v-bYn"/>
+                                            <constraint firstItem="Jrb-FD-uuR" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" constant="200" id="bTc-X3-kJ0"/>
                                             <constraint firstItem="N3b-2I-W20" firstAttribute="leading" secondItem="bqo-Cg-4dn" secondAttribute="trailing" constant="8" id="bYs-S8-pSh"/>
                                             <constraint firstAttribute="bottom" secondItem="N3b-2I-W20" secondAttribute="bottom" id="byt-zW-g1s"/>
+                                            <constraint firstItem="1eZ-gr-0gk" firstAttribute="top" secondItem="nN9-xy-YTq" secondAttribute="top" id="fPR-0x-EMt"/>
+                                            <constraint firstItem="1eZ-gr-0gk" firstAttribute="leading" secondItem="nN9-xy-YTq" secondAttribute="leading" id="i2G-A2-RRg"/>
                                             <constraint firstItem="q5u-EK-Ohb" firstAttribute="centerX" secondItem="zrd-4H-CgU" secondAttribute="centerX" id="lUp-Ms-AFM"/>
                                             <constraint firstItem="fR6-iM-L41" firstAttribute="top" secondItem="djg-Rp-MJi" secondAttribute="bottom" constant="4" id="qwV-Lp-sRS"/>
                                             <constraint firstItem="J3B-Hz-IKG" firstAttribute="centerX" secondItem="zrd-4H-CgU" secondAttribute="centerX" id="rcY-M5-OVR"/>
@@ -179,11 +351,19 @@
                         <viewLayoutGuide key="safeArea" id="KKC-T8-YmR"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="1024" height="1200"/>
+                    <size key="freeformSize" width="1024" height="1400"/>
                     <connections>
+                        <outlet property="ampmL" destination="L0I-19-Eoe" id="MCw-yy-gvP"/>
                         <outlet property="barChart" destination="zrd-4H-CgU" id="Zn3-VN-0Kh"/>
                         <outlet property="bodyCondtionScore" destination="fR6-iM-L41" id="eGa-5M-Ais"/>
+                        <outlet property="demographicsL" destination="yY8-As-qgo" id="xPz-62-yjW"/>
+                        <outlet property="incisionsL" destination="U0M-S3-1Ls" id="1hn-1W-cbp"/>
+                        <outlet property="notificationsL" destination="rJ7-sA-Wob" id="rPX-5c-gkP"/>
                         <outlet property="patientChart" destination="bqo-Cg-4dn" id="8EM-48-HHg"/>
+                        <outlet property="patientRecordsL" destination="huu-jN-19W" id="21h-l5-Wfk"/>
+                        <outlet property="physicalExamsL" destination="ANA-ij-jDc" id="ZYW-0P-qmy"/>
+                        <outlet property="proceduresL" destination="2vu-Yb-n9v" id="C5V-vw-Z4r"/>
+                        <outlet property="vitalsL" destination="U5Y-4t-988" id="qRj-53-zrm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6rp-bQ-C6M" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -63,7 +63,7 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     // #MARK: - ACTIONS
     @IBAction func changeDateAction(_ sender: Any) {
-        changeDateTime()
+        changeDateTime(title: "Intake Date")
     }
     @IBAction func segmentControlAction(_ sender: Any) {
         switch segmentControl.selectedSegmentIndex
@@ -132,8 +132,8 @@ extension AddPatientsVC{
 }
 extension AddPatientsVC{
     //#MARK - Date Picker Alert
-    func changeDateTime(){
-        DatePickerDialog().show("Appointment Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .date/*.dateAndTime*/) {
+    func changeDateTime(title: String){
+        DatePickerDialog().show(title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .date/*.dateAndTime*/) {
             (date) -> Void in
             if date != nil {
                 let dateFormat = DateFormatter()

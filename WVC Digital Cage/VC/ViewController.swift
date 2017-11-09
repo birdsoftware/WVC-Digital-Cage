@@ -73,12 +73,15 @@ class ViewController: UIViewController {
     var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
     var myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
     var myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+    var incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+    var procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
-        
-        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms)
+        //clear(arrayDicName: "procedures")
+        //clear(arrayDicName: "demographics")
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
@@ -111,13 +114,17 @@ extension ViewController{
                            pe: Array<Dictionary<String,String>>,
                            notifications: Array<Dictionary<String,String>>,
                            myDemographics: Array<Dictionary<String,String>>,
-                           myAmpms: Array<Dictionary<String,String>>){
+                           myAmpms: Array<Dictionary<String,String>>,
+                           incisions: Array<Dictionary<String,String>>,
+                           procedures: Array<Dictionary<String,String>>){
         print("patientRecords \(records.count):\n\(records)")
         print("patientVitals \(vitals.count):\n\(vitals)")
         print("patientPhysicalExam \(pe.count):\n\(pe)")
         print("notifications \(notifications.count):\n\(notifications)")
         print("demographics \(myDemographics.count):\n\(myDemographics)")
         print("ampms \(myAmpms.count):\n\(myAmpms)")
+        print("incisions \(incisions.count):\n\(incisions)")
+        print("procedures \(procedures.count):\n\(procedures)")
     }
 }
 extension ViewController{
@@ -226,4 +233,13 @@ extension ViewController{
         }
     }
 
+extension ViewController{
+    // #MARK: - Clear Records
+    func clear(arrayDicName: String){
+        let clear = Array<Dictionary<String,String>>()
+        UserDefaults.standard.set(clear, forKey: arrayDicName)
+        UserDefaults.standard.synchronize()
+    }
+    //clear(arrayDicName: "procedures")
+}
 

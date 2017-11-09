@@ -83,6 +83,13 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         //filteredAMPM = myAmpms
         showAmpm()
     }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField.tag >= 0 && textField.tag <= 6{
+            AMPMTextFieldsViewTopLayoutConstraint.constant = -300
+        }
+        return true
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
             nextField.becomeFirstResponder()
@@ -92,13 +99,13 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }
         return false
     }
-    //Button Action
+    //Button Actions
     @IBAction func updateNowAction(_ sender: Any) {
         saveAMPMObject()
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         showAmpm()
         ampmTable.reloadData()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideUpdateRecordView"), object: nil)
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideUpdateRecordView"), object: nil)
     }
     @IBAction func switchAction(_ sender: Any) {
         if ampmSwitch.isOn {
@@ -111,11 +118,15 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             dateNow.text = truncated + "AM"
         }
     }
+    @IBAction func changeDateAction(_ sender: Any) {
+        changeDateTime(dateLabel: dateNow, title: "AM/PM Date")
+    }
+    
 }
 extension AMPMVC {
     // #MARK: - When Keyboard hides DO: Move text view up
     @objc func keyboardWillShowAMPM(sender: NSNotification){
-        AMPMTextFieldsViewTopLayoutConstraint.constant = -300
+        //AMPMTextFieldsViewTopLayoutConstraint.constant = -300
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
@@ -194,13 +205,15 @@ extension AMPMVC {
         }
         ampmTable.reloadData()
         
-        //clear Test Fields
+        //clear Text Fields
         attitudeTF.text = ""
         fecesTF.text = ""
         urineTF.text = ""
         appetiteTF.text = ""
         vdcsTF.text = ""
         initialsTF.text = ""
+        
+        setupUI()
     }
 }
 extension AMPMVC {
@@ -300,5 +313,19 @@ extension AMPMVC {
         }
     }
 }
-
+extension AMPMVC{
+    //#MARK - Date Picker Alert
+    func changeDateTime(dateLabel: UILabel, title: String){
+        DatePickerDialog().show(title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .dateAndTime) {
+            (date) -> Void in
+            if date != nil {
+                let dateFormat = DateFormatter()
+                dateFormat.dateFormat = "MM/dd/yy a"
+                let strDate = dateFormat.string(for: date!)!
+                dateLabel.text = strDate
+                self.emojiLabel.text = self.returnEmojiFrom(dateString: strDate)
+            }
+        }
+    }
+}
 

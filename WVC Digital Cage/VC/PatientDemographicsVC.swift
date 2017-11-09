@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate  {
 
     //pickers
     @IBOutlet weak var ownerPicker: UIPickerView!
@@ -16,6 +16,8 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     //text fields
     @IBOutlet weak var ownerTF: UITextField!
     @IBOutlet weak var kennelTF: UITextField!
+    //label
+    @IBOutlet weak var intakeDateLabel: UILabel!
     
     //Demographics paramaters---------------
     @IBOutlet weak var ageTF: UITextField!
@@ -46,22 +48,17 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewDidLoad() {
         super.viewDidLoad()
         // Delegates
-        ownerPicker.delegate = self
-        ownerPicker.dataSource = self
-        kennelPicker.delegate = self
-        kennelPicker.dataSource = self
+        setupUI()
+        textFieldsDelegates()
         //call func showPhysicalExam from PatientsVC.swift
         NotificationCenter.default.addObserver(self,
                                                selector:#selector(showDemographics),
                                                name: NSNotification.Name(rawValue: "showDemographics"),
                                                object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector:#selector(saveDemographics),
-                                                name: NSNotification.Name(rawValue: "saveDemographics"),
-                                                object: nil)
     }
-
-
+    @IBAction func sexSwitchAction(_ sender: Any) {
+        saveDemographics()
+    }
 }
 
 extension PatientDemographicsVC{
@@ -111,7 +108,6 @@ extension PatientDemographicsVC{
             if finished {
                 //Once the label is completely invisible, set the text and fade it back in
                 textField.text = displayText
-                
                 // Fade in
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
                     //textField.alpha = 1.0
@@ -122,7 +118,16 @@ extension PatientDemographicsVC{
     }
 }
 extension PatientDemographicsVC {
-    // #MARK: - UI Set Up
+    // #MARK: - UI
+    func setupUI(){
+        ownerPicker.delegate = self
+        ownerPicker.dataSource = self
+        kennelPicker.delegate = self
+        kennelPicker.dataSource = self
+    }
+}
+extension PatientDemographicsVC {
+    // #MARK: - Show Demographics
     @objc func showDemographics(){
         //get defaults
         let selectedPatientID = UserDefaults.standard.string(forKey: "selectedPatientID") ?? ""
@@ -136,6 +141,7 @@ extension PatientDemographicsVC {
             if patient["patientID"] == selectedPatientID {
                 ownerTF.text = patient["owner"]
                 kennelTF.text = patient["kennelID"]
+                intakeDateLabel.text = patient["intakeDate"]
                 //moveSwitchState(switchName: switchStatus, isTrue: patient["Status"]!)
                 found = true
             }
@@ -159,7 +165,7 @@ extension PatientDemographicsVC {
             breedTF.text = ""
         }
     }
-    func moveSwitchState(switchName: UISwitch, isTrue:String){
+    func moveSwitchState(switchName: UISwitch, isTrue:String){//sex? Male Female
         if isTrue == "true" || isTrue == "Archive"{
             switchName.setOn(true, animated: false)
         } else {
@@ -194,9 +200,10 @@ extension PatientDemographicsVC {
                 dictArray[index][dictKey] = selectedStringToChange
                 UserDefaults.standard.set(dictArray, forKey: dictDefaultsKey)
                 UserDefaults.standard.synchronize()
-                //REFRESH VIEW TODO:::
             }
         }
+        //REFRESH PATIENTS TABLE VIEW 
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshPatientsTable"), object: nil)
     }
     func changeRecordAlert(title:String, message:String,
                            buttonTitle:String,
@@ -234,17 +241,59 @@ extension PatientDemographicsVC {
                 "sex":String(switchSex.isOn)//true = Male
         ]
     }
-    @objc func saveDemographics(){
-        var dic = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+    func saveDemographics(){
+        var demographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
         updateDemographicsObject()
-        if dic.isEmpty {
+        var found = false
+        if demographics.isEmpty {
             UserDefaults.standard.set([newDemographics], forKey: "demographics")
             UserDefaults.standard.synchronize()
         } else {
-            dic.append(newDemographics)
-            UserDefaults.standard.set(dic, forKey: "demographics")
-            UserDefaults.standard.synchronize()
-            
+            for index in 0..<demographics.count{
+                if demographics[index]["patientID"] == newDemographics["patientID"]{
+                    found = true
+                    for item in newDemographics {
+                        demographics[index][item.key] = item.value
+                    }
+                    UserDefaults.standard.set(demographics, forKey: "demographics")
+                    UserDefaults.standard.synchronize()
+                    return
+                }
+            }
+            if found == false {//APPEND NEW
+                demographics.append(newDemographics)
+                UserDefaults.standard.set(demographics, forKey: "demographics")
+                UserDefaults.standard.synchronize()
+            }
         }
     }
 }
+extension PatientDemographicsVC {
+    // #MARK: - Setup Text Field Delegates
+    //make sure + UITextFieldDelegate and textFieldsDelegates() viewDidLoad
+    func textFieldsDelegates(){
+        ageTF.delegate = self
+        ageTF.returnKeyType = UIReturnKeyType.next
+        ageTF.tag = 0
+        breedTF.delegate = self
+        breedTF.returnKeyType = UIReturnKeyType.go
+        breedTF.tag = 1
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.tag >= 0 && textField.tag <= 1{
+            saveDemographics()
+            print("got here at least!!!")
+        }
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            return true;
+        }
+        return false
+    }
+}
+
