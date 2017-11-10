@@ -236,8 +236,24 @@ extension AMPMVC {
         
         return cell
     }
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //    }
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            var selectedData:Dictionary<String,String> = filteredAMPM[indexPath.row]
+            dateNow.text! = selectedData["date"]!
+            attitudeTF.text! = selectedData["attitude"]!
+            fecesTF.text! = selectedData["feces"]!
+            urineTF.text! = selectedData["urine"]!
+            appetiteTF.text! = selectedData["appetite%"]!
+            vdcsTF.text! = selectedData["v/D/C/S"]!
+            initialsTF.text! = selectedData["initials"]!
+            //Move switch state based on date
+            var isTrue = "false"
+            let last2 = selectedData["date"]!.suffix(2)
+            if last2 == "PM" {
+                isTrue = "true"
+                emojiLabel.text = "🌞"
+            } else { emojiLabel.text = "☾" }
+            moveSwitchState(switchName: ampmSwitch, isTrue: isTrue)
+        }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             print("Delete button tapped")
@@ -300,17 +316,28 @@ extension AMPMVC {
     }
     func saveAMPMObject(){
         updateAMPMObject()
-        if myAmpms.isEmpty {
+        var found = false
+        if myAmpms.isEmpty {//CREATE NEW
             UserDefaults.standard.set([newAMPM], forKey: "ampms")
             UserDefaults.standard.synchronize()
         }
         else {
-            //let dict = myAmpms.last
-            //let lastFilerID = dict!["filterID"]!
-            //let newFilerID = Int(lastFilerID)! + 1
-            myAmpms.append(newAMPM)
-            UserDefaults.standard.set(myAmpms, forKey: "ampms")
-            UserDefaults.standard.synchronize()
+            for index in 0..<myAmpms.count{
+                if myAmpms[index]["date"] == newAMPM["date"]{//UPDATE
+                    found = true
+                    for item in newAMPM {
+                        myAmpms[index][item.key] = item.value
+                    }
+                    UserDefaults.standard.set(myAmpms, forKey: "ampms")
+                    UserDefaults.standard.synchronize()
+                    return
+                }
+            }
+            if found == false {//APPEND NEW
+                myAmpms.append(newAMPM)
+                UserDefaults.standard.set(myAmpms, forKey: "ampms")
+                UserDefaults.standard.synchronize()
+            }
         }
     }
 }

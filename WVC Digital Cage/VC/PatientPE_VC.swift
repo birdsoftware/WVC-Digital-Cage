@@ -199,13 +199,8 @@ extension PatientPE_VC{
         var found = false
         updatePEDataObject()
         
-        //print("keysPE \(switchStringNames[senderTag])")
-        
         newPE.updateValue(String(isSwitchOpen), forKey: switchStringNames[senderTag])
-        //print("textViewPE.text! \(newPE["comments"]!)")
-        //print("PE \(patientPhysicalExam)")
         if patientPhysicalExam.isEmpty {//Create NEW record/TABLE if DNE
-            //print("NEW PE \(newPE)")
             UserDefaults.standard.set([newPE], forKey: "patientPhysicalExam")
             UserDefaults.standard.synchronize()
         } else {
