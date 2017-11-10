@@ -50,7 +50,11 @@ extension UIViewController {
             //TODO: Do something with this data
             //let firstTwoChars = String(message.characters.prefix(2))
             let original = outputTextView.text!
-            outputTextView.text = original + "\n" + String(senderTag) + ") " + String(describing: myComment.text!)
+            if original.isEmpty {
+                outputTextView.text = String(senderTag) + ") " + String(describing: myComment.text!)
+            } else {
+                outputTextView.text = original + "\n" + String(senderTag) + ") " + String(describing: myComment.text!)
+            }
             
         } else {
             //TODO: Add error handling

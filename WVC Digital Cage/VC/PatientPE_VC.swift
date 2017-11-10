@@ -124,7 +124,7 @@ extension PatientPE_VC{
     func showAlertUpdateComments(message: String, senderTag: Int){
         let isThisSwitchON = isThisSwitchOpen(switchNumber: senderTag-1)
         if isThisSwitchON == true {
-            print("selectedPatientID \(returnSelectedPatientID())")
+            //print("selectedPatientID \(returnSelectedPatientID())")
             
             let showAlert = DispatchGroup()
             showAlert.enter()
@@ -199,13 +199,13 @@ extension PatientPE_VC{
         var found = false
         updatePEDataObject()
         
-        print("keysPE \(switchStringNames[senderTag])")
+        //print("keysPE \(switchStringNames[senderTag])")
         
         newPE.updateValue(String(isSwitchOpen), forKey: switchStringNames[senderTag])
-        print("textViewPE.text! \(newPE["comments"]!)")
-        print("PE \(patientPhysicalExam)")
+        //print("textViewPE.text! \(newPE["comments"]!)")
+        //print("PE \(patientPhysicalExam)")
         if patientPhysicalExam.isEmpty {//Create NEW record/TABLE if DNE
-            print("NEW PE \(newPE)")
+            //print("NEW PE \(newPE)")
             UserDefaults.standard.set([newPE], forKey: "patientPhysicalExam")
             UserDefaults.standard.synchronize()
         } else {
@@ -217,14 +217,14 @@ extension PatientPE_VC{
                     UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
                     UserDefaults.standard.synchronize()
                     found = true
-                    print("UPDATE PE \(patientPhysicalExam)")
+                    //print("UPDATE PE \(patientPhysicalExam)")
                 }
             }
             if found == false {
                 patientPhysicalExam.append(newPE)
                 UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
                 UserDefaults.standard.synchronize()
-                print("APPEND PE \(patientPhysicalExam)")
+                //print("APPEND PE \(patientPhysicalExam)")
             }
         }
     }

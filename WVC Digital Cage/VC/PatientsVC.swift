@@ -706,35 +706,35 @@ extension PatientsVC{
             }
         }
     }
-    func drawAMPMs(patientID:String){//REPEATING
-        let allAMPM = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
-        var nextAMPM = Dictionary<String,String>()
+    func drawIncisions(patientID:String){//REPEATING
+        let allInc = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+        var nextInc = Dictionary<String,String>()
         
-        if arrayContains(array:allAMPM, value:patientID) {//check if patient exists
-            let titleTopString = "AM/PM Checked"
-            var newTotalY = 300+260
+        if arrayContains(array:allInc, value:patientID) {//check if patient has incision
+            let titleTopString = "Incision Checked"
+            var newTotalY = 100+300+160
             let xCol1 = 40 /*let xCol2 = 250 let xCol3 = 500*/
-            let textRecWidth = 200
+            let textRecWidth = 300
             let titleTop = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
             titleTopString.draw(in: titleTop, withAttributes: returnTitle1Attributes())
             
-            let titles = ["date","attitude", "feces", "urine", "appetite%", "v/D/C/S", "initials"]
+            let titles = ["date", "initials"]
             var title = CGRect()
             var value = CGRect()
             let spacerTwenty = 20
             newTotalY += 10
-            for dict in allAMPM {
+            for dict in allInc {
                 if dict["patientID"] == patientID {
-                    nextAMPM = dict
+                    nextInc = dict
                     for item in titles {
                         let word = item.camelCaseToWords()
                         let uppercased = word.firstUppercased + ":"
                         newTotalY += spacerTwenty
                         title = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:65)
                         //newTotalY += spacerTwenty
-                        value = CGRect(x: xCol1+90, y:newTotalY, width:textRecWidth, height:75)
+                        value = CGRect(x: xCol1+65, y:newTotalY, width:textRecWidth, height:75)
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())
-                        nextAMPM[item]?.draw(in: value, withAttributes: returnTextAttributes())
+                        nextInc[item]?.draw(in: value, withAttributes: returnTextAttributes())
                     }
                 }
             }
@@ -744,8 +744,8 @@ extension PatientsVC{
     func drawPatientRecordText(patientData: Dictionary<String,String>){
         let titles = ["patientID","status","intakeDate","owner"]
         
-        /*let xCol1 = 50*/ let xCol2 = 250 /*let xCol3 = 550*/
-        var newTotalY = 100
+        /*let xCol1 = 50*/ var xCol2 = 270 /*let xCol3 = 550*/
+        var newTotalY = 110
         let textRecWidth = 200
         let spacerTwenty = 20
         
@@ -756,8 +756,9 @@ extension PatientsVC{
             let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
             title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
-            newTotalY += spacerTwenty
-            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:60)
+            //newTotalY += spacerTwenty
+            if item == "owner"{ xCol2 -= 100; newTotalY += spacerTwenty}
+            value = CGRect(x: xCol2+100, y:newTotalY, width:textRecWidth, height:80)
             uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             patientData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
@@ -773,10 +774,10 @@ extension PatientsVC{
             }
         }
         //set up columns for 850 by 1100 page
-        let logoHeight = 230
+        let logoHeight = 170
         let spacerFifty = 50
         let spacerTwenty = 20
-        /*let xCol1 = 50*/ let xCol2 = 250 /*let xCol3 = 550*/
+        /*let xCol1 = 50*/ let xCol2 = 270 /*let xCol3 = 550*/
         let textRecWidth = 200
         var newTotalY = logoHeight+spacerFifty + spacerTwenty
         
@@ -787,8 +788,8 @@ extension PatientsVC{
             let uppercased = word.firstUppercased + ":"
             newTotalY += spacerTwenty
             title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
-            newTotalY += spacerTwenty
-            value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:60)
+            //newTotalY += spacerTwenty
+            value = CGRect(x: xCol2+120, y:newTotalY, width:textRecWidth, height:80)
             uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             vitalData[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
@@ -800,19 +801,12 @@ extension PatientsVC{
                 demDict = dems[index]
             }
             for item in demDict {
-                if item.value == "false" {
-                    demDict[item.key] = "male"
-                }
-                if item.value == "true" {
-                    demDict[item.key] = "female"
-                }
+                if item.value == "false" { demDict[item.key] = "male" }
+                if item.value == "true" { demDict[item.key] = "female" }
             }
-            //set up columns for 850 by 1100 page
-            /*let xCol1 = 50*/ let xCol2 = 250 /*let xCol3 = 550*/
-            var newTotalY = 100+300+200
-            
+            /*let xCol1 = 50*/ let xCol2 = 270 /*let xCol3 = 550*/ //850 by 1100 page
+            var newTotalY = 100+300
             let textRecWidth = 200
-            
             let spacerTwenty = 20
             
             let titles = ["age","breed","sex"]
@@ -824,41 +818,43 @@ extension PatientsVC{
                 let uppercased = word.firstUppercased + ":"
                 newTotalY += spacerTwenty
                 title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
-                newTotalY += spacerTwenty
-                value = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:60)
+                //newTotalY += spacerTwenty
+                value = CGRect(x: xCol2+60, y:newTotalY, width:textRecWidth, height:80)
                 uppercased.draw(in: title, withAttributes: returnTitleAttributes())
                 demDict[item]?.draw(in: value, withAttributes: returnTextAttributes())
             }
         }
-    func drawIncisions(patientID:String){//REPEATING
-        let allInc = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
-        var nextInc = Dictionary<String,String>()
+    func drawAMPMs(patientID:String){//REPEATING
+        var allAMPM = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+        allAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
+        var nextAMPM = Dictionary<String,String>()
         
-        if arrayContains(array:allInc, value:patientID) {//check if patient has incision
-            let titleTopString = "Incision Checked"
-            var newTotalY = 100+300+200+150
-            /*let xCol1 = 50*/ let xCol2 = 250/* let xCol3 = 500*/
-            let textRecWidth = 300
+        if arrayContains(array:allAMPM, value:patientID) {//check if patient exists
+            let titleTopString = "AM/PM Checked"
+            var newTotalY = 300+200
+            /*let xCol1 = 40 */var xCol2 = 270 /* let xCol3 = 500*/
+            let textRecWidth = 200
             let titleTop = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
             titleTopString.draw(in: titleTop, withAttributes: returnTitle1Attributes())
             
-            let titles = ["date", "initials"]
+            let titles = ["date","attitude", "feces", "urine", "appetite%", "v/D/C/S", "initials"]
             var title = CGRect()
             var value = CGRect()
             let spacerTwenty = 20
             newTotalY += 10
-            for dict in allInc {
+            for dict in allAMPM {
                 if dict["patientID"] == patientID {
-                    nextInc = dict
+                    nextAMPM = dict
                     for item in titles {
                         let word = item.camelCaseToWords()
                         let uppercased = word.firstUppercased + ":"
                         newTotalY += spacerTwenty
+                        if newTotalY >= 1050 { xCol2 = 500; newTotalY = 530}
                         title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:65)
                         //newTotalY += spacerTwenty
-                        value = CGRect(x: xCol2+65, y:newTotalY, width:textRecWidth, height:75)
+                        value = CGRect(x: xCol2+90, y:newTotalY, width:textRecWidth, height:75)
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())
-                        nextInc[item]?.draw(in: value, withAttributes: returnTextAttributes())
+                        nextAMPM[item]?.draw(in: value, withAttributes: returnTextAttributes())
                     }
                 }
             }
