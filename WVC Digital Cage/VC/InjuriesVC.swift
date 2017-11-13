@@ -11,6 +11,13 @@ import UIKit
 class InjuriesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var injuriesCollection: UICollectionView!
+    //label
+    @IBOutlet weak var titleLabel: UILabel!
+    //text field
+    
+    //image
+    
+    var seguePatientID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +30,7 @@ extension InjuriesVC {
     func setupUI(){
         injuriesCollection.delegate = self
         injuriesCollection.dataSource = self
+        titleLabel.text = seguePatientID + "'s Photos"
     }
 }
 extension InjuriesVC {
@@ -40,5 +48,20 @@ extension InjuriesVC {
 //        cell.mileage.text = data["mileage"]
 //        cell.textView.attributedText = buildLink(str:"View Listing", url: data["link"]!)
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //
+    }
+}
+extension InjuriesVC {
+    //
+    // #MARK: - Navigation
+    //
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToNewInjuries" {
+            if let toVC = segue.destination as? NewInjuriesVC {
+                toVC.seguePatientID = seguePatientID
+            }
+        }
     }
 }

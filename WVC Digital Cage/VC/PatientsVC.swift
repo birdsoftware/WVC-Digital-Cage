@@ -373,7 +373,8 @@ extension PatientsVC {
         self.removeIncisions(patientID:removeForThisPID!)
         self.removeAMPM(patientID:removeForThisPID!)
         self.removeAllNotificationFor(patientID:removeForThisPID!)
-        
+        self.deleteImage(imageName: removeForThisPID!+".png")
+        self.showHideView()
         self.patientRecords.remove(at: indexPath.row)
         UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
         UserDefaults.standard.synchronize()
@@ -950,78 +951,28 @@ extension PatientsVC {
                 toViewController.segueWhereThisViewWasLanchedFrom = "patientsVC"//
                 toViewController.seguePatientID = patientID
             }
+        } else if segue.identifier == "segueInjuries" {
+            if let toVC = segue.destination as? InjuriesVC {
+                toVC.seguePatientID = patientID
+            }
         }
     }
 }
-extension PatientsVC{
+extension PatientsVC {
+    //
     // #MARK: - Image picker form camera
-    //camera delegate func called after take photo
-    //https://appsandbiscuits.com/take-save-and-retrieve-a-photo-ios-13-4312f96793ff
+    //          camera delegate func called after take photo
+    //          https://appsandbiscuits.com/take-save-and-retrieve-a-photo-ios-13-4312f96793ff
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imagePickerController.dismiss(animated: true, completion: nil)
         // RESIZE IMAGE
-           let smallerSizeImage = resizeImage(image: (info[UIImagePickerControllerOriginalImage] as? UIImage)!, newWidth: 200)
+        let smallerSizeImage = resizeImage(image: (info[UIImagePickerControllerOriginalImage] as? UIImage)!, newWidth: 200)
         // UPDATE UI IMAGE
-           patientPicture.image = smallerSizeImage
+        patientPicture.image = smallerSizeImage
         // SAVE IMAGE TO APP LOCAL DIR
-           saveImage(imageName: patientID + ".png")
-           saveImageNameToPatientRecords(imageName: patientID + ".png")
+        saveImage(imageName: patientID + ".png", patientPicture: patientPicture)
+        saveImageNameToPatientRecords(imageName: patientID + ".png",  patientID: patientID)
         self.patientTable.reloadData()
-    }
-    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
-        
-        let scale = newWidth / image.size.width
-        let newHeight = image.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
-    func saveImage(imageName: String){
-        print("Image \(imageName) saved")
-        //create an instance of the FileManager
-        let fileManager = FileManager.default
-        //get the image path
-        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
-        //get the image we took with camera
-        let image = patientPicture.image!
-        //get the PNG data for this image
-        let data = UIImagePNGRepresentation(image)
-        //store it in the document directory
-        fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
-    }
-    func saveImageNameToPatientRecords(imageName: String) {
-        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-        if let index = dictIndexFrom(array: patientRecords, usingKey:"patientID", usingValue: patientID)
-        {
-            print("Saving photo: \(imageName) to index: \(index) for patientID: \(patientID)")
-            patientRecords[index]["photo"] = imageName
-            UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
-            UserDefaults.standard.synchronize()
-        }
-    }
-    func getImage(imageName: String, imageView: UIImageView){
-        let fileManager = FileManager.default
-        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
-        if fileManager.fileExists(atPath: imagePath){
-            imageView.image = UIImage(contentsOfFile: imagePath)
-        }else{
-            print("Panic! No Image!")
-            imageView.image = UIImage(named: "dog circle")
-        }
-    }
-    func returnImage(imageName: String) -> UIImage {
-        let fileManager = FileManager.default
-        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
-        if fileManager.fileExists(atPath: imagePath){
-            return UIImage(contentsOfFile: imagePath)!
-        }else{
-            print("Panic! No Image!")
-            return UIImage(named: "dog circle")!
-        }
     }
 }
 extension PatientsVC {
