@@ -250,7 +250,7 @@ extension PatientProcedureVC {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         if textField.tag >= 0 && textField.tag <= 2{
-            aMPMTopConstraint.constant = -300
+            aMPMTopConstraint.constant = -350
         }
         return true
     }
@@ -321,6 +321,14 @@ extension PatientProcedureVC {
             filteredIncisions=arr as! Array<Dictionary<String,String>>
         } else {
             filteredIncisions=[clear]
+        }
+        //
+        if let lastDate = filteredIncisions.last{
+            if lastDate["date"]?.isEmpty == false {//} != ""{
+                incisionLastChecked.text = lastDate["date"]
+            } else {
+                incisionLastChecked.text = "not yet"
+            }
         }
         incisionTable.reloadData()
     }

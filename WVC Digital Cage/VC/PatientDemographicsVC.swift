@@ -18,6 +18,8 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var kennelTF: UITextField!
     //label
     @IBOutlet weak var intakeDateLabel: UILabel!
+    //constraints
+    @IBOutlet weak var intakeDateViewTopConstraint: NSLayoutConstraint!
     
     //Demographics paramaters---------------
     @IBOutlet weak var ageTF: UITextField!
@@ -33,8 +35,7 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
             "age":"",
             "breed":"",
             "sex":""
-    ]
-    
+        ]
     var kennelIntArray = ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10",
                               "D1","D2","D3","D4","D5","D6","D7","D8","D9","D10",
                               "D11","D12","D13","D14","D15","D16",
@@ -104,7 +105,6 @@ extension PatientDemographicsVC{
             textField.backgroundColor = UIColor.candyGreen()
         }, completion: {
             finished in
-            
             if finished {
                 //Once the label is completely invisible, set the text and fade it back in
                 textField.text = displayText
@@ -279,10 +279,15 @@ extension PatientDemographicsVC {
         breedTF.returnKeyType = UIReturnKeyType.go
         breedTF.tag = 1
     }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        intakeDateViewTopConstraint.constant = -100
+        return true
+    }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.tag >= 0 && textField.tag <= 1{
             saveDemographics()
             print("got here at least!!!")
+            intakeDateViewTopConstraint.constant = 0
         }
         return true
     }
