@@ -45,6 +45,23 @@ extension UIViewController {
         }
         return false
     }
+    // #MARK: - Clear Records
+    // clear(arrayDicName: "procedures")
+    func clear(arrayDicName: String){
+        let clear = Array<Dictionary<String,String>>()
+        UserDefaults.standard.set(clear, forKey: arrayDicName)
+        UserDefaults.standard.synchronize()
+    }
+    //need a count of selectedPatientIds
+    func returnCountOfKeys(aDicts: [[String:String]], aKey: String, matchKey: String) -> Int{
+        var count = 0
+        for dict in aDicts{
+            if dict[aKey] == matchKey {
+                count += 1
+            }
+        }
+        return count
+    }
     
     //change all keys in DICT ARRRAY
     /*

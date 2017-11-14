@@ -101,7 +101,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="310" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/06/2017" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-3j-iHO">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dE-3j-iHO">
                                                     <rect key="frame" x="44" y="234" width="266" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -382,6 +382,6 @@
         <image name="note gray" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cEb-88-dhJ"/>
+        <segue reference="5B2-7g-xm3"/>
     </inferredMetricsTieBreakers>
 </document>

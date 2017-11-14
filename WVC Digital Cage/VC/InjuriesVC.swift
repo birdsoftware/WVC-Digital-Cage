@@ -16,14 +16,18 @@ class InjuriesVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     //text field
     
     //image
+    var collectionPhotos = Array<Dictionary<String,String>>()
+    var filteredCollection = Array<Dictionary<String,String>>()
     
     var seguePatientID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        setupUI()
+        filterInjuriesBy(selectedValue: seguePatientID)
+    }
 }
 extension InjuriesVC {
     //UI
@@ -31,22 +35,34 @@ extension InjuriesVC {
         injuriesCollection.delegate = self
         injuriesCollection.dataSource = self
         titleLabel.text = seguePatientID + "'s Photos"
+        collectionPhotos = UserDefaults.standard.object(forKey: "collectionPhotos") as? Array<Dictionary<String,String>> ?? []
+    }
+    func filterInjuriesBy(selectedValue: String){
+        var scopePredicate:NSPredicate
+        scopePredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", selectedValue)
+        let arr=(collectionPhotos as NSArray).filtered(using: scopePredicate)
+        if arr.count > 0
+        {
+            filteredCollection=arr as! Array<Dictionary<String,String>>
+        } else {
+            filteredCollection=Array<Dictionary<String,String>>()
+        }
     }
 }
 extension InjuriesVC {
     //collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9//dataFile.count
+        return (filteredCollection.count > 0 ? filteredCollection.count : 1)
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "injuriesCollectionCell", for: indexPath) as! CollectionViewCell
-//        let data:Dictionary<String,String> = dataFile[indexPath.row]
-//        cell.image.image = UIImage(named: data["image"]!)
-//        cell.model.text = data["model"]
-//        cell.detail1.text = data["detail1"]
-//        cell.year.text = data["year"]
-//        cell.mileage.text = data["mileage"]
-//        cell.textView.attributedText = buildLink(str:"View Listing", url: data["link"]!)
+        if filteredCollection.isEmpty == false {
+            let data = filteredCollection[indexPath.row]
+            cell.date.text = data["date"]
+            cell.patientIDLabel.text = data["photo"]
+            cell.note.text = data["note"]
+            cell.image.image = returnImage(imageName: data["patientID"]! + "_\(indexPath.row).png")
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
