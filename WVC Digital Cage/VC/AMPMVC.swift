@@ -93,11 +93,11 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @IBAction func switchAction(_ sender: Any) {
         if ampmSwitch.isOn {
             emojiLabel.text = "🌞"
-            let truncated = String(dateNow.text!.characters.dropLast(2))
+            let truncated = String(dateNow.text!.dropLast(2))
             dateNow.text = truncated + "PM"
         } else { //AM
             emojiLabel.text = "☾"
-            let truncated = String(dateNow.text!.characters.dropLast(2))
+            let truncated = String(dateNow.text!.dropLast(2))
             dateNow.text = truncated + "AM"
         }
     }

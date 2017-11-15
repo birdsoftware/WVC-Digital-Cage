@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -398,6 +398,13 @@
                                     <constraint firstAttribute="height" constant="120" id="Hhk-Mc-6YD"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwK-oA-VfQ">
+                                <rect key="frame" x="497" y="581" width="30" height="30"/>
+                                <state key="normal" title="Map"/>
+                                <connections>
+                                    <segue destination="YUE-sb-VPm" kind="presentation" animates="NO" id="Q9K-AG-0pB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -410,6 +417,7 @@
                             <constraint firstItem="bzb-iw-fNf" firstAttribute="centerX" secondItem="O07-fU-nrm" secondAttribute="centerX" id="B90-q0-2H0"/>
                             <constraint firstItem="NM7-bC-2Xr" firstAttribute="top" secondItem="nUn-6m-MfP" secondAttribute="bottom" constant="-20" id="FO2-qn-0rG"/>
                             <constraint firstItem="nUn-6m-MfP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KNV-7g-Hf6"/>
+                            <constraint firstItem="AwK-oA-VfQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L1s-Q1-K7e"/>
                             <constraint firstItem="uBm-Bg-ko0" firstAttribute="centerX" secondItem="uch-MN-7mc" secondAttribute="centerX" id="NcM-ZW-u66"/>
                             <constraint firstItem="nUn-6m-MfP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="55" id="Vep-9g-er7"/>
                             <constraint firstItem="Sg7-ZB-BtC" firstAttribute="centerY" secondItem="TLh-eT-LgB" secondAttribute="centerY" id="bNP-9O-AtK"/>
@@ -417,6 +425,7 @@
                             <constraint firstItem="Jht-yV-RJF" firstAttribute="centerX" secondItem="NM7-bC-2Xr" secondAttribute="centerX" id="lQ8-Gz-tvz"/>
                             <constraint firstItem="bzb-iw-fNf" firstAttribute="top" secondItem="O07-fU-nrm" secondAttribute="bottom" constant="8" id="lYJ-Fb-4xP"/>
                             <constraint firstItem="uch-MN-7mc" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="trailing" constant="8" id="qt2-KN-Fa6"/>
+                            <constraint firstItem="AwK-oA-VfQ" firstAttribute="top" secondItem="uBm-Bg-ko0" secondAttribute="bottom" constant="8" id="sCO-2z-juL"/>
                             <constraint firstItem="0gh-Fj-2AB" firstAttribute="centerY" secondItem="uch-MN-7mc" secondAttribute="centerY" id="v9K-eP-Ens"/>
                             <constraint firstItem="NM7-bC-2Xr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wOm-ga-uOG"/>
                         </constraints>
@@ -437,7 +446,7 @@
                 <viewControllerPlaceholder storyboardName="Patients" referencedIdentifier="patientsDB" id="AHV-Xu-l0b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wek-T4-xDI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453" y="-89"/>
+            <point key="canvasLocation" x="447" y="-238"/>
         </scene>
         <!--notificationsDB-->
         <scene sceneID="v2W-7e-9lO">
@@ -445,7 +454,7 @@
                 <viewControllerPlaceholder storyboardName="Notifications" referencedIdentifier="notificationsDB" id="lyW-Yf-uUr" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SK3-XH-jFS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="461" y="20"/>
+            <point key="canvasLocation" x="463" y="-163"/>
         </scene>
         <!--historyDB-->
         <scene sceneID="XeG-bo-Gqe">
@@ -453,7 +462,7 @@
                 <viewControllerPlaceholder storyboardName="History" referencedIdentifier="historyDB" id="oDE-2u-yqK" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BVF-Zm-awi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="447" y="115"/>
+            <point key="canvasLocation" x="449" y="-39"/>
         </scene>
         <!--settingsDB-->
         <scene sceneID="peA-kC-NbX">
@@ -461,7 +470,7 @@
                 <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="settingsDB" id="Oxx-1M-8fz" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qn1-x6-arq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453" y="191"/>
+            <point key="canvasLocation" x="451" y="98"/>
         </scene>
         <!--analyticsDB-->
         <scene sceneID="2G7-2M-iHJ">
@@ -469,7 +478,15 @@
                 <viewControllerPlaceholder storyboardName="Analytics" referencedIdentifier="analyticsDB" id="FF2-ZF-DgW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ign-mA-BkW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="457" y="258"/>
+            <point key="canvasLocation" x="452" y="192"/>
+        </scene>
+        <!--mapDB-->
+        <scene sceneID="JkS-ob-nVG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" referencedIdentifier="mapDB" id="YUE-sb-VPm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="COE-1g-FbE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="457" y="322"/>
         </scene>
     </scenes>
     <resources>
