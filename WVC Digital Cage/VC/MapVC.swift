@@ -244,7 +244,7 @@ extension MapVC{
         cell.dogPhoto.image = returnImage(imageName: thisPatient["patientID"]! + ".png")
         cell.intakeDate.text = thisPatient["intakeDate"]
         cell.patientId.text = thisPatient["patientID"]
-        cell.owner.text = thisPatient["patientID"]
+        cell.owner.text = thisPatient["owner"]
         cell.walkDate.text = thisPatient["walkDate"]
 
 //        if thisPatient["status"] == "Archive" {
