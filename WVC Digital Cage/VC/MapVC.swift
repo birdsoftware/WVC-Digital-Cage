@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapVC: UIViewController, UIScrollViewDelegate {
+class MapVC: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     // constraints
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -40,7 +40,6 @@ class MapVC: UIViewController, UIScrollViewDelegate {
     
     
     //class vars
-    var selectedTagNumber = 0
     // S 1-8    D 9-16,17-24    T 25-37   I 38-41   42 cat room and cage banks
     var kennelIntArray = ["S1","S2","S3","S4","S5","S6","S7","S8",
                           "D1","D2","D3","D4","D5","D6","D7","D8","D9","D10",
@@ -50,6 +49,7 @@ class MapVC: UIViewController, UIScrollViewDelegate {
                           "I1","I2","I3","I4",
                           "Cage Banks", "Cat room"]
     let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    var searchData = Array<Dictionary<String,String>>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +59,16 @@ class MapVC: UIViewController, UIScrollViewDelegate {
         })
         occupiedKennels()
         setupUI()
+        
+        displayTable.delegate = self
+        displayTable.dataSource = self
     }
     @objc func buttonClicked(sender: UIButton?) {
         resetColors()
         let tag = sender?.tag ?? 0
         print("tagNum \(tag)")
         setDisplayText(tagNum: tag)
-        //singleButtons[tag].backgroundColor = UIColor.seaBuckthorn()
+        updateSearchData(kennelID: kennelID(fromTagNo: tag))
         colorButtonBackground(color: UIColor.seaBuckthorn(), tagNo: tag)
         if topConstraint.constant == 0 {
             /* Animation */
@@ -198,32 +201,52 @@ extension MapVC{
         print("setDispTxt tagNum \(tagNum)")
         displayTitle.text = kennelID(fromTagNo: tagNum)
     }
+    func updateSearchData(kennelID: String){
+        var check1 = kennelID
+        var check2 = kennelID
+        if kennelID == "Cats & Cage Banks" {
+            check1 = "Cage Banks"
+            check2 = "Cat room"
+        }
+        searchData = Array<Dictionary<String,String>>()
+        var newS:Dictionary<String,String> =
+            [
+                "patientID":"",
+                "owner":"",
+                "intakeDate":"",
+                "walkDate":"",
+                "lastAMPMDate":"",
+                "lastIncision":""
+        ]
+        for patient in patientRecords {
+            if patient["status"] == "Active" {
+                if patient["kennelID"] == check1 || patient["kennelID"] == check2 {
+                    newS["patientID"] = patient["patientID"]
+                    newS["owner"] = patient["owner"]
+                    newS["intakeDate"] = patient["intakeDate"]
+                    newS["walkDate"] = patient["walkDate"]
+                    searchData.append(newS)
+                }
+            }
+        }
+        displayTable.reloadData()
+    }
 }
 extension MapVC{
     // #MARK: - Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0//searchData.count
+        return searchData.count
     }
     func tableView(_ tableView: UITableView,
                    cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
-        let cell: PatientTableView = tableView.dequeueReusableCell(withIdentifier: "patientCell") as! PatientTableView
-//        let thisPatient = SearchData[IndexPath.row]//patientRecords[IndexPath.row]
-//        cell.intakeDate.text = thisPatient["intakeDate"]
-//        cell.patientId.text = thisPatient["patientID"]
-//        cell.kennelID.text = thisPatient["kennelID"]
-//        cell.status.text = thisPatient["status"]
-//        cell.owner.text = thisPatient["owner"]
-//        cell.dogPhoto.image = returnImage(imageName: thisPatient["patientID"]! + ".png")
-//        switch thisPatient["group"]! {
-//        case "Canine":
-//            cell.imageBackgroundView.backgroundColor = UIColor.DarkRed()
-//        case "Feline":
-//            cell.imageBackgroundView.backgroundColor = UIColor.Fern()
-//        case "Other":
-//            cell.imageBackgroundView.backgroundColor = UIColor.seaBuckthorn()
-//        default:
-//            cell.imageBackgroundView.backgroundColor = UIColor.cyan
-//        }
+        let cell: mapDisplayTableView = tableView.dequeueReusableCell(withIdentifier: "mapDisplayCell") as! mapDisplayTableView
+        let thisPatient = searchData[IndexPath.row]
+        cell.dogPhoto.image = returnImage(imageName: thisPatient["patientID"]! + ".png")
+        cell.intakeDate.text = thisPatient["intakeDate"]
+        cell.patientId.text = thisPatient["patientID"]
+        cell.owner.text = thisPatient["patientID"]
+        cell.walkDate.text = thisPatient["walkDate"]
+
 //        if thisPatient["status"] == "Archive" {
 //            cell.backgroundColor = UIColor.polar()
 //        } else {
