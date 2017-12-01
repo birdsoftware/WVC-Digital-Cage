@@ -1117,7 +1117,7 @@
                                                         <rect key="frame" x="2" y="39" width="232" height="636"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="146" id="mRM-x4-dyA">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mapDisplayCell" rowHeight="146" id="mRM-x4-dyA" customClass="mapDisplayTableView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="232" height="146"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mRM-x4-dyA" id="gea-I0-7hj">
@@ -1235,6 +1235,15 @@
                                                                         <constraint firstItem="BUb-AB-QDd" firstAttribute="top" secondItem="BMd-5s-LeP" secondAttribute="bottom" constant="2" id="zoS-40-dAU"/>
                                                                     </constraints>
                                                                 </tableViewCellContentView>
+                                                                <connections>
+                                                                    <outlet property="dogPhoto" destination="2Rn-jX-TUD" id="XGy-YS-5tG"/>
+                                                                    <outlet property="intakeDate" destination="80G-Qg-YDe" id="ykU-ku-bVP"/>
+                                                                    <outlet property="lastAMPMDate" destination="A7M-YS-zsz" id="x7r-oH-Pll"/>
+                                                                    <outlet property="lastIncisionDate" destination="au9-9Y-0kR" id="SFP-Sp-fh6"/>
+                                                                    <outlet property="owner" destination="EKh-Va-zQK" id="dmJ-yA-0eY"/>
+                                                                    <outlet property="patientId" destination="mtX-uJ-mRf" id="YQD-Ym-Xz0"/>
+                                                                    <outlet property="walkDate" destination="U06-df-l3o" id="BeK-P1-Bxb"/>
+                                                                </connections>
                                                             </tableViewCell>
                                                         </prototypes>
                                                     </tableView>

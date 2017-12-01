@@ -46,3 +46,15 @@ class AMPMTableView: UITableViewCell {
     @IBOutlet weak var ampmEmoji: UILabel!
     
 }
+
+class mapDisplayTableView: UITableViewCell {
+    //mapDisplayCell
+    @IBOutlet weak var dogPhoto: UIImageView!
+    @IBOutlet weak var patientId: UILabel!
+    @IBOutlet weak var owner: UILabel!
+    @IBOutlet weak var intakeDate: UILabel!
+    @IBOutlet weak var walkDate: UILabel!
+    @IBOutlet weak var lastAMPMDate: UILabel!
+    @IBOutlet weak var lastIncisionDate: UILabel!
+    
+}
