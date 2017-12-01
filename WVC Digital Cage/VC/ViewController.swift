@@ -59,6 +59,13 @@
  "initials":"b.b."
  */
 
+/*
+ incisions 9
+ "patientID": "323",
+ "date": "11/08/17 02:49 PM",
+ "initials": "B.B. "
+*/
+ 
 import UIKit
 //import UXCam
 

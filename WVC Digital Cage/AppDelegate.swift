@@ -53,6 +53,7 @@ extension UIColor {
     static func DarkRed() -> UIColor {
         return UIColor(hex:0xaa010e)
     }
+    //blues
     static func backButtonBlue() -> UIColor {
         return UIColor(hex:0x007AFF)
     }
@@ -65,6 +66,10 @@ extension UIColor {
     static func columbiaBlue() -> UIColor {//-Third Title Bar
         return UIColor(hex:0xA1DCF8)
     }
+    static func sailBlue() -> UIColor {
+        return UIColor(hex: 0xBDDEFA)
+    }
+    //---
     static func Fern() -> UIColor {//-Top and bottum Bar
         return UIColor(hex:0x468401)
     }
