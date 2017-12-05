@@ -49,6 +49,10 @@ class MapVC: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITa
                           "I1","I2","I3","I4",
                           "Cage Banks", "Cat room"]
     let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    
+    let myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+    let incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+    
     var searchData = Array<Dictionary<String,String>>()
     
     override func viewDidLoad() {
@@ -245,17 +249,54 @@ extension MapVC{
         cell.intakeDate.text = thisPatient["intakeDate"]
         cell.patientId.text = thisPatient["patientID"]
         cell.owner.text = thisPatient["owner"]
-        cell.walkDate.text = thisPatient["walkDate"]
-
-//        if thisPatient["status"] == "Archive" {
-//            cell.backgroundColor = UIColor.polar()
-//        } else {
-//            cell.backgroundColor = .white
-//        }
+        cell.walkDate.text = updateWalkDate(walkDate: thisPatient["walkDate"]!)
+        cell.lastAMPMDate.text = lastAMPMDate(patientID: thisPatient["patientID"]!)
+        cell.lastIncisionDate.text = lastIncisionDate(patientID: thisPatient["patientID"]!)
         return cell
     }
 }
-
+extension MapVC{
+    func updateWalkDate(walkDate: String) -> String{
+        if walkDate != ""{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let lastWalkDate = formatter.date(from: walkDate)
+            formatter.dateFormat = "MM/dd/yy hh:mm a"
+            let newFormatDate = formatter.string(from: lastWalkDate!)
+            return newFormatDate//lastWalkDate!.timeAgo()
+        } else {
+            return "not yet"
+        }
+    }
+    func lastAMPMDate(patientID: String)->String{
+        var lastDate = "not yet"
+        let scopePredicate:NSPredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", patientID)
+        var arr=(myAmpms as NSArray).filtered(using: scopePredicate) as! Array<Dictionary<String,String>>
+        arr.sort { $0["date"]! > $1["date"]! }//sort
+        if let firstDate = arr.first{
+            if firstDate["date"]?.isEmpty == false {
+                lastDate = firstDate["date"]!
+            } else {
+                lastDate = "not yet"
+            }
+        }
+        return lastDate
+    }
+    func lastIncisionDate(patientID: String)->String{
+        var lastDate = "not yet"
+        let scopePredicate:NSPredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", patientID)
+        var arr=(incisions as NSArray).filtered(using: scopePredicate) as! Array<Dictionary<String,String>>
+        arr.sort { $0["date"]! > $1["date"]! }//sort
+        if let firstDate = arr.first{
+            if firstDate["date"]?.isEmpty == false {
+                lastDate = firstDate["date"]!
+            } else {
+                lastDate = "not yet"
+            }
+        }
+        return lastDate
+    }
+}
 
 
 

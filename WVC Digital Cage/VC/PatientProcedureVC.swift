@@ -322,10 +322,10 @@ extension PatientProcedureVC {
         } else {
             filteredIncisions=[clear]
         }
-        //
-        if let lastDate = filteredIncisions.last{
-            if lastDate["date"]?.isEmpty == false {//} != ""{
-                incisionLastChecked.text = lastDate["date"]
+        filteredIncisions.sort { $0["date"]! > $1["date"]! }//sort array in place
+        if let firstDate = filteredIncisions.first{
+            if firstDate["date"]?.isEmpty == false {//} != ""{
+                incisionLastChecked.text = firstDate["date"]
             } else {
                 incisionLastChecked.text = "not yet"
             }

@@ -1871,14 +1871,23 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="suture" translatesAutoresizingMaskIntoConstraints="NO" id="9ah-ZD-IOc">
+                                        <rect key="frame" x="180" y="82" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="8ES-tV-a6Y"/>
+                                            <constraint firstAttribute="height" constant="30" id="xkY-9K-yui"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="tz6-7Y-NvE" firstAttribute="leading" secondItem="NN7-zY-dww" secondAttribute="leading" constant="8" id="1T5-Va-kEZ"/>
+                                    <constraint firstItem="9ah-ZD-IOc" firstAttribute="centerY" secondItem="cPz-Oj-d95" secondAttribute="centerY" id="1mD-Wa-fse"/>
                                     <constraint firstItem="pdE-lX-XBa" firstAttribute="leading" secondItem="wLU-Pc-weF" secondAttribute="trailing" constant="5" id="2Kc-yR-b8U"/>
                                     <constraint firstAttribute="trailing" secondItem="Z9i-v7-frH" secondAttribute="trailing" constant="23" id="6fp-8s-iIv"/>
                                     <constraint firstAttribute="trailing" secondItem="cPz-Oj-d95" secondAttribute="trailing" constant="17" id="HL5-NE-4QK"/>
                                     <constraint firstItem="Z9i-v7-frH" firstAttribute="leading" secondItem="BRN-6G-4N5" secondAttribute="trailing" constant="-1" id="IpC-N8-Oyj"/>
+                                    <constraint firstItem="cPz-Oj-d95" firstAttribute="leading" secondItem="9ah-ZD-IOc" secondAttribute="trailing" constant="8" id="LZh-3C-eNP"/>
                                     <constraint firstItem="wLU-Pc-weF" firstAttribute="top" secondItem="tz6-7Y-NvE" secondAttribute="bottom" constant="14" id="T7q-XY-Z6h"/>
                                     <constraint firstItem="wLU-Pc-weF" firstAttribute="leading" secondItem="NN7-zY-dww" secondAttribute="leading" constant="8" id="Xil-dP-5jn"/>
                                     <constraint firstItem="BRN-6G-4N5" firstAttribute="centerY" secondItem="pdE-lX-XBa" secondAttribute="centerY" id="cc7-8X-RXd"/>
@@ -2714,5 +2723,6 @@
         <image name="note" width="64" height="64"/>
         <image name="screenShot" width="64" height="64"/>
         <image name="share" width="64" height="64"/>
+        <image name="suture" width="64" height="64"/>
     </resources>
 </document>

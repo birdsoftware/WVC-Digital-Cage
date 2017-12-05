@@ -202,7 +202,7 @@ extension AMPMVC {
         } else {
             filteredAMPM=[clear]
         }
-        filteredAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
+        filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
         ampmTable.reloadData()
         
         //clear Text Fields
@@ -217,7 +217,7 @@ extension AMPMVC {
     }
 }
 extension AMPMVC {
-    // #MARK: - Table View //patientData.sort { $0["patientName"]! < $1["patientName"]! }//sort arry in place
+    // #MARK: - Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredAMPM.count
     }
@@ -285,7 +285,7 @@ extension AMPMVC {
         } else {
             filteredAMPM=[clear]
         }
-        filteredAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
+        filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
         ampmTable.reloadData()
         //self.ampmTable.deleteRows(at: [indexPath], with: .fade)
     }
