@@ -101,7 +101,7 @@ class ViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         updateMissingAMPMRecords()
-
+        
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
         getNotifications(records: patientRecords)
@@ -146,11 +146,10 @@ extension ViewController{
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         var missingPatientIDs = Set<String>()
         for things in myAmpms {
-            if (things.map{$0.value}).contains("") {
-                missingPatientIDs.insert(things["patientID"]!)
-            }
+            if (things.map{$0.value}).contains("") { missingPatientIDs.insert(things["patientID"]!) }
         }
-        UserDefaults.standard.set(missingPatientIDs, forKey: "missingPatientIDs")
+        let arrayFromSet = Array(missingPatientIDs)
+        UserDefaults.standard.set(arrayFromSet, forKey: "missingPatientIDs")
         UserDefaults.standard.synchronize()
         print("missingPatientIDs \(missingPatientIDs.count):\n\(missingPatientIDs)")
     }

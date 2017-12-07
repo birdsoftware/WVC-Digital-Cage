@@ -74,7 +74,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     var selectedData = Dictionary<String,String>()
     
     var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-    let missing = UserDefaults.standard.object(forKey: "missing") as? Array<Dictionary<String,String>> ?? []
+    
+    var missingPatientIDs = UserDefaults.standard.object(forKey: "missingPatientIDs") as? [String] ?? []
     
     var SearchData = Array<Dictionary<String,String>>()
     
@@ -325,7 +326,9 @@ extension PatientsVC {
             default:
                 cell.imageBackgroundView.backgroundColor = UIColor.cyan
         }
-        //if //missingPiece
+        if missingPatientIDs.contains(thisPatient["patientID"]!){
+            cell.missingPiece.isHidden = false
+        } else { cell.missingPiece.isHidden = true }
         if thisPatient["status"] == "Archive" {
             cell.backgroundColor = UIColor.polar()
         } else {
