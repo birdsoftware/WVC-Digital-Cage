@@ -250,6 +250,7 @@ extension PatientsVC {
     @objc func keyboardWillHide(sender: NSNotification){
     }
     @objc func refreshPatientsTable(){
+        missingPatientIDs = UserDefaults.standard.object(forKey: "missingPatientIDs") as? [String] ?? []
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         SearchData = patientRecords
         SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
@@ -304,18 +305,19 @@ extension PatientsVC {
 extension PatientsVC {
     // #MARK: - Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SearchData.count//patientRecords.count
+        return SearchData.count
     }
     func tableView(_ tableView: UITableView,
                    cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
         let cell: PatientTableView = tableView.dequeueReusableCell(withIdentifier: "patientCell") as! PatientTableView
-        let thisPatient = SearchData[IndexPath.row]//patientRecords[IndexPath.row]
+        let thisPatient = SearchData[IndexPath.row]
         cell.intakeDate.text = thisPatient["intakeDate"]
         cell.patientId.text = thisPatient["patientID"]
         cell.kennelID.text = thisPatient["kennelID"]
         cell.status.text = thisPatient["status"]
         cell.owner.text = thisPatient["owner"]
-        cell.dogPhoto.image = returnImage(imageName: thisPatient["patientID"]! + ".png")
+        let image = returnImage(imageName: thisPatient["patientID"]! + ".png")
+        cell.dogPhoto.image = image
         switch thisPatient["group"]! {
             case "Canine":
                 cell.imageBackgroundView.backgroundColor = UIColor.DarkRed()

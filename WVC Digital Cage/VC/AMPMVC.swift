@@ -88,7 +88,9 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         showAmpm()
         ampmTable.reloadData()
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hideUpdateRecordView"), object: nil)
+        updateMissingAMPMRecords()
+        //REFRESH PATIENTS TABLE VIEW
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshPatientsTable"), object: nil)
     }
     @IBAction func switchAction(_ sender: Any) {
         if ampmSwitch.isOn {
@@ -349,6 +351,17 @@ extension AMPMVC {
                 UserDefaults.standard.synchronize()
             }
         }
+    }
+    func updateMissingAMPMRecords(){
+        myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+        var missingPatientIDs = Set<String>()
+        for things in myAmpms {
+            if (things.map{$0.value}).contains("") { missingPatientIDs.insert(things["patientID"]!) }
+        }
+        let arrayFromSet = Array(missingPatientIDs)
+        UserDefaults.standard.set(arrayFromSet, forKey: "missingPatientIDs")
+        UserDefaults.standard.synchronize()
+        print("missingPatientIDs \(missingPatientIDs.count):\n\(missingPatientIDs)")
     }
 }
 extension AMPMVC{
