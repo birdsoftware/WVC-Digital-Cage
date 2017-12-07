@@ -11,12 +11,12 @@ import UIKit
 class PatientTableView: UITableViewCell {
     //Identifier: patientCell
     @IBOutlet weak var dogPhoto: UIImageView!
+    @IBOutlet weak var dogPhotoFrame: UIImageView!
     @IBOutlet weak var patientId: UILabel!
     @IBOutlet weak var kennelID: UILabel!
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var intakeDate: UILabel!
     @IBOutlet weak var owner: UILabel!
-    @IBOutlet weak var imageBackgroundView: UIView!
     @IBOutlet weak var missingPiece: UIImageView!
     
 }

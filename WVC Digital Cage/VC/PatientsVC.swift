@@ -320,13 +320,12 @@ extension PatientsVC {
         cell.dogPhoto.image = image
         switch thisPatient["group"]! {
             case "Canine":
-                cell.imageBackgroundView.backgroundColor = UIColor.DarkRed()
+                cell.dogPhotoFrame.image = UIImage(named: "circle_red")
             case "Feline":
-                cell.imageBackgroundView.backgroundColor = UIColor.Fern()
+                cell.dogPhotoFrame.image = UIImage(named: "circle_fern")
             case "Other":
-                cell.imageBackgroundView.backgroundColor = UIColor.seaBuckthorn()
-            default:
-                cell.imageBackgroundView.backgroundColor = UIColor.cyan
+                cell.dogPhotoFrame.image = UIImage(named: "circle_seaBuckthorn")
+        default: break
         }
         if missingPatientIDs.contains(thisPatient["patientID"]!){
             cell.missingPiece.isHidden = false
