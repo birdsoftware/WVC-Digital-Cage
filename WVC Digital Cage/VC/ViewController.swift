@@ -55,7 +55,7 @@
  "feces":"feces 5",
  "urine":"u 12",
  "appetite%":"appetite",
- "V/D/C/S":"vdcs",
+ "v/D/C/S":"vdcs",
  "initials":"b.b."
  */
 
@@ -90,7 +90,6 @@ class ViewController: UIViewController {
         //clear(arrayDicName: "procedures")
         //clear(arrayDicName: "demographics")
         
-        
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos)
 
         //getNotifications(records: patientRecords)
@@ -101,7 +100,8 @@ class ViewController: UIViewController {
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-        
+        updateMissingAMPMRecords()
+
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
         getNotifications(records: patientRecords)
@@ -141,6 +141,18 @@ extension ViewController{
         print("incisions \(incisions.count):\n\(incisions)")
         print("procedures \(procedures.count):\n\(procedures)")
         print("collectionPhotos \(collectionPhotos.count):\n\(collectionPhotos)")
+    }
+    func updateMissingAMPMRecords(){
+        myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+        var missingPatientIDs = Set<String>()
+        for things in myAmpms {
+            if (things.map{$0.value}).contains("") {
+                missingPatientIDs.insert(things["patientID"]!)
+            }
+        }
+        UserDefaults.standard.set(missingPatientIDs, forKey: "missingPatientIDs")
+        UserDefaults.standard.synchronize()
+        print("missingPatientIDs \(missingPatientIDs.count):\n\(missingPatientIDs)")
     }
 }
 extension ViewController{

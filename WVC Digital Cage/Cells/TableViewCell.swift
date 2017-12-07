@@ -17,6 +17,8 @@ class PatientTableView: UITableViewCell {
     @IBOutlet weak var intakeDate: UILabel!
     @IBOutlet weak var owner: UILabel!
     @IBOutlet weak var imageBackgroundView: UIView!
+    @IBOutlet weak var missingPiece: UIImageView!
+    
 }
 
 class ProcedureIncisionCheck: UITableViewCell {

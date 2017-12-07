@@ -25,6 +25,13 @@ extension UIViewController {
         //     array.remove(at: index)
         // }
     }
+    //CONTAINS
+    //myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+    //var missingPatientIDs = Set<String>()
+    //for things in myAmpms {
+    //if (things.map{$0.value}).contains("") {
+    //missingPatientIDs.insert(things["patientID"]!)
+    //}
     func arrayContainsPatientIDCode(array:[[String:String]], value:[String:String], code: String) -> Bool {
         for item in array {
             if item == value {//return true

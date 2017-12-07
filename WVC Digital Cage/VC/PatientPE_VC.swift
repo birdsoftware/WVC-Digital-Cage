@@ -113,8 +113,8 @@ class PatientPE_VC: UIViewController {
         }
     }
     @IBAction func sliderAction(_ sender: UISlider) {
-        let currentValue = String(Int(sender.value))
-        //print("\(currentValue)")
+        let roundedNearestHalf = round(sender.value*2)/2 //0, 0.5,...
+        let currentValue = String(roundedNearestHalf)
         sliderValueLabel.text = "\(currentValue)"
         updateSliderValueInpatientPhysicalExamDictionary(sliderNewValue: currentValue)
     }
@@ -266,7 +266,7 @@ extension PatientPE_VC{
             moveSwitchState(switchName: switchTen, isTrue: "")
             moveSwitchState(switchName: switchEleven, isTrue: "")
             textViewPE.text = ""
-            sliderValueLabel.text = "3"
+            sliderValueLabel.text = "3.0"
             sliderPE.setValue(3.0, animated: false)
         }
     }

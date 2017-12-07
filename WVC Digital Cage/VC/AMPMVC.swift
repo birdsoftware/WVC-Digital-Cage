@@ -225,6 +225,16 @@ extension AMPMVC {
                    cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
         let cell: AMPMTableView = tableView.dequeueReusableCell(withIdentifier: "ampmCell") as! AMPMTableView
         let this = filteredAMPM[IndexPath.row]
+        let isAnyAMPMBlank = Bool(
+                this["attitude"] == "" || this["feces"] == "" ||
+                this["urine"] == "" || this["appetite%"] == "" ||
+                this["v/D/C/S"] == "" || this["initials"] == ""
+        )
+        
+        if this["date"] != "" && isAnyAMPMBlank{
+            cell.backgroundColor = UIColor.candyGreen()
+        } else { cell.backgroundColor = UIColor.white }
+        
             cell.date.text = this["date"]
             cell.attitude.text = this["attitude"]
             cell.feces.text = this["feces"]

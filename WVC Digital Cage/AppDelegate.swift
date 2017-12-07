@@ -53,6 +53,9 @@ extension UIColor {
     static func DarkRed() -> UIColor {
         return UIColor(hex:0xaa010e)
     }
+    static func lightGrey() -> UIColor {
+        return UIColor(hex:0xF1F3F3)
+    }
     //blues
     static func backButtonBlue() -> UIColor {
         return UIColor(hex:0x007AFF)

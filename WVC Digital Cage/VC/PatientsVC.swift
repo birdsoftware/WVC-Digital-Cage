@@ -13,6 +13,11 @@ import MessageUI //send email
 class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate, UIImagePickerControllerDelegate /*photoLib*/,
 UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
 
+    //Walk Alert animation image
+    @IBOutlet weak var runningDogImage: UIImageView!
+    @IBOutlet weak var walkAlertView: UIView!
+    @IBOutlet weak var vitalsGrayBoxView: UIView!
+    
     //table view
     @IBOutlet weak var patientTable: UITableView!
     
@@ -69,6 +74,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     var selectedData = Dictionary<String,String>()
     
     var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    let missing = UserDefaults.standard.object(forKey: "missing") as? Array<Dictionary<String,String>> ?? []
     
     var SearchData = Array<Dictionary<String,String>>()
     
@@ -98,11 +104,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         changeSegmentAction()
     }
     @IBAction func walkMeAction(_ sender: Any) {
-        //walkMeLabel
-        //timer value exits? creat new : reset time
-        updateWalkTime()
-        removeNotification(code: "1", patientID: patientID) //TOCHECK:::
-        removeNotification(code: "2", patientID: patientID) //TOCHECK:::
+        starWalkAlert()
     }
     @IBAction func takePhotoAction(_ sender: Any) {
         //TAKR Patient Picture
@@ -117,6 +119,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         {
         case 0://All
             SearchData=patientRecords
+            SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
             patientTable.reloadData()
         case 1://Canine
             scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Canine")
@@ -168,6 +171,29 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         }
         present(activityViewController, animated: true, completion: nil)
     }
+    //Walk Animation View Actions
+    @IBAction func yesWalkAction(_ sender: Any) {
+        //timer value exits? creat new : reset time
+        self.updateWalkTime()
+        self.removeNotification(code: "1", patientID: self.patientID) //TOCHECK:::
+        self.removeNotification(code: "2", patientID: self.patientID) //TOCHECK:::
+        self.closeWalkAlert()
+        
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: .calculationModeLinear, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/2, animations: {
+                self.vitalsGrayBoxView.backgroundColor = UIColor.candyGreen()
+            })
+            UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
+                self.vitalsGrayBoxView.backgroundColor = UIColor.lightGrey()
+            })
+        }, completion: { completed in
+            
+        })
+        
+    }
+    @IBAction func noWalkAction(_ sender: Any) {
+        closeWalkAlert()
+    }
 }
 extension PatientsVC {
     // #MARK: - SEARCH
@@ -179,6 +205,7 @@ extension PatientsVC {
         } else {
             SearchData=patientRecords
         }
+        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! } //might be slow!!!
         patientTable.reloadData()
         viewTitle.text = "My Active Patients (\(SearchData.count))"
     }
@@ -203,6 +230,7 @@ extension PatientsVC {
         searchBar.text = ""
         searchBar.endEditing(true)
         SearchData=patientRecords
+        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
         patientTable.reloadData()
     }
 }
@@ -216,16 +244,14 @@ extension PatientsVC {
     // #MARK: - When Keyboard hides DO: Move text view up
     @objc func keyboardWillShow(sender: NSNotification){
         if searchActive == false && emailActive == false && shareActive == false{
-            //showUpdateRecordView()
-            
         }
     }// #MARK: - When Keyboard shws DO: Move text view down
     @objc func keyboardWillHide(sender: NSNotification){
-        
     }
     @objc func refreshPatientsTable(){
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         SearchData = patientRecords
+        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
         patientTable.reloadData()
     }
     // #MARK: - UI Set Up
@@ -245,6 +271,7 @@ extension PatientsVC {
         //search delegate
         patientSearchBar.delegate = self
         SearchData=patientRecords
+        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
     }
     func updateWalkTime(){
         //let patientID = "804348"
@@ -298,6 +325,7 @@ extension PatientsVC {
             default:
                 cell.imageBackgroundView.backgroundColor = UIColor.cyan
         }
+        //if //missingPiece
         if thisPatient["status"] == "Archive" {
             cell.backgroundColor = UIColor.polar()
         } else {
@@ -387,6 +415,7 @@ extension PatientsVC {
         UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
         UserDefaults.standard.synchronize()
         self.SearchData = self.patientRecords
+        self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
         self.patientTable.reloadData()
     }
     func deleteRecordAlert(title:String, message:String,
@@ -681,6 +710,14 @@ extension PatientsVC{
         if let index = dictIndexFrom(array: procedures, usingKey:"patientID", usingValue: patientID) {
             proc = procedures[index]
         }
+        for item in proc {
+            if item.value == "false" {
+                proc[item.key] = "No"
+            }
+            if item.value == "true" {
+                proc[item.key] = "Yes"
+            }
+        }
         if arrayContains(array:procedures, value:patientID) {//check if patient has incision
             let titleTopString = "Procedure"
             var newTotalY = 300
@@ -766,12 +803,14 @@ extension PatientsVC{
     }
     func drawVitalsText(patientID:String){
         let titles = ["temperature","pulse","cRT_MM","respiration","weight","exitWeight","initialsVitals"]
-        
         let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
         var vitalData = Dictionary<String,String>()
         for vital in patientVitals {
             if vital["patientID"] == patientID {
                 vitalData = vital
+                if vitalData["temperature"] != "" { vitalData["temperature"] = vitalData["temperature"]! + " °F" }
+                if vitalData["weight"] != "" {vitalData["weight"] = vitalData["weight"]! + " Kg"}
+                if vitalData["exitWeight"] != "" {vitalData["exitWeight"] = vitalData["exitWeight"]! + " Kg"}
             }
         }
         //set up columns for 850 by 1100 page
@@ -1016,5 +1055,24 @@ extension PatientsVC {
         return false
     }
 }
+extension PatientsVC {
+    func starWalkAlert(){
+        let imagesListArray =
+            [UIImage(named: "dog1.png")!,UIImage(named: "dog2.png")!,UIImage(named: "dog3.png")!,UIImage(named: "dog4.png")!,UIImage(named: "dog1.png")!,UIImage(named: "dog2.png")!,UIImage(named: "dog3.png")!,UIImage(named: "dog4.png")!,UIImage(named: "dog1.png")!,UIImage(named: "dog2.png")!,UIImage(named: "dog3.png")!,UIImage(named: "dog4.png")!]
+        runningDogImage.animationImages = imagesListArray
+        runningDogImage.animationDuration = 2.0
+        runningDogImage.startAnimating()
+        self.view.bringSubview(toFront: walkAlertView)
+        //runningDogImage
+        //walkAlertView
+        
+    }
+    func closeWalkAlert(){
+        self.view.sendSubview(toBack: walkAlertView)
+        runningDogImage.stopAnimating()
+    }
+}
+
+
 
 
