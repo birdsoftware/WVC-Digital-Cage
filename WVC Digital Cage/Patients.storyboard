@@ -166,60 +166,100 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="802303" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lnf-29-7oN">
-                                        <rect key="frame" x="33" y="170.5" width="114" height="29"/>
+                                        <rect key="frame" x="53.5" y="180" width="73.5" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="M1C-ZR-sOS"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V16-yd-EjQ" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="170" width="33" height="30"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAf-z6-9SN">
+                                        <rect key="frame" x="180" y="0.0" width="33" height="160"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQx-S4-TeA" userLabel="Button Alert" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="114" width="33" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="NuQ-6I-cGJ"/>
+                                                    <constraint firstAttribute="width" constant="33" id="uFd-IY-v75"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="bell"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                        <real key="value" value="0.20000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <segue destination="Z2K-QL-LfJ" kind="show" identifier="segueCustomNotification" animates="NO" id="KM1-hK-rzT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFs-Ua-frZ" userLabel="Button Alert" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="15" width="33" height="31"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="IDH-5I-Fr6"/>
+                                                    <constraint firstAttribute="width" constant="33" id="z05-nw-Whe"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="multiple images"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                        <real key="value" value="0.20000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <segue destination="f3m-RC-3qQ" kind="presentation" identifier="segueInjuries" animates="NO" id="tQv-DR-pZY"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V16-yd-EjQ" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="65" width="33" height="30"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="3uG-Np-scb"/>
+                                                    <constraint firstAttribute="width" constant="33" id="AFv-Ub-Gt5"/>
+                                                </constraints>
+                                                <state key="normal" image="note">
+                                                    <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                        <real key="value" value="0.10000000000000001"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.91094660758972168" green="0.95289212465286255" blue="0.99863523244857788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="3uG-Np-scb"/>
-                                            <constraint firstAttribute="width" constant="33" id="AFv-Ub-Gt5"/>
+                                            <constraint firstAttribute="height" constant="160" id="2Mv-nl-w2X"/>
+                                            <constraint firstAttribute="trailing" secondItem="MFs-Ua-frZ" secondAttribute="trailing" id="512-Lq-nT8"/>
+                                            <constraint firstItem="V16-yd-EjQ" firstAttribute="centerY" secondItem="eAf-z6-9SN" secondAttribute="centerY" id="787-wa-gtC"/>
+                                            <constraint firstAttribute="trailing" secondItem="V16-yd-EjQ" secondAttribute="trailing" id="DcV-yd-skU"/>
+                                            <constraint firstItem="MFs-Ua-frZ" firstAttribute="top" secondItem="eAf-z6-9SN" secondAttribute="top" constant="15" id="Lwe-wX-odW"/>
+                                            <constraint firstAttribute="width" constant="33" id="lvd-I2-6Ft"/>
+                                            <constraint firstAttribute="trailing" secondItem="CQx-S4-TeA" secondAttribute="trailing" id="m8k-fb-EAh"/>
+                                            <constraint firstAttribute="bottom" secondItem="CQx-S4-TeA" secondAttribute="bottom" constant="15" id="ttP-7G-lNQ"/>
                                         </constraints>
-                                        <state key="normal" image="note">
-                                            <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.10000000000000001"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQx-S4-TeA" userLabel="Button Alert" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="147" y="170" width="33" height="31"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="NuQ-6I-cGJ"/>
-                                            <constraint firstAttribute="width" constant="33" id="uFd-IY-v75"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" image="bell"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.20000000000000001"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="Z2K-QL-LfJ" kind="show" identifier="segueCustomNotification" animates="NO" id="KM1-hK-rzT"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                     <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WCe-LM-KJB" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                         <rect key="frame" x="147" y="127" width="30" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -236,48 +276,19 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFs-Ua-frZ" userLabel="Button Alert" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="180" y="0.0" width="33" height="31"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="IDH-5I-Fr6"/>
-                                            <constraint firstAttribute="width" constant="33" id="z05-nw-Whe"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" image="multiple images"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.20000000000000001"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="f3m-RC-3qQ" kind="presentation" identifier="segueInjuries" animates="NO" id="tQv-DR-pZY"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.02180827409029007" green="0.47766262292861938" blue="1" alpha="0.094900470890410954" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="eAf-z6-9SN" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="top" id="2Uu-34-Rfq"/>
+                                    <constraint firstItem="Lnf-29-7oN" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" constant="20" id="5am-aa-l9x"/>
                                     <constraint firstItem="WCe-LM-KJB" firstAttribute="trailing" secondItem="mC1-GR-qEd" secondAttribute="trailing" constant="-3" id="6Ue-lq-e7s"/>
-                                    <constraint firstItem="V16-yd-EjQ" firstAttribute="leading" secondItem="ISA-Ks-PLW" secondAttribute="leading" id="9Tt-VF-Ti5"/>
-                                    <constraint firstItem="V16-yd-EjQ" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" constant="10" id="BF5-WZ-u4M"/>
                                     <constraint firstItem="gf6-7I-vEt" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="top" constant="2" id="DHy-a0-ON8"/>
-                                    <constraint firstItem="CQx-S4-TeA" firstAttribute="top" secondItem="WCe-LM-KJB" secondAttribute="bottom" constant="13" id="EMb-80-fCQ"/>
-                                    <constraint firstItem="Lnf-29-7oN" firstAttribute="leading" secondItem="V16-yd-EjQ" secondAttribute="trailing" id="FGv-Mb-zGJ"/>
-                                    <constraint firstItem="MFs-Ua-frZ" firstAttribute="leading" secondItem="mC1-GR-qEd" secondAttribute="trailing" id="GV4-EO-Lvg"/>
-                                    <constraint firstItem="CQx-S4-TeA" firstAttribute="trailing" secondItem="mC1-GR-qEd" secondAttribute="trailing" id="Nkd-Jr-Vzo"/>
+                                    <constraint firstItem="Lnf-29-7oN" firstAttribute="centerX" secondItem="mC1-GR-qEd" secondAttribute="centerX" id="JbR-WS-21C"/>
                                     <constraint firstItem="gf6-7I-vEt" firstAttribute="leading" secondItem="ISA-Ks-PLW" secondAttribute="leading" constant="3" id="UG6-uu-Yd4"/>
-                                    <constraint firstItem="CQx-S4-TeA" firstAttribute="leading" secondItem="Lnf-29-7oN" secondAttribute="trailing" id="UMR-5W-2IK"/>
                                     <constraint firstItem="mC1-GR-qEd" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="top" id="Ynh-zH-o4t"/>
                                     <constraint firstAttribute="height" constant="219" id="acA-G3-oPZ"/>
-                                    <constraint firstItem="MFs-Ua-frZ" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="top" id="fSA-5I-jL6"/>
-                                    <constraint firstItem="CQx-S4-TeA" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" constant="10" id="fqb-OB-Nsi"/>
-                                    <constraint firstItem="Lnf-29-7oN" firstAttribute="centerY" secondItem="V16-yd-EjQ" secondAttribute="centerY" id="oVe-KP-Sft"/>
+                                    <constraint firstItem="eAf-z6-9SN" firstAttribute="leading" secondItem="mC1-GR-qEd" secondAttribute="trailing" id="gHk-52-QW5"/>
+                                    <constraint firstItem="WCe-LM-KJB" firstAttribute="bottom" secondItem="mC1-GR-qEd" secondAttribute="bottom" constant="-3" id="jIs-gS-iqN"/>
                                     <constraint firstItem="mC1-GR-qEd" firstAttribute="leading" secondItem="ISA-Ks-PLW" secondAttribute="leading" id="ta1-hi-wxf"/>
                                 </constraints>
                             </view>

@@ -69,6 +69,9 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     var shareActive = false
     var emailActive = false
     
+    //segue data
+    var seguePatientID:String!
+    
     //table data
     var patientID = ""
     var selectedData = Dictionary<String,String>()
@@ -99,6 +102,55 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
                                                selector: #selector(refreshPatientsTable),
                                                name: NSNotification.Name(rawValue: "refreshPatientsTable"),
                                                object: nil)
+    }
+    override func viewDidAppear(_ animated: Bool){
+        if let seguePatientID = seguePatientID {
+            
+            func indexOfPatients(pid: String) -> Int {
+                return SearchData.index { (patient) -> Bool in
+                    return patient["patientID"] == pid
+                    } ?? NSNotFound
+            }
+            
+            let indexOfSeguePatient = indexOfPatients(pid: seguePatientID)
+            //let thisPatient = SearchData[IndexPath.row]
+            print("seguePatientID \(seguePatientID), indexOfSeguePatient \(indexOfSeguePatient)")
+            
+            let path = NSIndexPath(row: indexOfSeguePatient, section: 0)
+            patientTable.selectRow(at: path as IndexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
+            
+            selectedData = SearchData[indexOfSeguePatient]
+            hideHideView()
+            //UPDATE UI VALUES
+            shareButton.isHidden = false
+            pdfLabel.isHidden = false
+            screenShareButton.isHidden = false
+            patientID = selectedData["patientID"]!
+            UserDefaults.standard.set(patientID, forKey: "selectedPatientID")
+            UserDefaults.standard.synchronize()
+            print("patientID: \(patientID)")
+            showVitals(pid:patientID)
+            getImage(imageName: patientID + ".png", imageView: patientPicture)
+            //showPhysicalExam(pid:patientID)
+            patientIDLabel.text = patientID
+            let kennelID = selectedData["kennelID"]!
+            kennelNumberButton.setTitle(kennelID, for: .normal)
+            if selectedData["walkDate"]! != ""{
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let yourDateString = selectedData["walkDate"]!
+                let lastWalkDate = formatter.date(from: yourDateString)
+                walkMeLabel.text = lastWalkDate!.timeAgo()
+            } else {
+                walkMeLabel.text = "not yet"
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showProcedure"), object: nil)
+            
+        }
+        
     }
     //#MARK - Actions
     @IBAction func segmentControlAction(_ sender: Any) {

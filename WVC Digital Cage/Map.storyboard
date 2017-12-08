@@ -1244,6 +1244,7 @@
                                                                     <outlet property="owner" destination="EKh-Va-zQK" id="dmJ-yA-0eY"/>
                                                                     <outlet property="patientId" destination="mtX-uJ-mRf" id="YQD-Ym-Xz0"/>
                                                                     <outlet property="walkDate" destination="U06-df-l3o" id="BeK-P1-Bxb"/>
+                                                                    <segue destination="ve1-07-4dL" kind="presentation" identifier="segueMapToPatientDB" animates="NO" id="FMv-cC-w4f"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>
@@ -1575,6 +1576,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="auM-lE-bK0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="89.6484375" y="92.96875"/>
+        </scene>
+        <!--patientsDB-->
+        <scene sceneID="KBt-et-YbM">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Patients" referencedIdentifier="patientsDB" id="ve1-07-4dL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4D0-3l-xhx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="478" y="-36"/>
         </scene>
         <!--mainDB-->
         <scene sceneID="jsC-NK-i3I">
