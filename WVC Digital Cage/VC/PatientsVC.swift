@@ -111,14 +111,9 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
                     return patient["patientID"] == pid
                     } ?? NSNotFound
             }
-            
             let indexOfSeguePatient = indexOfPatients(pid: seguePatientID)
-            //let thisPatient = SearchData[IndexPath.row]
-            print("seguePatientID \(seguePatientID), indexOfSeguePatient \(indexOfSeguePatient)")
-            
             let path = NSIndexPath(row: indexOfSeguePatient, section: 0)
-            patientTable.selectRow(at: path as IndexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
-            
+            patientTable.selectRow(at: path as IndexPath, animated: false, scrollPosition: UITableViewScrollPosition.middle)
             selectedData = SearchData[indexOfSeguePatient]
             hideHideView()
             //UPDATE UI VALUES
@@ -128,10 +123,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
             patientID = selectedData["patientID"]!
             UserDefaults.standard.set(patientID, forKey: "selectedPatientID")
             UserDefaults.standard.synchronize()
-            print("patientID: \(patientID)")
             showVitals(pid:patientID)
             getImage(imageName: patientID + ".png", imageView: patientPicture)
-            //showPhysicalExam(pid:patientID)
             patientIDLabel.text = patientID
             let kennelID = selectedData["kennelID"]!
             kennelNumberButton.setTitle(kennelID, for: .normal)

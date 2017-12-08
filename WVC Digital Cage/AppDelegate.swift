@@ -47,16 +47,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension UIColor {
-    static func candyGreen() -> UIColor {
-        return UIColor(red: 67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0)
+    static func WVCActionBlue() -> UIColor {
+        return UIColor(hex:0x02a2d0)
     }
-    static func DarkRed() -> UIColor {
+    static func DarkRed() -> UIColor {//WVC DK RED
         return UIColor(hex:0xaa010e)
+    }
+    static func WVCLightRed() -> UIColor {
+        return UIColor(hex:0xef192d)
+    }
+    static func WVCGray() -> UIColor {
+        return UIColor(hex:0x999a99)
+    }
+    static func WVCLightGray() -> UIColor {
+        return UIColor(hex: 0xbfbfbf)
     }
     static func lightGrey() -> UIColor {
         return UIColor(hex:0xF1F3F3)
     }
     //blues
+    static func candyGreen() -> UIColor {
+        return UIColor(red: 67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0)//#43cd87
+    }
     static func backButtonBlue() -> UIColor {
         return UIColor(hex:0x007AFF)
     }

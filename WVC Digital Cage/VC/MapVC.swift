@@ -73,7 +73,7 @@ class MapVC: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITa
         print("tagNum \(tag)")
         setDisplayText(tagNum: tag)
         updateSearchData(kennelID: kennelID(fromTagNo: tag))
-        colorButtonBackground(color: UIColor.seaBuckthorn(), tagNo: tag)
+        colorButtonBackground(color: UIColor.WVCActionBlue(), tagNo: tag)
         if topConstraint.constant == 0 {
             /* Animation */
             openDisplay()
@@ -124,49 +124,34 @@ extension MapVC{
     }
     func resetColors(){
         for button in singleButtons{
-            button.backgroundColor = UIColor.sailBlue()
+            button.backgroundColor = UIColor.WVCLightGray()
         }
         occupiedKennels()
     }
 }
 extension MapVC{
     func occupiedKennels(){
-        //-1 extra since singleButtons is array
         var tagNo = 0
         for patient in patientRecords {
             if patient["status"] == "Active" {
             switch patient["kennelID"]! {
             case "S1","S2","S3","S4","S5","S6","S7","S8":
-                print("kennelID \(patient["kennelID"]!)")
+                //print("kennelID \(patient["kennelID"]!)")
                 tagNo = (Int(String(patient["kennelID"]!.dropFirst(1)))!)//-1
-                print("tagNo \(tagNo)")
-                //singleButtons[tagNo].backgroundColor = UIColor.candyGreen()
-                colorButtonBackground(color: UIColor.candyGreen(), tagNo: tagNo)
-            case "D1","D2","D3","D4","D5","D6","D7","D8":
-                print("kennelID \(patient["kennelID"]!)")
+                //print("tagNo \(tagNo)")
+                colorButtonBackground(color: UIColor.WVCLightRed(), tagNo: tagNo)
+            case "D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","D12","D13","D14","D15","D16":
                 tagNo = ((Int(String(patient["kennelID"]!.dropFirst(1)))!))+8
-                colorButtonBackground(color: UIColor.candyGreen(), tagNo: tagNo)
-                print("tagNo \(tagNo)")
-            case "D9","D10","D11","D12","D13","D14","D15","D16":
-                print("kennelID \(patient["kennelID"]!)")
-                tagNo = ((Int(String(patient["kennelID"]!.dropFirst(1)))!))+8
-                colorButtonBackground(color: UIColor.candyGreen(), tagNo: tagNo)
-                print("tagNo \(tagNo)")
+                colorButtonBackground(color: UIColor.WVCLightRed(), tagNo: tagNo)
             case "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12","T13":
-                print("kennelID \(patient["kennelID"]!)")
                 tagNo = ((Int(String(patient["kennelID"]!.dropFirst(1)))!))+24
-                colorButtonBackground(color: UIColor.candyGreen(), tagNo: tagNo)
-                print("tagNo \(tagNo)")
+                colorButtonBackground(color: UIColor.WVCLightRed(), tagNo: tagNo)
             case "I1","I2","I3","I4":
-                print("kennelID \(patient["kennelID"]!)")
                 tagNo = ((Int(String(patient["kennelID"]!.dropFirst(1)))!))+37
-                colorButtonBackground(color: UIColor.candyGreen(), tagNo: tagNo)
-                print("tagNo \(tagNo)")
+                colorButtonBackground(color: UIColor.WVCLightRed(), tagNo: tagNo)
             case "Cat room","Cage Banks":
                 tagNo = 42
-                print("kennelID \(patient["kennelID"]!)")
-                colorButtonBackground(color: UIColor.candyGreen(), tagNo: tagNo)
-                print("tagNo \(tagNo)")
+                colorButtonBackground(color: UIColor.WVCLightRed(), tagNo: tagNo)
             default: tagNo = 0
             }
         }

@@ -22,7 +22,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="mainDB" id="Dvi-A1-lJi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dad-JR-zF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="536" y="-141"/>
+            <point key="canvasLocation" x="543" y="152"/>
         </scene>
         <!--InjuriesDB-->
         <scene sceneID="xvq-nV-e6t">
@@ -175,7 +175,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAf-z6-9SN">
-                                        <rect key="frame" x="180" y="0.0" width="33" height="160"/>
+                                        <rect key="frame" x="182" y="0.0" width="33" height="160"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQx-S4-TeA" userLabel="Button Alert" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="114" width="33" height="31"/>
@@ -276,20 +276,120 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLe-BU-9i1" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160" width="40" height="20"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="MRu-Pw-uTC"/>
+                                            <constraint firstAttribute="height" constant="20" id="qDd-hg-NSf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="NPO">
+                                            <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                <real key="value" value="0.050000000000000003"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esE-67-iTA" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="160" width="40" height="20"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="LoQ-8q-E3o"/>
+                                            <constraint firstAttribute="width" constant="40" id="zCU-ya-rGi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="NPO">
+                                            <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                <real key="value" value="0.050000000000000003"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0Z-vu-CzS" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                        <rect key="frame" x="80" y="160" width="40" height="20"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Ahl-6R-tdI"/>
+                                            <constraint firstAttribute="width" constant="40" id="F9p-PH-TAz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="NPO">
+                                            <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                <real key="value" value="0.050000000000000003"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdJ-Np-oEu" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                        <rect key="frame" x="120" y="160" width="40" height="20"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Tfi-j1-jYw"/>
+                                            <constraint firstAttribute="width" constant="40" id="ZKK-fU-MPI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="NPO">
+                                            <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
+                                                <real key="value" value="0.050000000000000003"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.02180827409029007" green="0.47766262292861938" blue="1" alpha="0.094900470890410954" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="vLe-BU-9i1" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" id="0kx-EB-v5m"/>
                                     <constraint firstItem="eAf-z6-9SN" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="top" id="2Uu-34-Rfq"/>
+                                    <constraint firstItem="kdJ-Np-oEu" firstAttribute="leading" secondItem="a0Z-vu-CzS" secondAttribute="trailing" id="2gx-TY-tp6"/>
                                     <constraint firstItem="Lnf-29-7oN" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" constant="20" id="5am-aa-l9x"/>
                                     <constraint firstItem="WCe-LM-KJB" firstAttribute="trailing" secondItem="mC1-GR-qEd" secondAttribute="trailing" constant="-3" id="6Ue-lq-e7s"/>
+                                    <constraint firstItem="esE-67-iTA" firstAttribute="leading" secondItem="vLe-BU-9i1" secondAttribute="trailing" id="7df-Bw-zFK"/>
+                                    <constraint firstItem="vLe-BU-9i1" firstAttribute="leading" secondItem="mC1-GR-qEd" secondAttribute="leading" id="AmL-V1-HmC"/>
                                     <constraint firstItem="gf6-7I-vEt" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="top" constant="2" id="DHy-a0-ON8"/>
+                                    <constraint firstItem="kdJ-Np-oEu" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" id="HHs-s0-RYJ"/>
                                     <constraint firstItem="Lnf-29-7oN" firstAttribute="centerX" secondItem="mC1-GR-qEd" secondAttribute="centerX" id="JbR-WS-21C"/>
                                     <constraint firstItem="gf6-7I-vEt" firstAttribute="leading" secondItem="ISA-Ks-PLW" secondAttribute="leading" constant="3" id="UG6-uu-Yd4"/>
+                                    <constraint firstItem="a0Z-vu-CzS" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" id="VSR-HM-E5c"/>
                                     <constraint firstItem="mC1-GR-qEd" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="top" id="Ynh-zH-o4t"/>
                                     <constraint firstAttribute="height" constant="219" id="acA-G3-oPZ"/>
-                                    <constraint firstItem="eAf-z6-9SN" firstAttribute="leading" secondItem="mC1-GR-qEd" secondAttribute="trailing" id="gHk-52-QW5"/>
+                                    <constraint firstItem="eAf-z6-9SN" firstAttribute="leading" secondItem="mC1-GR-qEd" secondAttribute="trailing" constant="2" id="gHk-52-QW5"/>
                                     <constraint firstItem="WCe-LM-KJB" firstAttribute="bottom" secondItem="mC1-GR-qEd" secondAttribute="bottom" constant="-3" id="jIs-gS-iqN"/>
+                                    <constraint firstItem="a0Z-vu-CzS" firstAttribute="leading" secondItem="esE-67-iTA" secondAttribute="trailing" id="s68-yu-bAI"/>
                                     <constraint firstItem="mC1-GR-qEd" firstAttribute="leading" secondItem="ISA-Ks-PLW" secondAttribute="leading" id="ta1-hi-wxf"/>
+                                    <constraint firstItem="esE-67-iTA" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" id="yHS-6S-kyP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4I7-AA-OXW" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
@@ -611,7 +711,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SyT-Ks-Bh6" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                <rect key="frame" x="592" y="96" width="427" height="183"/>
+                                <rect key="frame" x="610" y="96" width="409" height="183"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temp (F):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Az9-6D-rgO">
                                         <rect key="frame" x="8" y="18" width="81.5" height="23"/>
@@ -652,7 +752,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K0z-cc-Z6M">
-                                        <rect key="frame" x="119" y="100.5" width="300" height="30"/>
+                                        <rect key="frame" x="119" y="100.5" width="282" height="30"/>
                                         <color key="backgroundColor" red="0.95559948679999995" green="0.98042947049999996" blue="0.99294942620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -665,7 +765,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initials:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3N-rM-D7r">
-                                        <rect key="frame" x="286" y="147" width="63" height="23"/>
+                                        <rect key="frame" x="268" y="147" width="63" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="63" id="Kff-I0-8oa"/>
                                         </constraints>
@@ -684,7 +784,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OdH-yy-m3C">
-                                        <rect key="frame" x="351" y="60.5" width="68" height="30"/>
+                                        <rect key="frame" x="351" y="60.5" width="50" height="30"/>
                                         <color key="backgroundColor" red="0.95559948679999995" green="0.98042947049999996" blue="0.99294942620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -703,14 +803,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DEu-VA-sG5">
-                                        <rect key="frame" x="351" y="14" width="68" height="30"/>
+                                        <rect key="frame" x="351" y="14" width="50" height="30"/>
                                         <color key="backgroundColor" red="0.95559948679999995" green="0.98042947049999996" blue="0.99294942620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kkp-bK-9IJ">
-                                        <rect key="frame" x="359" y="143.5" width="60" height="30"/>
+                                        <rect key="frame" x="341" y="143.5" width="60" height="30"/>
                                         <color key="backgroundColor" red="0.95559948679999995" green="0.98042947049999996" blue="0.99294942620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="1Xj-Ez-z6A"/>
@@ -810,10 +910,10 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSy-LD-g8t">
-                                <rect key="frame" x="592" y="60" width="427" height="40.5"/>
+                                <rect key="frame" x="610" y="60" width="409" height="40.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t1z-1J-Pw3" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="322" y="5" width="97" height="30"/>
+                                        <rect key="frame" x="304" y="5" width="97" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="4s7-Ha-0Rn"/>
@@ -838,9 +938,9 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="not yet" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5u-Yz-ChT">
-                                        <rect key="frame" x="114" y="9.5" width="200" height="21"/>
+                                        <rect key="frame" x="114" y="9.5" width="150" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" priority="999" constant="200" id="J2w-T5-dXY"/>
+                                            <constraint firstAttribute="width" priority="999" constant="150" id="J2w-T5-dXY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -850,17 +950,24 @@
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="z5u-Yz-ChT" firstAttribute="centerY" secondItem="t1z-1J-Pw3" secondAttribute="centerY" id="Dme-7O-OTs"/>
-                                    <constraint firstItem="t1z-1J-Pw3" firstAttribute="leading" secondItem="z5u-Yz-ChT" secondAttribute="trailing" constant="8" id="WRP-bf-HE9"/>
+                                    <constraint firstItem="t1z-1J-Pw3" firstAttribute="leading" secondItem="z5u-Yz-ChT" secondAttribute="trailing" constant="40" id="WRP-bf-HE9"/>
                                     <constraint firstAttribute="trailing" secondItem="t1z-1J-Pw3" secondAttribute="trailing" constant="8" id="t2g-Ff-JDi"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vitals:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceQ-rU-fkc">
-                                <rect key="frame" x="593.5" y="67" width="58.5" height="26.5"/>
+                                <rect key="frame" x="611.5" y="67" width="58.5" height="26.5"/>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walk dog" translatesAutoresizingMaskIntoConstraints="NO" id="MBr-Da-vaR">
+                                <rect key="frame" x="881" y="67.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="YJp-M0-AT1"/>
+                                    <constraint firstAttribute="height" constant="25" id="c2Q-Fp-psx"/>
+                                </constraints>
+                            </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u7b-ix-jrT" userLabel="Container View-Pro">
                                 <rect key="frame" x="374" y="278" width="645" height="455"/>
                                 <connections>
@@ -896,6 +1003,7 @@
                             <constraint firstItem="zZP-tR-Gle" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="8" id="2Va-fz-lWY"/>
                             <constraint firstItem="ceQ-rU-fkc" firstAttribute="centerY" secondItem="DSy-LD-g8t" secondAttribute="centerY" id="2fK-Kk-rNJ"/>
                             <constraint firstItem="DSy-LD-g8t" firstAttribute="leading" secondItem="ceQ-rU-fkc" secondAttribute="trailing" constant="-60" id="4o4-NR-p9b"/>
+                            <constraint firstItem="t1z-1J-Pw3" firstAttribute="leading" secondItem="MBr-Da-vaR" secondAttribute="trailing" constant="8" id="5JE-j4-yx3"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="bottom" secondItem="eAF-Ov-TGa" secondAttribute="bottom" id="7r2-JW-9Da"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="trailing" secondItem="TKj-vH-XLd" secondAttribute="trailing" constant="5" id="8IK-4A-Y86"/>
                             <constraint firstItem="eZB-gQ-2G6" firstAttribute="trailing" secondItem="B4e-IZ-odx" secondAttribute="trailing" id="8JY-vY-KgZ"/>
@@ -926,6 +1034,7 @@
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="bottom" secondItem="6bR-4s-74J" secondAttribute="bottom" constant="7" id="XxU-As-WEO"/>
                             <constraint firstItem="XaN-UT-EBD" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="8" id="YMy-wE-DcR"/>
                             <constraint firstItem="eAF-Ov-TGa" firstAttribute="trailing" secondItem="B4e-IZ-odx" secondAttribute="trailing" id="YO1-dk-li4"/>
+                            <constraint firstItem="MBr-Da-vaR" firstAttribute="centerY" secondItem="t1z-1J-Pw3" secondAttribute="centerY" id="Z3V-eq-VUY"/>
                             <constraint firstItem="Mnz-2U-Z2P" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="bottom" id="ZKv-Oo-B1Z"/>
                             <constraint firstItem="eAF-Ov-TGa" firstAttribute="leading" secondItem="B4e-IZ-odx" secondAttribute="leading" id="ZQH-Dq-bUg"/>
                             <constraint firstItem="4I7-AA-OXW" firstAttribute="top" secondItem="SV5-kp-K4Z" secondAttribute="top" id="aKz-my-4cA"/>
@@ -1959,7 +2068,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9IY-Xf-FjN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="556" y="38"/>
+            <point key="canvasLocation" x="555" y="-195"/>
         </scene>
         <!--addPatientsVC-->
         <scene sceneID="2Tx-Fi-PZ2">
@@ -1967,7 +2076,7 @@
                 <viewControllerPlaceholder storyboardName="AddNewPatient" referencedIdentifier="addPatientsVC" id="9DH-LG-hgd" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mdr-fS-kLI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="556" y="170"/>
+            <point key="canvasLocation" x="555" y="192"/>
         </scene>
         <!--Patient ProcedureVC-->
         <scene sceneID="JxB-B6-orL">
@@ -2964,5 +3073,6 @@
         <image name="screenShot" width="64" height="64"/>
         <image name="share" width="64" height="64"/>
         <image name="suture" width="64" height="64"/>
+        <image name="walk dog" width="64" height="64"/>
     </resources>
 </document>
