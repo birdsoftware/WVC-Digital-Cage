@@ -102,7 +102,7 @@ extension PatientDemographicsVC{
     func flashGreenTextField(textField: UITextField, displayText: String){
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
             //textField.alpha = 0.0
-            textField.backgroundColor = UIColor.candyGreen()
+            textField.backgroundColor = UIColor.WVCActionBlue()
         }, completion: {
             finished in
             if finished {

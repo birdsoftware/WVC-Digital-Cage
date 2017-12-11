@@ -97,7 +97,7 @@ class MapVC: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITa
         triplesLabelConstraint.constant = -20
         doublesLabelConstraint.constant = -32
         singlesLabelConstraint.constant = -33
-        displayWidthConstraint.constant = 240
+        displayWidthConstraint.constant = 250
     }
     func closeDisplay(){
         displayUIView.alpha = 0

@@ -234,7 +234,7 @@ extension AMPMVC {
         )
         
         if this["date"] != "" && isAnyAMPMBlank{
-            cell.backgroundColor = UIColor.candyGreen()
+            cell.backgroundColor = UIColor.WVCActionBlue()
         } else { cell.backgroundColor = UIColor.white }
         
             cell.date.text = this["date"]

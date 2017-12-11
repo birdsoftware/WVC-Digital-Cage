@@ -66,10 +66,7 @@ extension UIColor {
         return UIColor(hex:0xF1F3F3)
     }
     //blues
-    static func candyGreen() -> UIColor {
-        return UIColor(red: 67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0)//#43cd87
-    }
-    static func backButtonBlue() -> UIColor {
+    static func backButtonBlue() -> UIColor {//blue in title
         return UIColor(hex:0x007AFF)
     }
     static func textFieldBlue() -> UIColor {
@@ -84,7 +81,16 @@ extension UIColor {
     static func sailBlue() -> UIColor {
         return UIColor(hex: 0xBDDEFA)
     }
+    static func polar() -> UIColor {
+        return UIColor(hex:0xE8F8F8)
+    }
+    static func bostonBlue() -> UIColor {//send message button
+        return UIColor(hex:0x3B8DBD)
+    }
     //---
+    static func candyGreen() -> UIColor {
+        return UIColor(red: 67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0)//#43cd87
+    }
     static func Fern() -> UIColor {//-Top and bottum Bar
         return UIColor(hex:0x468401)
     }
@@ -97,10 +103,5 @@ extension UIColor {
     static func seaBuckthorn() -> UIColor {
         return UIColor(hex:0xFCAB29)
     }
-    static func polar() -> UIColor {
-        return UIColor(hex:0xE8F8F8)
-    }
-    static func bostonBlue() -> UIColor {//send message button
-        return UIColor(hex:0x3B8DBD)
-    }
+
 }

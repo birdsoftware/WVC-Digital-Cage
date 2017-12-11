@@ -399,8 +399,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwK-oA-VfQ">
-                                <rect key="frame" x="497" y="581" width="30" height="30"/>
-                                <state key="normal" title="Map"/>
+                                <rect key="frame" x="491.5" y="581" width="41" height="36"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                <state key="normal" title="MAP">
+                                    <color key="titleColor" red="0.64705882349999999" green="0.050980392159999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="YUE-sb-VPm" kind="presentation" animates="NO" id="Q9K-AG-0pB"/>
                                 </connections>

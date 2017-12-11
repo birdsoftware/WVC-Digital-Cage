@@ -102,6 +102,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
                                                selector: #selector(refreshPatientsTable),
                                                name: NSNotification.Name(rawValue: "refreshPatientsTable"),
                                                object: nil)
+        segmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
+        scopeSegmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
     }
     override func viewDidAppear(_ animated: Bool){
         if let seguePatientID = seguePatientID {
@@ -227,7 +229,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         
         UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: .calculationModeLinear, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/2, animations: {
-                self.vitalsGrayBoxView.backgroundColor = UIColor.candyGreen()
+                self.vitalsGrayBoxView.backgroundColor = UIColor.WVCActionBlue()
             })
             UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
                 self.vitalsGrayBoxView.backgroundColor = UIColor.lightGrey()

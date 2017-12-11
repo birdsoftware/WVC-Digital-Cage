@@ -67,7 +67,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2Q-8N-zKL">
                                         <rect key="frame" x="449" y="16.5" width="127.5" height="26"/>
                                         <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="21"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -102,23 +102,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walk dog" translatesAutoresizingMaskIntoConstraints="NO" id="s6G-uL-6AG">
-                                                    <rect key="frame" x="8" y="6" width="50" height="50"/>
+                                                    <rect key="frame" x="8" y="15" width="30" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="feR-Id-eD4"/>
-                                                        <constraint firstAttribute="height" constant="50" id="hjs-jX-03o"/>
+                                                        <constraint firstAttribute="width" constant="30" id="feR-Id-eD4"/>
+                                                        <constraint firstAttribute="height" constant="30" id="hjs-jX-03o"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgG-3N-MYn">
-                                                    <rect key="frame" x="66" y="21" width="100" height="21"/>
+                                                    <rect key="frame" x="63" y="19.5" width="120" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="Men-tW-s8C"/>
+                                                        <constraint firstAttribute="width" constant="120" id="Men-tW-s8C"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHF-et-tHA">
-                                                    <rect key="frame" x="174" y="21" width="170" height="21"/>
+                                                    <rect key="frame" x="191" y="19.5" width="170" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="170" id="8mn-Xg-6c3"/>
                                                     </constraints>
@@ -127,21 +127,21 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaC-yV-RJv">
-                                                    <rect key="frame" x="352" y="21" width="657" height="21"/>
+                                                    <rect key="frame" x="369" y="19.5" width="640" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="s6G-uL-6AG" firstAttribute="top" secondItem="4Ap-mK-IMG" secondAttribute="top" constant="6" id="1aQ-uh-oN2"/>
-                                                <constraint firstAttribute="bottom" secondItem="s6G-uL-6AG" secondAttribute="bottom" constant="7.5" id="1eA-Mj-hge"/>
+                                                <constraint firstItem="s6G-uL-6AG" firstAttribute="top" secondItem="4Ap-mK-IMG" secondAttribute="top" constant="15" id="1aQ-uh-oN2"/>
                                                 <constraint firstItem="uaC-yV-RJv" firstAttribute="trailing" secondItem="4Ap-mK-IMG" secondAttribute="trailingMargin" id="4yQ-zM-N7t"/>
                                                 <constraint firstItem="uaC-yV-RJv" firstAttribute="leading" secondItem="UHF-et-tHA" secondAttribute="trailing" constant="8" id="AMh-lG-UG2"/>
                                                 <constraint firstItem="uaC-yV-RJv" firstAttribute="centerY" secondItem="UHF-et-tHA" secondAttribute="centerY" id="CB3-ql-hoL"/>
                                                 <constraint firstItem="VgG-3N-MYn" firstAttribute="centerY" secondItem="s6G-uL-6AG" secondAttribute="centerY" id="WDA-hq-vk5"/>
                                                 <constraint firstItem="s6G-uL-6AG" firstAttribute="leading" secondItem="4Ap-mK-IMG" secondAttribute="leading" constant="8" id="b4g-uj-7jw"/>
-                                                <constraint firstItem="VgG-3N-MYn" firstAttribute="leading" secondItem="s6G-uL-6AG" secondAttribute="trailing" constant="8" id="sK3-cP-rpY"/>
+                                                <constraint firstAttribute="bottom" secondItem="s6G-uL-6AG" secondAttribute="bottom" constant="18.5" id="mn3-Fa-0PU"/>
+                                                <constraint firstItem="VgG-3N-MYn" firstAttribute="leading" secondItem="s6G-uL-6AG" secondAttribute="trailing" constant="25" id="sK3-cP-rpY"/>
                                                 <constraint firstItem="UHF-et-tHA" firstAttribute="leading" secondItem="VgG-3N-MYn" secondAttribute="trailing" constant="8" id="sx7-BK-t2R"/>
                                                 <constraint firstItem="UHF-et-tHA" firstAttribute="centerY" secondItem="VgG-3N-MYn" secondAttribute="centerY" id="vXe-gr-oj5"/>
                                             </constraints>
@@ -227,7 +227,7 @@
                                             <constraint firstAttribute="width" constant="250" id="Jut-Rx-s5b"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="21"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.65490196079999996" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -261,7 +261,7 @@
                                     <constraint firstAttribute="height" constant="27" id="8qh-6S-sbS"/>
                                     <constraint firstAttribute="width" constant="190" id="UZ8-SI-Hop"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -277,7 +277,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkE-Jd-ESB" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="20" y="708" width="360" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.84421115449999995" blue="0.20182291669999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="63v-n3-zvu"/>
                                     <constraint firstAttribute="width" constant="360" id="dlK-f1-cUb"/>
@@ -422,7 +422,7 @@
         <image name="walk dog" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lsk-mD-UBc"/>
-        <segue reference="Pgz-y4-zBA"/>
+        <segue reference="o2s-D5-Hf1"/>
+        <segue reference="iJ1-3r-Wag"/>
     </inferredMetricsTieBreakers>
 </document>
