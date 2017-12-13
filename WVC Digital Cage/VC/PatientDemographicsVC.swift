@@ -67,17 +67,17 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     @IBAction func npoAction(_ sender: Any) {
         toggleCheckBox(isChecked: &toggleNPO, checkButton: npo)
-        updateBadgeDefault()
+        saveBadgeToDefaults(); updateBadgeUI()
     }
     @IBAction func cationAction(_ sender: Any) {
         toggleCheckBox(isChecked: &toggleCation, checkButton: cation)
-        updateBadgeDefault()
+        saveBadgeToDefaults(); updateBadgeUI()
     }
     @IBAction func feedFrequencyAction(_ sender: Any) {
-        updateBadgeDefault()
+        saveBadgeToDefaults(); updateBadgeUI()
     }
     @IBAction func feedTypeAction(_ sender: Any) {
-        updateBadgeDefault()
+        saveBadgeToDefaults(); updateBadgeUI()
     }
     func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
         if (isChecked) {
@@ -86,8 +86,12 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
             checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
         isChecked = !isChecked
     }
-    func updateBadgeDefault(){
-        //get badges
+    func updateBadgeUI(){
+        //REFRESH BADGE IN PATIENTS VIEW
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBadge"), object: nil)
+    }
+    func saveBadgeToDefaults(){
+        //save badge to defaults
         let pid = returnSelectedPatientID()
         var feedHalf=false; var feedTwice=false;
         var feedWet=false; var feedDry=false;

@@ -102,12 +102,16 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
                            selector: #selector(keyboardWillHide),
                            name: .UIKeyboardWillHide,
                            object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(refreshPatientsTable),
-                                               name: NSNotification.Name(rawValue: "refreshPatientsTable"),
+       center.addObserver(self,
+                            selector: #selector(refreshPatientsTable),
+                            name: NSNotification.Name(rawValue: "refreshPatientsTable"),
                                                object: nil)
-        segmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
-        scopeSegmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
+        center.addObserver(self,
+                           selector: #selector(refreshBadge),
+                           name: NSNotification.Name(rawValue: "refreshBadge"),
+                           object: nil)
+        
+        
     }
     override func viewDidAppear(_ animated: Bool){//SEGUE FROM VIEW 2 - UPDATE UI
         if let seguePatientID = seguePatientID {
@@ -285,7 +289,7 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
-    // #MARK: - UI Hide Keyboard
+    // #MARK: - UI
     func tapDismissKeyboard(){
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PatientsVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -305,6 +309,10 @@ extension PatientsVC {
         SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
         patientTable.reloadData()
     }
+    @objc func refreshBadge(){
+        setBadges()
+        print("refreshBadge")
+    }
     // #MARK: - UI Set Up
     func setUpUI(){
         containerPE.isHidden = false
@@ -323,6 +331,8 @@ extension PatientsVC {
         patientSearchBar.delegate = self
         SearchData=patientRecords
         SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        segmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
+        scopeSegmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
     }
     func updateWalkTime(){
         //let patientID = "804348"
@@ -1143,29 +1153,6 @@ extension PatientsVC {
             updateButton(button: secondButton, isNil: second)
             updateButton(button: thirdButton, isNil: third)
             updateButton(button: cautionButton, isNil: fourth)
-            //                if first != nil {
-            //                    firstButton.isHidden = false
-            //                    firstButton.setTitle(first!, for: .normal)
-            //                } else {
-            //                    firstButton.isHidden = true
-            //                }
-            //                if second != nil {
-            //                    secondButton.isHidden = false
-            //                    secondButton.setTitle(second!, for: .normal)
-            //                } else {
-            //                    secondButton.isHidden = true
-            //                }
-            //                if third != nil {
-            //                    thirdButton.isHidden = false
-            //                    thirdButton.setTitle(third!, for: .normal)
-            //                } else {
-            //                    thirdButton.isHidden = true
-            //                }
-            //                if fourth != nil {
-            //                    cautionButton.isHidden = false
-            //                } else {
-            //                    cautionButton.isHidden = true
-            //                }
         }
         let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
         if badges.isEmpty{
@@ -1265,6 +1252,7 @@ extension PatientsVC {
                                     if isDry { // DRY
                                         //"1/2"    DRY        Caution
                                         //"1/2"    DRY
+                                        c ? displayBadges(first: "1/2", second: "DRY", third: nil, fourth: "⚠") : displayBadges(first: "1/2", second: "DRY", third: nil, fourth: nil)
                                     } else { //!WET   !DRY
                                         //"1/2"            Caution
                                         //"1/2"
