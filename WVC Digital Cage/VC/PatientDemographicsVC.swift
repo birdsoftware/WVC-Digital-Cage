@@ -27,8 +27,13 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var breedTF: UITextField!
     //switches
     @IBOutlet weak var switchSex: UISwitch!
+    @IBOutlet weak var npo: UIButton!
+    @IBOutlet weak var cation: UIButton!
+    @IBOutlet weak var feed: UISegmentedControl!
+    @IBOutlet weak var feedType: UISegmentedControl!
     //---------------
-    
+    var toggleNPO = false
+    var toggleCation = false
     var newDemographics:Dictionary<String,String> =
         [
             "patientID":"",
@@ -59,6 +64,82 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     @IBAction func sexSwitchAction(_ sender: Any) {
         saveDemographics()
+    }
+    @IBAction func npoAction(_ sender: Any) {
+        toggleCheckBox(isChecked: &toggleNPO, checkButton: npo)
+        updateBadgeDefault()
+    }
+    @IBAction func cationAction(_ sender: Any) {
+        toggleCheckBox(isChecked: &toggleCation, checkButton: cation)
+        updateBadgeDefault()
+    }
+    @IBAction func feedFrequencyAction(_ sender: Any) {
+        updateBadgeDefault()
+    }
+    @IBAction func feedTypeAction(_ sender: Any) {
+        updateBadgeDefault()
+    }
+    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
+        if (isChecked) {
+            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
+        } else {
+            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
+        isChecked = !isChecked
+    }
+    func updateBadgeDefault(){
+        //get badges
+        let pid = returnSelectedPatientID()
+        var feedHalf=false; var feedTwice=false;
+        var feedWet=false; var feedDry=false;
+        switch feed.selectedSegmentIndex {
+            case 1:
+                feedHalf=true
+            case 2:
+                feedTwice=true
+            default:
+                break;
+        }
+        switch feedType.selectedSegmentIndex {
+            case 1:
+                feedWet=true
+            case 2:
+                feedDry=true
+            default:
+                break;
+        }
+        var newBadge =
+        [
+            "patientID":pid,
+            "isNpo":String(toggleNPO),
+            "isHalf":String(feedHalf),
+            "isTwice":String(feedTwice),
+            "isWet":String(feedWet),
+            "isDry":String(feedDry),
+            "isCaution":String(toggleCation)
+        ]
+        var badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
+        var found = false
+        if badges.isEmpty {
+            UserDefaults.standard.set([newBadge], forKey: "badges")
+            UserDefaults.standard.synchronize()
+        } else {
+            for index in 0..<badges.count {
+                if badges[index]["patientID"] == newBadge["patientID"]{
+                    found = true
+                    for item in newBadge {
+                        badges[index][item.key] = item.value
+                    }
+                    UserDefaults.standard.set(badges, forKey: "badges")
+                    UserDefaults.standard.synchronize()
+                    return
+                }
+            }
+            if found == false {//APPEND NEW
+                badges.append(newBadge)
+                UserDefaults.standard.set(badges, forKey: "badges")
+                UserDefaults.standard.synchronize()
+            }
+        }
     }
 }
 
@@ -133,8 +214,27 @@ extension PatientDemographicsVC {
         let selectedPatientID = UserDefaults.standard.string(forKey: "selectedPatientID") ?? ""
         let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         let myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+        let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
         
         //update UI
+        for badge in badges {
+            if badge["patientID"] == selectedPatientID {
+                if badge["isCaution"]! == "true"{
+                    toggleCation = false
+                    toggleCheckBox( isChecked: &toggleCation, checkButton: cation)
+                } else {
+                    toggleCation = true
+                    toggleCheckBox( isChecked: &toggleCation, checkButton: cation)
+                }
+                if badge["isNpo"]! == "true"{
+                    toggleNPO = false
+                    toggleCheckBox( isChecked: &toggleNPO, checkButton: npo)
+                } else {
+                    toggleNPO = true
+                    toggleCheckBox( isChecked: &toggleNPO, checkButton: npo)
+                }
+            }
+        }
         patientIDTF.text = selectedPatientID
         var found = false
         for patient in patientRecords {
@@ -286,7 +386,6 @@ extension PatientDemographicsVC {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.tag >= 0 && textField.tag <= 1{
             saveDemographics()
-            print("got here at least!!!")
             intakeDateViewTopConstraint.constant = 0
         }
         return true

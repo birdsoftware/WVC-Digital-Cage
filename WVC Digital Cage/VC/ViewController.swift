@@ -83,6 +83,7 @@ class ViewController: UIViewController {
     var incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
     var procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
     var collectionPhotos = UserDefaults.standard.object(forKey: "collectionPhotos") as? Array<Dictionary<String,String>> ?? []
+    var badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +91,7 @@ class ViewController: UIViewController {
         //clear(arrayDicName: "procedures")
         //clear(arrayDicName: "demographics")
         
-        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos)
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
@@ -131,7 +132,8 @@ extension ViewController{
                            myAmpms: Array<Dictionary<String,String>>,
                            incisions: Array<Dictionary<String,String>>,
                            procedures: Array<Dictionary<String,String>>,
-                           collectionPhotos: Array<Dictionary<String,String>>){
+                           collectionPhotos: Array<Dictionary<String,String>>,
+                           badges: Array<Dictionary<String,String>>){
         print("patientRecords \(records.count):\n\(records)")
         print("patientVitals \(vitals.count):\n\(vitals)")
         print("patientPhysicalExam \(pe.count):\n\(pe)")
@@ -141,6 +143,7 @@ extension ViewController{
         print("incisions \(incisions.count):\n\(incisions)")
         print("procedures \(procedures.count):\n\(procedures)")
         print("collectionPhotos \(collectionPhotos.count):\n\(collectionPhotos)")
+        print("badges \(badges.count):\n\(badges)")
     }
     func updateMissingAMPMRecords(){
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []

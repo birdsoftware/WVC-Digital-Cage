@@ -58,6 +58,10 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     @IBOutlet weak var kennelNumberButton: RoundedButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var screenShareButton: UIButton!
+    @IBOutlet weak var firstButton: RoundedButton!
+    @IBOutlet weak var secondButton: RoundedButton!
+    @IBOutlet weak var thirdButton: RoundedButton!
+    @IBOutlet weak var cautionButton: UIButton!
     
     @IBOutlet weak var patientPicture: UIImageView!
     
@@ -105,9 +109,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         segmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
         scopeSegmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16.0)], for: .normal)
     }
-    override func viewDidAppear(_ animated: Bool){
+    override func viewDidAppear(_ animated: Bool){//SEGUE FROM VIEW 2 - UPDATE UI
         if let seguePatientID = seguePatientID {
-            
             func indexOfPatients(pid: String) -> Int {
                 return SearchData.index { (patient) -> Bool in
                     return patient["patientID"] == pid
@@ -143,9 +146,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showProcedure"), object: nil)
-            
+            setBadges()
         }
-        
     }
     //#MARK - Actions
     @IBAction func segmentControlAction(_ sender: Any) {
@@ -417,6 +419,7 @@ extension PatientsVC {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showProcedure"), object: nil)
+        setBadges()
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
@@ -1124,6 +1127,177 @@ extension PatientsVC {
     }
 }
 
-
+extension PatientsVC {
+    func setBadges() {
+        //update badges
+        func updateButton(button: UIButton, isNil: String?){
+            if isNil != nil {
+                button.isHidden = false
+                button.setTitle(isNil!, for: .normal)
+            } else {
+                button.isHidden = true
+            }
+        }
+        func displayBadges(first: String?, second: String?, third: String?, fourth: String?){
+            updateButton(button: firstButton, isNil: first)
+            updateButton(button: secondButton, isNil: second)
+            updateButton(button: thirdButton, isNil: third)
+            updateButton(button: cautionButton, isNil: fourth)
+            //                if first != nil {
+            //                    firstButton.isHidden = false
+            //                    firstButton.setTitle(first!, for: .normal)
+            //                } else {
+            //                    firstButton.isHidden = true
+            //                }
+            //                if second != nil {
+            //                    secondButton.isHidden = false
+            //                    secondButton.setTitle(second!, for: .normal)
+            //                } else {
+            //                    secondButton.isHidden = true
+            //                }
+            //                if third != nil {
+            //                    thirdButton.isHidden = false
+            //                    thirdButton.setTitle(third!, for: .normal)
+            //                } else {
+            //                    thirdButton.isHidden = true
+            //                }
+            //                if fourth != nil {
+            //                    cautionButton.isHidden = false
+            //                } else {
+            //                    cautionButton.isHidden = true
+            //                }
+        }
+        let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
+        if badges.isEmpty{
+            displayBadges(first: nil, second: nil, third: nil, fourth: nil)
+        } else {
+            var found = false
+            for badge in badges {
+                if badge["patientID"] == patientID{
+                    found = true
+                    let npo = Bool(badge["isNpo"]!)!
+                    let isHalf = Bool(badge["isHalf"]!)!
+                    let isTwice = Bool(badge["isTwice"]!)!
+                    let isWet = Bool(badge["isWet"]!)!
+                    let isDry = Bool(badge["isDry"]!)!
+                    let c = Bool(badge["isCaution"]!)!
+                    if !npo && !isHalf && !isTwice && !isWet && !isDry && !c {// everything is false
+                        displayBadges(first: nil, second: nil, third: nil, fourth: nil)
+                        break
+                    }
+                    if npo {
+                        if isTwice {  // 2X - Apple
+                            if isWet {// WET
+                                //c TRUE:  NPO    2X    WET    Caution
+                                //c FALSE: NPO    2X    WET
+                                c ? displayBadges(first: "NPO", second: "2X", third: "WET", fourth: "⚠") : displayBadges(first: "NPO", second: "2X", third: "WET", fourth: nil)
+                            } else {  // ! WET
+                                if isDry { // DRY
+                                    //NPO    2X    DRY    Caution
+                                    //NPO    2X    DRY
+                                    c ? displayBadges(first: "NPO", second: "2X", third: "DRY", fourth: "⚠") : displayBadges(first: "NPO", second: "2X", third: "DRY", fourth: nil)
+                                } else { // ! DRY ! WET
+                                    //NPO 2X Caution
+                                    //NPO 2X
+                                    c ? displayBadges(first: "NPO", second: "2X", third: nil, fourth: "⚠") : displayBadges(first: "NPO", second: "2X", third: nil, fourth: nil)
+                                }
+                            }
+                        } else {     // !2X - Banana
+                            if isHalf { // !2x is 1/2
+                                if isWet {
+                                    //NPO    "1/2"    WET    Caution
+                                    //NPO    "1/2"    WET
+                                    c ? displayBadges(first: "NPO", second: "1/2", third: "WET", fourth: "⚠") : displayBadges(first: "NPO", second: "1/2", third: "WET", fourth: nil)
+                                } else { // !WET
+                                    if isDry { // DRY
+                                        //NPO    "1/2"    DRY    Caution
+                                        //NPO    "1/2"    DRY
+                                        c ? displayBadges(first: "NPO", second: "1/2", third: "DRY", fourth: "⚠") : displayBadges(first: "NPO", second: "1/2", third: "DRY", fourth: nil)
+                                    } else {   // ! WET  ! DRY
+                                        //NPO            Caution
+                                        //NPO
+                                        c ? displayBadges(first: "NPO", second: "1/2", third: nil, fourth: "⚠") : displayBadges(first: "NPO", second: "1/2", third: nil, fourth: nil)
+                                    }
+                                }
+                            } else { // !2X !1/2 - Orange
+                                if isWet {
+                                    //NPO    WET    Caution
+                                    //NPO    WET
+                                    c ? displayBadges(first: "NPO", second: "WET", third: nil, fourth: "⚠") : displayBadges(first: "NPO", second: "WET", third: nil, fourth: nil)
+                                } else { // ! WET
+                                    if isDry { // DRY
+                                        //NPO    "1/2"    DRY    Caution
+                                        //NPO    "1/2"    DRY
+                                        c ? displayBadges(first: "NPO", second: "DRY", third: nil, fourth: "⚠") : displayBadges(first: "NPO", second: "DRY", third: nil, fourth: nil)
+                                    } else {   // ! WET  ! DRY
+                                        //NPO            Caution
+                                        //NPO
+                                        c ? displayBadges(first: "NPO", second: nil, third: nil, fourth: "⚠") : displayBadges(first: "NPO", second: nil, third: nil, fourth: nil)
+                                    }
+                                }
+                            }
+                        }
+                        
+                    } else {          // !NPO
+                        if isTwice {  // 2x - grape
+                            if isWet {// WET
+                                //2X    WET        Caution
+                                //2X    WET
+                                c ? displayBadges(first: "2X", second: "WET", third: nil, fourth: "⚠") : displayBadges(first: "2X", second: "WET", third: nil, fourth: nil)
+                            } else {  // !WET
+                                if isDry {
+                                    //2X    DRY        Caution
+                                    //2X    DRY
+                                    c ? displayBadges(first: "2X", second: "DRY", third: nil, fourth: "⚠") : displayBadges(first: "2X", second: "DRY", third: nil, fourth: nil)
+                                } else {//!WET !DRY
+                                    //2X            Caution
+                                    //2X
+                                    c ? displayBadges(first: "2X", second: nil, third: nil, fourth: "⚠") : displayBadges(first: "2X", second: nil, third: nil, fourth: nil)
+                                }
+                            }
+                        } else {      // !2x
+                            if isHalf{ // 1/2 - pear
+                                if isWet {// WET
+                                    //"1/2"    WET        Caution
+                                    //"1/2"    WET
+                                    c ? displayBadges(first: "1/2", second: "WET", third: nil, fourth: "⚠") : displayBadges(first: "1/2", second: "WET", third: nil, fourth: nil)
+                                } else {  // !WET
+                                    if isDry { // DRY
+                                        //"1/2"    DRY        Caution
+                                        //"1/2"    DRY
+                                    } else { //!WET   !DRY
+                                        //"1/2"            Caution
+                                        //"1/2"
+                                        c ? displayBadges(first: "1/2", second: nil, third: nil, fourth: "⚠") : displayBadges(first: "1/2", second: nil, third: nil, fourth: nil)
+                                    }
+                                }
+                            } else {// !2X !1/2 - pineapple
+                                if isWet { // WET
+                                    //WET            Caution
+                                    //WET
+                                    c ? displayBadges(first: "WET", second: nil, third: nil, fourth: "⚠") : displayBadges(first: "WET", second: nil, third: nil, fourth: nil)
+                                } else { // !WET
+                                    if isDry {
+                                        //DRY            Caution
+                                        //DRY
+                                        c ? displayBadges(first: "DRY", second: nil, third: nil, fourth: "⚠") : displayBadges(first: "DRY", second: nil, third: nil, fourth: nil)
+                                    } else {// !WET  !DRY
+                                        //Caution
+                                        if c {
+                                            displayBadges(first: nil, second: nil, third: nil, fourth: "⚠")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }//end for
+            if !found {
+                displayBadges(first: nil, second: nil, third: nil, fourth: nil)
+            }
+        }
+    }
+}
 
 
