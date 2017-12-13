@@ -216,9 +216,11 @@ extension PatientDemographicsVC {
         let myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
         let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
         
-        //update UI
+        //update UI Selected Badges
+        var foundB = false
         for badge in badges {
             if badge["patientID"] == selectedPatientID {
+                foundB = true
                 if badge["isCaution"]! == "true"{
                     toggleCation = false
                     toggleCheckBox( isChecked: &toggleCation, checkButton: cation)
@@ -233,7 +235,30 @@ extension PatientDemographicsVC {
                     toggleNPO = true
                     toggleCheckBox( isChecked: &toggleNPO, checkButton: npo)
                 }
+                if badge["isHalf"]! == "true" {
+                    feed.selectedSegmentIndex = 1
+                } else if badge["isTwice"] == "true" {
+                    feed.selectedSegmentIndex = 2
+                } else {
+                    feed.selectedSegmentIndex = 0
+                }
+                if badge["isWet"]! == "true" {
+                    feedType.selectedSegmentIndex = 1
+                } else if badge["isDry"]! == "true" {
+                    feedType.selectedSegmentIndex = 2
+                } else {
+                    feedType.selectedSegmentIndex = 0
+                }
             }
+        }
+        //Update UI not selected badges
+        if foundB == false {
+            toggleCation = true
+            toggleCheckBox( isChecked: &toggleCation, checkButton: cation)
+            toggleNPO = true
+            toggleCheckBox( isChecked: &toggleNPO, checkButton: npo)
+            feed.selectedSegmentIndex = 0
+            feedType.selectedSegmentIndex = 0
         }
         patientIDTF.text = selectedPatientID
         var found = false
