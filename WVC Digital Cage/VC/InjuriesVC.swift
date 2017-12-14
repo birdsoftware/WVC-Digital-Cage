@@ -78,6 +78,10 @@ extension InjuriesVC {
             if let toVC = segue.destination as? NewInjuriesVC {
                 toVC.seguePatientID = seguePatientID
             }
+        } else if segue.identifier == "segueFromInjuriesToPatients" {
+            if let toVC = segue.destination as? PatientsVC {
+                toVC.seguePatientID = seguePatientID
+            }
         }
     }
 }

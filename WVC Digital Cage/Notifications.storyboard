@@ -29,7 +29,7 @@
                 <viewControllerPlaceholder storyboardName="Patients" referencedIdentifier="patientsDB" id="8hL-Y4-Mip" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FWl-K3-ShD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="481" y="-290"/>
+            <point key="canvasLocation" x="481" y="-292"/>
         </scene>
         <!--NotificationsVC-->
         <scene sceneID="ueD-Lr-e6w">
@@ -422,7 +422,7 @@
         <image name="walk dog" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="o2s-D5-Hf1"/>
-        <segue reference="iJ1-3r-Wag"/>
+        <segue reference="lsk-mD-UBc"/>
+        <segue reference="Pgz-y4-zBA"/>
     </inferredMetricsTieBreakers>
 </document>

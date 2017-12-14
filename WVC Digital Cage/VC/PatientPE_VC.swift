@@ -248,12 +248,12 @@ extension PatientPE_VC{
                     sliderValueLabel.text = sliderScore
                     sliderPE.setValue(Float(sliderScore)!, animated: false)
                     found = true
-                    print("showPhysicalExam found by PID")
+                    //print("showPhysicalExam found by PID")
                 }
             }
         }
         if found == false {
-            print("NOT found by PID")
+            //print("NOT found by PID")
             moveSwitchState(switchName: switchOne, isTrue: "")
             moveSwitchState(switchName: switchTwo, isTrue: "")
             moveSwitchState(switchName: switchThree, isTrue: "")

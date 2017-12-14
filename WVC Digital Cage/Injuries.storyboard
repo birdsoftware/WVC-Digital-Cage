@@ -43,7 +43,7 @@
                                         </constraints>
                                         <state key="normal" image="back"/>
                                         <connections>
-                                            <segue destination="IO1-yT-NuK" kind="presentation" animates="NO" id="D7m-Qx-L35"/>
+                                            <segue destination="IO1-yT-NuK" kind="presentation" identifier="segueFromInjuriesToPatients" animates="NO" id="D7m-Qx-L35"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pnu-e8-wSA">

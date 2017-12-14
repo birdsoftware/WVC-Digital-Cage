@@ -456,8 +456,8 @@ extension PatientsVC {
         self.sendEmailWithAttachemnt(patientData: selectedData)
     }
     func deleteButtonTapped(indexPath: IndexPath){
-        let removeForThisPID = self.patientRecords[indexPath.row]["patientID"]
-        
+        let removeForThisPID = self.SearchData[indexPath.row]["patientID"]
+        print("delete \(removeForThisPID!)")
         self.removeVitalsFor(patientID:removeForThisPID!)
         self.removePhysicalExamFor(patientID:removeForThisPID!)
         self.removeDemographicsFor(patientID:removeForThisPID!)
@@ -465,17 +465,26 @@ extension PatientsVC {
         self.removeIncisions(patientID:removeForThisPID!)
         self.removeAMPM(patientID:removeForThisPID!)
         self.removeAllNotificationFor(patientID:removeForThisPID!)
-        self.deleteImage(imageName: removeForThisPID!+".png")
+        self.removeMissingFor(patientID:removeForThisPID!)
+        self.removeBadgesFor(patientID:removeForThisPID!)
+        self.deleteImage(imageName: removeForThisPID!+".png") //See camera.swift
         self.showHideView()
-        self.patientRecords.remove(at: indexPath.row)
-        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
-        UserDefaults.standard.synchronize()
+        self.removePatientRecordFor(patientID:removeForThisPID!)
+//        self.patientRecords.remove(at: indexPath.row)
+//        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+//        UserDefaults.standard.synchronize()
         self.SearchData = self.patientRecords
+        self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
         self.patientTable.deleteRows(at: [indexPath], with: .fade)
     }
     func archiveButtonTapped(indexPath: IndexPath){
         print("Archive button tapped")
-        self.patientRecords[indexPath.row]["status"] = "Archive"
+        let archiveForThisPID = self.SearchData[indexPath.row]["patientID"]
+        for index in 0..<patientRecords.count {
+            if patientRecords[index]["patientID"] == archiveForThisPID {
+                patientRecords[index]["status"] = "Archive"
+            }
+        }//[indexPath.row]["status"] = "Archive"
         UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
         UserDefaults.standard.synchronize()
         self.SearchData = self.patientRecords
@@ -639,35 +648,77 @@ extension PatientsVC {
             UserDefaults.standard.synchronize()
         }
     }
+    func removeMissingFor(patientID:String){
+        var missingPatientIDs = UserDefaults.standard.object(forKey: "missingPatientIDs") as? [String] ?? []
+        if missingPatientIDs.contains(patientID) {
+            missingPatientIDs = missingPatientIDs.filter{$0 != patientID}
+            print("removed missingPatientIDs \(missingPatientIDs.count)")
+            UserDefaults.standard.set(missingPatientIDs, forKey: "missingPatientIDs")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    func removeBadgesFor(patientID: String){
+        var badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
+        if let index = dictIndexFrom(array: badges, usingKey: "patientID", usingValue: patientID) {
+            badges.remove(at: index)
+            print("removed badges \(badges.count)")
+            UserDefaults.standard.set(badges, forKey: "badges")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    func removePatientRecordFor( patientID: String) {
+        var PRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        if let index = dictIndexFrom(array: PRecords, usingKey: "patientID", usingValue: patientID) {
+        PRecords.remove(at: index)
+        patientRecords = PRecords
+        print("removed patientRecords \(patientRecords.count)")
+        UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
+        UserDefaults.standard.synchronize()
+        }
+    }
     //REMOVE 1 OR MORE MATCHES
     func removeAMPM(patientID:String){
-        let ampms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
-        var ampmRecordsWithPatientID = Array<Dictionary<String,String>>()
-        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)
-        let arr=(ampms as NSArray).filtered(using: scopePredicate)
-        if arr.count > 0
-        {
-            ampmRecordsWithPatientID=arr as! Array<Dictionary<String,String>>
-        } else {
-            ampmRecordsWithPatientID=ampms
+        var ampmsHere = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+//        var ampmRecordsWithPatientID = Array<Dictionary<String,String>>()
+//        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)
+//        let arr=(ampms as NSArray).filtered(using: scopePredicate)
+//        if arr.count > 0
+//        {
+//            ampmRecordsWithPatientID=arr as! Array<Dictionary<String,String>>
+//        } else {
+//            ampmRecordsWithPatientID=ampms
+//        }
+        for  array in ampmsHere {
+            if array.values.contains(patientID) {
+                if let index = dictIndexFrom(array: ampmsHere, usingKey: "patientID", usingValue: patientID) {
+                    ampmsHere.remove(at: index)
+                }
+            }
         }
-        print("removed ampms \(ampmRecordsWithPatientID.count)")
-        UserDefaults.standard.set(ampmRecordsWithPatientID, forKey: "ampms")
+        print("removed ampms \(ampmsHere.count)")
+        UserDefaults.standard.set(ampmsHere, forKey: "ampms")
         UserDefaults.standard.synchronize()
     }
     func removeIncisions(patientID:String){
-        let incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
-        var incisionsWithPatientID = Array<Dictionary<String,String>>()
-        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)
-        let arr=(incisions as NSArray).filtered(using: scopePredicate)
-        if arr.count > 0
-        {
-            incisionsWithPatientID=arr as! Array<Dictionary<String,String>>
-        } else {
-            incisionsWithPatientID=incisions
+        var incisionsHere = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+//        var incisionsWithPatientID = Array<Dictionary<String,String>>()
+//        let scopePredicate = NSPredicate(format: "SELF.patientID !=[cd] %@", patientID)
+//        let arr=(incisions as NSArray).filtered(using: scopePredicate)
+//        if arr.count > 0
+//        {
+//            incisionsWithPatientID=arr as! Array<Dictionary<String,String>>
+//        } else {
+//            incisionsWithPatientID=incisions
+//        }
+        for  arrayIncision in incisionsHere {
+            if arrayIncision.values.contains(patientID) {
+                if let index = dictIndexFrom(array: incisionsHere, usingKey: "patientID", usingValue: patientID) {
+                    incisionsHere.remove(at: index)
+                }
+            }
         }
-        print("removed incisions \(incisionsWithPatientID.count)")
-        UserDefaults.standard.set(incisionsWithPatientID, forKey: "incisions")
+        print("removed incisions \(incisionsHere.count)")
+        UserDefaults.standard.set(incisionsHere, forKey: "incisions")
         UserDefaults.standard.synchronize()
     }
     func removeAllNotificationFor(patientID: String) {

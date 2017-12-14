@@ -88,9 +88,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
-        //clear(arrayDicName: "procedures")
-        //clear(arrayDicName: "demographics")
+        //clear(arrayDicName: "collectionPhotos")
         
+        //for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+        //    print("\(key) = \(value) \n")
+        //}
+        //deleteImage(imageName: "Fred_0.png")
+        //deleteImage(imageName: "Fred_1.png")
+        //deleteImage(imageName: "Garfield_0.png")
+        //deleteImage(imageName: "Garfield_1.png")
+        //deleteImage(imageName: "Garfield_2.png")
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges)
 
         //getNotifications(records: patientRecords)
@@ -102,14 +109,11 @@ class ViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         updateMissingAMPMRecords()
-        
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
         getNotifications(records: patientRecords)
-        
         createBadgeFrom(UIlabel:patientsBadge, text: " \(patientRecords.count) ")
         createBadgeFrom(UIlabel:notificationsBadge, text: " \(myNotifications.count) ")
-        
         if patientRecords.count == 0{
             patientsBadge.isHidden = true} else {
             patientsBadge.isHidden = false
@@ -118,9 +122,7 @@ class ViewController: UIViewController {
             notificationsBadge.isHidden = true} else {
             notificationsBadge.isHidden = false
         }
-
     }
-    
 }
 extension ViewController{
     //Update UI
@@ -154,21 +156,16 @@ extension ViewController{
         let arrayFromSet = Array(missingPatientIDs)
         UserDefaults.standard.set(arrayFromSet, forKey: "missingPatientIDs")
         UserDefaults.standard.synchronize()
-        print("missingPatientIDs \(missingPatientIDs.count):\n\(missingPatientIDs)")
+        //print("missingPatientIDs \(missingPatientIDs.count):\n\(missingPatientIDs)")
     }
 }
 extension ViewController{
     func createBadgeFrom(UIlabel:UILabel, text: String) {
-        //if text == " 0 "{
-        //    UIlabel.isHidden = true
-        //} else {
-        //UIlabel.isHidden = false
         UIlabel.clipsToBounds = true
         UIlabel.layer.cornerRadius = UIlabel.font.pointSize * 1.2 / 2
         UIlabel.backgroundColor = .white//.bostonBlue()
         UIlabel.textColor = .DarkRed()
         UIlabel.text = text
-        //}
     }
 }
 extension ViewController{
@@ -262,14 +259,4 @@ extension ViewController{
             }
         }
     }
-
-//extension ViewController{
-//    // #MARK: - Clear Records
-//    func clear(arrayDicName: String){
-//        let clear = Array<Dictionary<String,String>>()
-//        UserDefaults.standard.set(clear, forKey: arrayDicName)
-//        UserDefaults.standard.synchronize()
-//    }
-//    //clear(arrayDicName: "procedures")
-//}
 

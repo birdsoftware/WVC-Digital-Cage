@@ -522,10 +522,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="puzzle" translatesAutoresizingMaskIntoConstraints="NO" id="P2p-yj-9Ud">
-                                                            <rect key="frame" x="334" y="0.0" width="30" height="30"/>
+                                                            <rect key="frame" x="336" y="5" width="25" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="oBN-y7-Mwu"/>
-                                                                <constraint firstAttribute="height" constant="30" id="w0j-te-eyR"/>
+                                                                <constraint firstAttribute="width" constant="25" id="oBN-y7-Mwu"/>
+                                                                <constraint firstAttribute="height" constant="25" id="w0j-te-eyR"/>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle_fern" translatesAutoresizingMaskIntoConstraints="NO" id="QrF-9j-Kj5">
@@ -545,8 +545,8 @@
                                                         <constraint firstAttribute="trailing" secondItem="SNx-aT-loU" secondAttribute="trailing" id="TkN-Ue-iwg"/>
                                                         <constraint firstItem="j2f-XC-zBD" firstAttribute="top" secondItem="etR-Rh-TbD" secondAttribute="bottom" constant="2" id="Uc5-a1-E8w"/>
                                                         <constraint firstAttribute="trailing" secondItem="EjV-OG-5fR" secondAttribute="trailing" id="Yqo-xQ-7xx"/>
-                                                        <constraint firstAttribute="trailing" secondItem="P2p-yj-9Ud" secondAttribute="trailing" constant="2" id="ZzO-CL-sLr"/>
-                                                        <constraint firstItem="P2p-yj-9Ud" firstAttribute="top" secondItem="GRL-jM-Er5" secondAttribute="top" id="etA-t3-HQT"/>
+                                                        <constraint firstAttribute="trailing" secondItem="P2p-yj-9Ud" secondAttribute="trailing" constant="5" id="ZzO-CL-sLr"/>
+                                                        <constraint firstItem="P2p-yj-9Ud" firstAttribute="top" secondItem="GRL-jM-Er5" secondAttribute="top" constant="5" id="etA-t3-HQT"/>
                                                         <constraint firstAttribute="bottom" secondItem="EjV-OG-5fR" secondAttribute="bottom" constant="6.5" id="g2H-mH-u0G"/>
                                                         <constraint firstItem="EjV-OG-5fR" firstAttribute="top" secondItem="dyk-aX-D9P" secondAttribute="bottom" constant="1" id="gh2-4m-0oI"/>
                                                         <constraint firstItem="9mC-xc-bMY" firstAttribute="leading" secondItem="GRL-jM-Er5" secondAttribute="leading" constant="8" id="lEm-VW-zuv"/>

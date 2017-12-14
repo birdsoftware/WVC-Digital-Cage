@@ -294,12 +294,12 @@ extension PatientProcedureVC {
                     radiographTF.text = procedures[index]["radiographs"]!
                     labTF.text = procedures[index]["lab"]!
                     found = true
-                    print("showPhysicalExam found by PID")
+                    //print("showPhysicalExam found by PID")
                 }
             }
         }
         if found == false {
-            print("NOT found by PID")
+            //print("NOT found by PID")
             bloodWorkButton.setImage(UIImage.init(named: "box"), for: .normal)
             toggleBloodWork = false
             surgeryDate.text = "< select a date"

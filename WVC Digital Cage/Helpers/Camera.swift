@@ -65,7 +65,7 @@ extension UIViewController {
         if fileManager.fileExists(atPath: imagePath){
             imageView.image = UIImage(contentsOfFile: imagePath)
         }else{
-            print("Panic! No Image!")
+            //print("Panic! No Image!")
             imageView.image = UIImage(named: "dog circle")
         }
     }
@@ -75,7 +75,7 @@ extension UIViewController {
         if fileManager.fileExists(atPath: imagePath){
             return UIImage(contentsOfFile: imagePath)!
         }else{
-            print("Panic! No Image!")
+            //print("Panic! No Image!")
             return UIImage(named: "dog circle")!
         }
     }

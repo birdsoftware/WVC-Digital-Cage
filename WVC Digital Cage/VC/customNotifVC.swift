@@ -71,9 +71,24 @@ extension customNotifVC{
     func segueGoBack(lanchedFrom:String){
         //self.navigationController?.popViewController(animated: true)
         if lanchedFrom == "notificationsVC"{
+            //print("hereabc")
             self.performSegue(withIdentifier: "segueBackToNotifications", sender: self)
         } else if lanchedFrom == "patientsVC"{
+            //print("here123")
             self.performSegue(withIdentifier: "segueBackToPatients", sender: self)
+        }
+    }
+}
+extension customNotifVC {
+    //
+    // #MARK: - Navigation
+    //
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueBackToPatients" {
+            if let toVC = segue.destination as? PatientsVC {
+                toVC.seguePatientID = seguePatientID
+                //print("here!!!")
+            }
         }
     }
 }

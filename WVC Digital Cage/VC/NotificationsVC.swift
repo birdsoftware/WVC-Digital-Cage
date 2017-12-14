@@ -60,32 +60,7 @@ extension NotificationsVC {
         //        if let cell = tableView.cellForRow(at: indexPath) {
         //            cell.accessoryType = .checkmark
         //        }
-//        selectedData = SearchData[indexPath.row]
-//        hideHideView()
-//        //UPDATE UI VALUES
-//        shareButton.isHidden = false
-//        pdfLabel.isHidden = false
-//        screenShareButton.isHidden = false
-//        patientID = selectedData["patientID"]!
-//        UserDefaults.standard.set(patientID, forKey: "selectedPatientID")
-//        UserDefaults.standard.synchronize()
-//        print("patientID: \(patientID)")
-//        showVitals(pid:patientID)
-//        //showPhysicalExam(pid:patientID)
-//        patientIDLabel.text = patientID
-//        let kennelID = selectedData["kennelID"]!
-//        kennelNumberButton.setTitle(kennelID, for: .normal)
-//        if selectedData["walkDate"]! != ""{
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//            let yourDateString = selectedData["walkDate"]!
-//            let lastWalkDate = formatter.date(from: yourDateString)
-//            walkMeLabel.text = lastWalkDate!.timeAgo()
-//        } else {
-//            walkMeLabel.text = "not yet"
-//        }
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showPhysicalExam"), object: nil)
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showDemographics"), object: nil)
+
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
@@ -135,10 +110,32 @@ extension NotificationsVC {
         if segue.identifier == "segueAddNotification" {
             //let selectedRow = ((inboxTable.indexPathForSelectedRow as NSIndexPath?)?.row)! //returns int
             //var Data = Dictionary<String,String>()//restInbox[selectedRow]
+            
             if let toViewController = segue.destination as? customNotifVC {
-                toViewController.segueWhereThisViewWasLanchedFrom = "notificationsVC"
+                toViewController.segueWhereThisViewWasLanchedFrom = "notificationsVC"//"patientsVC"
                 toViewController.seguePatientID = ""
             }
+        } else if segue.identifier == "segueNotificationsToPatients" {
+            if let toViewController = segue.destination as? PatientsVC {
+                let selectedRow = ((notificationsTable.indexPathForSelectedRow as NSIndexPath?)?.row)! //returns int
+                let thisPatientID = myNotifications[selectedRow]["patientID"]
+                if doesPatientExist(patientID: thisPatientID!) {
+                    toViewController.seguePatientID = thisPatientID
+                }
+            }
         }
+    }
+}
+extension NotificationsVC {
+    //CONTAINS
+    func doesPatientExist(patientID: String) -> Bool{
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        //var missingPatientIDs = Set<String>()
+        for things in patientRecords {
+            if things["patientID"] == patientID {
+                return true
+            }
+        }
+        return false
     }
 }

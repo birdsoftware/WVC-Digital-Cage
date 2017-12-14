@@ -291,7 +291,6 @@ extension MapVC {
         if segue.identifier == "segueMapToPatientDB" {//
             let selectedRow = ((displayTable.indexPathForSelectedRow as NSIndexPath?)?.row)! //returns int
             let thisPatientID = searchData[selectedRow]["patientID"]
-            //cell.dogPhoto.image = returnImage(imageName: thisPatient["patientID"]!
             if let toViewController = segue.destination as? PatientsVC {
                 //toViewController.segueWhereThisViewWasLanchedFrom = "patientsVC"//
                 toViewController.seguePatientID = thisPatientID
