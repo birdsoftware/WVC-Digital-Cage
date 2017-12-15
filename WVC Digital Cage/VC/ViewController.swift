@@ -93,9 +93,10 @@ class ViewController: UIViewController {
         //for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
         //    print("\(key) = \(value) \n")
         //}
-        //deleteImage(imageName: "Fred_0.png")
-        //deleteImage(imageName: "Fred_1.png")
-        //deleteImage(imageName: "Garfield_0.png")
+        
+        //deleteImage(imageName: "good _1.png")
+        //deleteImage(imageName: "good _2.png")
+        //deleteImage(imageName: "Snoopy_2.png")
         //deleteImage(imageName: "Garfield_1.png")
         //deleteImage(imageName: "Garfield_2.png")
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges)

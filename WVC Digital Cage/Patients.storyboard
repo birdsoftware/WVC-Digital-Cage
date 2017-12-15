@@ -22,7 +22,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="mainDB" id="Dvi-A1-lJi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dad-JR-zF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="543" y="152"/>
+            <point key="canvasLocation" x="543" y="134"/>
         </scene>
         <!--InjuriesDB-->
         <scene sceneID="xvq-nV-e6t">
@@ -848,6 +848,7 @@
                                     <constraint firstAttribute="width" constant="46" id="1fB-sr-mWJ"/>
                                     <constraint firstAttribute="height" constant="30" id="eg3-Ky-cVw"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Tx">
                                     <color key="titleColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -862,6 +863,9 @@
                                         <real key="value" value="0.10000000000000001"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="ilj-nT-nHR" kind="presentation" identifier="segueTx" animates="NO" id="4cN-jR-2pe"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSy-LD-g8t">
                                 <rect key="frame" x="610" y="60" width="409" height="38"/>
@@ -2138,7 +2142,15 @@
                 <viewControllerPlaceholder storyboardName="AddNewPatient" referencedIdentifier="addPatientsVC" id="9DH-LG-hgd" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mdr-fS-kLI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="555" y="192"/>
+            <point key="canvasLocation" x="555" y="176"/>
+        </scene>
+        <!--TxDB-->
+        <scene sceneID="pxe-V5-LF3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Treatments" referencedIdentifier="TxDB" id="ilj-nT-nHR" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ELz-tW-iJ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="531" y="-140"/>
         </scene>
         <!--Patient ProcedureVC-->
         <scene sceneID="JxB-B6-orL">
