@@ -18,7 +18,6 @@ class PatientTableView: UITableViewCell {
     @IBOutlet weak var intakeDate: UILabel!
     @IBOutlet weak var owner: UILabel!
     @IBOutlet weak var missingPiece: UIImageView!
-    
 }
 
 class ProcedureIncisionCheck: UITableViewCell {
@@ -60,3 +59,26 @@ class mapDisplayTableView: UITableViewCell {
     @IBOutlet weak var lastIncisionDate: UILabel!
     
 }
+
+class CategoryRow : UITableViewCell { }
+extension CategoryRow : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath)
+        return cell
+    }
+}
+//extension CategoryRow : UICollectionViewDelegateFlowLayout {
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let itemsPerRow:CGFloat = 3
+//        let hardCodedPadding:CGFloat = 5
+//        let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
+//        let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
+//        return CGSize(width: itemWidth, height: itemHeight)
+//    }
+//    
+//}
+

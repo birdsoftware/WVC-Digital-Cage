@@ -1205,6 +1205,13 @@ extension PatientsVC {
         } else if segue.identifier == "segueTx" {
             if let toVC = segue.destination as? TxVC {
                 toVC.seguePatientID = patientID
+                let selectedRow = ((patientTable.indexPathForSelectedRow as NSIndexPath?)?.row)!
+                let thisPatient = SearchData[selectedRow]
+                toVC.segueShelterName = thisPatient["owner"]
+
+                //thisPatient["intakeDate"]
+                //cell.status.text = thisPatient["status"]
+                //cell.owner.text = thisPatient["owner"]
             }
         }
     }
