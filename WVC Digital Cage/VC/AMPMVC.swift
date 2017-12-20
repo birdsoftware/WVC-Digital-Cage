@@ -24,6 +24,15 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @IBOutlet weak var ampmTable: UITableView!
     //switch
     @IBOutlet weak var ampmSwitch: UISwitch!
+    //segments
+    @IBOutlet weak var fecesSegment: UISegmentedControl!
+    @IBOutlet weak var urineSegment: UISegmentedControl!
+    //buttons
+    @IBOutlet weak var vButton: UIButton!
+    @IBOutlet weak var dButton: UIButton!
+    @IBOutlet weak var cButton: UIButton!
+    @IBOutlet weak var sButton: UIButton!
+    
     //constraints
     @IBOutlet weak var AMPMTextFieldsViewBottomLayoutConstraint: NSLayoutConstraint!//not used
     @IBOutlet weak var AMPMTextFieldsViewTopLayoutConstraint: NSLayoutConstraint!
@@ -55,6 +64,10 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     "v/D/C/S":"",
     "initials":""
     ]
+    var toggleV = false
+    var toggleD = false
+    var toggleC = false
+    var toggleS = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,8 +94,9 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         showAmpm()
     }
-    
-    //Button Actions
+    //
+    // Button Actions
+    //
     @IBAction func updateNowAction(_ sender: Any) {
         saveAMPMObject()
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
@@ -91,6 +105,11 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         updateMissingAMPMRecords()
         //REFRESH PATIENTS TABLE VIEW
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshPatientsTable"), object: nil)
+        //TOGGLE AMPM VIEW
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "moveAMPMDown"), object: nil)
+        //close keyboard
+        view.endEditing(true)
+        resetAMPM()
     }
     @IBAction func switchAction(_ sender: Any) {
         if ampmSwitch.isOn {
@@ -106,7 +125,89 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @IBAction func changeDateAction(_ sender: Any) {
         changeDateTime(dateLabel: dateNow, title: "AM/PM Date")
     }
-    
+    @IBAction func changeAppetiteAction(_ sender: UISlider) {
+        let roundedNearestHalf = round(sender.value)//*2)/2 //0, 0.5,...
+        let currentValue = String(roundedNearestHalf)
+        appetiteTF.text = "\(currentValue)"
+    }
+    @IBAction func fecesSegmentAction(_ sender: Any) {
+        updateFecesORUrineTFGiven(index: fecesSegment.selectedSegmentIndex, textField: fecesTF)
+    }
+    @IBAction func urineSegmentAction(_ sender: Any) {
+        updateFecesORUrineTFGiven(index: urineSegment.selectedSegmentIndex, textField: urineTF)
+    }
+    @IBAction func vButtonAction(_ sender: Any) {
+        updateTextField(isChecked: toggleV, value: "V")
+        toggleCheckBox(isChecked: &toggleV, checkButton: vButton)
+    }
+    @IBAction func dButtonAction(_ sender: Any) {
+        updateTextField(isChecked: toggleD, value: "D")
+        toggleCheckBox(isChecked: &toggleD, checkButton: dButton)
+    }
+    @IBAction func cButtonAction(_ sender: Any) {
+        updateTextField(isChecked: toggleC, value: "C")
+        toggleCheckBox(isChecked: &toggleC, checkButton: cButton)
+    }
+    @IBAction func sButtonAction(_ sender: Any) {
+        updateTextField(isChecked: toggleS, value: "S")
+        toggleCheckBox(isChecked: &toggleS, checkButton: sButton)
+    }
+    func updateTextField(isChecked: Bool, value: String){
+        let textFieldString = vdcsTF.text
+        let slashValue = "/" + value
+        if isChecked == false {//add Value
+            if textFieldString == "" {
+                vdcsTF.text = value
+            } else {
+                vdcsTF.text = textFieldString! + slashValue
+            }
+        } else if isChecked {//remove Value
+            let replacedValue = textFieldString?.replacingOccurrences(of: slashValue, with: "")
+            var replacedSlashValue = replacedValue?.replacingOccurrences(of: value, with: "")
+            let fistCharIndex = replacedSlashValue?.index((replacedSlashValue?.startIndex)!, offsetBy: 0)
+            if replacedSlashValue?.isEmpty == false {
+                if replacedSlashValue![fistCharIndex!] == "/"{
+                    let noFirstSlash = replacedSlashValue?.dropFirst()
+                    replacedSlashValue = String(describing: noFirstSlash!)
+                }
+            }
+            if textFieldString == "" {
+                vdcsTF.text = ""
+            } else {
+                vdcsTF.text = replacedSlashValue!
+            }
+        }
+    }
+    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
+        if (isChecked) {
+            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
+        } else {
+            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
+        isChecked = !isChecked
+    }
+    func updateFecesORUrineTFGiven(index: Int, textField: UITextField){
+        switch index
+        {
+        case 0://NA
+            textField.text = ""
+        case 1://+
+            textField.text = "+"
+        case 2://-
+            textField.text = "-"
+        default:
+            break;
+        }
+    }
+    //VDCS buttons
+    func resetAMPM(){
+        fecesSegment.selectedSegmentIndex = 0//UISegmentedControlNoSegment
+        urineSegment.selectedSegmentIndex = 0//UISegmentedControlNoSegment
+        vButton.setImage(UIImage(named: "box"), for: .normal)
+        dButton.setImage(UIImage(named: "box"), for: .normal)
+        cButton.setImage(UIImage(named: "box"), for: .normal)
+        sButton.setImage(UIImage(named: "box"), for: .normal)
+        toggleV = false; toggleD = false; toggleC = false; toggleS = false
+    }
 }
 extension AMPMVC {
     // #MARK: - When Keyboard hides DO: Move text view up
@@ -176,6 +277,8 @@ extension AMPMVC {
         let last2 = nowString.suffix(2)
         if last2 == "PM" { isTrue = "true"}
         moveSwitchState(switchName: ampmSwitch, isTrue: isTrue)
+        fecesSegment.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17.0)], for: .normal)
+        urineSegment.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17.0)], for: .normal)
     }
     func returnEmojiFrom(dateString: String) -> String{
         let last2 = dateString.suffix(2)//Swift 4
@@ -218,8 +321,8 @@ extension AMPMVC {
         appetiteTF.text = ""
         vdcsTF.text = ""
         initialsTF.text = ""
-        
         setupUI()
+        resetAMPM()
     }
 }
 extension AMPMVC {

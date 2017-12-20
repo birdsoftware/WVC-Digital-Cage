@@ -318,7 +318,7 @@ extension PatientsVC {
         print("refreshBadge")
     }
     @objc func moveAMPMUp(){
-        let goUp:CGFloat = -300
+        let goUp:CGFloat = -360
         AMPMTopConstraint.constant = goUp
     }
     @objc func moveAMPMDown(){
