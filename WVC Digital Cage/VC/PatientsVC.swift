@@ -37,7 +37,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     @IBOutlet weak var hideLeadingLC: NSLayoutConstraint!
     @IBOutlet weak var hideBottomLC: NSLayoutConstraint!
     @IBOutlet weak var hideTopLC: NSLayoutConstraint!
-    
+    //constraints
+    @IBOutlet weak var AMPMTopConstraint: NSLayoutConstraint!
     //labels
     @IBOutlet weak var walkMeLabel: UILabel!
     @IBOutlet weak var viewTitle: UILabel!
@@ -72,7 +73,6 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     var searchActive = false
     var shareActive = false
     var emailActive = false
-    
     //segue data
     var seguePatientID:String!
     
@@ -110,8 +110,12 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
                            selector: #selector(refreshBadge),
                            name: NSNotification.Name(rawValue: "refreshBadge"),
                            object: nil)
-        
-        
+        center.addObserver(self,
+                           selector: #selector(moveAMPMUp),
+                           name: NSNotification.Name(rawValue: "moveAMPMUp"), object: nil)
+        center.addObserver(self,
+                           selector: #selector(moveAMPMDown),
+                           name: NSNotification.Name(rawValue: "moveAMPMDown"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool){//SEGUE FROM VIEW 2 - UPDATE UI
         if let seguePatientID = seguePatientID {
@@ -312,6 +316,14 @@ extension PatientsVC {
     @objc func refreshBadge(){
         setBadges()
         print("refreshBadge")
+    }
+    @objc func moveAMPMUp(){
+        let goUp:CGFloat = -300
+        AMPMTopConstraint.constant = goUp
+    }
+    @objc func moveAMPMDown(){
+        let goDown:CGFloat = -1
+        AMPMTopConstraint.constant = goDown
     }
     // #MARK: - UI
     func setUpUI(){

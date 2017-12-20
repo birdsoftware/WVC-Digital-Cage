@@ -1016,6 +1016,7 @@
                         <viewLayoutGuide key="safeArea" id="B4e-IZ-odx"/>
                     </view>
                     <connections>
+                        <outlet property="AMPMTopConstraint" destination="AIn-1A-mlJ" id="fWF-Kz-6fT"/>
                         <outlet property="cRT_MM" destination="K0z-cc-Z6M" id="Lhu-sN-UKc"/>
                         <outlet property="cautionButton" destination="kdJ-Np-oEu" id="2qR-fw-KSn"/>
                         <outlet property="containerAMPM" destination="TKj-vH-XLd" id="kWL-s7-MUD"/>
@@ -2443,8 +2444,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6Q-up-tdt">
                                         <rect key="frame" x="0.0" y="109" width="363" height="60"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Suture:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5h-rg-F9V">
-                                                <rect key="frame" x="8" y="3" width="108" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suture:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5h-rg-F9V">
+                                                <rect key="frame" x="8" y="3" width="62.5" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

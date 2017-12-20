@@ -112,12 +112,16 @@ extension AMPMVC {
     // #MARK: - When Keyboard hides DO: Move text view up
     @objc func keyboardWillShowAMPM(sender: NSNotification){
         //AMPMTextFieldsViewTopLayoutConstraint.constant = -300
+        //TOGGLE AMPM VIEW
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "moveAMPMUp"), object: nil)
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }// #MARK: - When Keyboard shws DO: Move text view down
     @objc func keyboardWillHideAMPM(sender: NSNotification){
         AMPMTextFieldsViewTopLayoutConstraint.constant = 0
+        //TOGGLE AMPM VIEW
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "moveAMPMDown"), object: nil)
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
@@ -148,7 +152,7 @@ extension AMPMVC {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         if textField.tag >= 0 && textField.tag <= 6{
-            AMPMTextFieldsViewTopLayoutConstraint.constant = -300
+            //AMPMTextFieldsViewTopLayoutConstraint.constant = -300
         }
         return true
     }
