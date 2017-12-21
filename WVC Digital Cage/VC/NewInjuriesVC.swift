@@ -70,7 +70,9 @@ extension NewInjuriesVC {
     }
 }
 extension NewInjuriesVC {
-    // Saving Locally
+    //
+    // #MARK: - Saving Locally
+    //
     func updateInjuriesObject(name: String){
         // Date now
         let formatter = DateFormatter()

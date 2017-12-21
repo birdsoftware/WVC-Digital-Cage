@@ -79,13 +79,13 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func feedTypeAction(_ sender: Any) {
         saveBadgeToDefaults(); updateBadgeUI()
     }
-    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
-        if (isChecked) {
-            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
-        } else {
-            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
-        isChecked = !isChecked
-    }
+//    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
+//        if (isChecked) {
+//            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
+//        } else {
+//            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
+//        isChecked = !isChecked
+//    }
     func updateBadgeUI(){
         //REFRESH BADGE IN PATIENTS VIEW
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBadge"), object: nil)

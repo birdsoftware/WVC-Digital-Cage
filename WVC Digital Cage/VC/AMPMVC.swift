@@ -136,6 +136,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @IBAction func urineSegmentAction(_ sender: Any) {
         updateFecesORUrineTFGiven(index: urineSegment.selectedSegmentIndex, textField: urineTF)
     }
+    //VDCS Button Actions
     @IBAction func vButtonAction(_ sender: Any) {
         updateTextField(isChecked: toggleV, value: "V")
         toggleCheckBox(isChecked: &toggleV, checkButton: vButton)
@@ -152,39 +153,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         updateTextField(isChecked: toggleS, value: "S")
         toggleCheckBox(isChecked: &toggleS, checkButton: sButton)
     }
-    func updateTextField(isChecked: Bool, value: String){
-        let textFieldString = vdcsTF.text
-        let slashValue = "/" + value
-        if isChecked == false {//add Value
-            if textFieldString == "" {
-                vdcsTF.text = value
-            } else {
-                vdcsTF.text = textFieldString! + slashValue
-            }
-        } else if isChecked {//remove Value
-            let replacedValue = textFieldString?.replacingOccurrences(of: slashValue, with: "")
-            var replacedSlashValue = replacedValue?.replacingOccurrences(of: value, with: "")
-            let fistCharIndex = replacedSlashValue?.index((replacedSlashValue?.startIndex)!, offsetBy: 0)
-            if replacedSlashValue?.isEmpty == false {
-                if replacedSlashValue![fistCharIndex!] == "/"{
-                    let noFirstSlash = replacedSlashValue?.dropFirst()
-                    replacedSlashValue = String(describing: noFirstSlash!)
-                }
-            }
-            if textFieldString == "" {
-                vdcsTF.text = ""
-            } else {
-                vdcsTF.text = replacedSlashValue!
-            }
-        }
-    }
-    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
-        if (isChecked) {
-            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
-        } else {
-            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
-        isChecked = !isChecked
-    }
+    
     func updateFecesORUrineTFGiven(index: Int, textField: UITextField){
         switch index
         {
@@ -198,7 +167,34 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             break;
         }
     }
-    //VDCS buttons
+    
+}
+extension AMPMVC {
+    //
+    // #MARK: - VDCS buttons
+    //
+    func updateTextField(isChecked: Bool, value: String){
+        let textFieldString = vdcsTF.text
+        let slashValue = "/" + value
+        if isChecked == false {//add Value
+            if textFieldString == "" {
+                vdcsTF.text = value
+            } else { vdcsTF.text = textFieldString! + slashValue }
+        } else if isChecked {//remove Value
+            let replacedValue = textFieldString?.replacingOccurrences(of: slashValue, with: "")
+            var replacedSlashValue = replacedValue?.replacingOccurrences(of: value, with: "")
+            let fistCharIndex = replacedSlashValue?.index((replacedSlashValue?.startIndex)!, offsetBy: 0)
+            if replacedSlashValue?.isEmpty == false {
+                if replacedSlashValue![fistCharIndex!] == "/"{
+                    let noFirstSlash = replacedSlashValue?.dropFirst()
+                    replacedSlashValue = String(describing: noFirstSlash!)
+                }
+            }
+            if textFieldString == "" {
+                vdcsTF.text = ""
+            } else { vdcsTF.text = replacedSlashValue! }
+        }
+    }
     func resetAMPM(){
         fecesSegment.selectedSegmentIndex = 0//UISegmentedControlNoSegment
         urineSegment.selectedSegmentIndex = 0//UISegmentedControlNoSegment

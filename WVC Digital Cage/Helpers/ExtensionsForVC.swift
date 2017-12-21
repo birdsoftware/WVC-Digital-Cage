@@ -51,7 +51,13 @@ extension UIViewController {
         }
     }
     
-    //Badges
+    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
+        if (isChecked) {
+            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
+        } else {
+            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
+        isChecked = !isChecked
+    }
 
     
 }

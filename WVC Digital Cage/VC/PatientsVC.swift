@@ -88,6 +88,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     
     var imagePickerController : UIImagePickerController!
     
+    var selectedRow:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldsDelegates()
@@ -413,6 +415,7 @@ extension PatientsVC {
 //            cell.accessoryType = .checkmark
 //        }
         selectedData = SearchData[indexPath.row]
+        selectedRow = indexPath.row //used for populating Tx View patient data
         hideHideView()
         //UPDATE UI VALUES
         shareButton.isHidden = false
@@ -1217,7 +1220,6 @@ extension PatientsVC {
         } else if segue.identifier == "segueTx" {
             if let toVC = segue.destination as? TxVC {
                 toVC.seguePatientID = patientID
-                let selectedRow = ((patientTable.indexPathForSelectedRow as NSIndexPath?)?.row)!
                 let thisPatient = SearchData[selectedRow]
                 toVC.segueShelterName = thisPatient["owner"]
 

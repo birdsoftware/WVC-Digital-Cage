@@ -8,14 +8,16 @@
 
 import UIKit
 
-class TxVC: UIViewController {
+class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    //collections
+    @IBOutlet weak var txVitalsCollection: UICollectionView!
+    @IBOutlet weak var txCollection: UICollectionView!
     
     //text fields
     @IBOutlet weak var patientID: UITextField!
     @IBOutlet weak var shelterTF: UITextField!
     
-    //table
-    @IBOutlet weak var txTable: UITableView!
     //view
     @IBOutlet weak var notesView: UIView!
     @IBOutlet weak var dragNotesTitleView: UIView!
@@ -59,16 +61,46 @@ extension TxVC {
     func setUI(){
         patientID.text = seguePatientID
         shelterTF.text = segueShelterName
+        txVitalsCollection.delegate = self
+        txVitalsCollection.dataSource = self
+    }
+}
+extension TxVC {
+    //
+    // #MARK: - Collection
+    //
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1//(filteredCollection.count > 0 ? filteredCollection.count : 1)
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "txVitalsCollectionCell", for: indexPath) as! txVitalsCollectionViewCell
+//        if filteredCollection.isEmpty == false {
+//            let data = filteredCollection[indexPath.row]
+//            cell.date.text = data["date"]
+//            cell.patientIDLabel.text = data["photo"]
+//            cell.note.text = data["note"]
+//            cell.image.image = returnImage(imageName: data["patientID"]! + "_\(indexPath.row).png")
+//        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //
+        //remove? yes no alert
     }
 }
 extension TxVC {
     //
     // #MARK: - Navigation
     //
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {//<-Back
         if segue.identifier == "segueTxToPatientDB" {
             if let toVC = segue.destination as? PatientsVC {
                 toVC.seguePatientID = seguePatientID
+            }
+        } else if segue.identifier == "segueTxVCToaddTxVital" {//FORWARD->
+            if let toVC = segue.destination as? addTxVital {
+                toVC.seguePatientID = seguePatientID
+                toVC.segueShelterName = segueShelterName
             }
         }
     }

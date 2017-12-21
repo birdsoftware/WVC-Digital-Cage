@@ -15,3 +15,16 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var note: UILabel!
 }
+
+class txVitalsCollectionViewCell: UICollectionViewCell {
+    //txVitalsCollectionCell
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var temperature: UILabel!
+    @IBOutlet weak var heartRT: UILabel!
+    @IBOutlet weak var resp: UILabel!
+    @IBOutlet weak var mmCrt: UILabel!
+    @IBOutlet weak var diet: UILabel!
+    @IBOutlet weak var csvd: UILabel!
+    @IBOutlet weak var weight: UILabel!
+    @IBOutlet weak var initials: UILabel!
+}

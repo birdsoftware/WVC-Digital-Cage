@@ -63,6 +63,7 @@
 		58E8A5431F9A57B1004E6640 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5421F9A57B1004E6640 /* QuartzCore.framework */; };
 		58E8A5451F9A57B8004E6640 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5441F9A57B8004E6640 /* SystemConfiguration.framework */; };
 		58E8A5461F9A57E4004E6640 /* UXCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E8A5361F9A5424004E6640 /* UXCam.framework */; };
+		58FE3C2C1FEB1EE2005F7219 /* addTxVital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FE3C2B1FEB1EE2005F7219 /* addTxVital.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		58E8A5401F9A57A9004E6640 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		58E8A5421F9A57B1004E6640 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		58E8A5441F9A57B8004E6640 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		58FE3C2B1FEB1EE2005F7219 /* addTxVital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTxVital.swift; sourceTree = "<group>"; };
 		73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WVC_Digital_Cage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -278,8 +280,8 @@
 				583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 				58D3AE081FB663A10036E0E0 /* InjuriesVC.swift */,
-				58C201EF1FBCAEF6005529DF /* MapVC.swift */,
 				580FCADD1FBA2607007D6414 /* NewInjuriesVC.swift */,
+				58C201EF1FBCAEF6005529DF /* MapVC.swift */,
 				582836A51F914FDF003F18FE /* NotificationsVC.swift */,
 				584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */,
 				58E8A52C1F96B51E004E6640 /* PatientPE_VC.swift */,
@@ -287,6 +289,7 @@
 				582836A31F914FC9003F18FE /* PatientsVC.swift */,
 				58C9B33A1FA27339006DE233 /* SettingsVC.swift */,
 				5830506F1FE34EB100876BFF /* TxVC.swift */,
+				58FE3C2B1FEB1EE2005F7219 /* addTxVital.swift */,
 				582836551F9143AC003F18FE /* ViewController.swift */,
 			);
 			path = VC;
@@ -549,6 +552,7 @@
 				582836981F914840003F18FE /* Date.swift in Sources */,
 				582836951F914840003F18FE /* Rounded.swift in Sources */,
 				582836941F914840003F18FE /* HexColor.swift in Sources */,
+				58FE3C2C1FEB1EE2005F7219 /* addTxVital.swift in Sources */,
 				580FCADC1FBA1130007D6414 /* Camera.swift in Sources */,
 				582836A81F914FED003F18FE /* HistoryVC.swift in Sources */,
 				582836AB1F916092003F18FE /* TableViewCell.swift in Sources */,
