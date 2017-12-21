@@ -1446,16 +1446,23 @@
                         <outlet property="dButton" destination="MdX-04-idB" id="bsy-AX-522"/>
                         <outlet property="dateLabel" destination="6dq-iw-Web" id="EAg-PV-Ouj"/>
                         <outlet property="dietButton" destination="o3A-GY-zpl" id="jlC-FE-zVt"/>
+                        <outlet property="dietTF" destination="aD9-xG-xq9" id="5P2-zF-XrX"/>
+                        <outlet property="hearRateTF" destination="keQ-DP-OzL" id="aIZ-9R-RV4"/>
                         <outlet property="hrButton" destination="PZg-lT-1e9" id="AI0-Nn-jvp"/>
                         <outlet property="initialButton" destination="0GX-j1-Ifa" id="KOV-fc-vTv"/>
+                        <outlet property="initialsTF" destination="Tqu-BJ-bzc" id="DVJ-x3-4eJ"/>
                         <outlet property="mmCrtButton" destination="p1Q-2B-AaQ" id="YJN-j4-mPn"/>
+                        <outlet property="mmCrtTF" destination="Q56-Pc-TNo" id="gVM-LK-3Uv"/>
                         <outlet property="monitorDays" destination="vvh-Ou-3Ml" id="aaA-4N-fIa"/>
                         <outlet property="monitorFrequency" destination="Wlq-Xc-Zpe" id="k6J-aP-Wrk"/>
                         <outlet property="respButton" destination="pdP-YA-iII" id="D9I-3r-B49"/>
+                        <outlet property="respirationsTF" destination="kCV-jQ-xMt" id="6yg-q4-e8N"/>
                         <outlet property="sButton" destination="CCO-SY-mMv" id="121-M8-I9L"/>
                         <outlet property="tempButton" destination="ZB6-Cr-0xz" id="qFb-hl-MQc"/>
+                        <outlet property="temperatureTF" destination="zcT-9Y-HCA" id="TU2-LN-Y1s"/>
                         <outlet property="vButton" destination="HmA-iI-VUI" id="FJc-0N-vm9"/>
                         <outlet property="vdcsTF" destination="vq1-Tx-T3Y" id="Qy8-pg-DdZ"/>
+                        <outlet property="weightTF" destination="QR0-4v-xNH" id="de7-3W-ajy"/>
                         <outlet property="wtButton" destination="u7T-Dd-c1s" id="Yc3-JC-k22"/>
                     </connections>
                 </viewController>
@@ -1474,6 +1481,6 @@
         <image name="vitals" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PGI-fe-mtT"/>
+        <segue reference="3Ed-Bc-gy9"/>
     </inferredMetricsTieBreakers>
 </document>

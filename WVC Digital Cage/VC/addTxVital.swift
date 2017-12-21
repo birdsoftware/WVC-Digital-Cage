@@ -10,10 +10,20 @@ import UIKit
 
 class addTxVital: UIViewController {
     
-    //text field
+    //text fields
     @IBOutlet weak var monitorDays: UITextField!
     @IBOutlet weak var monitorFrequency: UITextField!
     @IBOutlet weak var vdcsTF: UITextField!
+    
+    @IBOutlet weak var temperatureTF: UITextField!
+    @IBOutlet weak var hearRateTF: UITextField!
+    @IBOutlet weak var respirationsTF: UITextField!
+    @IBOutlet weak var mmCrtTF: UITextField!
+    
+    @IBOutlet weak var dietTF: UITextField!
+    @IBOutlet weak var weightTF: UITextField!
+    @IBOutlet weak var initialsTF: UITextField!
+    
     //label
     @IBOutlet weak var dateLabel: UILabel!
     //buttons
@@ -192,9 +202,18 @@ extension addTxVital {
         let nowString = formatter.string(from: Date())
         newTxVitalCollection = [
             "patientID":seguePatientID,
-            "photo":name,
-            "note":"noteTF.text!",
-            "date":nowString
+            "date":nowString,
+            "temperature":"noteTF.text!",
+            "heartRate":"",
+            "respirations":"",
+            "mm/Crt":"",
+            "diet":"",
+            "v/D/C/S":"",
+            "weightKgs":"",
+            "initials":"",
+            "monitorFrequency":"",
+            "monitorDays":"",
+            "monitored":""//temperature,heartRate,...initials
         ]
     }
 }
