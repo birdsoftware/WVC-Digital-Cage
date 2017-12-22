@@ -18,6 +18,9 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     @IBOutlet weak var patientID: UITextField!
     @IBOutlet weak var shelterTF: UITextField!
     @IBOutlet weak var todayTF: UITextField!
+    @IBOutlet weak var patientSexTF: UITextField!
+    @IBOutlet weak var ageTF: UITextField!
+    @IBOutlet weak var breedTF: UITextField!
     
     //view
     @IBOutlet weak var notesView: UIView!
@@ -27,6 +30,9 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     //segue data from patientsVC
     var seguePatientID: String!
     var segueShelterName: String!
+    var seguePatientSex: String!
+    var seguePatientAge: String!
+    var seguePatientBreed: String!
     
     var panGesture  = UIPanGestureRecognizer()
     
@@ -219,6 +225,9 @@ extension TxVC {
     func setUI(){
         patientID.text = seguePatientID
         shelterTF.text = segueShelterName
+        patientSexTF.text = seguePatientSex
+        breedTF.text = seguePatientBreed
+        ageTF.text = seguePatientAge
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy a"
         let nowString = formatter.string(from: Date())
@@ -259,12 +268,13 @@ extension TxVC {
             cell.weight.text = data["weightKgs"]
             cell.initials.text = data["initials"]
             colorCell(aCell: cell, aData: data)
+            if (Int(data["group"]!)! % 2 == 0) {//ALTERNATE BY GROUP NUMBER
+                cell.backgroundColor = UIColor(hex: 0xb9c4c4)//.WVCLightGray()
+            }else {
+                cell.backgroundColor = UIColor(hex: 0xc4b9b9)//ac9e9e)
+            }
         }
-        if (indexPath.row % 2 == 0) {//ALTERNATE BY GROUP NUMBER
-            cell.backgroundColor = UIColor.WVCLightGray()
-        }else {
-            cell.backgroundColor = UIColor(hex: 0xac9e9e)
-        }
+        
         
         return cell
     }

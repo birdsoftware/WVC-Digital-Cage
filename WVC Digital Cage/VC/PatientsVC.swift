@@ -238,7 +238,6 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         self.removeNotification(code: "1", patientID: self.patientID) //TOCHECK:::
         self.removeNotification(code: "2", patientID: self.patientID) //TOCHECK:::
         self.closeWalkAlert()
-        
         UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: .calculationModeLinear, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/2, animations: {
                 self.vitalsGrayBoxView.backgroundColor = UIColor.WVCActionBlue()
@@ -246,10 +245,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
             UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
                 self.vitalsGrayBoxView.backgroundColor = UIColor.lightGrey()
             })
-        }, completion: { completed in
-            
-        })
-        
+        }, completion: { completed in})
     }
     @IBAction func noWalkAction(_ sender: Any) {
         closeWalkAlert()
@@ -376,7 +372,9 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
+    //
     // #MARK: - Table View
+    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SearchData.count
     }
@@ -1202,6 +1200,27 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
+    // Navigation Support Functions
+    func sexOF(patientID: String) -> [String]{
+        var returnSex = "Unknown"; var returnAge = "Unknown"; var returnBreed = "Unknown"
+        let ds = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+        for d in ds{
+            if d["patientID"] == patientID {
+                if d["sex"] == "false" {
+                    returnSex = "Male"
+                } else { returnSex = "Female" }
+                if d["age"] != "" {
+                    returnAge = d["age"]!
+                }
+                if d["breed"] != "" {
+                    returnBreed = d["breed"]!
+                }
+            }
+        }
+        return [returnSex,returnAge,returnBreed]
+    }
+}
+extension PatientsVC {
     //
     // #MARK: - Navigation
     //
@@ -1222,10 +1241,10 @@ extension PatientsVC {
                 toVC.seguePatientID = patientID
                 let thisPatient = SearchData[selectedRow]
                 toVC.segueShelterName = thisPatient["owner"]
-
-                //thisPatient["intakeDate"]
-                //cell.status.text = thisPatient["status"]
-                //cell.owner.text = thisPatient["owner"]
+                let demographics = sexOF(patientID: patientID)
+                toVC.seguePatientSex = demographics[0]
+                toVC.seguePatientAge = demographics[1]
+                toVC.seguePatientBreed = demographics[2]
             }
         }
     }
