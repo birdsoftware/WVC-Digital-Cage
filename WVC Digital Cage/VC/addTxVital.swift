@@ -23,9 +23,11 @@ class addTxVital: UIViewController {
     @IBOutlet weak var dietTF: UITextField!
     @IBOutlet weak var weightTF: UITextField!
     @IBOutlet weak var initialsTF: UITextField!
+    @IBOutlet weak var monitoredList: UITextField!
     
     //label
     @IBOutlet weak var dateLabel: UILabel!
+    
     //buttons
     @IBOutlet weak var tempButton: UIButton!
     @IBOutlet weak var hrButton: UIButton!
@@ -93,44 +95,52 @@ class addTxVital: UIViewController {
     
     //toggle box
     @IBAction func tButtonAction(_ sender: Any) {
+        updateTextField(isChecked: tToggle, value: "T", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &tToggle, checkButton: tempButton)
     }
     @IBAction func hrButtonAction(_ sender: Any) {
+        updateTextField(isChecked: hrToggle, value: "H", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &hrToggle, checkButton: hrButton)
     }
     @IBAction func respButtonAction(_ sender: Any) {
+        updateTextField(isChecked: respToggle, value: "R", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &respToggle, checkButton: respButton)
     }
     @IBAction func mmCrtButtonAction(_ sender: Any) {
+        updateTextField(isChecked: mmCrtToggle, value: "M", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &mmCrtToggle, checkButton: mmCrtButton)
     }
     @IBAction func dietButtonAction(_ sender: Any) {
+        updateTextField(isChecked: dietToggle, value: "D", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &dietToggle, checkButton: dietButton)
     }
     @IBAction func csvdButtonAction(_ sender: Any) {
+        updateTextField(isChecked: csvdToggle, value: "C", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &csvdToggle, checkButton: csvdButton)
     }
     @IBAction func wtButtonAction(_ sender: Any) {
+        updateTextField(isChecked: wtToggle, value: "W", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &wtToggle, checkButton: wtButton)
     }
     @IBAction func initalButtonAction(_ sender: Any) {
+        updateTextField(isChecked: initialToggle, value: "I", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &initialToggle, checkButton: initialButton)
     }
     //VDCS toggle box Button Actions
     @IBAction func vButtonAction(_ sender: Any) {
-        updateTextField(isChecked: toggleV, value: "V")
+        updateTextField(isChecked: toggleV, value: "V", slashString: "/", outputTextField: vdcsTF)
         toggleCheckBox(isChecked: &toggleV, checkButton: vButton)
     }
     @IBAction func dButtonAction(_ sender: Any) {
-        updateTextField(isChecked: toggleD, value: "D")
+        updateTextField(isChecked: toggleD, value: "D", slashString: "/", outputTextField: vdcsTF)
         toggleCheckBox(isChecked: &toggleD, checkButton: dButton)
     }
     @IBAction func cButtonAction(_ sender: Any) {
-        updateTextField(isChecked: toggleC, value: "C")
+        updateTextField(isChecked: toggleC, value: "C", slashString: "/", outputTextField: vdcsTF)
         toggleCheckBox(isChecked: &toggleC, checkButton: cButton)
     }
     @IBAction func sButtonAction(_ sender: Any) {
-        updateTextField(isChecked: toggleS, value: "S")
+        updateTextField(isChecked: toggleS, value: "S", slashString: "/", outputTextField: vdcsTF)
         toggleCheckBox(isChecked: &toggleS, checkButton: sButton)
     }
 }
@@ -147,26 +157,26 @@ extension addTxVital {
     //
     // #MARK: - VDCS buttons
     //
-    func updateTextField(isChecked: Bool, value: String){
-        let textFieldString = vdcsTF.text
-        let slashValue = "/" + value
+    func updateTextField(isChecked: Bool, value: String, slashString: String, outputTextField: UITextField){
+        let textFieldString = outputTextField.text
+        let slashValue = slashString + value
         if isChecked == false {//add Value
             if textFieldString == "" {
-                vdcsTF.text = value
-            } else { vdcsTF.text = textFieldString! + slashValue }
+                outputTextField.text = value
+            } else { outputTextField.text = textFieldString! + slashValue }
         } else if isChecked {//remove Value
             let replacedValue = textFieldString?.replacingOccurrences(of: slashValue, with: "")
             var replacedSlashValue = replacedValue?.replacingOccurrences(of: value, with: "")
             let fistCharIndex = replacedSlashValue?.index((replacedSlashValue?.startIndex)!, offsetBy: 0)
             if replacedSlashValue?.isEmpty == false {
-                if replacedSlashValue![fistCharIndex!] == "/"{
+                if replacedSlashValue![fistCharIndex!] == Character(slashString){
                     let noFirstSlash = replacedSlashValue?.dropFirst()
                     replacedSlashValue = String(describing: noFirstSlash!)
                 }
             }
             if textFieldString == "" {
-                vdcsTF.text = ""
-            } else { vdcsTF.text = replacedSlashValue! }
+                outputTextField.text = ""
+            } else { outputTextField.text = replacedSlashValue! }
         }
     }
     func checkForMissingData() {
@@ -203,17 +213,19 @@ extension addTxVital {
         newTxVitalCollection = [
             "patientID":seguePatientID,
             "date":nowString,
-            "temperature":"noteTF.text!",
-            "heartRate":"",
-            "respirations":"",
-            "mm/Crt":"",
-            "diet":"",
-            "v/D/C/S":"",
-            "weightKgs":"",
-            "initials":"",
-            "monitorFrequency":"",
-            "monitorDays":"",
-            "monitored":""//temperature,heartRate,...initials
+            "temperature":temperatureTF.text!,
+            "heartRate":hearRateTF.text!,
+            "respirations":respirationsTF.text!,
+            "mm/Crt":mmCrtTF.text!,
+            "diet":dietTF.text!,
+            "v/D/C/S":vdcsTF.text!,
+            "weightKgs":weightTF.text!,
+            "initials":initialsTF.text!,
+            "monitorFrequency":monitorFrequency.text!,
+            "monitorDays":monitorDays.text!,
+            "monitored":monitoredList.text!,//T,H,R,M, D,C,W,I
+            "group":"1",//check and auto increment
+            "checkComplete":"false"
         ]
     }
 }
