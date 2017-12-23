@@ -58,28 +58,40 @@ class addTxVital: UIViewController {
     var toggleS = false
     
     var collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
-    var newTxVitalCollection = [
-        "patientID":"",
-        "photo":"",
-        "note":"",
-        "date":""
-    ]
-    //
+    var newTxVital = [String:String]()
+    var groupNumber = 0
+    
+    //segue vars
     var seguePatientID: String!
     var segueShelterName: String!
+    var seguePatientSex: String!
+    var seguePatientAge: String!
+    var seguePatientBreed: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        groupNumber = getLastGroupNumber()
+        if collectionTxVitals.isEmpty {
+            groupNumber = 1
+        } else {
+            groupNumber = groupNumber + 1
+        }
+    }
     //
     // #MARK: - Actions
     //
     @IBAction func saveAction(_ sender: Any) {
-        checkForMissingData()
+        let isDataMissing = checkForMissingData()
+        if isDataMissing == false{
+            saveTreatmentVitalsLocally()
+            self.performSegue(withIdentifier: "segueaddTxVitalToTxVC", sender: self)
+        }
     }
     @IBAction func closeAction(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "segueaddTxVitalToTxVC", sender: self)
     }
     @IBAction func mDaysSlider(_ sender: UISlider) {
         let currentValue = String(Int(sender.value))
@@ -179,16 +191,19 @@ extension addTxVital {
             } else { outputTextField.text = replacedSlashValue! }
         }
     }
-    func checkForMissingData() {
+    func checkForMissingData() -> Bool{
+        var isDataMissing = false
         var newPatientData = [String]()
         newPatientData.append(monitorFrequency.text!)
         newPatientData.append(monitorDays.text!)
         for index in 0..<newPatientData.count{
             if newPatientData[index].isEmpty {
+                isDataMissing = true
                 let p = patientDataConversion(indexV:index)
                 simpleAlert(title: p + " is missing", message: "enter value and try again before Saving.", buttonTitle: "OK")
             }
         }
+        return isDataMissing
     }
     func patientDataConversion(indexV:Int) -> String{
         switch indexV {
@@ -205,12 +220,23 @@ extension addTxVital {
     //
     // #MARK: - Saving Locally
     //
-    func updateInjuriesObject(name: String){
+    func getLastGroupNumber() -> Int{
+        var maxGroupNumber = 1
+        for vital in collectionTxVitals{
+            if vital["patientID"] == seguePatientID {
+            if Int(vital["group"]!)! > maxGroupNumber {
+                maxGroupNumber = Int(vital["group"]!)!
+            }
+            }
+        }
+        return maxGroupNumber
+    }
+    func updateTV(){
         // Date now
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
         let nowString = formatter.string(from: Date())
-        newTxVitalCollection = [
+        newTxVital = [
             "patientID":seguePatientID,
             "date":nowString,
             "temperature":temperatureTF.text!,
@@ -224,9 +250,61 @@ extension addTxVital {
             "monitorFrequency":monitorFrequency.text!,
             "monitorDays":monitorDays.text!,
             "monitored":monitoredList.text!,//T,H,R,M, D,C,W,I
-            "group":"1",//check and auto increment
+            "group":String(groupNumber),//"1",//check and auto increment
+            "checkComplete":"true"
+        ]
+    }
+    func emptyTV(date: String){
+        newTxVital = [
+            "patientID":seguePatientID,
+            "date":date,
+            "temperature":"",
+            "heartRate":"",
+            "respirations":"",
+            "mm/Crt":"",
+            "diet":"",
+            "v/D/C/S":"",
+            "weightKgs":"",
+            "initials":"",
+            "monitorFrequency":monitorFrequency.text!,
+            "monitorDays":monitorDays.text!,
+            "monitored":monitoredList.text!,//T,H,R,M, D,C,W,I
+            "group":String(groupNumber),//"1",//check and auto increment
             "checkComplete":"false"
         ]
+    }
+    func monitorTreatmentsFor(numberOfDays: Int){
+        var daysToAdd = 0
+        var dateComponent = DateComponents()
+        let currentDate = Date()
+        //var group = ""
+        numberOfDays.times {
+            daysToAdd = daysToAdd + 1
+            dateComponent.day = daysToAdd
+            let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yyyy"
+            let nowString = formatter.string(from: futureDate!)
+            emptyTV(date: nowString)
+            collectionTxVitals.append(newTxVital)
+        }
+    }
+    func saveTreatmentVitalsLocally(){
+        updateTV()
+        //if collectionTxVitals.isEmpty == false {
+            collectionTxVitals.append(newTxVital)//Initial Vitals
+            UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
+            UserDefaults.standard.synchronize()
+            monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!)
+            UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
+            UserDefaults.standard.synchronize()
+//        } else {
+//            UserDefaults.standard.set([newTxVital], forKey: "collectionTxVitals")
+//            UserDefaults.standard.synchronize()
+//            monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!)
+//            UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
+//            UserDefaults.standard.synchronize()
+//        }
     }
 }
 extension addTxVital {
@@ -238,6 +316,9 @@ extension addTxVital {
             if let toVC = segue.destination as? TxVC {//<-BACK
                 toVC.seguePatientID = seguePatientID
                 toVC.segueShelterName = segueShelterName
+                toVC.seguePatientSex = seguePatientSex
+                toVC.seguePatientAge = seguePatientAge
+                toVC.seguePatientBreed = seguePatientBreed
             }
         }
     }

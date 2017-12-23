@@ -36,160 +36,161 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     
     var panGesture  = UIPanGestureRecognizer()
     
-    var newTxVitalCollection = [
-    [
-        "patientID":"snowball",
-        "date":"12/21/17",
-        "temperature":"103.9",
-        "heartRate":"130",
-        "respirations":"46",
-        "mm/Crt":"PL2",
-        "diet":"wet",
-        "v/D/C/S":"V/C",
-        "weightKgs":"21.3",
-        "initials":"B.B.",
-        "monitorFrequency":"daily",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"1",
-        "checkComplete":"true"
-    ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ],
-    [
-        "patientID":"snowball",
-        "date":"12/22/17",
-        "temperature":"102",
-        "heartRate":"",
-        "respirations":"",
-        "mm/Crt":"",
-        "diet":"",
-        "v/D/C/S":"V",
-        "weightKgs":"",
-        "initials":"A.B.",
-        "monitorFrequency":"",
-        "monitorDays":"1",
-        "monitored":"T,W",//T,H,R,M, D,C,W,I
-        "group":"2",
-        "checkComplete":"false"
-        ]]
+//    var newTxVitalCollection = [
+//    [
+//        "patientID":"snowball",
+//        "date":"12/21/17",
+//        "temperature":"103.9",
+//        "heartRate":"130",
+//        "respirations":"46",
+//        "mm/Crt":"PL2",
+//        "diet":"wet",
+//        "v/D/C/S":"V/C",
+//        "weightKgs":"21.3",
+//        "initials":"B.B.",
+//        "monitorFrequency":"daily",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"1",
+//        "checkComplete":"true"
+//    ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ],
+//    [
+//        "patientID":"snowball",
+//        "date":"12/22/17",
+//        "temperature":"102",
+//        "heartRate":"",
+//        "respirations":"",
+//        "mm/Crt":"",
+//        "diet":"",
+//        "v/D/C/S":"V",
+//        "weightKgs":"",
+//        "initials":"A.B.",
+//        "monitorFrequency":"",
+//        "monitorDays":"1",
+//        "monitored":"T,W",//T,H,R,M, D,C,W,I
+//        "group":"2",
+//        "checkComplete":"false"
+//        ]]
+    var collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
     var filteredTxVitalsCollection = Array<Dictionary<String,String>>()
     
     override func viewDidLoad() {
@@ -238,7 +239,7 @@ extension TxVC {
     func filterTxVitalsBy(selectedValue: String){
         var scopePredicate:NSPredicate
         scopePredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", selectedValue)
-        let arr=(newTxVitalCollection as NSArray).filtered(using: scopePredicate)
+        let arr=(collectionTxVitals as NSArray).filtered(using: scopePredicate)
         if arr.count > 0
         {
             filteredTxVitalsCollection=arr as! Array<Dictionary<String,String>>
@@ -271,7 +272,7 @@ extension TxVC {
             if (Int(data["group"]!)! % 2 == 0) {//ALTERNATE BY GROUP NUMBER
                 cell.backgroundColor = UIColor(hex: 0xb9c4c4)//.WVCLightGray()
             }else {
-                cell.backgroundColor = UIColor(hex: 0xc4b9b9)//ac9e9e)
+                cell.backgroundColor = UIColor(hex: 0xeaeded)//7 shades lighter gray
             }
         }
         
@@ -329,6 +330,9 @@ extension TxVC {
             if let toVC = segue.destination as? addTxVital {
                 toVC.seguePatientID = seguePatientID
                 toVC.segueShelterName = segueShelterName
+                toVC.seguePatientSex = seguePatientSex
+                toVC.seguePatientAge = seguePatientAge
+                toVC.seguePatientBreed = seguePatientBreed
             }
         }
     }
