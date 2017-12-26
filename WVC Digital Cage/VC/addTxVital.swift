@@ -36,7 +36,7 @@ class addTxVital: UIViewController {
     @IBOutlet weak var dietButton: UIButton!
     @IBOutlet weak var csvdButton: UIButton!
     @IBOutlet weak var wtButton: UIButton!
-    @IBOutlet weak var initialButton: UIButton!
+    //@IBOutlet weak var initialButton: UIButton!
     //---VDCS buttons
     @IBOutlet weak var vButton: UIButton!
     @IBOutlet weak var dButton: UIButton!
@@ -134,10 +134,10 @@ class addTxVital: UIViewController {
         updateTextField(isChecked: wtToggle, value: "W", slashString: ",", outputTextField: monitoredList)
         toggleCheckBox(isChecked: &wtToggle, checkButton: wtButton)
     }
-    @IBAction func initalButtonAction(_ sender: Any) {
-        updateTextField(isChecked: initialToggle, value: "I", slashString: ",", outputTextField: monitoredList)
-        toggleCheckBox(isChecked: &initialToggle, checkButton: initialButton)
-    }
+//    @IBAction func initalButtonAction(_ sender: Any) {
+//        updateTextField(isChecked: initialToggle, value: "I", slashString: ",", outputTextField: monitoredList)
+//        toggleCheckBox(isChecked: &initialToggle, checkButton: initialButton)
+//    }
     //VDCS toggle box Button Actions
     @IBAction func vButtonAction(_ sender: Any) {
         updateTextField(isChecked: toggleV, value: "V", slashString: "/", outputTextField: vdcsTF)
@@ -196,11 +196,14 @@ extension addTxVital {
         var newPatientData = [String]()
         newPatientData.append(monitorFrequency.text!)
         newPatientData.append(monitorDays.text!)
+        newPatientData.append(initialsTF.text!)
         for index in 0..<newPatientData.count{
             if newPatientData[index].isEmpty {
                 isDataMissing = true
                 let p = patientDataConversion(indexV:index)
-                simpleAlert(title: p + " is missing", message: "enter value and try again before Saving.", buttonTitle: "OK")
+                var preposition = "is"
+                if index == 2 { preposition = "are"}
+                simpleAlert(title: p + " "+preposition+" missing", message: "Enter this before saving.", buttonTitle: "OK")
             }
         }
         return isDataMissing
@@ -210,7 +213,9 @@ extension addTxVital {
         case 0:
             return "2X Daily / Daily"
         case 1:
-            return "Number of Days"
+            return "Number of days"
+        case 2:
+            return "Your Initials"
         default:
             return "Monitored Vitals Field"
         }

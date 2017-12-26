@@ -282,34 +282,22 @@ extension TxVC {
     func colorCell(aCell: txVitalsCollectionViewCell, aData: [String:String]){
         var currentColor = UIColor.WVCLightRed()
         let isComplete = Bool(aData["checkComplete"]!)!
-        if isComplete {
-            currentColor = UIColor.candyGreen()
-        }
-        if aData["monitored"]?.range(of:"T") != nil {//
-            aCell.temperature.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"H") != nil {//
-            aCell.heartRT.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"R") != nil {//
-            aCell.resp.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"M") != nil {//
-            aCell.mmCrt.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"D") != nil {//
-            aCell.diet.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"C") != nil {//
-            aCell.csvd.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"W") != nil {//
-            aCell.weight.backgroundColor = currentColor
-        }
-        if aData["monitored"]?.range(of:"I") != nil {//
-            aCell.initials.backgroundColor = currentColor
-            aCell.initials.text = " "
-        }
+        let monitored = aData["monitored"]
+        if isComplete { currentColor = UIColor.candyGreen() }
+        
+        if monitored?.range(of:"T") != nil { aCell.temperature.backgroundColor = currentColor } else {aCell.temperature.backgroundColor = .clear}
+        
+        if monitored?.range(of:"H") != nil { aCell.heartRT.backgroundColor = currentColor } else {aCell.heartRT.backgroundColor = .clear}
+        
+        if monitored?.range(of:"R") != nil { aCell.resp.backgroundColor = currentColor } else {aCell.resp.backgroundColor = .clear}
+        
+        if monitored?.range(of:"M") != nil { aCell.mmCrt.backgroundColor = currentColor } else {aCell.mmCrt.backgroundColor = .clear}
+        
+        if monitored?.range(of:"D") != nil { aCell.diet.backgroundColor = currentColor } else {aCell.diet.backgroundColor = .clear}
+        
+        if monitored?.range(of:"C") != nil { aCell.csvd.backgroundColor = currentColor } else {aCell.csvd.backgroundColor = .clear}
+        
+        if monitored?.range(of:"W") != nil { aCell.weight.backgroundColor = currentColor } else {aCell.weight.backgroundColor = .clear}
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //
