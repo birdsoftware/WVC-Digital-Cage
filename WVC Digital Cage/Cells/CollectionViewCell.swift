@@ -27,4 +27,6 @@ class txVitalsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var csvd: UILabel!
     @IBOutlet weak var weight: UILabel!
     @IBOutlet weak var initials: UILabel!
+    @IBOutlet weak var deleteImage: UIImageView!
+    
 }

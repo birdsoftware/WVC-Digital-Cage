@@ -21,6 +21,8 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     @IBOutlet weak var patientSexTF: UITextField!
     @IBOutlet weak var ageTF: UITextField!
     @IBOutlet weak var breedTF: UITextField!
+    //button
+    @IBOutlet weak var removeButton: RoundedButton!
     
     //view
     @IBOutlet weak var notesView: UIView!
@@ -35,16 +37,37 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     var seguePatientBreed: String!
     
     var panGesture  = UIPanGestureRecognizer()
-    //var lastCellColor: UIColor?
     
     var collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
     var filteredTxVitalsCollection = Array<Dictionary<String,String>>()
+    
+    //bool
+    var showDeleteImage = false
+    
+    var removeVitalsIndexSet = Set<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         connectPanGesture()
         filterTxVitalsBy(selectedValue: seguePatientID)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        if filteredTxVitalsCollection.isEmpty { removeButton.isHidden = true }
+        else { removeButton.isHidden = false }
+    }
+    //
+    // #MARK: - Button Action
+    //
+    @IBAction func removeTreatmentAction(_ sender: Any) {
+            if showDeleteImage{
+                if removeVitalsIndexSet.isEmpty == false {
+                    let selectedCount = removeVitalsIndexSet.count
+                    var plural = ""
+                    if selectedCount > 1 { plural = "s" }
+                    askToDeleteVitalAlert(title:"Remove "+"\(selectedCount)"+" selected cell"+plural+"?", message:"", buttonTitle:"Cancel")
+                } else { resetRemoveButtonToNotSelected() }
+            } else { resetRemoveButtonToSelected() }
     }
 }
 extension TxVC {
@@ -84,8 +107,7 @@ extension TxVC {
         var scopePredicate:NSPredicate
         scopePredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", selectedValue)
         let arr=(collectionTxVitals as NSArray).filtered(using: scopePredicate)
-        if arr.count > 0
-        {
+        if arr.isEmpty == false {//count > 0
             filteredTxVitalsCollection=arr as! Array<Dictionary<String,String>>
         } else {
             filteredTxVitalsCollection=Array<Dictionary<String,String>>()
@@ -94,13 +116,16 @@ extension TxVC {
 }
 extension TxVC {
     //
-    // #MARK: - Collection
+    // #MARK: - Collection View
     //
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredTxVitalsCollection.count// > 0 ? filteredTxVitalsCollection.count : 1)
+        return filteredTxVitalsCollection.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "txVitalsCollectionCell", for: indexPath) as! txVitalsCollectionViewCell
+        if showDeleteImage {
+            cell.deleteImage.isHidden = false
+        } else { cell.deleteImage.isHidden = true }
         if filteredTxVitalsCollection.isEmpty == false {
             let data = filteredTxVitalsCollection[indexPath.row]
             cell.date.text = data["date"]
@@ -112,11 +137,44 @@ extension TxVC {
             cell.csvd.text = data["v/D/C/S"]
             cell.weight.text = data["weightKgs"]
             cell.initials.text = data["initials"]
-            colorCell(aCell: cell, aData: data)                                 /*WVC grey*/                /*20% lighter*/
+            colorCell(aCell: cell, aData: data)                                 /* grey*/                /*20% lighter*/
             if (Int(data["group"]!)! % 2 == 0) {cell.backgroundColor = UIColor(hex: 0xb9c4c4)} else {cell.backgroundColor = UIColor(hex: 0xeaeded)}
         }
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! txVitalsCollectionViewCell
+        let lastCellColor = cell.backgroundColor
+        if cell.isSelected {cell.backgroundColor = .WVCActionBlue()} else {cell.backgroundColor = lastCellColor}
+        let selectedVital = filteredTxVitalsCollection[indexPath.row] //print("selectedVital: \(selectedVital)")
+        if showDeleteImage {
+            let selectedDict = filteredTxVitalsCollection[indexPath.row]
+            for index in 0..<collectionTxVitals.count{
+                if collectionTxVitals[index]["patientID"] == selectedDict["patientID"]
+                    && collectionTxVitals[index]["date"] == selectedDict["date"]
+                    && collectionTxVitals[index]["group"] == selectedDict["group"] { //UPDATE
+                    //add selected index of collection to set
+                    if removeVitalsIndexSet.contains(index){
+                        removeVitalsIndexSet.remove(index)
+                        cell.backgroundColor = UIColor(hex: 0xeaeded)
+                    } else { removeVitalsIndexSet.insert(index) }
+                    
+                    if removeVitalsIndexSet.isEmpty == false {
+                        removeButton.setTitle("Remove \(removeVitalsIndexSet.count)", for: .normal)
+                    } else {
+                        resetRemoveButtonToNotSelected()
+                    }
+                    return
+                }
+            }
+        } else {
+            //edit cell
+            alertVitals(replaceCellColor: lastCellColor, forThisCell: cell, selectedVital: selectedVital)
+        }
+    }
+    //
+    // Collection View Support Functions
+    //
     func colorCell(aCell: txVitalsCollectionViewCell, aData: [String:String]){
         var currentColor = UIColor.WVCLightRed()
         let isComplete = Bool(aData["checkComplete"]!)!
@@ -130,20 +188,13 @@ extension TxVC {
         if monitored?.range(of:"C") != nil { aCell.csvd.backgroundColor = currentColor } else {aCell.csvd.backgroundColor = .clear}
         if monitored?.range(of:"W") != nil { aCell.weight.backgroundColor = currentColor } else {aCell.weight.backgroundColor = .clear}
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! txVitalsCollectionViewCell
-        let lastCellColor = cell.backgroundColor
-        if cell.isSelected {cell.backgroundColor = .WVCActionBlue()} else {cell.backgroundColor = lastCellColor}
-        let selectedVital = filteredTxVitalsCollection[indexPath.row] //print("selectedVital: \(selectedVital)")
-        alertVitals(replaceCellColor: lastCellColor, forThisCell: cell, selectedVital: selectedVital)
-    }
 //    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 //        let cellToDeselect = collectionView.cellForItem(at: indexPath) as! txVitalsCollectionViewCell
 //        cellToDeselect.backgroundColor = lastCellColor
 //    }
 }
 extension TxVC{
-    // #MARK: - custom alert
+    // #MARK: - custom alerts
     func alertVitals(replaceCellColor: UIColor?, forThisCell: UICollectionViewCell, selectedVital: [String:String]){
         var vitals = ["patientID":selectedVital["patientID"]!,
                       "date":selectedVital["date"]!,
@@ -273,24 +324,16 @@ extension TxVC{
             if selectedVital["initials"]! != "" {textField.text = selectedVital["initials"]!}
             textField.clearButtonMode = .whileEditing
         }
-        //let height:NSLayoutConstraint = NSLayoutConstraint(item: alert.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 1.80)
-        // alert.view.addConstraint(height)
         
         // Add action buttons and present the Alert
         alert.addAction(submitAction)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
     }
-    
     func update(Vital: [String:String]){
-        var found = false
-        if collectionTxVitals.isEmpty {//CREATE NEW
-            //UserDefaults.standard.set([Vital], forKey: "collectionTxVitals")
-            //UserDefaults.standard.synchronize()
-        } else {
-            for index in 0..<collectionTxVitals.count{
+        if collectionTxVitals.isEmpty == false {
+            for index in 0..<collectionTxVitals.count {
                 if collectionTxVitals[index]["patientID"] == Vital["patientID"] && collectionTxVitals[index]["date"] == Vital["date"] && collectionTxVitals[index]["group"] == Vital["group"] { //UPDATE
-                    found = true
                     for item in Vital {
                         collectionTxVitals[index][item.key] = item.value
                     }
@@ -299,12 +342,54 @@ extension TxVC{
                     return
                 }
             }
-            if found == false {//APPEND NEW
-               // collectionTxVitals.append(Vital)
-               // UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
-                //UserDefaults.standard.synchronize()
-            }
         }
+    }
+    func askToDeleteVitalAlert(title:String, message:String, buttonTitle:String) {
+        
+        let myAlert = UIAlertController(title: title,
+                                        message: message,
+                                        preferredStyle: .alert)
+
+        // Submit button
+        let submitAction = UIAlertAction(title: "Remove", style: .default, handler: { (action) -> Void in
+            //Remove Selected from Dictionary
+            //sort index in accending order ...,3,2,1,0
+            let sortedArray = self.removeVitalsIndexSet.sorted(by: {$0>$1})
+            for index in sortedArray {
+                self.collectionTxVitals.remove(at: index)
+                print("index: \(index)")
+            }
+            UserDefaults.standard.set(self.collectionTxVitals, forKey: "collectionTxVitals")
+            UserDefaults.standard.synchronize()
+            //Revert UI
+            self.filterTxVitalsBy(selectedValue: self.seguePatientID)
+            self.resetRemoveButtonToNotSelected()//reload filted dictionary data
+            self.removeVitalsIndexSet = Set<Int>()
+        })
+        
+        myAlert.addAction(submitAction)
+        
+        //cancel button
+        myAlert.addAction(UIAlertAction(title: buttonTitle, style: .destructive) { _ in
+            self.resetRemoveButtonToNotSelected()
+            self.removeVitalsIndexSet = Set<Int>()
+        })
+        present(myAlert, animated: true){}
+        
+    }
+    func resetRemoveButtonToNotSelected(){
+        removeButton.setTitle("Remove", for: .normal)
+        removeButton.backgroundColor = UIColor.WVCLightRed()
+        showDeleteImage = false
+        txVitalsCollection.reloadData()
+        if filteredTxVitalsCollection.isEmpty { removeButton.isHidden = true }
+        else { //removeButton.isHidden = false
+        }
+    }
+    func resetRemoveButtonToSelected(){
+        removeButton.backgroundColor = .white
+        showDeleteImage = true
+        txVitalsCollection.reloadData()
     }
 }
 extension TxVC {
@@ -316,8 +401,16 @@ extension TxVC {
             if let toVC = segue.destination as? PatientsVC {
                 toVC.seguePatientID = seguePatientID
             }
-        } else if segue.identifier == "segueTxVCToaddTxVital" {//FORWARD->
+        } else if segue.identifier == "segueTxVCToaddTxVital" {//FORWARD -> addTxVital
             if let toVC = segue.destination as? addTxVital {
+                toVC.seguePatientID = seguePatientID
+                toVC.segueShelterName = segueShelterName
+                toVC.seguePatientSex = seguePatientSex
+                toVC.seguePatientAge = seguePatientAge
+                toVC.seguePatientBreed = seguePatientBreed
+            }
+        } else if segue.identifier == "segueTxVCToaddTx" {//FORWARD -> addTx
+            if let toVC = segue.destination as? addTx {
                 toVC.seguePatientID = seguePatientID
                 toVC.segueShelterName = segueShelterName
                 toVC.seguePatientSex = seguePatientSex

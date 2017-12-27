@@ -160,7 +160,7 @@ extension addTxVital {
     // #MARK: - UI
     func setupUI(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yy"
+        formatter.dateFormat = "MM/dd/yy a"
         let nowString = formatter.string(from: Date())
         dateLabel.text = nowString
     }
@@ -239,7 +239,7 @@ extension addTxVital {
     func updateTV(){
         // Date now
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "MM/dd/yyyy a"
         let nowString = formatter.string(from: Date())
         newTxVital = [
             "patientID":seguePatientID,
@@ -278,17 +278,27 @@ extension addTxVital {
             "checkComplete":"false"
         ]
     }
-    func monitorTreatmentsFor(numberOfDays: Int){
-        var daysToAdd = 0
+    func monitorTreatmentsFor(numberOfDays: Int, isTwiceDaily: String){
+        var loopCount = numberOfDays
+        var hours = 24
+        if isTwiceDaily == "2x daily" {
+            loopCount = numberOfDays * 2
+            hours = 12
+        }
+        //var daysToAdd = 0
+        var hoursToAdd = 0
         var dateComponent = DateComponents()
         let currentDate = Date()
-        //var group = ""
-        numberOfDays.times {
-            daysToAdd = daysToAdd + 1
-            dateComponent.day = daysToAdd
+        //if 2x selected 1) numberOfDays*2 2) hoursToAdd = 12 not 24
+        loopCount.times {//LOOP # DAYS
+            //daysToAdd = daysToAdd + 1
+            //dateComponent.day = daysToAdd
+            //
+            hoursToAdd = hoursToAdd + hours
+            dateComponent.hour = hoursToAdd
             let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
             let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd/yyyy"
+            formatter.dateFormat = "MM/dd/yyyy a"
             let nowString = formatter.string(from: futureDate!)
             emptyTV(date: nowString)
             collectionTxVitals.append(newTxVital)
@@ -300,7 +310,7 @@ extension addTxVital {
             collectionTxVitals.append(newTxVital)//Initial Vitals
             UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
             UserDefaults.standard.synchronize()
-            monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!)
+        monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!, isTwiceDaily: monitorFrequency.text!)
             UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
             UserDefaults.standard.synchronize()
 //        } else {

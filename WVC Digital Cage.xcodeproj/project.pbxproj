@@ -32,6 +32,7 @@
 		5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506B1FE323BD00876BFF /* RemovePatient.swift */; };
 		5830506E1FE34B5300876BFF /* Treatments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5830506D1FE34B5300876BFF /* Treatments.storyboard */; };
 		583050701FE34EB100876BFF /* TxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506F1FE34EB100876BFF /* TxVC.swift */; };
+		583520191FF44B75002ACD1C /* addTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583520181FF44B75002ACD1C /* addTx.swift */; };
 		5837803D1FAB850C00905B3C /* String Manip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5837803C1FAB850C00905B3C /* String Manip.swift */; };
 		583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */; };
 		583CCD2E1FB12C6000F03DF1 /* Injuries.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 583CCD2D1FB12C6000F03DF1 /* Injuries.storyboard */; };
@@ -117,6 +118,7 @@
 		5830506B1FE323BD00876BFF /* RemovePatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePatient.swift; sourceTree = "<group>"; };
 		5830506D1FE34B5300876BFF /* Treatments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Treatments.storyboard; sourceTree = "<group>"; };
 		5830506F1FE34EB100876BFF /* TxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxVC.swift; sourceTree = "<group>"; };
+		583520181FF44B75002ACD1C /* addTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTx.swift; sourceTree = "<group>"; };
 		5837803C1FAB850C00905B3C /* String Manip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Manip.swift"; sourceTree = "<group>"; };
 		583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customNotifVC.swift; sourceTree = "<group>"; };
 		583CCD2D1FB12C6000F03DF1 /* Injuries.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Injuries.storyboard; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				58C9B33A1FA27339006DE233 /* SettingsVC.swift */,
 				5830506F1FE34EB100876BFF /* TxVC.swift */,
 				58FE3C2B1FEB1EE2005F7219 /* addTxVital.swift */,
+				583520181FF44B75002ACD1C /* addTx.swift */,
 				582836551F9143AC003F18FE /* ViewController.swift */,
 			);
 			path = VC;
@@ -548,6 +551,7 @@
 				5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */,
 				58D920911FACCE4D00713C72 /* AMPMVC.swift in Sources */,
 				58E8A52D1F96B51E004E6640 /* PatientPE_VC.swift in Sources */,
+				583520191FF44B75002ACD1C /* addTx.swift in Sources */,
 				584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */,
 				582836981F914840003F18FE /* Date.swift in Sources */,
 				582836951F914840003F18FE /* Rounded.swift in Sources */,
