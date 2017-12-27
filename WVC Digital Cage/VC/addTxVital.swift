@@ -252,7 +252,7 @@ extension addTxVital {
             "v/D/C/S":vdcsTF.text!,
             "weightKgs":weightTF.text!,
             "initials":initialsTF.text!,
-            "monitorFrequency":monitorFrequency.text!,
+            "monitorFrequency":monitorFrequency.text!,//daily or 2x daily
             "monitorDays":monitorDays.text!,
             "monitored":monitoredList.text!,//T,H,R,M, D,C,W,I
             "group":String(groupNumber),//"1",//check and auto increment
