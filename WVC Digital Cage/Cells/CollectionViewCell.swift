@@ -9,7 +9,7 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
-    //injuriesCollectionCell
+    // injuriesCollectionCell
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var patientIDLabel: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -17,7 +17,7 @@ class CollectionViewCell: UICollectionViewCell {
 }
 
 class txVitalsCollectionViewCell: UICollectionViewCell {
-    //txVitalsCollectionCell
+    // txVitalsCollectionCell
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var temperature: UILabel!
     @IBOutlet weak var heartRT: UILabel!
@@ -28,5 +28,21 @@ class txVitalsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var weight: UILabel!
     @IBOutlet weak var initials: UILabel!
     @IBOutlet weak var deleteImage: UIImageView!
+}
+
+class treatmentCollectionViewCell: UICollectionViewCell {
+    // txCollectionCell
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var one: UILabel!
+    @IBOutlet weak var two: UILabel!
+    @IBOutlet weak var three: UILabel!
+    @IBOutlet weak var four: UILabel!
+    @IBOutlet weak var five: UILabel!
+    @IBOutlet weak var deleteImage: UIImageView!
     
+    @IBOutlet weak var six: UILabel!
+    @IBOutlet weak var seven: UILabel!
+    @IBOutlet weak var eight: UILabel!
+    @IBOutlet weak var nine: UILabel!
+    @IBOutlet weak var ten: UILabel!
 }

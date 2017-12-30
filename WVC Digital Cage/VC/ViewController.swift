@@ -85,11 +85,12 @@ class ViewController: UIViewController {
     let collectionPhotos = UserDefaults.standard.object(forKey: "collectionPhotos") as? Array<Dictionary<String,String>> ?? []
     let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
     let collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
+    let collectionTreatments = UserDefaults.standard.object(forKey: "collectionTreatments") as? Array<Dictionary<String,String>> ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
-        //clear(arrayDicName: "collectionTxVitals")
+        //clear(arrayDicName: "collectionTreatments")
         
         //for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
         //    print("\(key) = \(value) \n")
@@ -100,7 +101,7 @@ class ViewController: UIViewController {
         //deleteImage(imageName: "Snoopy_2.png")
         //deleteImage(imageName: "Garfield_1.png")
         //deleteImage(imageName: "Garfield_2.png")
-        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges, collectionTxVitals: collectionTxVitals)
+        printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges, collectionTxVitals: collectionTxVitals, collectionTreatments: collectionTreatments)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
@@ -139,7 +140,8 @@ extension ViewController{
                            procedures: Array<Dictionary<String,String>>,
                            collectionPhotos: Array<Dictionary<String,String>>,
                            badges: Array<Dictionary<String,String>>,
-                           collectionTxVitals: Array<Dictionary<String,String>>){
+                           collectionTxVitals: Array<Dictionary<String,String>>,
+                           collectionTreatments: Array<Dictionary<String,String>>){
         print("patientRecords \(records.count):\n\(records)")
         print("patientVitals \(vitals.count):\n\(vitals)")
         print("patientPhysicalExam \(pe.count):\n\(pe)")
@@ -151,6 +153,7 @@ extension ViewController{
         print("collectionPhotos \(collectionPhotos.count):\n\(collectionPhotos)")
         print("badges \(badges.count):\n\(badges)")
         print("collectionTxVitals \(collectionTxVitals.count):\n\(collectionTxVitals)")
+        print("collectionTreatments \(collectionTreatments.count):\n\(collectionTreatments)")
     }
     func updateMissingAMPMRecords(){
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []

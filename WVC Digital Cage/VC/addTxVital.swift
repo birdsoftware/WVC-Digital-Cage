@@ -291,9 +291,6 @@ extension addTxVital {
         let currentDate = Date()
         //if 2x selected 1) numberOfDays*2 2) hoursToAdd = 12 not 24
         loopCount.times {//LOOP # DAYS
-            //daysToAdd = daysToAdd + 1
-            //dateComponent.day = daysToAdd
-            //
             hoursToAdd = hoursToAdd + hours
             dateComponent.hour = hoursToAdd
             let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
@@ -306,20 +303,13 @@ extension addTxVital {
     }
     func saveTreatmentVitalsLocally(){
         updateTV()
-        //if collectionTxVitals.isEmpty == false {
-            collectionTxVitals.append(newTxVital)//Initial Vitals
-            UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
-            UserDefaults.standard.synchronize()
+        collectionTxVitals.append(newTxVital)//Initial Vitals
+        UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
+        UserDefaults.standard.synchronize()
+        //LOOP
         monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!, isTwiceDaily: monitorFrequency.text!)
             UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
             UserDefaults.standard.synchronize()
-//        } else {
-//            UserDefaults.standard.set([newTxVital], forKey: "collectionTxVitals")
-//            UserDefaults.standard.synchronize()
-//            monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!)
-//            UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
-//            UserDefaults.standard.synchronize()
-//        }
     }
 }
 extension addTxVital {

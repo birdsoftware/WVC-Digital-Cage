@@ -435,16 +435,20 @@ extension AMPMVC {
         if myAmpms.isEmpty {//CREATE NEW
             UserDefaults.standard.set([newAMPM], forKey: "ampms")
             UserDefaults.standard.synchronize()
+            print("create new ampm")
         }
         else {
             for index in 0..<myAmpms.count{
-                if myAmpms[index]["date"] == newAMPM["date"]{//UPDATE
+                if myAmpms[index]["date"] == newAMPM["date"] &&
+                    myAmpms[index]["patientID"] == newAMPM["patientID"]
+                {//UPDATE
                     found = true
                     for item in newAMPM {
                         myAmpms[index][item.key] = item.value
                     }
                     UserDefaults.standard.set(myAmpms, forKey: "ampms")
                     UserDefaults.standard.synchronize()
+                    print("update ampm")
                     return
                 }
             }
@@ -452,6 +456,7 @@ extension AMPMVC {
                 myAmpms.append(newAMPM)
                 UserDefaults.standard.set(myAmpms, forKey: "ampms")
                 UserDefaults.standard.synchronize()
+                print("append new ampm")
             }
         }
     }
