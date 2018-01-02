@@ -290,7 +290,7 @@ extension TxVC {
             
             if filteredTreatments.isEmpty == false {
                 let data = filteredTreatments[indexPath.row]
-                if data["containsTreatmentLabels"] == "false"{
+//                if data["containsTreatmentLabels"] == "false"{
                     cell.date.text = data["date"]
                     cell.one.text = data["treatmentOne"]
                     cell.two.text = data["treatmentTwo"]
@@ -303,9 +303,9 @@ extension TxVC {
                     cell.nine.text = data["treatmentNine"]
                     cell.ten.text = data["treatmentTen"]
                     cell.backgroundColor = UIColor(hex: 0xeaeded)//b9c4c4)
-                    colorTxCell(aCell: cell, aData: data)
+                colorTxCell(aCell: cell, aData: data, row: indexPath.row)//TODO color based on data["..."] == ""
                 }
-            }
+            
             
             return cell
             
@@ -336,11 +336,13 @@ extension TxVC {
             if cell.isSelected {cell.backgroundColor = .WVCActionBlue()} else {cell.backgroundColor = lastCellColor}
             
             let selectedTreatment = filteredTreatments[indexPath.row]
+            print("selectedTreatment \(selectedTreatment)")
             if showDeleteImageTreatment {
                 let selectedDict = filteredTreatments[indexPath.row]
                 updateUIGivenSelectedTxCell(selectedDict: selectedDict, txCell: cell)
             } else {
-                //alert
+                // whatever is in "monitored": "1" will appear to initialize in alert
+                alertTreatment(replaceCellColor: lastCellColor, forThisCell: cell, selectedTreatment: selectedTreatment)
             }
         }
     }
@@ -407,27 +409,144 @@ extension TxVC {
         if monitored?.range(of:"C") != nil { aCell.csvd.backgroundColor = currentColor } else {aCell.csvd.backgroundColor = .clear}
         if monitored?.range(of:"W") != nil { aCell.weight.backgroundColor = currentColor } else {aCell.weight.backgroundColor = .clear}
     }
-    func colorTxCell(aCell: treatmentCollectionViewCell, aData: [String:String]){
-        var currentColor = UIColor.WVCLightRed()
-        let isComplete = Bool(aData["checkComplete"]!)!
+    
+    func colorTxCell(aCell: treatmentCollectionViewCell, aData: [String:String], row: Int){
+        //let currentColor = UIColor.WVCLightRed()
+        //let isComplete = Bool(aData["checkComplete"]!)!
         let monitored = aData["monitored"]
-        if isComplete { currentColor = UIColor.candyGreen() }
-        if monitored?.range(of:"1") != nil { aCell.one.backgroundColor = currentColor } else {aCell.one.backgroundColor = .clear}
-        if monitored?.range(of:"2") != nil { aCell.two.backgroundColor = currentColor } else {aCell.two.backgroundColor = .clear}
-        if monitored?.range(of:"3") != nil { aCell.three.backgroundColor = currentColor } else {aCell.three.backgroundColor = .clear}
-        if monitored?.range(of:"4") != nil { aCell.four.backgroundColor = currentColor } else {aCell.four.backgroundColor = .clear}
-        if monitored?.range(of:"5") != nil { aCell.five.backgroundColor = currentColor } else {aCell.five.backgroundColor = .clear}
-        if monitored?.range(of:"6") != nil { aCell.six.backgroundColor = currentColor } else {aCell.six.backgroundColor = .clear}
-        if monitored?.range(of:"7") != nil { aCell.seven.backgroundColor = currentColor } else {aCell.seven.backgroundColor = .clear}
-        if monitored?.range(of:"8") != nil { aCell.eight.backgroundColor = currentColor } else {aCell.eight.backgroundColor = .clear}
-        if monitored?.range(of:"9") != nil { aCell.nine.backgroundColor = currentColor } else {aCell.nine.backgroundColor = .clear}
-        if monitored?.range(of:"T") != nil { aCell.ten.backgroundColor = currentColor } else {aCell.ten.backgroundColor = .clear}
+        print("monitored \(monitored!), row \(row)")
+        //let mOptions = ["1","2","3","4","5","6","7","8","9","T"]
+        //let treatmets = ["treatmentOne","treatmentTwo","treatmentThree","treatmentFour","treatmentFive","treatmentSix","treatmentSeven","treatmentEight","treatmentNine","treatmentTen"]
+        //var cellLabel = [aCell.one.backgroundColor, aCell.two.backgroundColor, aCell.three.backgroundColor, aCell.four.backgroundColor, aCell.five.backgroundColor, aCell.six.backgroundColor, aCell.seven.backgroundColor, aCell.eight.backgroundColor, aCell.nine.backgroundColor, aCell.ten.backgroundColor]
+       // if isComplete { currentColor = UIColor.candyGreen() }
+            if monitored?.range(of:"1") != nil {
+                if aData["treatmentOne"] == "" {
+                    aCell.one.backgroundColor = .WVCLightRed()
+                } else {
+                    aCell.one.backgroundColor = .candyGreen() }
+            } else { aCell.one.backgroundColor = .clear }
+            if monitored?.range(of:"2") != nil {
+                if aData["treatmentTwo"] == "" {
+                    aCell.two.backgroundColor = .WVCLightRed()
+                } else {
+                    aCell.two.backgroundColor = .candyGreen() }
+            } else { aCell.two.backgroundColor = .clear }
+
+            if monitored?.range(of:"3") != nil {
+                if aData["treatmentThree"] == "" {
+                    aCell.three.backgroundColor = .WVCLightRed()
+                } else {
+                    aCell.three.backgroundColor = .candyGreen() }
+            } else { aCell.three.backgroundColor = .clear }
+
+
+
+//        if aData["treatmentOne"] == "" { aCell.one.backgroundColor = currentColor } else { aCell.one.backgroundColor = .candyGreen() }
+//        if aData["treatmentTwo"] == "" { aCell.two.backgroundColor = currentColor } else { aCell.two.backgroundColor = .candyGreen() }
+//        if aData["treatmentThree"] == "" { aCell.three.backgroundColor = currentColor } else { aCell.three.backgroundColor = .candyGreen() }
+        
+        
+//        if monitored?.range(of:"2") != nil { aCell.two.backgroundColor = currentColor } else {aCell.two.backgroundColor = .clear}
+//        if monitored?.range(of:"3") != nil { aCell.three.backgroundColor = currentColor } else {aCell.three.backgroundColor = .clear}
+//        if monitored?.range(of:"4") != nil { aCell.four.backgroundColor = currentColor } else {aCell.four.backgroundColor = .clear}
+//        if monitored?.range(of:"5") != nil { aCell.five.backgroundColor = currentColor } else {aCell.five.backgroundColor = .clear}
+//        if monitored?.range(of:"6") != nil { aCell.six.backgroundColor = currentColor } else {aCell.six.backgroundColor = .clear}
+//        if monitored?.range(of:"7") != nil { aCell.seven.backgroundColor = currentColor } else {aCell.seven.backgroundColor = .clear}
+//        if monitored?.range(of:"8") != nil { aCell.eight.backgroundColor = currentColor } else {aCell.eight.backgroundColor = .clear}
+//        if monitored?.range(of:"9") != nil { aCell.nine.backgroundColor = currentColor } else {aCell.nine.backgroundColor = .clear}
+//        if monitored?.range(of:"T") != nil { aCell.ten.backgroundColor = currentColor } else {aCell.ten.backgroundColor = .clear}
     }
 }
 extension TxVC{
     //
     // #MARK: - custom alerts
     //
+    func alertTreatment(replaceCellColor: UIColor?, forThisCell: UICollectionViewCell, selectedTreatment: [String:String]){
+        var treatment = ["patientID":selectedTreatment["patientID"]!,
+                      "date":selectedTreatment["date"]!,
+                      "treatmentOne":selectedTreatment["treatmentOne"]!,
+                      "treatmentTwo":selectedTreatment["treatmentTwo"]!,
+                      "treatmentThree":selectedTreatment["treatmentThree"]!,
+                      "treatmentFour":selectedTreatment["treatmentFour"]!,
+                      "treatmentFive":selectedTreatment["treatmentFive"]!,
+                      "treatmentSix":selectedTreatment["treatmentSix"]!,
+                      "treatmentSeven":selectedTreatment["treatmentSeven"]!,
+                      "treatmentEight":selectedTreatment["treatmentEight"]!,
+                      "treatmentNine":selectedTreatment["treatmentNine"]!,
+                      "treatmentTen":selectedTreatment["treatmentTen"]!,
+                      "monitorFrequency":selectedTreatment["monitorFrequency"]!,//daily or 2x daily
+                      "monitorDays":selectedTreatment["monitorDays"]!,
+                      "monitored":selectedTreatment["monitored"]!,
+                      "checkComplete":selectedTreatment["checkComplete"]!,
+                      "containsTreatmentLabels":"false"
+        ]
+        
+        let monitored = selectedTreatment["monitored"]
+        let mOptions = ["1","2","3","4","5","6","7","8","9","T"]
+        let treatmets = ["treatmentOne","treatmentTwo","treatmentThree","treatmentFour","treatmentFive","treatmentSix","treatmentSeven","treatmentEight","treatmentNine","treatmentTen"]
+        
+        // Show Alert, get new vitals[n] text, show [Update] [Cancel] buttons
+        let alert = UIAlertController(title: "Patient Treatments",
+                                      message: "Inital Patient treatment(s)",
+                                      preferredStyle: .alert)
+        
+        // Submit button
+        let submitAction = UIAlertAction(title: "Update now", style: .default, handler: { (action) -> Void in
+            // Get 6 TextField's text
+            
+        for index in 0..<mOptions.count{
+            if monitored?.range(of:mOptions[index]) != nil {
+                let t = alert.textFields![index].text!
+                if (t.isEmpty == false) { treatment[ treatmets[index] ]! = t }
+            }
+        }
+        
+        forThisCell.backgroundColor = replaceCellColor
+        
+        //save to local storage and reload filtered based on patientID
+        self.update(Treatment: treatment)
+        self.filterDictionaryBy(selectedValue: self.seguePatientID, originalDictionary: &self.collectionTreatments, filteredDict: &self.filteredTreatments)
+        
+        self.txCollection.reloadData()
+        })
+        
+        // Cancel button
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in forThisCell.backgroundColor = replaceCellColor})
+        
+        // Add textFields and customize
+        for index in 0..<mOptions.count{
+            if monitored?.range(of:mOptions[index]) != nil {
+                alert.addTextField { (textField: UITextField) in
+                    textField.keyboardAppearance = .dark
+                    textField.keyboardType = .default
+                    textField.autocorrectionType = .default
+                    textField.placeholder = "Treatment \(index+1)"
+                    //show previously entered value in alert
+                    if selectedTreatment[treatmets[index]]! != "" {textField.text = selectedTreatment[treatmets[index]]!}
+                    textField.clearButtonMode = .whileEditing
+                }
+            }
+        }
+        // Add action buttons and present the Alert
+        alert.addAction(submitAction)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    func update(Treatment: [String:String]){
+        if collectionTreatments.isEmpty == false {
+            for index in 0..<collectionTreatments.count {
+                if collectionTreatments[index]["patientID"] == Treatment["patientID"] && collectionTreatments[index]["date"] == Treatment["date"] &&
+                    collectionTreatments[index]["containsTreatmentLabels"] == Treatment["containsTreatmentLabels"] { //UPDATE
+                    for item in Treatment {
+                        collectionTreatments[index][item.key] = item.value
+                    }
+                    UserDefaults.standard.set(collectionTreatments, forKey: "collectionTreatments")
+                    UserDefaults.standard.synchronize()
+                    return
+                }
+            }
+        }
+    }
     func alertVitals(replaceCellColor: UIColor?, forThisCell: UICollectionViewCell, selectedVital: [String:String]){
         var vitals = ["patientID":selectedVital["patientID"]!,
                       "date":selectedVital["date"]!,
