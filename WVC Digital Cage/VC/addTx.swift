@@ -36,7 +36,7 @@ class addTx: UIViewController {
     
     var monitoredList = ""
     
-    //views
+    //views - Hide -
     @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var dailyView: UIView!
     
@@ -244,15 +244,18 @@ extension addTx {
                     collectionTreatments[index]["treatmentNine"] = nineTreatmentTF.text!
                     collectionTreatments[index]["treatmentTen"] = tenTreatmentTF.text!
                     collectionTreatments[index]["monitored"] = monitoredList//1,2,3,4,5,6,7,8,9,T
-                    UserDefaults.standard.set(collectionTreatments, forKey: "collectionTreatments")
-                    UserDefaults.standard.synchronize()
-                    return
+                } else if collectionTreatments[index]["patientID"] == seguePatientID &&
+                    collectionTreatments[index]["containsTreatmentLabels"] == "false"{
+                    collectionTreatments[index]["monitored"] = monitoredList
                 }
             }
+            UserDefaults.standard.set(collectionTreatments, forKey: "collectionTreatments")
+            UserDefaults.standard.synchronize()
         }
     }
     func getMonitoredList() {
         
+        //This loop gets previous saved monitored list
         if filteredCollectionTreatments.isEmpty == false {
             for treatment in filteredCollectionTreatments {
                 if treatment["containsTreatmentLabels"] == "true" {
@@ -261,54 +264,20 @@ extension addTx {
             }
         }
         
-//        let arrayOfTF = [oneTreatmentTF,twoTreatmentTF,threeTreatmentTF,fourTreatmentTF,fiveTreatmentTF,sixTreatmentTF,sevenTreatmentTF,eightTreatmentTF,nineTreatmentTF,tenTreatmentTF]
-//        let arraySelected = ["1","2","3","4","5","6","7","8","9","T"]
-//        for index in 0..<arrayOfTF.count {
-//            if arrayOfTF[index]?.text?.isEmpty == false {
-//                if monitoredList.range(of: arraySelected[index] ) != nil {
-//                    /* add Value */ monitoredList = monitoredList + arraySelected[index]
-//                } else {
-//                    /* remove Value */ monitoredList = monitoredList.replacingOccurrences(of: arraySelected[index], with: "")
-//                }
-//            }
-//        }
+    let arrayOfTF = [oneTreatmentTF,twoTreatmentTF,threeTreatmentTF,fourTreatmentTF,fiveTreatmentTF,
+                     sixTreatmentTF,sevenTreatmentTF,eightTreatmentTF,nineTreatmentTF,tenTreatmentTF]
+    let arrayTreatment = ["1","2","3","4","5","6","7","8","9","T"]
         
-        if oneTreatmentTF.text?.isEmpty == false {
-            if monitoredList.range(of:"1") != nil { /* Has Value */ }
-            else { monitoredList = monitoredList + "1" }
-                ///* remove Value */ monitoredList = monitoredList.replacingOccurrences(of: "1", with: "") }
-        }
-        if twoTreatmentTF.text?.isEmpty == false {
-            if monitoredList.range(of:"2") != nil { /* Has Value */ }
-            else { monitoredList = monitoredList + "2" }
-                //* remove Value */ monitoredList = monitoredList.replacingOccurrences(of: "2", with: "") }
-        }
-        if threeTreatmentTF.text?.isEmpty == false {
-            if monitoredList.range(of:"3") != nil {/* Has Value */  }
-            else { monitoredList = monitoredList + "3" }
-                //* remove Value */ monitoredList = monitoredList.replacingOccurrences(of: "3", with: "") }
-        }
-        if fourTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "4"
-        }
-        if fiveTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "5"
-        }
-        if sixTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "6"
-        }
-        if sevenTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "7"
-        }
-        if eightTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "8"
-        }
-        if nineTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "9"
-        }
-        if tenTreatmentTF.text?.isEmpty == false {
-            monitoredList = monitoredList + "T"
-        }
+        //add new to previously saved monitored list. previous could be empty ""
+    for index in 0..<arrayOfTF.count {
+        if arrayOfTF[index]?.text?.isEmpty == false {
+            if monitoredList.range(of: arrayTreatment[index] ) != nil { /* Has Value */ }
+            else { monitoredList = monitoredList + arrayTreatment[index] }
+            }
+    }
+    var set = Set<Character>()
+    let squeezed = String(monitoredList.filter{ set.insert($0).inserted } )
+        monitoredList = squeezed // remove duplicates 123454545666 -> 123456
     }
 }
 extension addTx {

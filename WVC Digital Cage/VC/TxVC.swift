@@ -13,7 +13,7 @@
 
 import UIKit
 
-class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate {
     
     //collections
     @IBOutlet weak var txVitalsCollection: UICollectionView!
@@ -26,6 +26,13 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     @IBOutlet weak var patientSexTF: UITextField!
     @IBOutlet weak var ageTF: UITextField!
     @IBOutlet weak var breedTF: UITextField!
+    
+    @IBOutlet weak var LVTTF: UITextField!
+    @IBOutlet weak var DVMTF: UITextField!
+    @IBOutlet weak var DXTF: UITextField!
+    
+    //text view
+    @IBOutlet weak var notes: UITextView!
     
     //button
     @IBOutlet weak var removeButton: RoundedButton!
@@ -40,7 +47,11 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     @IBOutlet weak var treatmentHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var treatmentLabelsHeightConstraint: NSLayoutConstraint!
     
-    //labels holding labels for 1st cell
+    //Labels (UI)
+    @IBOutlet weak var treatmentVitalsLabel: UILabel!
+    @IBOutlet weak var treatmentsLabel: UILabel!
+    
+    //Labels (Treatment Cell) holding labels for 1st cell
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var oneLabel: UILabel!
     @IBOutlet weak var twoLabel: UILabel!
@@ -52,7 +63,7 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     @IBOutlet weak var eightLabel: UILabel!
     @IBOutlet weak var nineLabel: UILabel!
     @IBOutlet weak var tenLabel: UILabel!
-    //labels
+    //Labels (Treatment)
     @IBOutlet weak var tenTxLabel: UILabel!
     @IBOutlet weak var nineTxLabel: UILabel!
     @IBOutlet weak var eightTxLabel: UILabel!
@@ -92,6 +103,8 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textFieldsDelegates()
+        textViewDelegates()
         setUI()
         connectPanGesture()
         
@@ -137,6 +150,9 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
                                         collection: txCollection)
         }
     }
+    @IBAction func addNotesAction(_ sender: Any) {
+        alertGetNote()
+    }
     
     
 }
@@ -175,6 +191,19 @@ extension TxVC {
         txVitalsCollection.dataSource = self
         txCollection.delegate = self
         txCollection.dataSource = self
+        
+        let treatmentsAndNotes = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
+        if treatmentsAndNotes.isEmpty == false {
+            for tAndN in treatmentsAndNotes{
+                if tAndN["patientID"] == seguePatientID {
+                    LVTTF.text = tAndN["lVT"]
+                    DVMTF.text = tAndN["dVM"]
+                    DXTF.text = tAndN["dX"]
+                    notes.text = tAndN["notes"]
+                    break
+                }
+            }
+        }
     }
     func useFilterDataToSetLabels(){
         //treatment labels treatmentHeightConstraint = 280
@@ -306,7 +335,6 @@ extension TxVC {
                 colorTxCell(aCell: cell, aData: data, row: indexPath.row)//TODO color based on data["..."] == ""
                 }
             
-            
             return cell
             
         }
@@ -419,47 +447,127 @@ extension TxVC {
         //let treatmets = ["treatmentOne","treatmentTwo","treatmentThree","treatmentFour","treatmentFive","treatmentSix","treatmentSeven","treatmentEight","treatmentNine","treatmentTen"]
         //var cellLabel = [aCell.one.backgroundColor, aCell.two.backgroundColor, aCell.three.backgroundColor, aCell.four.backgroundColor, aCell.five.backgroundColor, aCell.six.backgroundColor, aCell.seven.backgroundColor, aCell.eight.backgroundColor, aCell.nine.backgroundColor, aCell.ten.backgroundColor]
        // if isComplete { currentColor = UIColor.candyGreen() }
-            if monitored?.range(of:"1") != nil {
-                if aData["treatmentOne"] == "" {
-                    aCell.one.backgroundColor = .WVCLightRed()
-                } else {
-                    aCell.one.backgroundColor = .candyGreen() }
-            } else { aCell.one.backgroundColor = .clear }
-            if monitored?.range(of:"2") != nil {
-                if aData["treatmentTwo"] == "" {
-                    aCell.two.backgroundColor = .WVCLightRed()
-                } else {
-                    aCell.two.backgroundColor = .candyGreen() }
-            } else { aCell.two.backgroundColor = .clear }
-
-            if monitored?.range(of:"3") != nil {
-                if aData["treatmentThree"] == "" {
-                    aCell.three.backgroundColor = .WVCLightRed()
-                } else {
-                    aCell.three.backgroundColor = .candyGreen() }
-            } else { aCell.three.backgroundColor = .clear }
-
-
-
-//        if aData["treatmentOne"] == "" { aCell.one.backgroundColor = currentColor } else { aCell.one.backgroundColor = .candyGreen() }
-//        if aData["treatmentTwo"] == "" { aCell.two.backgroundColor = currentColor } else { aCell.two.backgroundColor = .candyGreen() }
-//        if aData["treatmentThree"] == "" { aCell.three.backgroundColor = currentColor } else { aCell.three.backgroundColor = .candyGreen() }
         
+        if monitored?.range(of:"1") != nil {
+            if aData["treatmentOne"] == "" {
+                aCell.one.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.one.backgroundColor = .candyGreen() }
+        } else { aCell.one.backgroundColor = .clear }
+    
+        if monitored?.range(of:"2") != nil {
+            if aData["treatmentTwo"] == "" {
+                aCell.two.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.two.backgroundColor = .candyGreen() }
+        } else { aCell.two.backgroundColor = .clear }
+
+        if monitored?.range(of:"3") != nil {
+            if aData["treatmentThree"] == "" {
+                aCell.three.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.three.backgroundColor = .candyGreen() }
+        } else { aCell.three.backgroundColor = .clear }
+
+        if monitored?.range(of:"4") != nil {
+            if aData["treatmentFour"] == "" {
+                aCell.four.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.four.backgroundColor = .candyGreen() }
+        } else { aCell.four.backgroundColor = .clear }
         
-//        if monitored?.range(of:"2") != nil { aCell.two.backgroundColor = currentColor } else {aCell.two.backgroundColor = .clear}
-//        if monitored?.range(of:"3") != nil { aCell.three.backgroundColor = currentColor } else {aCell.three.backgroundColor = .clear}
-//        if monitored?.range(of:"4") != nil { aCell.four.backgroundColor = currentColor } else {aCell.four.backgroundColor = .clear}
-//        if monitored?.range(of:"5") != nil { aCell.five.backgroundColor = currentColor } else {aCell.five.backgroundColor = .clear}
-//        if monitored?.range(of:"6") != nil { aCell.six.backgroundColor = currentColor } else {aCell.six.backgroundColor = .clear}
-//        if monitored?.range(of:"7") != nil { aCell.seven.backgroundColor = currentColor } else {aCell.seven.backgroundColor = .clear}
-//        if monitored?.range(of:"8") != nil { aCell.eight.backgroundColor = currentColor } else {aCell.eight.backgroundColor = .clear}
-//        if monitored?.range(of:"9") != nil { aCell.nine.backgroundColor = currentColor } else {aCell.nine.backgroundColor = .clear}
-//        if monitored?.range(of:"T") != nil { aCell.ten.backgroundColor = currentColor } else {aCell.ten.backgroundColor = .clear}
+        if monitored?.range(of:"5") != nil {
+            if aData["treatmentFive"] == "" {
+                aCell.five.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.five.backgroundColor = .candyGreen() }
+        } else { aCell.five.backgroundColor = .clear }
+        
+        if monitored?.range(of:"6") != nil {
+            if aData["treatmentSix"] == "" {
+                aCell.six.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.six.backgroundColor = .candyGreen() }
+        } else { aCell.six.backgroundColor = .clear }
+        
+        if monitored?.range(of:"7") != nil {
+            if aData["treatmentSeven"] == "" {
+                aCell.seven.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.seven.backgroundColor = .candyGreen() }
+        } else { aCell.seven.backgroundColor = .clear }
+        
+        if monitored?.range(of:"8") != nil {
+            if aData["treatmentEight"] == "" {
+                aCell.eight.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.eight.backgroundColor = .candyGreen() }
+        } else { aCell.eight.backgroundColor = .clear }
+        
+        if monitored?.range(of:"9") != nil {
+            if aData["treatmentNine"] == "" {
+                aCell.nine.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.nine.backgroundColor = .candyGreen() }
+        } else { aCell.nine.backgroundColor = .clear }
+        
+        if monitored?.range(of:"T") != nil {
+            if aData["treatmentTen"] == "" {
+                aCell.ten.backgroundColor = .WVCLightRed()
+            } else {
+                aCell.ten.backgroundColor = .candyGreen() }
+        } else { aCell.ten.backgroundColor = .clear }
+        
     }
 }
 extension TxVC{
     //
-    // #MARK: - custom alerts
+    // #MARK: - custom alerts -> Note
+    //
+    func alertGetNote(){
+        // Show Alert, get new vitals[n] text, show [Update] [Cancel] buttons
+        let alert = UIAlertController(title: "Add a note",
+                                      message: "Date: \(todayTF.text!)",
+                                      preferredStyle: .alert)
+        
+        // Submit button
+        let submitAction = UIAlertAction(title: "Update now", style: .default, handler: { (action) -> Void in
+            
+            // Get TextField's text
+            var noteString = ""
+            if self.notes.text == "" {
+                noteString = "[\(self.todayTF.text!)] " + alert.textFields![0].text!
+            } else {
+                noteString = self.notes.text + "\n[\(self.todayTF.text!)] " + alert.textFields![0].text!
+            }
+            
+            //update UI
+            self.notes.text = noteString
+            
+            //save to local storage
+            if alert.textFields![0].text! != "" {
+                self.saveTreatmentAndNotes()
+            }
+
+        })
+        
+        // Cancel button
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
+
+        alert.addTextField { (textField: UITextField) in
+            textField.keyboardAppearance = .dark
+            textField.keyboardType = .default
+            textField.autocorrectionType = .default
+            textField.placeholder = "Note"
+            textField.clearButtonMode = .whileEditing
+        }
+
+        alert.addAction(submitAction)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    //
+    // #MARK: - custom alerts -> Treatment
     //
     func alertTreatment(replaceCellColor: UIColor?, forThisCell: UICollectionViewCell, selectedTreatment: [String:String]){
         var treatment = ["patientID":selectedTreatment["patientID"]!,
@@ -547,6 +655,9 @@ extension TxVC{
             }
         }
     }
+    //
+    // #MARK: - custom alerts -> Vitals
+    //
     func alertVitals(replaceCellColor: UIColor?, forThisCell: UICollectionViewCell, selectedVital: [String:String]){
         var vitals = ["patientID":selectedVital["patientID"]!,
                       "date":selectedVital["date"]!,
@@ -696,6 +807,9 @@ extension TxVC{
             }
         }
     }
+    //
+    // #MARK: - custom alerts -> Delete Vital or Treatment Cell?
+    //
     func askToDeleteAlert(message:String,
                                buttonTitle:String,
                                type: String) {
@@ -740,10 +854,8 @@ extension TxVC{
             } else {
                 self.setButtonClearSet(type: "treatment")
             }
-            
         })
         present(myAlert, animated: true){}
-        
     }
     func setButtonClearSet(type: String){
         if type == "vital" {
@@ -829,6 +941,107 @@ extension TxVC{
         button.backgroundColor = UIColor.WVCLightRed()
         showImage = true
         collection.reloadData() //txVitalsCollection
+    }
+}
+extension TxVC {
+    //
+    // #MARK: - Setup Text View Delegates ADD: UITextViewDelegate
+    //
+    func textViewDelegates(){
+        notes.delegate = self
+        notes.tag = 0
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.tag == 0 {
+            saveTreatmentAndNotes()
+        }
+    }
+}
+extension TxVC {
+    //
+    // #MARK: - Setup Text Field Delegates ADD: UITextFieldDelegate
+    //
+    func textFieldsDelegates(){
+        LVTTF.delegate = self
+        LVTTF.returnKeyType = UIReturnKeyType.next
+        LVTTF.tag = 0
+        DVMTF.delegate = self
+        DVMTF.returnKeyType = UIReturnKeyType.next
+        DVMTF.tag = 1
+        DXTF.delegate = self
+        DXTF.returnKeyType = UIReturnKeyType.next
+        DXTF.tag = 2
+
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.tag >= 0 && textField.tag <= 2{
+            saveTreatmentAndNotes()
+        }
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            return true;
+        }
+        return false
+    }
+}
+extension TxVC{
+    //
+    // #MARK: - Save
+    //
+    func animateToast(message: String){
+    // ANIMATE  TOAST
+        UIView.animate(withDuration: 1.1, delay: 0.0, usingSpringWithDamping: 0.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: { () -> Void in
+        
+        self.view.makeToast(message, duration: 1.1, position: .center)
+        
+        }, completion: { finished in})
+    }
+    
+    func saveTreatmentAndNotes(){
+        animateToast(message: "Saved Changes! (◕‿◕✿)")
+        let newTreatAndNote =
+            ["patientID":seguePatientID,
+             "date":todayTF.text!,
+             "shelter":segueShelterName,
+             "sex":seguePatientSex,
+             "age":seguePatientAge,
+             "breed":seguePatientBreed,
+             "lVT":LVTTF.text!,
+             "dVM":DVMTF.text!,
+             "dX":DXTF.text!,
+             "notes":notes.text!
+        ]
+        
+        var treatmentsAndNotes = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
+        var found = false
+        if treatmentsAndNotes.isEmpty {//------------------CREATE----------
+            UserDefaults.standard.set([newTreatAndNote], forKey: "treatmentsAndNotes")
+            UserDefaults.standard.synchronize()
+        } else {
+            for index in 0..<treatmentsAndNotes.count {//--UPDATE by PID---
+                if treatmentsAndNotes[index]["patientID"] == seguePatientID {
+                    for item in newTreatAndNote {//patientID, date, shelter,..., notes
+                        treatmentsAndNotes[index][item.key] = item.value
+                    }
+                    //treatmentsAndNotes[index]["notes"] = treatmentsAndNotes[index]["notes"]! + notes.text!
+                    
+                    UserDefaults.standard.set(treatmentsAndNotes, forKey: "treatmentsAndNotes")
+                    UserDefaults.standard.synchronize()
+                    found = true
+                    return
+                }
+            }
+            if found == false {//---------------------------APPEND NEW-----
+                treatmentsAndNotes.append(newTreatAndNote as! [String : String])
+                UserDefaults.standard.set(treatmentsAndNotes, forKey: "treatmentsAndNotes")
+                UserDefaults.standard.synchronize()
+            }
+        }
     }
 }
 extension TxVC {
