@@ -16,6 +16,15 @@ extension UIViewController {
     //    return UserDefaults.standard.object(forKey: key) != nil
     //}
     
+    func sortArrayDictDesc(dict: [Dictionary<String, String>], dateFormat: String) -> [Dictionary<String, String>] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dict.sorted{[dateFormatter] one, two in
+            return dateFormatter.date(from: one["date"]! )! > dateFormatter.date(from: two["date"]! )! }
+    }
+    //use: filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
+    //     filteredIncisions = sortArrayDictDesc(dict: filteredIncisions, dateFormat: "MM/dd/yy hh:mm a")
+    
     func returnSelectedPatientID() -> String {
         let selectedPID = UserDefaults.standard.object(forKey: "selectedPatientID") as? String ?? ""
         return selectedPID

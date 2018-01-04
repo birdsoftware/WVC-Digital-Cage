@@ -33,7 +33,6 @@ UINavigationControllerDelegate/*photoLib*/ {
         //deleteImage(imageName: "Garfield_1.png")
         //clear(arrayDicName: "collectionPhotos")
          titleLabel.text = "Add a photo and note for \(seguePatientID!)"
-        //collectionPhotos.sort { $0["patientID"]! < $1["patientID"]! }//sort array in place
     }
     //#MARK - Actions
     @IBAction func takePhotoAction(_ sender: Any) {

@@ -179,7 +179,8 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         {
         case 0://All
             SearchData=patientRecords
-            SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+            let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+            SearchData = sortResults
             patientTable.reloadData()
         case 1://Canine
             scopePredicate = NSPredicate(format: "SELF.group MATCHES[cd] %@", "Canine")
@@ -261,7 +262,9 @@ extension PatientsVC {
         } else {
             SearchData=patientRecords
         }
-        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! } //might be slow!!!
+        let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
+        //SearchData.sort { $0["kennelID"]! < $1["kennelID"]! } //might be slow!!!
         patientTable.reloadData()
         viewTitle.text = "My Active Patients (\(SearchData.count))"
     }
@@ -286,7 +289,9 @@ extension PatientsVC {
         searchBar.text = ""
         searchBar.endEditing(true)
         SearchData=patientRecords
-        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        //SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
         patientTable.reloadData()
     }
 }
@@ -308,7 +313,9 @@ extension PatientsVC {
         missingPatientIDs = UserDefaults.standard.object(forKey: "missingPatientIDs") as? [String] ?? []
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         SearchData = patientRecords
-        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        //SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
         patientTable.reloadData()
     }
     @objc func refreshBadge(){
@@ -340,7 +347,9 @@ extension PatientsVC {
         //search delegate
         patientSearchBar.delegate = self
         SearchData=patientRecords
-        SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        //SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
         segmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17.0)], for: .normal)
         scopeSegmentControl.setTitleTextAttributes([ NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17.0)], for: .normal)
     }
@@ -357,6 +366,9 @@ extension PatientsVC {
                 UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
                 UserDefaults.standard.synchronize()//save instance
                 SearchData = patientRecords//update search
+                let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+                SearchData = sortResults
+                break
             }
         }
     }
@@ -477,7 +489,9 @@ extension PatientsVC {
 //        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
 //        UserDefaults.standard.synchronize()
         self.SearchData = self.patientRecords
-        self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        //self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        let sortResults = self.SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
         self.patientTable.deleteRows(at: [indexPath], with: .fade)
     }
     func archiveButtonTapped(indexPath: IndexPath){
@@ -491,7 +505,9 @@ extension PatientsVC {
         UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
         UserDefaults.standard.synchronize()
         self.SearchData = self.patientRecords
-        self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        //self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
+        let sortResults = self.SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
         self.patientTable.reloadData()
     }
     func deleteRecordAlert(title:String, message:String,
@@ -860,7 +876,8 @@ extension PatientsVC{
         }
     func drawAMPMs(patientID:String){//REPEATING
         var allAMPM = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
-        allAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
+        //allAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
+        allAMPM = sortArrayDictDesc(dict: allAMPM, dateFormat: "MM/dd/yy a")
         var nextAMPM = Dictionary<String,String>()
         
         if arrayContains(array:allAMPM, value:patientID) {//check if patient exists

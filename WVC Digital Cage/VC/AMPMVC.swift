@@ -307,7 +307,11 @@ extension AMPMVC {
         } else {
             filteredAMPM=[clear]
         }
-        filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
+        //filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
+        
+        
+        filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
+        
         ampmTable.reloadData()
         
         //clear Text Fields
@@ -402,7 +406,8 @@ extension AMPMVC {
         } else {
             filteredAMPM=[clear]
         }
-        filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
+        //filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
+        filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
         ampmTable.reloadData()
         //self.ampmTable.deleteRows(at: [indexPath], with: .fade)
     }
