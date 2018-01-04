@@ -123,7 +123,9 @@ extension PatientProcedureVC {
     }
 }
 extension PatientProcedureVC {
+    //
     // #MARK: - Table View
+    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return filteredIncisions.count
         }
@@ -135,9 +137,39 @@ extension PatientProcedureVC {
         cell.initials.text = this["initials"]
         return cell
     }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            print("Delete button tapped - incisions")
+            let this = self.filteredIncisions[indexPath.row]
+            let pIDThis = this["patientID"]
+            let dateThis = this["date"]
+            self.deleteButtonTapped(pid: pIDThis!, date: dateThis!)
+        }
+        delete.backgroundColor = UIColor.red
+        return [delete]
+    }
+    func deleteButtonTapped(pid: String, date: String){
+        incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+        
+        for index in 0..<incisions.count{
+            if incisions[index]["patientID"] == pid && incisions[index]["date"] == date {
+
+                incisions.remove(at: index)
+                
+                UserDefaults.standard.set(incisions, forKey: "incisions")
+                UserDefaults.standard.synchronize()
+                
+                showIncisions()
+                
+                break
+            }
+        }
+    }
 }
 extension PatientProcedureVC {
+    //
     // #MARK: - UI
+    //
     func setupUI(){
         // Date now
         let formatter = DateFormatter()
@@ -147,7 +179,9 @@ extension PatientProcedureVC {
     }
 }
 extension PatientProcedureVC{
+    //
     //#MARK - Date Picker Alert
+    //
     func changeDateTime(dateLabel: UILabel, title: String){
         DatePickerDialog().show(title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .dateAndTime) {
             (date) -> Void in
