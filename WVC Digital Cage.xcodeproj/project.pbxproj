@@ -32,6 +32,7 @@
 		5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506B1FE323BD00876BFF /* RemovePatient.swift */; };
 		5830506E1FE34B5300876BFF /* Treatments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5830506D1FE34B5300876BFF /* Treatments.storyboard */; };
 		583050701FE34EB100876BFF /* TxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506F1FE34EB100876BFF /* TxVC.swift */; };
+		5834D13F1FFFF1CC00996D83 /* particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5834D13E1FFFF1CB00996D83 /* particle.swift */; };
 		583520191FF44B75002ACD1C /* addTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583520181FF44B75002ACD1C /* addTx.swift */; };
 		5837803D1FAB850C00905B3C /* String Manip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5837803C1FAB850C00905B3C /* String Manip.swift */; };
 		583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */; };
@@ -118,6 +119,7 @@
 		5830506B1FE323BD00876BFF /* RemovePatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePatient.swift; sourceTree = "<group>"; };
 		5830506D1FE34B5300876BFF /* Treatments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Treatments.storyboard; sourceTree = "<group>"; };
 		5830506F1FE34EB100876BFF /* TxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxVC.swift; sourceTree = "<group>"; };
+		5834D13E1FFFF1CB00996D83 /* particle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = particle.swift; path = "WVC Digital Cage/particle.swift"; sourceTree = SOURCE_ROOT; };
 		583520181FF44B75002ACD1C /* addTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTx.swift; sourceTree = "<group>"; };
 		5837803C1FAB850C00905B3C /* String Manip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Manip.swift"; sourceTree = "<group>"; };
 		583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customNotifVC.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		582836811F9147A9003F18FE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5834D13E1FFFF1CB00996D83 /* particle.swift */,
 				582836901F914840003F18FE /* Bordered.swift */,
 				580FCADB1FBA1130007D6414 /* Camera.swift */,
 				582836921F914840003F18FE /* Date.swift */,
@@ -533,6 +536,7 @@
 			files = (
 				58D3AE091FB663A10036E0E0 /* InjuriesVC.swift in Sources */,
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
+				5834D13F1FFFF1CC00996D83 /* particle.swift in Sources */,
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */,
 				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,

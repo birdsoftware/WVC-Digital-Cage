@@ -31,8 +31,10 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     @IBOutlet weak var containerPro: UIView!
     @IBOutlet weak var containerAMPM: UIView!
     
-    //hider view
+    //views
+    
     @IBOutlet weak var hideView: UIView!
+    //hider view items
     @IBOutlet weak var hideTrailingLC: NSLayoutConstraint!
     @IBOutlet weak var hideLeadingLC: NSLayoutConstraint!
     @IBOutlet weak var hideBottomLC: NSLayoutConstraint!
@@ -892,6 +894,7 @@ extension PatientsVC{
             var title = CGRect()
             var value = CGRect()
             let spacerTwenty = 20
+            var numColumns = 0
             newTotalY += 10
             for dict in allAMPM {
                 if dict["patientID"] == patientID {
@@ -900,7 +903,16 @@ extension PatientsVC{
                         let word = item.camelCaseToWords()
                         let uppercased = word.firstUppercased + ":"
                         newTotalY += spacerTwenty
-                        if newTotalY >= 1050 { xCol2 = 500; newTotalY = 530}
+                        if newTotalY >= 1050 {
+                            numColumns = numColumns + 1
+                            if numColumns == 1 {
+                                xCol2 = 500
+                                newTotalY = 530
+                            } else if numColumns == 2 {
+                                xCol2 = 500+230
+                                newTotalY = 530
+                            }
+                        }
                         title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:65)
                         //newTotalY += spacerTwenty
                         value = CGRect(x: xCol2+90, y:newTotalY, width:textRecWidth, height:75)

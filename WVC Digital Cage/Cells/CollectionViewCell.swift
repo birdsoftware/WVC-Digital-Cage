@@ -28,6 +28,7 @@ class txVitalsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var weight: UILabel!
     @IBOutlet weak var initials: UILabel!
     @IBOutlet weak var deleteImage: UIImageView!
+    @IBOutlet weak var backView: UIView!
 }
 
 class treatmentCollectionViewCell: UICollectionViewCell {
@@ -45,4 +46,5 @@ class treatmentCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var eight: UILabel!
     @IBOutlet weak var nine: UILabel!
     @IBOutlet weak var ten: UILabel!
+    @IBOutlet weak var backView: UIView!
 }

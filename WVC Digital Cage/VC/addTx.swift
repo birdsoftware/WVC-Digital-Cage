@@ -77,6 +77,7 @@ class addTx: UIViewController {
             monitorFrequency.text = "2x daily"
         }
     }
+    
 }
 extension addTx {
     //

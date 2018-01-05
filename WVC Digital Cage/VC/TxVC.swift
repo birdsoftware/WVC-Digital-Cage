@@ -12,6 +12,7 @@
  */
 
 import UIKit
+ //import QuartzCore
 
 class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate {
     
@@ -41,6 +42,7 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     //view
     @IBOutlet weak var notesView: UIView!
     @IBOutlet weak var dragNotesTitleView: UIView!
+    @IBOutlet weak var leftSideView: UIView!
     
     //layout
     @IBOutlet weak var notesViewTopConstraint: NSLayoutConstraint!
@@ -76,6 +78,8 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     @IBOutlet weak var oneTxLabel: UILabel!
     @IBOutlet weak var dateTxLabel: UILabel!
     
+    var todaysDateString = ""
+    
     //segue data from patientsVC
     var seguePatientID: String!
     var segueShelterName: String!
@@ -103,6 +107,7 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         textFieldsDelegates()
         textViewDelegates()
         setUI()
@@ -116,6 +121,7 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
         
         useFilterDataToSetLabels()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         //Hide remove buttons if No data to remove
         if filteredTxVitalsCollection.isEmpty { removeButton.isHidden = true }
@@ -184,8 +190,8 @@ extension TxVC {
         ageTF.text = seguePatientAge
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy a"
-        let nowString = formatter.string(from: Date())
-        todayTF.text = nowString
+        todaysDateString = formatter.string(from: Date())
+        todayTF.text = todaysDateString
         
         txVitalsCollection.delegate = self
         txVitalsCollection.dataSource = self
@@ -306,6 +312,18 @@ extension TxVC {
                 cell.initials.text = data["initials"]
                 colorCell(aCell: cell, aData: data)                                 /* grey */                /* 20% lighter */
                 if (Int(data["group"]!)! % 2 == 0) { cell.backgroundColor = UIColor(hex: 0xb9c4c4) } else { cell.backgroundColor = UIColor(hex: 0xeaeded) }
+                
+                let cellDate = data["date"]!
+                let truncatedCD = String(cellDate.dropLast(2))
+                let truncatedDate = String(todaysDateString.dropLast(2))
+                //print("truncatedDate \(truncatedDate) - truncatedCD \(truncatedCD)")
+                if truncatedCD == truncatedDate {
+                    cell.backView.isHidden = false
+                    let thisView = cell.backView
+                    createParticles(thisView: thisView)
+                }else {
+                    cell.backView.isHidden = true
+                }
             }
             
             return cell
@@ -320,19 +338,31 @@ extension TxVC {
             if filteredTreatments.isEmpty == false {
                 let data = filteredTreatments[indexPath.row]
 //                if data["containsTreatmentLabels"] == "false"{
-                    cell.date.text = data["date"]
-                    cell.one.text = data["treatmentOne"]
-                    cell.two.text = data["treatmentTwo"]
-                    cell.three.text = data["treatmentThree"]
-                    cell.four.text = data["treatmentFour"]
-                    cell.five.text = data["treatmentFive"]
-                    cell.six.text = data["treatmentSix"]
-                    cell.seven.text = data["treatmentSeven"]
-                    cell.eight.text = data["treatmentEight"]
-                    cell.nine.text = data["treatmentNine"]
-                    cell.ten.text = data["treatmentTen"]
-                    cell.backgroundColor = UIColor(hex: 0xeaeded)//b9c4c4)
-                colorTxCell(aCell: cell, aData: data, row: indexPath.row)//TODO color based on data["..."] == ""
+                cell.date.text = data["date"]
+                cell.one.text = data["treatmentOne"]
+                cell.two.text = data["treatmentTwo"]
+                cell.three.text = data["treatmentThree"]
+                cell.four.text = data["treatmentFour"]
+                cell.five.text = data["treatmentFive"]
+                cell.six.text = data["treatmentSix"]
+                cell.seven.text = data["treatmentSeven"]
+                cell.eight.text = data["treatmentEight"]
+                cell.nine.text = data["treatmentNine"]
+                cell.ten.text = data["treatmentTen"]
+                cell.backgroundColor = UIColor(hex: 0xeaeded)//b9c4c4)
+                colorTxCell(aCell: cell, aData: data, row: indexPath.row)
+                
+                let cellDate = data["date"]!
+                let truncatedCD = String(cellDate.dropLast(2))
+                let truncatedDate = String(todaysDateString.dropLast(2))
+                //print("truncatedDate \(truncatedDate) - truncatedCD \(truncatedCD)")
+                if truncatedCD == truncatedDate {
+                    cell.backView.isHidden = false
+                    let thisView = cell.backView
+                    createParticles(thisView: thisView)
+                }else {
+                    cell.backView.isHidden = true
+                }
                 }
             
             return cell
@@ -1043,6 +1073,52 @@ extension TxVC{
             }
         }
     }
+}
+extension TxVC {
+    
+    func createParticles(thisView:UIView!) {
+        let particleEmitter = CAEmitterLayer()
+        
+        particleEmitter.emitterPosition = CGPoint(x: thisView.center.x, y: 1)
+        particleEmitter.emitterShape = kCAEmitterLayerLine
+        particleEmitter.emitterSize = CGSize(width: thisView.frame.size.width, height: -8)
+        particleEmitter.scale = 0.5
+        
+        let red = makeEmitterCell(color: UIColor.red)
+        let green = makeEmitterCell(color: UIColor(hex:0xFFD700))//UIColor.green)
+        let blue = makeEmitterCell(color: UIColor.white)//.blue)
+        
+        particleEmitter.emitterCells = [red, green, blue]
+        
+        thisView.layer.addSublayer(particleEmitter)
+    }
+    
+    func makeEmitterCell(color: UIColor) -> CAEmitterCell {
+        let cell = CAEmitterCell()
+        cell.velocity = 10
+        cell.velocityRange = 30
+        cell.emissionLongitude = CGFloat.pi
+        cell.emissionRange = CGFloat.pi / 4
+        //let colorRefSeedcellcell = color.cgColor//UIColor.white.cgColor//(red: 1.00, green: 1.00, blue: 0.99, alpha: 1).cgColor
+        cell.color = color.cgColor
+        //cell.redSpeed = 0.17
+        //cell.greenSpeed = -0.27
+        //cell.blueSpeed = -0.53
+        cell.alphaSpeed = -0.22
+        cell.magnificationFilter = kCAFilterTrilinear
+        //cell.minificationFilterBias = 0.78
+        cell.scale = 0.5
+        cell.scaleRange = 0.09
+        cell.spin = 1.01
+        cell.spinRange = 1.20
+        cell.lifetime = 1.00
+        cell.birthRate = 10.00
+        cell.scaleSpeed = 0.09
+        
+        cell.contents = UIImage(named: "seedCell")?.cgImage
+        return cell
+    }
+    
 }
 extension TxVC {
     //

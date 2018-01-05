@@ -1650,29 +1650,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/06/2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-DV-fVc">
-                                        <rect key="frame" x="170" y="11" width="105" height="24"/>
+                                        <rect key="frame" x="136" y="11" width="105" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Mw-zH-I7Z">
-                                        <rect key="frame" x="133" y="7" width="32" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="kwW-hi-NkK"/>
-                                            <constraint firstAttribute="height" constant="32" id="tzA-MU-KKu"/>
-                                        </constraints>
-                                        <state key="normal" image="calendar"/>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Cgz-DV-fVc" firstAttribute="centerY" secondItem="5Mw-zH-I7Z" secondAttribute="centerY" id="3CE-Ze-0xf"/>
                                     <constraint firstAttribute="height" constant="50" id="46n-Am-kYW"/>
-                                    <constraint firstItem="Cgz-DV-fVc" firstAttribute="leading" secondItem="5Mw-zH-I7Z" secondAttribute="trailing" constant="5" id="6DR-DY-X7y"/>
-                                    <constraint firstItem="5Mw-zH-I7Z" firstAttribute="leading" secondItem="vba-j0-nyQ" secondAttribute="trailing" constant="5" id="85d-8I-qcV"/>
                                     <constraint firstItem="vba-j0-nyQ" firstAttribute="leading" secondItem="ED6-u6-HyQ" secondAttribute="leading" constant="8" id="Ac7-XH-oOv"/>
-                                    <constraint firstItem="5Mw-zH-I7Z" firstAttribute="centerY" secondItem="vba-j0-nyQ" secondAttribute="centerY" id="Q6d-7d-cJQ"/>
+                                    <constraint firstItem="Cgz-DV-fVc" firstAttribute="leading" secondItem="vba-j0-nyQ" secondAttribute="trailing" constant="8" id="LSI-9G-baG"/>
                                     <constraint firstItem="vba-j0-nyQ" firstAttribute="top" secondItem="ED6-u6-HyQ" secondAttribute="top" constant="10" id="UZc-sW-yzh"/>
+                                    <constraint firstItem="Cgz-DV-fVc" firstAttribute="centerY" secondItem="vba-j0-nyQ" secondAttribute="centerY" id="W0o-Jd-deE"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRI-y9-HNB" userLabel="View intake">

@@ -104,6 +104,9 @@ class addTxVital: UIViewController {
             monitorFrequency.text = "2x daily"
         }
     }
+    @IBAction func changeDateAction(_ sender: Any) {
+        changeDateTime(dateLabel: dateLabel, title: "Start Date")
+    }
     
     //toggle box
     @IBAction func tButtonAction(_ sender: Any) {
@@ -160,7 +163,7 @@ extension addTxVital {
     // #MARK: - UI
     func setupUI(){
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yy a"
+        formatter.dateFormat = "MM/dd/yyyy a"
         let nowString = formatter.string(from: Date())
         dateLabel.text = nowString
     }
@@ -237,13 +240,13 @@ extension addTxVital {
         return maxGroupNumber
     }
     func updateTV(){
-        // Date now
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy a"
-        let nowString = formatter.string(from: Date())
+//        // Date now
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "MM/dd/yyyy a"
+//        let nowString = formatter.string(from: Date())
         newTxVital = [
             "patientID":seguePatientID,
-            "date":nowString,
+            "date":dateLabel.text!,//nowString,
             "temperature":temperatureTF.text!,
             "heartRate":hearRateTF.text!,
             "respirations":respirationsTF.text!,
@@ -288,14 +291,17 @@ extension addTxVital {
         //var daysToAdd = 0
         var hoursToAdd = 0
         var dateComponent = DateComponents()
-        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy a"
+        let dateFromString = formatter.date(from: dateLabel.text!)
+        let currentDate = dateFromString!//Date()
         //if 2x selected 1) numberOfDays*2 2) hoursToAdd = 12 not 24
         loopCount.times {//LOOP # DAYS
             hoursToAdd = hoursToAdd + hours
             dateComponent.hour = hoursToAdd
             let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd/yyyy a"
+            //let formatter = DateFormatter()
+            //formatter.dateFormat = "MM/dd/yyyy a"
             let nowString = formatter.string(from: futureDate!)
             emptyTV(date: nowString)
             collectionTxVitals.append(newTxVital)
@@ -310,6 +316,22 @@ extension addTxVital {
         monitorTreatmentsFor(numberOfDays: Int(monitorDays.text!)!, isTwiceDaily: monitorFrequency.text!)
             UserDefaults.standard.set(collectionTxVitals, forKey: "collectionTxVitals")
             UserDefaults.standard.synchronize()
+    }
+}
+extension addTxVital{
+    //
+    //#MARK - Date Picker Alert
+    //
+    func changeDateTime(dateLabel: UILabel, title: String){
+        DatePickerDialog().show(title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .dateAndTime) {
+            (date) -> Void in
+            if date != nil {
+                let dateFormat = DateFormatter()
+                dateFormat.dateFormat = "MM/dd/yyyy a"
+                let strDate = dateFormat.string(for: date!)!
+                dateLabel.text = strDate
+            }
+        }
     }
 }
 extension addTxVital {
