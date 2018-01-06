@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import MessageUI //send email
 
-class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate, UIImagePickerControllerDelegate /*photoLib*/,
+class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,  MFMailComposeViewControllerDelegate, UIImagePickerControllerDelegate /*photoLib*/,
 UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
 
     //Walk Alert animation image
@@ -638,7 +638,7 @@ extension PatientsVC{
     // MARK: - Email
     func sendEmailWithAttachemnt(patientData: Dictionary<String,String>){
         
-        emailActive = true
+        emailActive = true //close keyboard?
         
         let savedUserEmailAddress = UserDefaults.standard.string(forKey: "userEmailAddress") ?? ""
         
@@ -654,7 +654,7 @@ extension PatientsVC{
             
             let pdfPathWithFile = generatePDFFile(patientData: patientData)
             let fileData = NSData(contentsOfFile:pdfPathWithFile)
-            mail.addAttachmentData(fileData! as Data, mimeType: "application/pdf", fileName: "test.pdf")
+            mail.addAttachmentData(fileData! as Data, mimeType: "application/pdf", fileName: "patientRecord.pdf")
             self.present(mail, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "Could Not Send Email", message:"Your device must have an acctive mail account.", preferredStyle: .alert)
@@ -672,7 +672,8 @@ extension PatientsVC{
     // #MARK: - Generate PDF File
     func generatePDFFile(patientData: Dictionary<String,String>) -> String {
         // 1. Generate file path then pdf to attach ---
-        let fileName: NSString = "test.pdf" as NSString
+        let patientIDHere = patientData["patientID"]
+        let fileName: NSString = "patientRecord.pdf" as NSString
         
         let path:NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         let documentDirectory = path.object(at: 0) as! NSString
@@ -684,7 +685,6 @@ extension PatientsVC{
         drawBackground()
         drawImageLogo(imageName: "WVCLogog")
         drawPatientRecordText(patientData: patientData)
-        let patientIDHere = patientData["patientID"]
         drawPatientPicture(imageName: patientIDHere! + ".png")
         drawVitalsText(patientID:patientIDHere!)
         drawPhysicalExam(patientID:patientIDHere!)
@@ -710,10 +710,10 @@ extension PatientsVC{
         image?.draw(in: imageRect)
     }
     func drawPatientPicture(imageName: String) {
-    let imageRect:CGRect = CGRect(x:40, y:120, width:170, height:170)
-    let image = returnImage(imageName: imageName)
+        let imageRect:CGRect = CGRect(x:40, y:120, width:170, height:170)
+        let image = returnImage(imageName: imageName)
     
-    image.draw(in: imageRect)
+        image.draw(in: imageRect)
     }
     // COLUMN 1 - Procedures & AM/PMs
     func drawProcedures(patientID:String){

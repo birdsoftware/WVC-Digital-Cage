@@ -11,10 +11,11 @@
  *  Attributes Inspector.
  */
 
+import MessageUI //send email
 import UIKit
  //import QuartzCore
 
-class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate {
+class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate, /*email*/MFMailComposeViewControllerDelegate {
     
     //collections
     @IBOutlet weak var txVitalsCollection: UICollectionView!
@@ -158,6 +159,9 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
     }
     @IBAction func addNotesAction(_ sender: Any) {
         alertGetNote()
+    }
+    @IBAction func emailAction(_ sender: Any) {
+        emailPDFTreatment(patientID: seguePatientID!)
     }
     
     
@@ -1084,7 +1088,7 @@ extension TxVC {
         particleEmitter.emitterSize = CGSize(width: thisView.frame.size.width, height: -8)
         particleEmitter.scale = 0.5
         
-        let red = makeEmitterCell(color: UIColor.red)
+        let red = makeEmitterCell(color: UIColor.WVCActionBlue())
         let green = makeEmitterCell(color: UIColor(hex:0xFFD700))//UIColor.green)
         let blue = makeEmitterCell(color: UIColor.white)//.blue)
         
@@ -1096,7 +1100,7 @@ extension TxVC {
     func makeEmitterCell(color: UIColor) -> CAEmitterCell {
         let cell = CAEmitterCell()
         cell.velocity = 10
-        cell.velocityRange = 30
+        cell.velocityRange = 50
         cell.emissionLongitude = CGFloat.pi
         cell.emissionRange = CGFloat.pi / 4
         //let colorRefSeedcellcell = color.cgColor//UIColor.white.cgColor//(red: 1.00, green: 1.00, blue: 0.99, alpha: 1).cgColor
@@ -1107,12 +1111,12 @@ extension TxVC {
         cell.alphaSpeed = -0.22
         cell.magnificationFilter = kCAFilterTrilinear
         //cell.minificationFilterBias = 0.78
-        cell.scale = 0.5
+        cell.scale = 0.2
         cell.scaleRange = 0.09
         cell.spin = 1.01
         cell.spinRange = 1.20
         cell.lifetime = 1.00
-        cell.birthRate = 10.00
+        cell.birthRate = 5.00
         cell.scaleSpeed = 0.09
         
         cell.contents = UIImage(named: "seedCell")?.cgImage

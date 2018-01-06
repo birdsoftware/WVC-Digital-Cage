@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -177,13 +177,31 @@
                                     <action selector="saveChangesAction:" destination="Dha-dE-m0l" eventType="touchUpInside" id="RTR-xx-QZ6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEY-MD-EcB">
+                                <rect key="frame" x="20" y="256" width="64" height="64"/>
+                                <state key="normal" image="help"/>
+                                <connections>
+                                    <action selector="emailHelpAction:" destination="Dha-dE-m0l" eventType="touchUpInside" id="FFO-un-YnD"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Having trouble or saw a bug?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frw-ot-e4e">
+                                <rect key="frame" x="101" y="275" width="246.5" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="TKs-Sy-3wb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="6HE-aZ-o9B" secondAttribute="bottom" constant="20" symbolic="YES" id="0Vj-9L-5TU"/>
                             <constraint firstItem="6PA-vf-sN3" firstAttribute="top" secondItem="Oej-K4-bDm" secondAttribute="bottom" constant="12" id="0XV-rk-AUG"/>
                             <constraint firstItem="Cmf-z4-FAt" firstAttribute="trailing" secondItem="7NU-PV-Ofj" secondAttribute="trailing" id="1Ci-ls-kCX"/>
+                            <constraint firstItem="frw-ot-e4e" firstAttribute="leading" secondItem="gEY-MD-EcB" secondAttribute="trailing" constant="17" id="1V6-80-0Qe"/>
                             <constraint firstItem="Cmf-z4-FAt" firstAttribute="top" secondItem="dbx-bK-oS0" secondAttribute="top" id="1Xc-io-BYV"/>
+                            <constraint firstItem="frw-ot-e4e" firstAttribute="centerY" secondItem="gEY-MD-EcB" secondAttribute="centerY" id="5qp-J0-upw"/>
                             <constraint firstItem="YMh-Ne-sqK" firstAttribute="top" secondItem="Cmf-z4-FAt" secondAttribute="bottom" constant="60" id="6bC-zi-afc"/>
                             <constraint firstItem="Suz-0i-QBG" firstAttribute="centerY" secondItem="YMh-Ne-sqK" secondAttribute="centerY" id="6ti-Af-PIh"/>
                             <constraint firstItem="VFE-Cd-cn1" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" id="B85-JZ-gaU"/>
@@ -196,10 +214,12 @@
                             <constraint firstItem="Oej-K4-bDm" firstAttribute="top" secondItem="YMh-Ne-sqK" secondAttribute="bottom" constant="12" id="blq-PF-tOp"/>
                             <constraint firstItem="6HE-aZ-o9B" firstAttribute="centerX" secondItem="dbx-bK-oS0" secondAttribute="centerX" id="c9g-nu-9un"/>
                             <constraint firstItem="2ro-5Z-htU" firstAttribute="centerY" secondItem="Oej-K4-bDm" secondAttribute="centerY" id="j5p-ju-0RT"/>
+                            <constraint firstItem="gEY-MD-EcB" firstAttribute="top" secondItem="6PA-vf-sN3" secondAttribute="bottom" constant="35" id="jFM-uf-2Cq"/>
                             <constraint firstItem="Cmf-z4-FAt" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" id="mwY-OG-vQz"/>
                             <constraint firstItem="PTe-22-3lg" firstAttribute="centerY" secondItem="6PA-vf-sN3" secondAttribute="centerY" id="xig-E9-r1d"/>
                             <constraint firstItem="PTe-22-3lg" firstAttribute="leading" secondItem="6PA-vf-sN3" secondAttribute="trailing" constant="9.5" id="yFs-ke-fsI"/>
                             <constraint firstItem="Oej-K4-bDm" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" constant="20" id="yR4-PJ-gon"/>
+                            <constraint firstItem="gEY-MD-EcB" firstAttribute="leading" secondItem="6PA-vf-sN3" secondAttribute="leading" id="zqN-hy-54o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7NU-PV-Ofj"/>
                     </view>
@@ -214,6 +234,7 @@
     </scenes>
     <resources>
         <image name="back" width="64" height="64"/>
+        <image name="help" width="64" height="64"/>
         <image name="pdfImage" width="64" height="64"/>
     </resources>
 </document>

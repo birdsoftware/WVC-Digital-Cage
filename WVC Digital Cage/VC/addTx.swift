@@ -77,6 +77,9 @@ class addTx: UIViewController {
             monitorFrequency.text = "2x daily"
         }
     }
+    @IBAction func changeDateAction(_ sender: Any) {
+        changeDateTime(dateLabel: dateLabel, title: "Start Date")
+    }
     
 }
 extension addTx {
@@ -147,13 +150,13 @@ extension addTx {
     // #MARK: - Saving Locally
     //
     func updateTreatment(){
-        // Date now
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy a"
-        let nowString = formatter.string(from: Date())
+//        // Date now
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "MM/dd/yyyy a"
+//        let nowString = formatter.string(from: Date())
         newTreatment = [
             "patientID":seguePatientID,
-            "date":nowString,
+            "date":dateLabel.text!,//nowString,
             "treatmentOne":oneTreatmentTF.text!,
             "treatmentTwo":twoTreatmentTF.text!,
             "treatmentThree":threeTreatmentTF.text!,
@@ -202,14 +205,17 @@ extension addTx {
         //var daysToAdd = 0
         var hoursToAdd = 0
         var dateComponent = DateComponents()
-        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy a"
+        let dateFromString = formatter.date(from: dateLabel.text!)
+        let currentDate = dateFromString! //Date()
         //if 2x selected 1) numberOfDays*2 2) hoursToAdd = 12 not 24
         loopCount.times {//LOOP # DAYS
             hoursToAdd = hoursToAdd + hours
             dateComponent.hour = hoursToAdd
             let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd/yyyy a"
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "MM/dd/yyyy a"
             let nowString = formatter.string(from: futureDate!)
             emptyTreatment(date: nowString)
             collectionTreatments.append(newTreatment)
@@ -230,10 +236,10 @@ extension addTx {
             for index in 0..<collectionTreatments.count {
                 if collectionTreatments[index]["patientID"] == seguePatientID &&
                 collectionTreatments[index]["containsTreatmentLabels"] == "true" {
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "MM/dd/yyyy a"
-                    let nowString = formatter.string(from: Date())
-                    collectionTreatments[index]["date"] = nowString
+//                    let formatter = DateFormatter()
+//                    formatter.dateFormat = "MM/dd/yyyy a"
+//                    let nowString = formatter.string(from: Date())
+                    collectionTreatments[index]["date"] = dateLabel.text!//nowString 
                     collectionTreatments[index]["treatmentOne"] = oneTreatmentTF.text!
                     collectionTreatments[index]["treatmentTwo"] = twoTreatmentTF.text!
                     collectionTreatments[index]["treatmentThree"] = threeTreatmentTF.text!
@@ -279,6 +285,22 @@ extension addTx {
     var set = Set<Character>()
     let squeezed = String(monitoredList.filter{ set.insert($0).inserted } )
         monitoredList = squeezed // remove duplicates 123454545666 -> 123456
+    }
+}
+extension addTx{
+    //
+    //#MARK - Date Picker Alert
+    //
+    func changeDateTime(dateLabel: UILabel, title: String){
+        DatePickerDialog().show(title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .dateAndTime) {
+            (date) -> Void in
+            if date != nil {
+                let dateFormat = DateFormatter()
+                dateFormat.dateFormat = "MM/dd/yyyy a"
+                let strDate = dateFormat.string(for: date!)!
+                dateLabel.text = strDate
+            }
+        }
     }
 }
 extension addTx {
