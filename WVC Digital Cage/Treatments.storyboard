@@ -2795,6 +2795,7 @@
         <image name="vitals" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Apg-o1-cgY"/>
         <segue reference="281-JD-oI8"/>
     </inferredMetricsTieBreakers>
 </document>

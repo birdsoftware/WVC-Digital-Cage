@@ -74,19 +74,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var patientsBadge: UILabel!
     @IBOutlet weak var notificationsBadge: UILabel!
     
-    var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-    let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-    let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
-    var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
-    let myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
-    var myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
-    let incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
-    let procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
-    let collectionPhotos = UserDefaults.standard.object(forKey: "collectionPhotos") as? Array<Dictionary<String,String>> ?? []
-    let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
-    let collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
-    let collectionTreatments = UserDefaults.standard.object(forKey: "collectionTreatments") as? Array<Dictionary<String,String>> ?? []
-    let treatmentsAndNotes = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
+    /*1*/ var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    /*2*/ let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+    /*3*/ let patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+    /*4*/ var myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
+    /*5*/ let myDemographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
+    /*6*/ var myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+    /*7*/ let incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
+    /*8*/ let procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
+    /*9*/ let collectionPhotos = UserDefaults.standard.object(forKey: "collectionPhotos") as? Array<Dictionary<String,String>> ?? []
+    /*10*/ let badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
+    /*11*/ let collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
+    /*12*/ let collectionTreatments = UserDefaults.standard.object(forKey: "collectionTreatments") as? Array<Dictionary<String,String>> ?? []
+    /*13*/ let treatmentsAndNotes = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
+    
+    //view
+    @IBOutlet weak var syncView: RoundedImageView!
+    //image
+    @IBOutlet weak var syncImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,14 +103,21 @@ class ViewController: UIViewController {
         //}
         
         //deleteImage(imageName: "good _1.png")
-        //deleteImage(imageName: "good _2.png")
-        //deleteImage(imageName: "Snoopy_2.png")
-        //deleteImage(imageName: "Garfield_1.png")
-        //deleteImage(imageName: "Garfield_2.png")
+        
+        let app = UIApplication.shared
+        
+        //Register for the applicationWillResignActive anywhere in your app.
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationWillEnterForeground(notification:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: app)
+        
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges, collectionTxVitals: collectionTxVitals, collectionTreatments: collectionTreatments, treatmentsAndNotes: treatmentsAndNotes)
 
         //getNotifications(records: patientRecords)
     }//PieChart (with selection, ...)
+    
+    @objc func applicationWillEnterForeground(notification: NSNotification) {
+        setupUI()
+    }
+    
     func switchKey<T, U>(_ myDict: inout [T:U], fromKey: T, toKey: T) {
         if let entry = myDict.removeValue(forKey: fromKey) {
             myDict[toKey] = entry
@@ -113,6 +125,7 @@ class ViewController: UIViewController {
     }
     
      override func viewWillAppear(_ animated: Bool) {
+        setupUI()
         updateMissingAMPMRecords()
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         myNotifications = UserDefaults.standard.object(forKey: "notifications") as? Array<Dictionary<String,String>> ?? []
@@ -128,6 +141,20 @@ class ViewController: UIViewController {
             notificationsBadge.isHidden = false
         }
     }
+    
+    //Button Actions
+    @IBAction func syncAction(_ sender: Any) {
+        if Reachability.isConnectedToNetwork() == true
+        {
+            print("Internet Connection Available!")
+            self.performSegue(withIdentifier: "segueToSync", sender: self)
+
+        } else {
+            print()
+            simpleAlert(title: "Internet connection not found", message: "Enable internet connection to continue with cloud backups.", buttonTitle: "OK")
+        }
+    }
+    
 }
 extension ViewController{
     //Update UI
@@ -271,3 +298,16 @@ extension ViewController{
         }
     }
 
+extension ViewController {
+    func setupUI(){
+        if Reachability.isConnectedToNetwork() == true
+        {
+            //"Internet Connection Available!"
+            syncView.alpha = 1.0
+            
+        } else {
+            //"Internet connection not found"
+            syncView.alpha = 0.5
+        }
+    }
+}

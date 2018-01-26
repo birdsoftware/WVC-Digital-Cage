@@ -328,14 +328,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7j-AH-Dri" userLabel="sync" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="595" y="265" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sync" translatesAutoresizingMaskIntoConstraints="NO" id="5Ch-rK-rRh" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.050000000000000003"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="syn" translatesAutoresizingMaskIntoConstraints="NO" id="N65-JO-HN6">
                                         <rect key="frame" x="11" y="20" width="128" height="88"/>
                                     </imageView>
@@ -350,13 +342,13 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jj6-CN-Kgt">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                        <connections>
+                                            <action selector="syncAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i4R-87-i1Y"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="5Ch-rK-rRh" secondAttribute="bottom" id="0Vx-Lb-ngK"/>
-                                    <constraint firstItem="5Ch-rK-rRh" firstAttribute="top" secondItem="L7j-AH-Dri" secondAttribute="top" id="0WW-r7-qPd"/>
-                                    <constraint firstItem="5Ch-rK-rRh" firstAttribute="leading" secondItem="L7j-AH-Dri" secondAttribute="leading" id="0bB-6o-ry8"/>
                                     <constraint firstAttribute="trailing" secondItem="Jj6-CN-Kgt" secondAttribute="trailing" id="3Cb-B7-nel"/>
                                     <constraint firstItem="4d8-Lz-wn8" firstAttribute="leading" secondItem="L7j-AH-Dri" secondAttribute="leading" constant="6" id="6Ad-UH-Txz"/>
                                     <constraint firstAttribute="height" constant="150" id="F1t-uO-D0b"/>
@@ -366,7 +358,6 @@
                                     <constraint firstAttribute="bottom" secondItem="4d8-Lz-wn8" secondAttribute="bottom" constant="8" id="LQU-TM-ace"/>
                                     <constraint firstItem="Jj6-CN-Kgt" firstAttribute="leading" secondItem="L7j-AH-Dri" secondAttribute="leading" id="Lhp-rZ-V5q"/>
                                     <constraint firstAttribute="width" constant="150" id="Pth-MG-CV0"/>
-                                    <constraint firstAttribute="trailing" secondItem="5Ch-rK-rRh" secondAttribute="trailing" id="TRM-b1-Gxx"/>
                                     <constraint firstAttribute="trailing" secondItem="4d8-Lz-wn8" secondAttribute="trailing" constant="6" id="b1t-Lq-kxE"/>
                                     <constraint firstItem="Jj6-CN-Kgt" firstAttribute="top" secondItem="L7j-AH-Dri" secondAttribute="top" id="cwP-1U-tPF"/>
                                     <constraint firstItem="N65-JO-HN6" firstAttribute="top" secondItem="L7j-AH-Dri" secondAttribute="top" constant="20" id="hcC-Xa-KVB"/>
@@ -437,6 +428,9 @@
                     <connections>
                         <outlet property="notificationsBadge" destination="2U2-bL-WJM" id="Gf5-SY-cqi"/>
                         <outlet property="patientsBadge" destination="LCr-jW-S9k" id="3cH-A1-RxF"/>
+                        <outlet property="syncImage" destination="N65-JO-HN6" id="JI8-JA-842"/>
+                        <outlet property="syncView" destination="L7j-AH-Dri" id="IIg-TR-NW6"/>
+                        <segue destination="TDT-QR-D5s" kind="presentation" identifier="segueToSync" animates="NO" id="d7f-AR-Gde"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -483,6 +477,14 @@
             </objects>
             <point key="canvasLocation" x="452" y="192"/>
         </scene>
+        <!--syncDB-->
+        <scene sceneID="Mw1-uQ-KjV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Sync" referencedIdentifier="syncDB" id="TDT-QR-D5s" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r2U-Y6-4Zx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="460" y="247"/>
+        </scene>
         <!--mapDB-->
         <scene sceneID="JkS-ob-nVG">
             <objects>
@@ -505,6 +507,5 @@
         <image name="pie chart" width="64" height="64"/>
         <image name="settings" width="75" height="75"/>
         <image name="syn" width="64" height="64"/>
-        <image name="sync" width="75" height="75"/>
     </resources>
 </document>
