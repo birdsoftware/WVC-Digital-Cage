@@ -60,3 +60,10 @@ class mapDisplayTableView: UITableViewCell {
     
 }
 
+class syncTableView: UITableViewCell {
+    //syncCell
+    @IBOutlet weak var photo: UIImageView!
+    @IBOutlet weak var progress: UIProgressView!
+    @IBOutlet weak var name: UILabel!
+    
+}

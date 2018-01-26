@@ -8,18 +8,63 @@
 
 import UIKit
 
-class SyncVC: UIViewController {
+class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    //table
+    @IBOutlet weak var syncTable: UITableView!
+    
+    var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+    var archivePatients = Array<Dictionary<String,String>>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupUI()
         // Do any additional setup after loading the view.
+        for array in patientRecords {
+            if array["status"] == "Archive" {
+                archivePatients.append(array)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //button actions
+    @IBAction func startSyncAction(_ sender: Any) {
+        let patientFlag = DispatchGroup()
+        patientFlag.enter()
+        GETPatient().getPatient(patientID: "Suzy", dispachInstance: patientFlag)
+        patientFlag.notify(queue: DispatchQueue.main){
+            let returnedPatientId = UserDefaults.standard.object(forKey: "lastAPIPatientId") as? String ?? ""
+            print("patientID: \(returnedPatientId) returned")
+        }
+    }
+    
 
-
+}
+extension SyncVC {
+    //UI
+    func setupUI(){
+        syncTable.delegate = self
+        syncTable.dataSource = self
+    }
+}
+extension SyncVC {
+    // #MARK: - Table View
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return archivePatients.count
+    }
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
+        let cell: syncTableView = tableView.dequeueReusableCell(withIdentifier: "syncCell") as! syncTableView
+        let this = archivePatients[IndexPath.row]
+        //cell.imageType.image =
+        cell.photo.image = returnImage(imageName: this["patientID"]! + ".png")
+        cell.name.text = this["patientID"]!
+        
+        return cell
+    }
 }
