@@ -41,6 +41,9 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let returnedPatientId = UserDefaults.standard.object(forKey: "lastAPIPatientId") as? String ?? ""
             print("patientID: \(returnedPatientId) returned")
         }
+        let patientPostFlag = DispatchGroup()
+        let testDic = ["status":"Active", "intakeDate":"12/16/2017", "patientName":"Testerson", "walkDate":"2017-12-17 10:00:21", "photoName":"Testerson.png", "kennelId":"S7", "owner":"The Animal Foundation (TAF)", "groupString":"Canine"]
+        //POSTPatientUpdates().updatePatientUpdates(update: testDic, dispachInstance: patientPostFlag)
     }
     
 

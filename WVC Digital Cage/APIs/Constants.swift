@@ -11,5 +11,6 @@ import Foundation
 struct Constants {
     struct Patient {
         static let patient = "http://ec2-54-244-57-24.us-west-2.compute.amazonaws.com:9000/patients/"
+        static let postPatient = "http://ec2-54-244-57-24.us-west-2.compute.amazonaws.com:9000/patientsInsert"
     }
 }
