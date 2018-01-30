@@ -13,6 +13,8 @@
 		58053DA2201BD7B400DACE9D /* GETPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58053DA1201BD7B400DACE9D /* GETPatient.swift */; };
 		58053DA4201BD81000DACE9D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58053DA3201BD81000DACE9D /* Constants.swift */; };
 		58053DA6201BF87F00DACE9D /* POSTPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58053DA5201BF87F00DACE9D /* POSTPatient.swift */; };
+		58053DA8201FAEA800DACE9D /* toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58053DA7201FAEA800DACE9D /* toggle.swift */; };
+		58053DAA201FB0EB00DACE9D /* reachableDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58053DA9201FB0EB00DACE9D /* reachableDB.swift */; };
 		580FCADC1FBA1130007D6414 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580FCADB1FBA1130007D6414 /* Camera.swift */; };
 		580FCADE1FBA2607007D6414 /* NewInjuriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580FCADD1FBA2607007D6414 /* NewInjuriesVC.swift */; };
 		582836541F9143AC003F18FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582836531F9143AC003F18FE /* AppDelegate.swift */; };
@@ -100,6 +102,8 @@
 		58053DA1201BD7B400DACE9D /* GETPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETPatient.swift; sourceTree = "<group>"; };
 		58053DA3201BD81000DACE9D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		58053DA5201BF87F00DACE9D /* POSTPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSTPatient.swift; sourceTree = "<group>"; };
+		58053DA7201FAEA800DACE9D /* toggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toggle.swift; sourceTree = "<group>"; };
+		58053DA9201FB0EB00DACE9D /* reachableDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reachableDB.swift; sourceTree = "<group>"; };
 		580FCADB1FBA1130007D6414 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		580FCADD1FBA2607007D6414 /* NewInjuriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInjuriesVC.swift; sourceTree = "<group>"; };
 		582836501F9143AC003F18FE /* WVC Digital Cage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WVC Digital Cage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				58053DA1201BD7B400DACE9D /* GETPatient.swift */,
+				58053DA9201FB0EB00DACE9D /* reachableDB.swift */,
 				58053DA5201BF87F00DACE9D /* POSTPatient.swift */,
 				58053DA3201BD81000DACE9D /* Constants.swift */,
 			);
@@ -282,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				5834D13E1FFFF1CB00996D83 /* email.swift */,
+				58053DA7201FAEA800DACE9D /* toggle.swift */,
 				58053D9A201BA71500DACE9D /* Reachability.swift */,
 				582836901F914840003F18FE /* Bordered.swift */,
 				580FCADB1FBA1130007D6414 /* Camera.swift */,
@@ -562,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58D3AE091FB663A10036E0E0 /* InjuriesVC.swift in Sources */,
+				58053DA8201FAEA800DACE9D /* toggle.swift in Sources */,
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
 				5834D13F1FFFF1CC00996D83 /* email.swift in Sources */,
 				58053DA2201BD7B400DACE9D /* GETPatient.swift in Sources */,
@@ -602,6 +609,7 @@
 				58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */,
 				58C9B3571FA7E778006DE233 /* AnalyticsVC.swift in Sources */,
 				5837803D1FAB850C00905B3C /* String Manip.swift in Sources */,
+				58053DAA201FB0EB00DACE9D /* reachableDB.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

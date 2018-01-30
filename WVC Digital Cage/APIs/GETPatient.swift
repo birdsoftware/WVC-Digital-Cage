@@ -65,7 +65,7 @@ class GETPatient {
                                             }
                                             */
                                         }
-                                        UserDefaults.standard.set(patient, forKey: "lastAPIPatientId")
+                                        UserDefaults.standard.set(patient, forKey: "dataBasePatientId")
                                         UserDefaults.standard.synchronize()
                                         print("finished GET patient ID")
                                           dispachInstance.leave() // API Responded

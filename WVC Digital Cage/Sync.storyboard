@@ -157,14 +157,14 @@
                                     <constraint firstAttribute="bottom" secondItem="aL7-QB-W4U" secondAttribute="bottom" id="wBH-sd-d6v"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDr-KY-4NL" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                <rect key="frame" x="420" y="79" width="115" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDr-KY-4NL" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                <rect key="frame" x="420" y="79" width="150" height="36"/>
                                 <color key="backgroundColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="115" id="BoI-2h-l8W"/>
+                                    <constraint firstAttribute="width" constant="150" id="BoI-2h-l8W"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="   Start Sync">
+                                <state key="normal" title="      Start Sync">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -176,6 +176,13 @@
                                     <action selector="startSyncAction:" destination="2kT-9r-jb2" eventType="touchUpInside" id="yjP-Kt-ApV"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="syn" translatesAutoresizingMaskIntoConstraints="NO" id="b14-RB-bUA">
+                                <rect key="frame" x="424" y="82" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="JkX-6Z-cl5"/>
+                                    <constraint firstAttribute="height" constant="30" id="YDz-Hg-elS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -185,13 +192,18 @@
                             <constraint firstItem="1iO-kk-W6g" firstAttribute="trailing" secondItem="F3j-w9-fcl" secondAttribute="trailing" id="PRx-a0-sqq"/>
                             <constraint firstItem="e6r-2n-co5" firstAttribute="leading" secondItem="F3j-w9-fcl" secondAttribute="leading" id="RuO-90-1XF"/>
                             <constraint firstItem="wDr-KY-4NL" firstAttribute="top" secondItem="1iO-kk-W6g" secondAttribute="bottom" constant="20" id="StN-O2-dwY"/>
+                            <constraint firstItem="wDr-KY-4NL" firstAttribute="leading" secondItem="b14-RB-bUA" secondAttribute="trailing" constant="-34" id="jlQ-cR-hze"/>
+                            <constraint firstItem="b14-RB-bUA" firstAttribute="centerY" secondItem="wDr-KY-4NL" secondAttribute="centerY" id="knS-db-jdv"/>
                             <constraint firstItem="e6r-2n-co5" firstAttribute="top" secondItem="1iO-kk-W6g" secondAttribute="bottom" id="laB-mF-vgF"/>
                             <constraint firstItem="1iO-kk-W6g" firstAttribute="leading" secondItem="F3j-w9-fcl" secondAttribute="leading" id="spF-uh-m3F"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F3j-w9-fcl"/>
                     </view>
                     <connections>
+                        <outlet property="syncButton" destination="wDr-KY-4NL" id="3ZF-mE-3kf"/>
+                        <outlet property="syncIndicator" destination="b14-RB-bUA" id="d6l-pU-yPe"/>
                         <outlet property="syncTable" destination="aL7-QB-W4U" id="Adr-DW-mof"/>
+                        <outlet property="viewTitle" destination="J46-lU-4h4" id="GNW-PE-5ul"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="der-iw-vZC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -201,5 +213,6 @@
     </scenes>
     <resources>
         <image name="back" width="64" height="64"/>
+        <image name="syn" width="64" height="64"/>
     </resources>
 </document>
