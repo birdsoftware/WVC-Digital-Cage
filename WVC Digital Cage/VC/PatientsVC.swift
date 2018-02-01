@@ -696,7 +696,7 @@ extension PatientsVC{
         
         return pdfPathWithFile
     }
-    // PDF HEADER, BACHGROUND, LOGO ```````````````````````````````` PDF
+    // PDF HEADER, BACKGROUND, LOGO ```````````````````````````````` PDF
     func drawBackground () {
         let context:CGContext = UIGraphicsGetCurrentContext()!
         let rect:CGRect = CGRect(x:0, y:0, width:850, height:1100)
@@ -876,6 +876,19 @@ extension PatientsVC{
                 demDict[item]?.draw(in: value, withAttributes: returnTextAttributes())
             }
         }
+    func pdfAdd(title: String,x: Int,y:Int){
+        let textRecWidth = 200
+        let titleTop = CGRect(x: x, y:y, width:textRecWidth, height:40)
+        title.draw(in: titleTop, withAttributes: returnTitle1Attributes())
+    }
+    func setupNextPDFPage(numColumns: inout Int, xCol2: inout Int, newTotalY: inout Int, pageNumber: inout Int){
+        numColumns = 0
+        xCol2 = 50
+        newTotalY = 80
+        pageNumber += 1
+        UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
+        pdfAdd(title: "AM/PM Checked p\(pageNumber)",x: 50,y:50)
+    }
     func drawAMPMs(patientID:String){//REPEATING
         var allAMPM = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         //allAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
@@ -883,12 +896,12 @@ extension PatientsVC{
         var nextAMPM = Dictionary<String,String>()
         
         if arrayContains(array:allAMPM, value:patientID) {//check if patient exists
-            let titleTopString = "AM/PM Checked"
+            var pageNumber = 1
+            pdfAdd(title: "AM/PM Checked",x: 270,y:500)
             var newTotalY = 300+200
-            /*let xCol1 = 40 */var xCol2 = 270 /* let xCol3 = 500*/
+            
+            var xCol2 = 270 /* let xCol3 = 500*//*let xCol1 = 40 */
             let textRecWidth = 200
-            let titleTop = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:40)
-            titleTopString.draw(in: titleTop, withAttributes: returnTitle1Attributes())
             
             let titles = ["date","attitude", "feces", "urine", "appetite%", "v/D/C/S", "initials"]
             var title = CGRect()
@@ -903,18 +916,30 @@ extension PatientsVC{
                         let word = item.camelCaseToWords()
                         let uppercased = word.firstUppercased + ":"
                         newTotalY += spacerTwenty
+                        
                         if newTotalY >= 1050 {
+                            
                             numColumns = numColumns + 1
-                            if numColumns == 1 {
-                                xCol2 = 500
-                                newTotalY = 530
-                            } else if numColumns == 2 {
-                                xCol2 = 500+230
-                                newTotalY = 530
+                            xCol2 += 200
+                            
+                            newTotalY = 80
+                            if pageNumber  == 1 { newTotalY = 530 }
+                            
+                            if numColumns == 3 {
+                                if pageNumber == 1 {
+                                    setupNextPDFPage(numColumns: &numColumns, xCol2: &xCol2, newTotalY: &newTotalY, pageNumber: &pageNumber)
+                                } else {
+                                    numColumns = numColumns + 1
+                                }
+                            }
+                            if numColumns == 5 {
+                                setupNextPDFPage(numColumns: &numColumns, xCol2: &xCol2, newTotalY: &newTotalY, pageNumber: &pageNumber)
                             }
                         }
+                        
+                        //CGPDFPageGetPageNumber(CGPDFPage page)
+                        
                         title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:65)
-                        //newTotalY += spacerTwenty
                         value = CGRect(x: xCol2+90, y:newTotalY, width:textRecWidth, height:75)
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())
                         nextAMPM[item]?.draw(in: value, withAttributes: returnTextAttributes())
