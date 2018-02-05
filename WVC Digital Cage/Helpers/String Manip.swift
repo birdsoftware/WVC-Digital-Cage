@@ -19,4 +19,8 @@ extension UIViewController {
     func appendString(longString: String, subString: String) -> String {
         return longString+subString
     }
+    
+    func replaceChars(inString: String, replace: String, with: String) -> String{
+        return inString.replacingOccurrences(of: replace, with: with)
+    }
 }

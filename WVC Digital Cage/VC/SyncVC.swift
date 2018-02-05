@@ -194,17 +194,30 @@ extension SyncVC {
         //GET MySQL patient ID
         let patientFlag = DispatchGroup()
         patientFlag.enter()
-        //GETPatient().getPatient(patientID: patient["patientID"]!, dispachInstance: patientFlag)//PROBLEM coult get > 1 record
         let intakeDate = patient["intakeDate"]!
+        //let id = intakeDate.replacingOccurrences(of: "/", with: "%2F")
         let intakeDateNoEscapeChars = intakeDate.replacingOccurrences(of: "/", with: "%2F", options: .literal, range: nil)
-        GETPatientIntake().exists(patientID: "Bob"/*patient["patientID"]!*/, intakeDate: /*intakeDateNoEscapeChars*/"12%2F15%2F2017", dispachInstance: patientFlag)
+        GETPatientIntake().exists(patientID: /*"Bob2"*/patient["patientID"]!, intakeDate: intakeDateNoEscapeChars/*"12%2F15%2F2017"*/, dispachInstance: patientFlag)
         patientFlag.notify(queue: DispatchQueue.main){
-            //let returnedPatientId = UserDefaults.standard.object(forKey: "dataBasePatientId") as? String ?? ""
-            //print("patientID: \(returnedPatientId) returned for \(patient["patientID"]!)")
-            //if returnedPatientId == "" {
-            //    print("\(patient["patientID"]!): DOES NOT EXIST ON SERVER")
-            //
-            //}
+            if UserDefaults.standard.bool(forKey: "patientIsInDatabase") == true{
+                print("patient Is In Database duplicate? or update? or crash halfway through save other tables")
+            } else {
+                print("patient Not In Database - save now ")
+                let postPatientFlag = DispatchGroup()
+                postPatientFlag.enter()
+                POSTPatientUpdates().updatePatientUpdates(update: patient, dispachInstance: postPatientFlag)
+                postPatientFlag.notify(queue: DispatchQueue.main){
+                    let statusCode: Int = UserDefaults.standard.integer(forKey: "statusCode")
+                    if statusCode == 200{//http://www.restapitutorial.com/httpstatuscodes.html
+                        print("Save successful")
+                        
+                    } else {
+                        print("error in save try again. Status Code: \(statusCode)")
+                        self.simpleAlert(title: "Error saving try again", message: "Error Status Code: \(statusCode)", buttonTitle: "OK")
+                    }
+                }
+            }
+            
         }
     }
 }

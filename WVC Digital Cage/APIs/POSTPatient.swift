@@ -18,16 +18,16 @@ class POSTPatientUpdates {
             "content-type": "application/json",
             "cache-control": "no-cache"
         ]
-        
+        //print("update: \(update)") //["status": "Archive", "intakeDate": "12/14/2017", "patientID": "Wolfe", "walkDate": "2018-01-04 15:13:00", "photo": "Wolfe.png", "kennelID": "D3", "owner": "Henderson Shelter (HS)", "group": "Canine"]
         let parameters = [
-            "status": update["status"]!,  //requires String
+            "status": update["status"]!,
             "intakeDate": update["intakeDate"]!,
-            "patientName": update["patientName"]!,         //requires "mobile app"
+            "patientName": update["patientID"]!,
             "walkDate": update["walkDate"]!,
-            "photoName": update["photoName"]!,
-            "kennelId": update["kennelId"]!,
+            "photoName": update["photo"]!,
+            "kennelId": update["kennelID"]!,
             "owner": update["owner"]!,
-            "groupString": update["groupString"]!
+            "groupString": update["group"]!
             ] as [String : Any]
         
         let postData = try! JSONSerialization.data(withJSONObject: parameters, options: [])
@@ -53,34 +53,17 @@ class POSTPatientUpdates {
                                             } else {
                                                 
                                                 let httpResponse = response as? HTTPURLResponse
-                                                print("\(httpResponse)")
-                                                print("Status Code : \(httpResponse!.statusCode)") //TODO check if 200 display message sent o.w. message not sent try later?
-                                                
-                                                let httpData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                                                print("Response String :\(httpData)")
-                                                
-//                                                do {//http://roadfiresoftware.com/2016/12/how-to-parse-json-with-swift-3/
-//                                                    if let data = data,  //go from a Data? type (optional Data) to a non-optional Data
-//                                                        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-//                                                        let type = json["type"] as? Bool{
-//                                                        if(type == true){
-//
-//                                                            UserDefaults.standard.set(true, forKey: "APIUpdatePatientUpdates")
-//                                                            UserDefaults.standard.synchronize()
-//
-//                                                            print("finished POST/send patient updates")
-//                                                        }
-//                                                        dispachInstance.leave() // API Responded
-//                                                    }
-//                                                } catch {
-//                                                    print("Error deserializing PUT/send messageInbox JSON: \(error)")
-//                                                    UserDefaults.standard.set(false, forKey: "APIUpdatePatientUpdates")
-//                                                    UserDefaults.standard.synchronize()
-//
-//                                                    dispachInstance.leave() // API Responded
-//                                                }
-                                                //DispatchQueue.main.async {
-                                                //}
+                                                //print("\(httpResponse)")
+                                                let statusCode = httpResponse!.statusCode
+                                                print("Status Code : \(statusCode)") //TODO check if 200 display message sent o.w. message not sent try later?
+                                                UserDefaults.standard.set(statusCode, forKey: "statusCode")
+                                                UserDefaults.standard.synchronize()
+                                                //let httpData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                                                //print("Response String :\(httpData)")
+                                                dispachInstance.leave()
+
+                                                DispatchQueue.main.async {
+                                                }
                                             }
         })
         dataTask.resume()

@@ -43,14 +43,19 @@ class GETPatientIntake {
                             
                             if(type == true) {
                                 let pData = json["data"] as? [[String: Any]]
+                                
                                 if (pData?.isEmpty)!{
-                                    print("empty [] record for \(patientID)")
+                                    // FALSE NO RECORD FOR PATIENT AND INTAKE DATE
+                                    UserDefaults.standard.set(false, forKey: "patientIsInDatabase")
+                                    UserDefaults.standard.synchronize()
+                                    //print("DNE: empty [] record for \(patientID)")
                                 } else {
-                                //for item in pData!{
-                                    
-                                //}
-                                print("TRUE record exists for \(patientID)")
+                                    // TRUE RECORD EXISTS
+                                    UserDefaults.standard.set(true, forKey: "patientIsInDatabase")
+                                    UserDefaults.standard.synchronize()
+                                    //print("TRUE record exists for \(patientID)")
                                 }
+                                
                             }
                             else {//error?
                             }

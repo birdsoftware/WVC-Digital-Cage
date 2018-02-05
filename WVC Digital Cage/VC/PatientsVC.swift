@@ -78,6 +78,10 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     //segue data
     var seguePatientID:String!
     
+    //PDF page number
+    var pageNumber = 1
+    let endOfPage = 1040
+    
     //table data
     var patientID = ""
     var selectedData = Dictionary<String,String>()
@@ -459,6 +463,10 @@ extension PatientsVC {
         setBadges()
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let thisPatient = SearchData[indexPath.row]
+        var statusString = ""
+        if thisPatient["status"] == "Archive"{ statusString = "Active" }
+        else if thisPatient["status"] == "Active" { statusString = "Archive" }
     
         let email = UITableViewRowAction(style: .normal, title: "Email") { action, index in
             print("Email button tapped")
@@ -471,11 +479,12 @@ extension PatientsVC {
             self.deleteRecordAlert(title:"Are you sure you want to remove this Patient?", message:"This will forever remove all records for this patient.", buttonTitle:"OK", cancelButtonTitle: "Cancel", indexPath: indexPath)
         }
         delete.backgroundColor = UIColor.red
-        let archive = UITableViewRowAction(style: .normal, title: "Archive") { action, index in
+        let archive = UITableViewRowAction(style: .normal, title: statusString/*"Archive" or "Active"*/) { action, index in
             print("Archive button tapped")
-            self.archiveButtonTapped(indexPath: indexPath)
+            self.archiveButtonTapped(indexPath: indexPath, statusString: statusString)
         }
-        archive.backgroundColor = UIColor.blue
+        if statusString == "Archive" { archive.backgroundColor = UIColor.blue } else { archive.backgroundColor = UIColor.brown }
+            //archive.backgroundColor = UIColor.blue
         return [email, delete, archive]
     }
     func emailButtonTapped(indexPathRow: Int){
@@ -496,12 +505,12 @@ extension PatientsVC {
         SearchData = sortResults
         self.patientTable.deleteRows(at: [indexPath], with: .fade)
     }
-    func archiveButtonTapped(indexPath: IndexPath){
+    func archiveButtonTapped(indexPath: IndexPath, statusString: String){
         print("Archive button tapped")
         let archiveForThisPID = self.SearchData[indexPath.row]["patientID"]
         for index in 0..<patientRecords.count {
             if patientRecords[index]["patientID"] == archiveForThisPID {
-                patientRecords[index]["status"] = "Archive"
+                patientRecords[index]["status"] = statusString//"Archive"//"Active"
             }
         }//[indexPath.row]["status"] = "Archive"
         UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
@@ -689,9 +698,10 @@ extension PatientsVC{
         drawVitalsText(patientID:patientIDHere!)
         drawPhysicalExam(patientID:patientIDHere!)
         drawDemographicsText(patientID:patientIDHere!)
-        drawIncisions(patientID:patientIDHere!)
+        //drawIncisions(patientID:patientIDHere!)
         drawProcedures(patientID:patientIDHere!)
         drawAMPMs(patientID:patientIDHere!)
+        drawIncisions(patientID:patientIDHere!)
         UIGraphicsEndPDFContext()
         
         return pdfPathWithFile
@@ -756,23 +766,33 @@ extension PatientsVC{
             }
         }
     }
+    //REPEATING Incisions
     func drawIncisions(patientID:String){//REPEATING
         let allInc = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
         var nextInc = Dictionary<String,String>()
         
         if arrayContains(array:allInc, value:patientID) {//check if patient has incision
-            let titleTopString = "Incision Checked"
-            var newTotalY = 100+300+160
-            let xCol1 = 40 /*let xCol2 = 250 let xCol3 = 500*/
+            
+            //Start new page
+            UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
+            
+            //Add header, footer and logo
+            pageNumber += 1
+            pdfAdd(title: "Incision Checked",x: 50,y:100, pageNumber: pageNumber)
+
+            var newTotalY = 110//100+300+160
+            var xCol1 = 50 /*let xCol2 = 250 let xCol3 = 500*/
             let textRecWidth = 300
-            let titleTop = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:40)
-            titleTopString.draw(in: titleTop, withAttributes: returnTitle1Attributes())
             
             let titles = ["date", "initials"]
             var title = CGRect()
             var value = CGRect()
             let spacerTwenty = 20
-            newTotalY += 10
+            
+            var numColumns = 1
+            var isThisGoingToFirstPage = true
+            var numberPagesIncicions = 1
+
             for dict in allInc {
                 if dict["patientID"] == patientID {
                     nextInc = dict
@@ -780,8 +800,32 @@ extension PatientsVC{
                         let word = item.camelCaseToWords()
                         let uppercased = word.firstUppercased + ":"
                         newTotalY += spacerTwenty
+                        
+                        if newTotalY >= endOfPage {
+                            
+                            newTotalY = 125//top of new page
+                            xCol1 += 250
+                            
+                            numColumns += 1
+                            
+                            if numColumns == 4 {
+                                numColumns = 0
+                                
+                                //Start new page
+                                UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
+                                
+                                //Add header, footer and logo
+                                pageNumber += 1
+                                pdfAdd(title: "Incision Checked",x: 50,y:100, pageNumber: pageNumber)
+                                
+                                //update starting column location for data
+                                newTotalY = 125
+                                xCol1 = 50
+                            }
+                        }
+
+                        //draw this line
                         title = CGRect(x: xCol1, y:newTotalY, width:textRecWidth, height:65)
-                        //newTotalY += spacerTwenty
                         value = CGRect(x: xCol1+65, y:newTotalY, width:textRecWidth, height:75)
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())
                         nextInc[item]?.draw(in: value, withAttributes: returnTextAttributes())
@@ -876,19 +920,35 @@ extension PatientsVC{
                 demDict[item]?.draw(in: value, withAttributes: returnTextAttributes())
             }
         }
-    func pdfAdd(title: String,x: Int,y:Int){
-        let textRecWidth = 200
+    // -----
+    // #MARK - Support PDF Footer, Title, add new page
+    //
+    func pdfAdd(title: String,x: Int, y:Int, pageNumber: Int){
+        let textRecWidth = 200//title
         let titleTop = CGRect(x: x, y:y, width:textRecWidth, height:40)
         title.draw(in: titleTop, withAttributes: returnTitle1Attributes())
+        printPDFFooter(pageNumber: pageNumber)
     }
     func setupNextPDFPage(numColumns: inout Int, xCol2: inout Int, newTotalY: inout Int, pageNumber: inout Int){
         numColumns = 0
         xCol2 = 50
-        newTotalY = 80
+        newTotalY = 125//80
         pageNumber += 1
         UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
-        pdfAdd(title: "AM/PM Checked p\(pageNumber)",x: 50,y:50)
+        pdfAdd(title: "AM/PM Checked p\(pageNumber)",x: 50,y:100, pageNumber: pageNumber)
     }
+    func printPDFFooter(pageNumber: Int){
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/YY hh:mm a"
+        let dateString = formatter.string(from: now)//date(from: yourDateString)
+        let stringNumber = "Created: \(dateString),    Page " + String(pageNumber)
+        let textRecWidth = 250//footer
+        let footer = CGRect(x: 550, y:1060, width:textRecWidth, height:40)
+        stringNumber.draw(in: footer, withAttributes: returnTextAttributes())
+        drawImageLogo(imageName: "WVCLogog")
+    }
+    //-----
     func drawAMPMs(patientID:String){//REPEATING
         var allAMPM = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         //allAMPM.sort { $0["date"]! < $1["date"]! }//sort array in place
@@ -896,12 +956,14 @@ extension PatientsVC{
         var nextAMPM = Dictionary<String,String>()
         
         if arrayContains(array:allAMPM, value:patientID) {//check if patient exists
-            var pageNumber = 1
-            pdfAdd(title: "AM/PM Checked",x: 270,y:500)
+        
+            pdfAdd(title: "AM/PM Checked",x: 270,y:500, pageNumber: pageNumber)
             var newTotalY = 300+200
             
             var xCol2 = 270 /* let xCol3 = 500*//*let xCol1 = 40 */
             let textRecWidth = 200
+            
+            var localPageNumber = 1
             
             let titles = ["date","attitude", "feces", "urine", "appetite%", "v/D/C/S", "initials"]
             var title = CGRect()
@@ -917,19 +979,21 @@ extension PatientsVC{
                         let uppercased = word.firstUppercased + ":"
                         newTotalY += spacerTwenty
                         
-                        if newTotalY >= 1050 {
+                        if newTotalY >= endOfPage {
                             
-                            numColumns = numColumns + 1
+                            numColumns += 1//= numColumns + 1
                             xCol2 += 200
                             
-                            newTotalY = 80
-                            if pageNumber  == 1 { newTotalY = 530 }
+                            newTotalY = 125//80
+                            if localPageNumber /*pageNumber*/  == 1 { newTotalY = 530 }
                             
                             if numColumns == 3 {
-                                if pageNumber == 1 {
+                                if localPageNumber /*pageNumber*/ == 1 {
                                     setupNextPDFPage(numColumns: &numColumns, xCol2: &xCol2, newTotalY: &newTotalY, pageNumber: &pageNumber)
-                                } else {
-                                    numColumns = numColumns + 1
+                                    localPageNumber += 1
+                                }
+                                else {//if pageNumber != 1 {
+                                    numColumns += 1// = numColumns + 1
                                 }
                             }
                             if numColumns == 5 {
@@ -937,8 +1001,7 @@ extension PatientsVC{
                             }
                         }
                         
-                        //CGPDFPageGetPageNumber(CGPDFPage page)
-                        
+                        //draw this line
                         title = CGRect(x: xCol2, y:newTotalY, width:textRecWidth, height:65)
                         value = CGRect(x: xCol2+90, y:newTotalY, width:textRecWidth, height:75)
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())

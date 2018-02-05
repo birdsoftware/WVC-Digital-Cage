@@ -80,3 +80,14 @@ class GETPatient {
         dataTask.resume()
     }
 }
+//USE:
+//let patientFlag = DispatchGroup()
+//patientFlag.enter()
+//GETPatient().getPatient(patientID: patient["patientID"]!, dispachInstance: patientFlag)//PROBLEM coult get > 1 record
+//patientFlag.notify(queue: DispatchQueue.main){
+    //let returnedPatientId = UserDefaults.standard.object(forKey: "dataBasePatientId") as? String ?? ""
+    //print("patientID: \(returnedPatientId) returned for \(patient["patientID"]!)")
+    //if returnedPatientId == "" {
+    //    print("\(patient["patientID"]!): DOES NOT EXIST ON SERVER")
+    //
+    //}
