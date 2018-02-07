@@ -90,8 +90,8 @@
                                                                 <constraint firstAttribute="width" constant="55" id="i63-2h-5el"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lzc-Cq-mdn">
-                                                            <rect key="frame" x="78" y="51" width="307" height="2"/>
+                                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lzc-Cq-mdn">
+                                                            <rect key="frame" x="78" y="41.5" width="307" height="2"/>
                                                         </progressView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="804348" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRF-DW-fwv">
                                                             <rect key="frame" x="78" y="15" width="100" height="21"/>
@@ -103,20 +103,33 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 of total items saved" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kof-rF-N3V">
+                                                            <rect key="frame" x="78" y="49" width="307" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="FzH-v2-28K"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.92816120386123657" green="0.92534148693084717" blue="0.94879907369613647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottomMargin" secondItem="LP2-Nm-IDX" secondAttribute="bottom" constant="4" id="5gc-hh-9eT"/>
                                                         <constraint firstItem="LP2-Nm-IDX" firstAttribute="leading" secondItem="our-ul-WBp" secondAttribute="leading" constant="15" id="6u5-z9-cbo"/>
                                                         <constraint firstItem="SRF-DW-fwv" firstAttribute="top" secondItem="LP2-Nm-IDX" secondAttribute="top" id="AIY-aW-W7u"/>
+                                                        <constraint firstItem="kof-rF-N3V" firstAttribute="leading" secondItem="LP2-Nm-IDX" secondAttribute="trailing" constant="8" id="Cic-G2-5ia"/>
+                                                        <constraint firstItem="kof-rF-N3V" firstAttribute="trailing" secondItem="our-ul-WBp" secondAttribute="trailingMargin" id="MyA-FC-tZ4"/>
                                                         <constraint firstItem="SRF-DW-fwv" firstAttribute="leading" secondItem="LP2-Nm-IDX" secondAttribute="trailing" constant="8" id="X5K-RQ-sjm"/>
-                                                        <constraint firstItem="lzc-Cq-mdn" firstAttribute="top" secondItem="SRF-DW-fwv" secondAttribute="bottom" constant="15" id="jbf-vx-X3z"/>
+                                                        <constraint firstItem="kof-rF-N3V" firstAttribute="bottom" secondItem="LP2-Nm-IDX" secondAttribute="bottom" id="bKo-yD-rMD"/>
                                                         <constraint firstItem="lzc-Cq-mdn" firstAttribute="leading" secondItem="LP2-Nm-IDX" secondAttribute="trailing" constant="8" id="suR-AE-z5T"/>
                                                         <constraint firstItem="LP2-Nm-IDX" firstAttribute="top" secondItem="our-ul-WBp" secondAttribute="top" constant="15" id="tat-Jr-dmf"/>
                                                         <constraint firstItem="lzc-Cq-mdn" firstAttribute="trailing" secondItem="our-ul-WBp" secondAttribute="trailingMargin" id="yHF-xl-OIX"/>
+                                                        <constraint firstItem="lzc-Cq-mdn" firstAttribute="centerY" secondItem="LP2-Nm-IDX" secondAttribute="centerY" id="yTM-KM-EFu"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="message" destination="kof-rF-N3V" id="Up5-9D-tNk"/>
                                                     <outlet property="name" destination="SRF-DW-fwv" id="knN-eQ-5rX"/>
                                                     <outlet property="photo" destination="LP2-Nm-IDX" id="nYZ-M1-osU"/>
                                                     <outlet property="progress" destination="lzc-Cq-mdn" id="YoZ-II-1rC"/>

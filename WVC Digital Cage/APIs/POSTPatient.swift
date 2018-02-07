@@ -10,29 +10,15 @@ import Foundation
 
 class POSTPatientUpdates {
     
-    func updatePatientUpdates(update:Dictionary<String,String>, dispachInstance: DispatchGroup){
-        
-        let nsurlAlerts = Constants.Patient.postPatient
+    func updatePatientUpdates(parameters: [String : Any]/*update:Dictionary<String,String>*/, endPoint: String, dispachInstance: DispatchGroup){
         
         let headers = [
             "content-type": "application/json",
             "cache-control": "no-cache"
         ]
-        //print("update: \(update)") //["status": "Archive", "intakeDate": "12/14/2017", "patientID": "Wolfe", "walkDate": "2018-01-04 15:13:00", "photo": "Wolfe.png", "kennelID": "D3", "owner": "Henderson Shelter (HS)", "group": "Canine"]
-        let parameters = [
-            "status": update["status"]!,
-            "intakeDate": update["intakeDate"]!,
-            "patientName": update["patientID"]!,
-            "walkDate": update["walkDate"]!,
-            "photoName": update["photo"]!,
-            "kennelId": update["kennelID"]!,
-            "owner": update["owner"]!,
-            "groupString": update["group"]!
-            ] as [String : Any]
         
         let postData = try! JSONSerialization.data(withJSONObject: parameters, options: [])
-        
-        let request = NSMutableURLRequest(url: NSURL(string: nsurlAlerts)! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: endPoint)! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "POST"
@@ -41,31 +27,43 @@ class POSTPatientUpdates {
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest,
-                                        completionHandler: { (data, response, error) -> Void in
-                                            if (error != nil) {
-                                                
-                                                print("Error when Attempting to POST/send patient updates: \(error!)") //The Internet connection appears to be offline. -1009
-                                                //UserDefaults.standard.set(false, forKey: "APIUpdatePatientUpdates")
-                                                //UserDefaults.standard.synchronize()
-                                                
-                                                dispachInstance.leave() // API Responded
-                                                
-                                            } else {
-                                                
-                                                let httpResponse = response as? HTTPURLResponse
-                                                //print("\(httpResponse)")
-                                                let statusCode = httpResponse!.statusCode
-                                                print("Status Code : \(statusCode)") //TODO check if 200 display message sent o.w. message not sent try later?
-                                                UserDefaults.standard.set(statusCode, forKey: "statusCode")
-                                                UserDefaults.standard.synchronize()
-                                                //let httpData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                                                //print("Response String :\(httpData)")
-                                                dispachInstance.leave()
-
-                                                DispatchQueue.main.async {
-                                                }
-                                            }
-        })
+    completionHandler: { (data, response, error) -> Void in
+        if (error != nil) {
+            print("Error when Attempting to POST/send patient updates: \(error!)") //The Internet connection appears to be offline. -1009
+            dispachInstance.leave() // API Responded
+        } else {
+            
+            let httpResponse = response as? HTTPURLResponse //print("\(httpResponse)")
+            let statusCode = httpResponse!.statusCode
+            print("Status Code : \(statusCode)") //TODO check if 200 display message sent o.w. message not sent try later?
+            UserDefaults.standard.set(statusCode, forKey: "statusCode")
+            UserDefaults.standard.synchronize()
+            //let httpData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            //print("Response String :\(httpData)")
+            
+            do {
+            if let data = data,
+                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let authData = json["data"] as? [String: Any] {
+                let insertId = authData["insertId"]! as? Int ?? 0
+                print("insertId: \(insertId)")
+                
+                let pName = parameters["patientName"]
+                var dataBasePatientId = UserDefaults.standard.object(forKey: "dataBasePatientId") as? Array<Dictionary<String,Any>> ?? []
+                dataBasePatientId.insert(["patientID":pName,"dataBasePatientId":insertId], at: 0)
+                
+                UserDefaults.standard.set(dataBasePatientId, forKey: "dataBasePatientId")
+                UserDefaults.standard.synchronize()
+                
+                dispachInstance.leave()
+                }
+            } catch {
+                print("Error when JSONSerialization )")
+                dispachInstance.leave()
+            }
+            
+        }
+})
         dataTask.resume()
     }
 }

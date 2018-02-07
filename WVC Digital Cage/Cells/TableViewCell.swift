@@ -65,5 +65,5 @@ class syncTableView: UITableViewCell {
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var name: UILabel!
-    
+    @IBOutlet weak var message: UILabel!
 }
