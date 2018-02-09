@@ -18,6 +18,8 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var syncButton: RoundedButton!
     //label
     @IBOutlet weak var viewTitle: UILabel!
+    var badRobot = 5
+    @IBOutlet weak var groupItemDetails: UITextView!
     
     /*1*/ let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
     /*2*/ let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
@@ -39,6 +41,25 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tempPatientId = Array<Dictionary<String,Any>>()
     
+    
+    struct Stack<Element> {//https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html
+        var items = [Element]()
+        mutating func push(_ item: Element) {
+            items.append(item)
+        }
+        mutating func pop() -> Element {
+            return items.removeLast()
+        }
+        mutating func peek() -> Element {
+            return items.last!
+        }
+        mutating func pushFirst(_ item: Element) {
+            items.insert(item, at: 0)
+        }
+    }
+    
+    var stackOfStrings = Stack<[String]>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,9 +67,12 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         getArchivePatientRecords()
         putArchiveCountInTitle()
         
+        //removve old sync db patient ID info before new sync
         let clear = Array<Dictionary<String,Any>>()
         UserDefaults.standard.set(clear, forKey: "dataBasePatientId")
         UserDefaults.standard.synchronize()
+        
+        createStack()
         
 //        if let index = patientRecords.index(where: {$0["patientID"] == "snowball"}) {
 //            print("1 exists in patients")
@@ -102,6 +126,8 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBAction func startSyncAction(_ sender: Any) {
         
         checkDatabaseConnection()
+        processStack()
+        
 //        for patient in self.archivePatients {
 //            //Save myDemographics
 //            if let index = self.myDemographics.index(where: {$0["patientID"] == patient["patientID"]!}){
@@ -113,13 +139,351 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                let parameters = params().demographicParamaters(update: dRecord, databasePID: 11)
 //                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postDemog, dispachInstance: dFlag)
 //            }
+        
+//            //Save myAmpms
+//            if let index = self.myAmpms.index(where: {$0["patientID"] == patient["patientID"]!}){
+//
+//
+//                for aRecord in self.myAmpms{
+//                    if aRecord["patientID"] == patient["patientID"]!{
+//                        print("\(patient["patientID"]!) exists in myAmpms")
+//                        let aFlag = DispatchGroup()
+//                        aFlag.enter()
+//                        let parameters = params().ampmParamaters(update: aRecord, databasePID: 21)
+//                        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postAMPM, dispachInstance: aFlag)
+//                    }
+//                }
+//                //let aRecord = self.myDemographics[index]
+//            }
 //        }
 
     }
-    
-
 }
+extension SyncVC {
+    //stack
+    func createStack(){
+        for patient in archivePatients{
+            let patientID = patient["patientID"]!
+            
+            let tables = [patientRecords, patientVitals, patientPhysicalExam, myNotifications, myDemographics, myAmpms, incisions, procedures, badges, collectionTxVitals, collectionTreatments, treatmentsAndNotes]
+            let tableNames = ["Patient Records", "Vitals", "Physical Exams", "Notifications Repeating", "Demographics", "AMPM checks Repeating", "Incicions Repeating", "Procedures", "Badges", "Treatment Vitals Repeating", "Treatments Repeating", "Treatment Notes Repeating"]
+            
+            var countTables = 0
+            var countTableNames = 0
+            var endString = [String]()
+            
+            for table in tables{
+                if let index = table.index(where: {$0["patientID"] == patientID}){
+                    countTables += 1
+                    endString = [patientID,tableNames[countTableNames],String(index)]
+                    stackOfStrings.push(endString)
+                }
+                countTableNames += 1
+            }
+        }
+    }
+    func processStack(){
+        groupItemDetails.text = ""
+        let stackCount = stackOfStrings.items.count
+        if stackCount == 0{
+            simpleAlert(title: "Nothing left to sync", message: "", buttonTitle: "OK")
+        } else {
+            stackCount.times {
+                let topItem = stackOfStrings.peek()
+                let table = topItem[1]
+                print("\(topItem)")
+                savePatientRecords(topItem: topItem, saveType: table)
+            }
+        }
+    }
+    
+    // SAVE FUNCTIONS
+    // 1. Check DB reachable
+    // 2. Check Is patient duplicate
+    // 3. Save
+    // 4. O.W. Put back
+    func savePatientRecords(topItem: [String], saveType: String){
+        // POP - parent loop can continue
+        _ = stackOfStrings.pop()
+        
+        // Is Data Base Reachable?
+        let checkDBFlag = DispatchGroup()
+        checkDBFlag.enter()
+        GETdoesDB().haveTable(dispachInstance: checkDBFlag)
+        checkDBFlag.notify(queue: DispatchQueue.main){
+            let isReachable = UserDefaults.standard.bool(forKey: "isDataBaseReachable") //as? Bool ?? false
+            if isReachable == true{
+                
+        //Is patient Duplicate?
+                let patientID = topItem[0]
+                let patient = self.archivePatients.first(where: {$0["patientID"] == patientID})!
+                let patientFlag = DispatchGroup()
+                patientFlag.enter()
+                let intakeDate = patient["intakeDate"]
+                let intakeDateNoEscapeChars = intakeDate?.replacingOccurrences(of: "/", with: "%2F", options: .literal, range: nil)/*"12%2F15%2F2017"*/
+                GETPatientIntake().exists(patientID: patient["patientID"]!, intakeDate: intakeDateNoEscapeChars!, dispachInstance: patientFlag)
+                patientFlag.notify(queue: DispatchQueue.main){
+                    if UserDefaults.standard.bool(forKey: "patientIsInDatabase") == true{
+                        print("patient Is In Database duplicate? or update? or crash halfway through save other tables")
+                        self.putItemBackOnStackExistInMySQLDB(topItem: topItem, msg: "Duplicate?")
+                    } else {
+                        print("patient Not In Database - save now ")
+                        
+        //SAVE
+                        switch (saveType){
+                        case "Patient Records":
+                            self.savePatientRecords(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Vitals":
+                            self.saveVitals(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Physical Exams":
+                            self.savePhysicalExams(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Notifications Repeating":
+                            self.saveNotificationsRepeating(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Demographics":
+                            self.saveDemographics(patient: patient, topItem: topItem, patientID: patientID)
+                        case "AMPM checks Repeating":
+                            self.saveAMPMChecksRepeating(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Incicions Repeating":
+                            self.saveIncicionsRepeating(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Procedures":
+                            self.saveProcedures(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Badges":
+                            self.saveBadges(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Treatment Vitals Repeating":
+                            self.saveTreatmentVitalsRepeating(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Treatments Repeating":
+                            self.putItemBackOnStackTryAgainLater(topItem: topItem)
+                        case "Treatment Notes Repeating":
+                            self.putItemBackOnStackTryAgainLater(topItem: topItem)
+                        default:
+                            print("Some other case")
+                        }
+                    }
+                }
+            }
+            else {
+        //PUT BACK
+                self.putItemBackTryLater(topItem: topItem)
+            }
+        }
+    }
+    func savePatientRecords(patient: [String : String], topItem: [String], patientID: String){
+        let postPatientFlag = DispatchGroup(); postPatientFlag.enter()
+        let parameters = params().patientParameters(update: patient)
+        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postPatient, dispachInstance: postPatientFlag)
+        
+        postPatientFlag.notify(queue: DispatchQueue.main){
+            self.updateUITextField(patient: patient, topItem: topItem)
+        }
+    }
+    func saveVitals(patient: [String : String], topItem: [String], patientID: String){
+        let index = Int(topItem[2])!
+        let vitalRecord = self.patientVitals[index]
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        let postVitalFlag = DispatchGroup(); postVitalFlag.enter()
+        let parameters = params().vitalParameters(update: vitalRecord, databasePID: dBPID)
+        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postVitals, dispachInstance: postVitalFlag)
+        
+        postVitalFlag.notify(queue: DispatchQueue.main){
+            self.updateUITextField(patient: patient, topItem: topItem)
+        }
+    }
+    func savePhysicalExams(patient: [String : String], topItem: [String], patientID: String){
+        let index = Int(topItem[2])!
+        let peRecord = self.patientPhysicalExam[index]
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        let peFlag = DispatchGroup(); peFlag.enter()
+        let parameters = params().peParameters(update: peRecord, databasePID: dBPID)
+        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postPE, dispachInstance: peFlag)
+        
+        peFlag.notify(queue: DispatchQueue.main){
+            self.updateUITextField(patient: patient, topItem: topItem)
+        }
+    }
+    func saveNotificationsRepeating(patient: [String : String], topItem: [String], patientID: String){
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        var doOnce = 0
+        for nrRecord in self.myNotifications{
+            if nrRecord["patientID"] == patient["patientID"]!{
+                let nrFlag = DispatchGroup(); nrFlag.enter()
+                let parameters = params().myNotifiParameters(update: nrRecord, databasePID: dBPID)
+                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postNotificat, dispachInstance: nrFlag)
+                nrFlag.notify(queue: DispatchQueue.main){
+                    if doOnce == 0{
+                        doOnce = 1
+                        self.updateUITextField(patient: patient, topItem: topItem)
+                    }
+                }
+            }
+        }
+    }
+    func saveDemographics(patient: [String : String], topItem: [String], patientID: String){
+        let index = Int(topItem[2])!
+        let dRecord = self.myDemographics[index]
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        let dFlag = DispatchGroup(); dFlag.enter()
+        let parameters = params().demographicParameters(update: dRecord, databasePID: dBPID)
+        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postDemog, dispachInstance: dFlag)
+        
+        dFlag.notify(queue: DispatchQueue.main){
+            self.updateUITextField(patient: patient, topItem: topItem)
+        }
+    }
+    func saveAMPMChecksRepeating(patient: [String : String], topItem: [String], patientID: String){
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        var doOnce = 0
+        for aRecord in self.myAmpms{
+            if aRecord["patientID"] == patient["patientID"]!{
+                let aFlag = DispatchGroup(); aFlag.enter()
+                let parameters = params().ampmParameters(update: aRecord, databasePID: dBPID)
+                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postAMPM, dispachInstance: aFlag)
+                aFlag.notify(queue: DispatchQueue.main){
+                    if doOnce == 0{
+                        doOnce = 1
+                        self.updateUITextField(patient: patient, topItem: topItem)
+                    }
+                }
+            }
+        }
+    }
+    func saveIncicionsRepeating(patient: [String : String], topItem: [String], patientID: String){
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        var doOnce = 0
+        for iRecord in self.incisions{
+            if iRecord["patientID"] == patient["patientID"]!{
+                let iFlag = DispatchGroup(); iFlag.enter()
+                let parameters = params().incisionsParameters(update: iRecord, databasePID: dBPID)
+                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postIncisions, dispachInstance: iFlag)
+                iFlag.notify(queue: DispatchQueue.main){
+                    if doOnce == 0{
+                        doOnce = 1
+                        self.updateUITextField(patient: patient, topItem: topItem)
+                    }
+                }
+            }
+        }
+    }
+    func saveProcedures(patient: [String : String], topItem: [String], patientID: String){
+        let index = Int(topItem[2])!
+        let pRecord = self.procedures[index]
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        let pFlag = DispatchGroup(); pFlag.enter()
+        let parameters = params().proceduresParameters(update: pRecord, databasePID: dBPID)
+        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postProcedure, dispachInstance: pFlag)
+        
+        pFlag.notify(queue: DispatchQueue.main){
+            self.updateUITextField(patient: patient, topItem: topItem)
+        }
+    }
+    func saveBadges(patient: [String : String], topItem: [String], patientID: String){
+        let index = Int(topItem[2])!
+        let bRecord = self.badges[index]
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        let bFlag = DispatchGroup(); bFlag.enter()
+        let parameters = params().badgesParameters(update: bRecord, databasePID: dBPID)
+        POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postBadges, dispachInstance: bFlag)
+        
+        bFlag.notify(queue: DispatchQueue.main){
+            self.updateUITextField(patient: patient, topItem: topItem)
+        }
+    }
+    func saveTreatmentVitalsRepeating(patient: [String : String], topItem: [String], patientID: String){
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        var doOnce = 0
+        for tvRecord in self.collectionTxVitals{//collectionTreatments treatmentsAndNotes
+            if tvRecord["patientID"] == patient["patientID"]!{
+                let tvFlag = DispatchGroup(); tvFlag.enter()
+                let parameters = params().treatmentVitalsParameters(update: tvRecord, databasePID: dBPID)
+                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postTxVitals, dispachInstance: tvFlag)
+                tvFlag.notify(queue: DispatchQueue.main){
+                    if doOnce == 0{
+                        doOnce = 1
+                        self.updateUITextField(patient: patient, topItem: topItem)
+                    }
+                }
+            }
+        }
+    }
+    func saveTreatmentsRepeating(patient: [String : String], topItem: [String], patientID: String){
+        let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
+        var doOnce = 0
+        for tvRecord in self.collectionTxVitals{//collectionTreatments treatmentsAndNotes
+            if tvRecord["patientID"] == patient["patientID"]!{
+                let tvFlag = DispatchGroup(); tvFlag.enter()
+                let parameters = params().treatmentVitalsParameters(update: tvRecord, databasePID: dBPID)
+                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postTxVitals, dispachInstance: tvFlag)
+                tvFlag.notify(queue: DispatchQueue.main){
+                    if doOnce == 0{
+                        doOnce = 1
+                        self.updateUITextField(patient: patient, topItem: topItem)
+                    }
+                }
+            }
+        }
+    }
+    func saveTreatmentNotesRepeating(topItem: [String]){
+        putItemBackOnStackTryAgainLater(topItem: topItem)
+    }
+    func returnStatusCode() -> Int{ //http://www.restapitutorial.com/httpstatuscodes.html
+        return UserDefaults.standard.integer(forKey: "statusCode")
+    }
+    func updateUITextField(patient: [String : String], topItem: [String]){
+        if self.returnStatusCode() == 200{
+            print("Save successful \(patient["patientID"]!)")
+            self.successSavingItem(topItem: topItem)
+        }
+        else {
+            //error
+            self.putItemBackOnStackExistInMySQLDB(topItem: topItem, msg: "cloud error")
+        }
+    }
+    //Options: 1. ❌,✅,🔁⚠️,🔁
+    func putItemBackTryLater(topItem: [String]){
+        groupItemDetails.text = groupItemDetails.text + "⚠️🔁 \(topItem[0]): \(topItem[1])\n"
+        print("No Internet Try Later")
+        //put back
+        stackOfStrings.pushFirst(topItem)
+    }
+    func putItemBackOnStackTryAgainLater(topItem: [String]){
+        groupItemDetails.text = groupItemDetails.text + "🔁 \(topItem[0]): \(topItem[1])\n"
+        print(" Try Later")
+        //_ = stackOfStrings.pop()
+        //put back
+        stackOfStrings.pushFirst(topItem)
+    }
+    func putItemBackOnStackExistInMySQLDB(topItem: [String], msg: String){
+        groupItemDetails.text = groupItemDetails.text + msg + "❌ \(topItem[0]): \(topItem[1])\n"
+        print("Exists Try Later")
+        //_ = stackOfStrings.pop()
+        //put back
+        stackOfStrings.pushFirst(topItem)
+    }
+    func successSavingItem(topItem: [String]){
+        groupItemDetails.text = groupItemDetails.text + "✅ \(topItem[0]): \(topItem[1])\n"
+    }
+    
+    func checkIfPatientInMySQLDB(_ patientID:String ){
+//        let patientID = topItem[0]
+//        let patient = archivePatients.first(where: {$0["patientID"] == patientID})
+//        let patientFlag = DispatchGroup()
+//        patientFlag.enter()
+//        let intakeDate = patient!["intakeDate"]
+//
+//        let intakeDateNoEscapeChars = intakeDate?.replacingOccurrences(of: "/", with: "%2F", options: .literal, range: nil)
+//        GETPatientIntake().exists(patientID: /*"Bob2"*/patient!["patientID"]!, intakeDate: intakeDateNoEscapeChars!/*"12%2F15%2F2017"*/, dispachInstance: patientFlag)
+//        patientFlag.notify(queue: DispatchQueue.main){
+//            if UserDefaults.standard.bool(forKey: "patientIsInDatabase") == true{
+//                print("patient Is In Database duplicate? or update? or crash halfway through save other tables")
+//                self.putItemBackOnStackExistInMySQLDB(topItem: topItem, msg: "Duplicate?")
+//            } else {
+//                print("patient Not In Database - save now ")
 
+        //saveFunction
+                //self.addPatientDataToMySQLDB(patient: patient!, topItem: topItem)
+            //}
+    
+    }
+}
 extension SyncVC {
     // #MARK: - UI
     func setupUI(){
@@ -136,7 +500,7 @@ extension SyncVC {
     func putArchiveCountInTitle(){
         var plural = "s"
         if archivePatients.count < 2 { plural = ""}
-        viewTitle.text = "Sync \(archivePatients.count) record" + plural
+        viewTitle.text = "Sync \(archivePatients.count) patient" + plural
     }
     func checkDatabaseIsReachable(){
         let checkDBFlag = DispatchGroup()
@@ -178,7 +542,7 @@ extension SyncVC {
             else {
                 self.syncAvailable()
                 
-                self.backUpNow()
+                //self.backUpNow()
                 
             }
         }
@@ -198,13 +562,14 @@ extension SyncVC {
             // if item != mySQLGeneratedPatientID
             //    backUpItemOnMySQL
             //    update completedPatientTablesQueue
+            
             //    check item exists in mySQL
             //    remove item from tableInLocalStorage
             //    updateUI
             
         }//end for
     }
-    func isPatientInMySQLDB(patient: [String : String]) {
+    func isPatientInMySQLDB(patient: [String : String]){//not using
 
         let patientFlag = DispatchGroup()
         patientFlag.enter()
@@ -217,11 +582,8 @@ extension SyncVC {
                 print("patient Is In Database duplicate? or update? or crash halfway through save other tables")
             } else {
                 print("patient Not In Database - save now ")
-                
-                self.addPatientDataToMySQLDB(patient: patient)
-                
+                //self.addPatientDataToMySQLDB(patient: patient, topItem: topItem)
             }
-            
         }
     }
     func findDatabasePatientIdFor(patientID: String) -> Int{
@@ -235,7 +597,7 @@ extension SyncVC {
         }
         return mYSQLpID
     }
-    func addPatientDataToMySQLDB(patient: [String : String]){
+    func addPatientDataToMySQLDB(patient: [String : String], topItem: [String]){
         //Save patientRecords & Get dataBasePatientId UserDefaults
         let postPatientFlag = DispatchGroup()
         postPatientFlag.enter()
@@ -246,7 +608,14 @@ extension SyncVC {
             let statusCode: Int = UserDefaults.standard.integer(forKey: "statusCode")
             if statusCode == 200{//http://www.restapitutorial.com/httpstatuscodes.html
                 print("Save successful \(patient["patientID"]!)")
-                
+                self.successSavingItem(topItem: topItem)
+            }
+            else {
+                //error
+                self.putItemBackOnStackExistInMySQLDB(topItem: topItem, msg: "cloud error")
+            }
+    }
+    func TODO(patient: [String : String]){
                 let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
                 
                 //Save patientVitals if exist
@@ -290,12 +659,24 @@ extension SyncVC {
                     let dFlag = DispatchGroup()
                     dFlag.enter()
                     
-                    let parameters = params().demographicParamaters(update: dRecord, databasePID: dBPID)
+                    let parameters = params().demographicParameters(update: dRecord, databasePID: dBPID)
                     POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postDemog, dispachInstance: dFlag)
                 }
                 
                 //Save myAmpms
-                
+                if let index = self.myAmpms.index(where: {$0["patientID"] == patient["patientID"]!}){
+
+                    for aRecord in self.myAmpms{
+                        if aRecord["patientID"] == patient["patientID"]!{
+                            print("\(patient["patientID"]!) exists in myAmpms")
+                            let aFlag = DispatchGroup()
+                            aFlag.enter()
+                            let parameters = params().ampmParameters(update: aRecord, databasePID: dBPID)
+                            POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postAMPM, dispachInstance: aFlag)
+                        }
+                    }//end for
+                    
+                }
 //                if let index = myAmpms.index(where: {$0["patientID"] == "snowball"}) {
 //                    print("6 exists in myAmpms")
 //                }
@@ -318,10 +699,10 @@ extension SyncVC {
 //                    print("12 exists in treatmentsAndNotes")
 //                }
                 
-            } else {
-                print("error in save try again. Status Code: \(statusCode)")
-                self.simpleAlert(title: "Error saving try again", message: "Error Status Code: \(statusCode)", buttonTitle: "OK")
-            }
+//            } else {
+//                print("error in save try again. Status Code: \(statusCode)")
+//                self.simpleAlert(title: "Error saving try again", message: "Error Status Code: \(statusCode)", buttonTitle: "OK")
+//            }
         }
     }
 }
@@ -339,7 +720,7 @@ extension SyncVC {
         cell.photo.image = returnImage(imageName: this["patientID"]! + ".png")
         cell.name.text = this["patientID"]!
         let numItems = returnTotalItemsToSave(patientID:this["patientID"]!)
-        cell.message.text = "O out of " + numItems + " items saved."
+        cell.message.text = "O out of " + numItems + " group items saved."
         return cell
     }
     func returnTotalItemsToSave(patientID: String) -> String{

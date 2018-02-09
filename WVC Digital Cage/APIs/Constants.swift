@@ -18,6 +18,12 @@ struct Constants {
         static let postNotificat =  "http://" + url + "notificationInsert"
         static let postDemog =      "http://" + url + "demographicsInsert"
         static let postAMPM =       "http://" + url + "ampmInsert"
+        static let postIncisions =  "http://" + url + "incisionsInsert"
+        static let postProcedure =  "http://" + url + "proceduresInsert"
+        static let postBadges =     "http://" + url + "badgesInsert"
+        static let postTxVitals =   "http://" + url + "treatmentVitalsInsert"
+        static let postTx =         "http://" + url + "treatmentsInsert"
+        static let postTxNotes =    "http://" + url + "treatmentsNotesInsert"
     }
 }
 class params {
@@ -85,7 +91,7 @@ class params {
             ] as [String : Any]
         return parameters
     }
-    func demographicParamaters(update:Dictionary<String,String>,
+    func demographicParameters(update:Dictionary<String,String>,
                                databasePID: Int) -> [String : Any]{
         let parameters = [
             //autoInc demographicsId
@@ -97,7 +103,7 @@ class params {
             ] as [String : Any]
         return parameters
     }
-    func ampmParamaters(update:Dictionary<String,String>,
+    func ampmParameters(update:Dictionary<String,String>,
                                databasePID: Int) -> [String : Any]{
         let parameters = [
             //autoInc ampmsId
@@ -106,11 +112,99 @@ class params {
             "attitude":      update["attitude"]!,
             "filterID":      update["filterID"]!,
             "initials":      update["initials"]!,
-            "vDCS":         update["v/D/C/S"]!,
-            "date":         update["date"]!,
+            "vDCS":          update["v/D/C/S"]!,
+            "date":          update["date"]!,
             "urine":         update["urine"]!,
             "feces":         update["feces"]!,
-            "appetite":         update["appetite%"]!
+            "appetite":      update["appetite%"]!
+            ] as [String : Any]
+        return parameters
+    }
+    func incisionsParameters(update:Dictionary<String,String>,
+                             databasePID: Int) -> [String : Any]{
+        let parameters = [
+            //autoInc incisionsId
+            "patientID":    databasePID,
+            "patientName":  update["patientID"]!,
+            "date":         update["date"]!,
+            "initials":     update["initials"]!
+            ] as [String : Any]
+        return parameters
+    }
+    func proceduresParameters(update:Dictionary<String,String>,
+                              databasePID: Int) -> [String : Any]{
+        let parameters = [
+            //autoInc incisionsId
+            "patientID":        databasePID,
+            "patientName":      update["patientID"]!,
+            "radiographs":      update["radiographs"]!,
+            "bloodWork":         update["bloodWork"]!,
+            "suture":           update["suture"]!,
+            "lab":              update["lab"]!,
+            "surgeryDate":      update["surgeryDate"]!
+            ] as [String : Any]
+        return parameters
+    }
+    func badgesParameters(update:Dictionary<String,String>,
+                              databasePID: Int) -> [String : Any]{
+        let parameters = [
+            //autoInc incisionsId
+            "patientID":        databasePID,
+            "patientName":      update["patientID"]!,
+            "isWet":      update["isWet"]!,
+            "isDry":         update["isDry"]!,
+            "isNpo":           update["isNpo"]!,
+            "isTwice":              update["isTwice"]!,
+            "isHalf":      update["isHalf"]!,
+            "isCaution":      update["isCaution"]!
+            ] as [String : Any]
+        return parameters
+    }
+    func treatmentVitalsParameters(update:Dictionary<String,String>,
+                          databasePID: Int) -> [String : Any]{
+        let parameters = [
+            //autoInc incisionsId
+            "patientID":        databasePID,
+            "patientName":      update["patientID"]!,
+            "temperature":      update["temperature"]!,
+            "heartRate":         update["heartRate"]!,
+            "respirations":      update["respirations"]!,
+            "mmCrt":           update["mm/Crt"]!,
+            "diet":      update["diet"]!,
+            "cSVD":      update["v/D/C/S"]!,
+            "weightKgs":      update["weightKgs"]!,
+            "initials":      update["initials"]!,
+            "date":      update["date"]!,
+            "monitorDays":      update["monitorDays"]!,
+            "checkComplete":      update["checkComplete"]!,
+            "monitorFrequency":      update["monitorFrequency"]!,
+            "monitored":      update["monitored"]!,
+            "groupNumber":      update["group"]!
+            ] as [String : Any]
+        return parameters
+    }
+    func treatmentsParameters(update:Dictionary<String,String>,
+                                   databasePID: Int) -> [String : Any]{
+        let parameters = [
+            //autoInc incisionsId
+            "patientID":                    databasePID,
+            "patientName":                  update["patientID"]!,
+            "date":                         update["date"]!,
+            "treatmentOne":                 update["treatmentOne"]!,
+            "treatmentTwo":                 update["treatmentTwo"]!,
+            "treatmentThree":               update["treatmentThree"]!,
+            "treatmentFour":                update["treatmentFour"]!,
+            "treatmentFive":                update["treatmentFive"]!,
+            "treatmentSix":                 update["treatmentSix"]!,
+            "treatmentSeven":               update["treatmentSeven"]!,
+            "treatmentEight":               update["treatmentEight"]!,
+            "treatmentNine":                update["treatmentNine"]!,
+            "treatmentTen":                 update["treatmentTen"]!,
+            "monitored":                    update["monitored"]!,
+            "monitorDays":                  update["monitorDays"]!,
+            "monitorFrequency":             update["monitorFrequency"]!,
+            "containsTreatmentLabels":      update["containsTreatmentLabels"]!,
+            "checkComplete":                update["checkComplete"]!
             ] as [String : Any]
         return parameters
     }

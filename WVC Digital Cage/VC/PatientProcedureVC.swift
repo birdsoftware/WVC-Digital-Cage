@@ -336,7 +336,7 @@ extension PatientProcedureVC {
             //print("NOT found by PID")
             bloodWorkButton.setImage(UIImage.init(named: "box"), for: .normal)
             toggleBloodWork = false
-            surgeryDate.text = "< select a date"
+            surgeryDate.text = ""
             sutureTF.text = ""
             radiographTF.text = ""
             labTF.text = ""
