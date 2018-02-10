@@ -23,7 +23,10 @@ struct Constants {
         static let postBadges =     "http://" + url + "badgesInsert"
         static let postTxVitals =   "http://" + url + "treatmentVitalsInsert"
         static let postTx =         "http://" + url + "treatmentsInsert"
-        static let postTxNotes =    "http://" + url + "treatmentsNotesInsert"
+        //static let postTxNotes =    "http://" + url + "treatmentsNotesInsert"
+        
+        static let deletePatient =  "http://" + url + "patientsDelete"
+        
     }
 }
 class params {

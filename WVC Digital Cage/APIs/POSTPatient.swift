@@ -45,7 +45,7 @@ class POSTPatientUpdates {
             if let data = data,
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let authData = json["data"] as? [String: Any] {
-                let insertId = authData["insertId"]! as? Int ?? 0
+                let insertId = authData["insertId"]! as? Int ?? 0 //TODO nill found and crashes here
                 print("insertId: \(insertId)")
                 
                 let pName = parameters["patientName"]

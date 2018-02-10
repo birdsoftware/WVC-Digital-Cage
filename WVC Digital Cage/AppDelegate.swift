@@ -65,6 +65,9 @@ extension UIColor {
     static func lightGrey() -> UIColor {
         return UIColor(hex:0xF1F3F3)
     }
+    static func seaBuckthorn() -> UIColor {//WVC Other
+        return UIColor(hex:0xFCAB29)
+    }
     //blues
     static func backButtonBlue() -> UIColor {//blue in title
         return UIColor(hex:0x007AFF)
@@ -100,8 +103,6 @@ extension UIColor {
     static func peachCream() -> UIColor {
         return UIColor(hex:0xFFF2DD)
     }
-    static func seaBuckthorn() -> UIColor {
-        return UIColor(hex:0xFCAB29)
-    }
+    
 
 }

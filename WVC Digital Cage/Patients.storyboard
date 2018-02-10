@@ -240,7 +240,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLe-BU-9i1" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="160" width="51.5" height="20"/>
-                                        <color key="backgroundColor" red="0.97254901960784312" green="0.84313725490196079" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.9882352941176471" green="0.6705882352941176" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="51.5" id="MRu-Pw-uTC"/>
                                             <constraint firstAttribute="height" constant="20" id="qDd-hg-NSf"/>
@@ -263,7 +263,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esE-67-iTA" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                         <rect key="frame" x="51.5" y="160" width="51.5" height="20"/>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.84313725490000002" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.6705882353" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="LoQ-8q-E3o"/>
                                             <constraint firstAttribute="width" constant="51.5" id="zCU-ya-rGi"/>
@@ -286,7 +286,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0Z-vu-CzS" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                         <rect key="frame" x="103" y="160" width="51.5" height="20"/>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.84313725490000002" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.98823529409999999" green="0.6705882353" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="Ahl-6R-tdI"/>
                                             <constraint firstAttribute="width" constant="51.5" id="F9p-PH-TAz"/>
@@ -2004,7 +2004,7 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYh-5W-g9W">
                                 <rect key="frame" x="0.0" y="244" width="273" height="5"/>
-                                <color key="backgroundColor" red="0.97254901959999995" green="0.84313725490000002" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.6705882353" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="6uO-c4-hfu"/>
                                 </constraints>

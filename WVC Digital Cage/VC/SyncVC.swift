@@ -16,10 +16,15 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var syncIndicator: UIImageView!
     //buttons
     @IBOutlet weak var syncButton: RoundedButton!
+    @IBOutlet weak var moreLessButton: RoundedButton!
     //label
     @IBOutlet weak var viewTitle: UILabel!
-    var badRobot = 5
+    //text field
     @IBOutlet weak var groupItemDetails: UITextView!
+    //constraints
+
+    @IBOutlet weak var syncButtonRightConstraint: NSLayoutConstraint!
+    
     
     /*1*/ let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
     /*2*/ let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
@@ -41,6 +46,7 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tempPatientId = Array<Dictionary<String,Any>>()
     
+    var moreLessBool = true
     
     struct Stack<Element> {//https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html
         var items = [Element]()
@@ -66,64 +72,39 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         setupUI()
         getArchivePatientRecords()
         putArchiveCountInTitle()
+        showItemsToSave(show: "less")
         
-        //removve old sync db patient ID info before new sync
+        //delete old sync db patient ID info before new sync
         let clear = Array<Dictionary<String,Any>>()
         UserDefaults.standard.set(clear, forKey: "dataBasePatientId")
         UserDefaults.standard.synchronize()
         
         createStack()
         
-//        if let index = patientRecords.index(where: {$0["patientID"] == "snowball"}) {
-//            print("1 exists in patients")
-//        }
-//        if let index = patientVitals.index(where: {$0["patientID"] == "snowball"}) {
-//            print("2 exists in patientVitals")
-//        }
-//        if let index = patientPhysicalExam.index(where: {$0["patientID"] == "snowball"}) {
-//            print("3 exists in patientPhysicalExam")
-//        }
-//        if let index = myNotifications.index(where: {$0["patientID"] == "snowball"}) {
-//            print("4 exists in myNotifications")
-//        }
-//        if let index = myDemographics.index(where: {$0["patientID"] == "snowball"}) {
-//            print("5 exists in myDemographics")
-//        }
-//        if let index = myAmpms.index(where: {$0["patientID"] == "snowball"}) {
-//            print("6 exists in myAmpms")
-//        }
-//        if let index = incisions.index(where: {$0["patientID"] == "snowball"}) {
-//            print("7 exists in incisions")
-//        }
-//        if let index = procedures.index(where: {$0["patientID"] == "snowball"}) {
-//            print("8 exists in procedures")
-//        }
-//        if let index = badges.index(where: {$0["patientID"] == "snowball"}) {
-//            print("9 exists in badges")
-//        }
-//        if let index = collectionTxVitals.index(where: {$0["patientID"] == "snowball"}) {
-//            print("10 exists in collectionTxVitals")
-//        }
-//        if let index = collectionTreatments.index(where: {$0["patientID"] == "snowball"}) {
-//            print("11 exists in collectionTreatments")
-//        }
-//        if let index = treatmentsAndNotes.index(where: {$0["patientID"] == "snowball"}) {
-//            print("12 exists in treatmentsAndNotes")
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         checkDatabaseIsReachable()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
     //
     //#MARK: - Button Actions
     //
+    @IBAction func moreLessAction(_ sender: Any) {
+        groupItemDetails.text = ""
+        if moreLessBool {
+            //show more
+            showItemsToSave(show: "more")
+            moreLessButton.setTitle("less", for: .normal)
+        } else {
+            //show less
+            showItemsToSave(show: "less")
+            moreLessButton.setTitle("more", for: .normal)
+        }
+        moreLessBool.toggle()
+    }
     @IBAction func startSyncAction(_ sender: Any) {
+        groupItemDetails.text = ""
         
         checkDatabaseConnection()
         processStack()
@@ -161,29 +142,84 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 }
 extension SyncVC {
     //stack
+    func showItemsToSave(show: String){
+        let tables = [
+            /*0*/patientRecords,
+            /*1*/patientVitals,
+            /*2*/patientPhysicalExam,
+            /*3*/myNotifications,
+            /*4*/myDemographics,
+            /*5*/myAmpms,
+            /*6*/incisions,
+            /*7*/procedures,
+            /*8*/badges, collectionTxVitals, collectionTreatments, treatmentsAndNotes
+        ]
+        let tableNames = [
+            /*0*/"Patient Records",
+            /*1*/"Vitals",
+            /*2*/"Physical Exams",
+            /*3*/"Notifications Repeating",
+            /*4*/"Demographics",
+            /*5*/"AMPM checks Repeating",
+            /*6*/"Incisions Repeating",
+            /*7*/"Procedures",
+            /*8*/"Badges", "Treatment Vitals Repeating", "Treatments Repeating", "Treatment Notes Repeating"
+        ]
+
+        groupItemDetails.text = ""
+
+        for patient in archivePatients{
+ 
+            var countTableNames = 0
+            
+            let patientID = patient["patientID"]!
+            for table in tables{
+                if let index = table.index(where: {$0["patientID"] == patientID}){
+   
+                    if show == "more" {
+                        syncButtonRightConstraint.constant = 10
+                        print("countTableNames \(countTableNames)")
+                        for item in tables[countTableNames]{
+                            if item["patientID"] == patientID{
+                                groupItemDetails.text = groupItemDetails.text + "🔁 \(patientID): \(tableNames[countTableNames]): \(item)\n"
+                            }
+                        }
+                    } else {
+                        syncButtonRightConstraint.constant = 150
+                        print("countTableNames \(countTableNames)")
+                        groupItemDetails.text = groupItemDetails.text + "🔁 \(patientID): \(tableNames[countTableNames])\n"
+                    }
+                }
+                countTableNames += 1
+            }
+        }
+    }
     func createStack(){
+        let tables = [patientRecords, patientVitals, patientPhysicalExam, myNotifications, myDemographics, myAmpms, incisions, procedures, badges, collectionTxVitals, collectionTreatments, treatmentsAndNotes]
+        let tableNames = ["Patient Records", "Vitals", "Physical Exams", "Notifications Repeating", "Demographics", "AMPM checks Repeating", "Incisions Repeating", "Procedures", "Badges", "Treatment Vitals Repeating", "Treatments Repeating", "Treatment Notes Repeating"]
+        
         for patient in archivePatients{
             let patientID = patient["patientID"]!
-            
-            let tables = [patientRecords, patientVitals, patientPhysicalExam, myNotifications, myDemographics, myAmpms, incisions, procedures, badges, collectionTxVitals, collectionTreatments, treatmentsAndNotes]
-            let tableNames = ["Patient Records", "Vitals", "Physical Exams", "Notifications Repeating", "Demographics", "AMPM checks Repeating", "Incicions Repeating", "Procedures", "Badges", "Treatment Vitals Repeating", "Treatments Repeating", "Treatment Notes Repeating"]
             
             var countTables = 0
             var countTableNames = 0
             var endString = [String]()
             
             for table in tables{
+
                 if let index = table.index(where: {$0["patientID"] == patientID}){
-                    countTables += 1
+                    //countTables += 1
+                    
                     endString = [patientID,tableNames[countTableNames],String(index)]
                     stackOfStrings.push(endString)
                 }
                 countTableNames += 1
+                
             }
         }
     }
     func processStack(){
-        groupItemDetails.text = ""
+        
         let stackCount = stackOfStrings.items.count
         if stackCount == 0{
             simpleAlert(title: "Nothing left to sync", message: "", buttonTitle: "OK")
@@ -243,8 +279,8 @@ extension SyncVC {
                             self.saveDemographics(patient: patient, topItem: topItem, patientID: patientID)
                         case "AMPM checks Repeating":
                             self.saveAMPMChecksRepeating(patient: patient, topItem: topItem, patientID: patientID)
-                        case "Incicions Repeating":
-                            self.saveIncicionsRepeating(patient: patient, topItem: topItem, patientID: patientID)
+                        case "Incisions Repeating":
+                            self.saveIncisionsRepeating(patient: patient, topItem: topItem, patientID: patientID)
                         case "Procedures":
                             self.saveProcedures(patient: patient, topItem: topItem, patientID: patientID)
                         case "Badges":
@@ -252,7 +288,7 @@ extension SyncVC {
                         case "Treatment Vitals Repeating":
                             self.saveTreatmentVitalsRepeating(patient: patient, topItem: topItem, patientID: patientID)
                         case "Treatments Repeating":
-                            self.putItemBackOnStackTryAgainLater(topItem: topItem)
+                            self.saveTreatmentsRepeating(patient: patient, topItem: topItem, patientID: patientID)
                         case "Treatment Notes Repeating":
                             self.putItemBackOnStackTryAgainLater(topItem: topItem)
                         default:
@@ -346,7 +382,7 @@ extension SyncVC {
             }
         }
     }
-    func saveIncicionsRepeating(patient: [String : String], topItem: [String], patientID: String){
+    func saveIncisionsRepeating(patient: [String : String], topItem: [String], patientID: String){
         let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
         var doOnce = 0
         for iRecord in self.incisions{
@@ -387,6 +423,7 @@ extension SyncVC {
             self.updateUITextField(patient: patient, topItem: topItem)
         }
     }
+    //TREATMENTS
     func saveTreatmentVitalsRepeating(patient: [String : String], topItem: [String], patientID: String){
         let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
         var doOnce = 0
@@ -407,12 +444,12 @@ extension SyncVC {
     func saveTreatmentsRepeating(patient: [String : String], topItem: [String], patientID: String){
         let dBPID:Int = self.findDatabasePatientIdFor(patientID: patient["patientID"]!)
         var doOnce = 0
-        for tvRecord in self.collectionTxVitals{//collectionTreatments treatmentsAndNotes
-            if tvRecord["patientID"] == patient["patientID"]!{
-                let tvFlag = DispatchGroup(); tvFlag.enter()
-                let parameters = params().treatmentVitalsParameters(update: tvRecord, databasePID: dBPID)
-                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postTxVitals, dispachInstance: tvFlag)
-                tvFlag.notify(queue: DispatchQueue.main){
+        for tRecord in self.collectionTreatments{//collectionTreatments treatmentsAndNotes
+            if tRecord["patientID"] == patient["patientID"]!{
+                let tFlag = DispatchGroup(); tFlag.enter()
+                let parameters = params().treatmentsParameters(update: tRecord, databasePID: dBPID)
+                POSTPatientUpdates().updatePatientUpdates(parameters: parameters, endPoint: Constants.Patient.postTx, dispachInstance: tFlag)
+                tFlag.notify(queue: DispatchQueue.main){
                     if doOnce == 0{
                         doOnce = 1
                         self.updateUITextField(patient: patient, topItem: topItem)
@@ -742,3 +779,42 @@ extension SyncVC {
         return String(countItems)// + endString
     }
 }
+
+
+//NOTES
+//        if let index = patientRecords.index(where: {$0["patientID"] == "snowball"}) {
+//            print("1 exists in patients")
+//        }
+//        if let index = patientVitals.index(where: {$0["patientID"] == "snowball"}) {
+//            print("2 exists in patientVitals")
+//        }
+//        if let index = patientPhysicalExam.index(where: {$0["patientID"] == "snowball"}) {
+//            print("3 exists in patientPhysicalExam")
+//        }
+//        if let index = myNotifications.index(where: {$0["patientID"] == "snowball"}) {
+//            print("4 exists in myNotifications")
+//        }
+//        if let index = myDemographics.index(where: {$0["patientID"] == "snowball"}) {
+//            print("5 exists in myDemographics")
+//        }
+//        if let index = myAmpms.index(where: {$0["patientID"] == "snowball"}) {
+//            print("6 exists in myAmpms")
+//        }
+//        if let index = incisions.index(where: {$0["patientID"] == "snowball"}) {
+//            print("7 exists in incisions")
+//        }
+//        if let index = procedures.index(where: {$0["patientID"] == "snowball"}) {
+//            print("8 exists in procedures")
+//        }
+//        if let index = badges.index(where: {$0["patientID"] == "snowball"}) {
+//            print("9 exists in badges")
+//        }
+//        if let index = collectionTxVitals.index(where: {$0["patientID"] == "snowball"}) {
+//            print("10 exists in collectionTxVitals")
+//        }
+//        if let index = collectionTreatments.index(where: {$0["patientID"] == "snowball"}) {
+//            print("11 exists in collectionTreatments")
+//        }
+//        if let index = treatmentsAndNotes.index(where: {$0["patientID"] == "snowball"}) {
+//            print("12 exists in treatmentsAndNotes")
+//        }

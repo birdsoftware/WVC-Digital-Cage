@@ -472,19 +472,25 @@ extension PatientsVC {
             print("Email button tapped")
             self.emailButtonTapped(indexPathRow: indexPath.row)
         }
-        email.backgroundColor = UIColor.orange
+        //COLOR - Email
+        email.backgroundColor = UIColor.seaBuckthorn()
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             print("Delete button tapped")
-            //self.deleteButtonTapped(indexPath: indexPath)
             self.deleteRecordAlert(title:"Are you sure you want to remove this Patient?", message:"This will forever remove all records for this patient.", buttonTitle:"OK", cancelButtonTitle: "Cancel", indexPath: indexPath)
         }
+        //COLOR - Delete
         delete.backgroundColor = UIColor.red
         let archive = UITableViewRowAction(style: .normal, title: statusString/*"Archive" or "Active"*/) { action, index in
             print("Archive button tapped")
             self.archiveButtonTapped(indexPath: indexPath, statusString: statusString)
         }
-        if statusString == "Archive" { archive.backgroundColor = UIColor.blue } else { archive.backgroundColor = UIColor.brown }
-            //archive.backgroundColor = UIColor.blue
+        //COLOR - Archive
+        if statusString == "Archive" {
+            archive.backgroundColor = UIColor.WVCGray()
+        } else {
+            archive.backgroundColor = UIColor.WVCActionBlue()
+            
+        }
         return [email, delete, archive]
     }
     func emailButtonTapped(indexPathRow: Int){
