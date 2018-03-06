@@ -73,6 +73,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var patientsBadge: UILabel!
     @IBOutlet weak var notificationsBadge: UILabel!
+    @IBOutlet weak var syncBadge: UILabel!
     
     /*1*/ var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
     /*2*/ let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
@@ -132,6 +133,7 @@ class ViewController: UIViewController {
         getNotifications(records: patientRecords)
         createBadgeFrom(UIlabel:patientsBadge, text: " \(patientRecords.count) ")
         createBadgeFrom(UIlabel:notificationsBadge, text: " \(myNotifications.count) ")
+        createBadgeFrom(UIlabel: syncBadge, text: " \(getArchivePatientRecordsCount()) ")
         if patientRecords.count == 0{
             patientsBadge.isHidden = true} else {
             patientsBadge.isHidden = false
@@ -139,6 +141,10 @@ class ViewController: UIViewController {
         if myNotifications.count == 0{
             notificationsBadge.isHidden = true} else {
             notificationsBadge.isHidden = false
+        }
+        if getArchivePatientRecordsCount() == 0 {
+            syncBadge.isHidden = true} else {
+            syncBadge.isHidden = false
         }
     }
     
@@ -148,13 +154,10 @@ class ViewController: UIViewController {
         {
             print("Internet Connection Available!")
             self.performSegue(withIdentifier: "segueToSync", sender: self)
-
         } else {
-            print()
             simpleAlert(title: "Internet connection not found", message: "Enable internet connection to continue with cloud backups.", buttonTitle: "OK")
         }
     }
-    
 }
 extension ViewController{
     //Update UI
@@ -204,6 +207,15 @@ extension ViewController{
         UIlabel.backgroundColor = .white//.bostonBlue()
         UIlabel.textColor = .DarkRed()
         UIlabel.text = text
+    }
+    func getArchivePatientRecordsCount() -> Int{
+        var theCount = 0
+        for array in patientRecords {
+            if array["status"] == "Archive" {
+                theCount += 1
+            }
+        }
+        return theCount
     }
 }
 extension ViewController{

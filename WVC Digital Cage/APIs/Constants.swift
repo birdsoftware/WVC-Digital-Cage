@@ -23,7 +23,7 @@ struct Constants {
         static let postBadges =     "http://" + url + "badgesInsert"
         static let postTxVitals =   "http://" + url + "treatmentVitalsInsert"
         static let postTx =         "http://" + url + "treatmentsInsert"
-        //static let postTxNotes =    "http://" + url + "treatmentsNotesInsert"
+        static let postTxNotes =    "http://" + url + "treatmentNotesInsert"
         
         static let deletePatient =  "http://" + url + "patientsDelete"
         
@@ -208,6 +208,24 @@ class params {
             "monitorFrequency":             update["monitorFrequency"]!,
             "containsTreatmentLabels":      update["containsTreatmentLabels"]!,
             "checkComplete":                update["checkComplete"]!
+            ] as [String : Any]
+        return parameters
+    }
+    func treatmentNotesParameters(update:Dictionary<String,String>,
+                                  databasePID: Int) -> [String : Any]{
+        let parameters = [
+            //autoInc treatmentNotesId
+            "patientID":                    databasePID,
+            "patientName":                  update["patientID"]!,
+            "lVT":                         update["lVT"]!,
+            "shelter":                 update["shelter"]!,
+            "breed":                 update["breed"]!,
+            "dVM":               update["dVM"]!,
+            "age":                update["age"]!,
+            "date":                update["date"]!,
+            "dX":                 update["dX"]!,
+            "sex":               update["sex"]!,
+            "notes":               update["notes"]!
             ] as [String : Any]
         return parameters
     }

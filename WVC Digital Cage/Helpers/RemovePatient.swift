@@ -9,18 +9,28 @@
 import Foundation
 extension PatientsVC {
     func removeAllDataAndPicturesFor(patientID: String){
-        removeVitalsFor(patientID: patientID)
-        removePhysicalExamFor(patientID: patientID)
-        removeDemographicsFor(patientID: patientID)
-        removeProcedure(patientID: patientID)
-        removeIncisions(patientID: patientID)
         removeAMPM(patientID: patientID)
-        removeAllNotificationFor(patientID: patientID)
-        removeMissingFor(patientID: patientID)
         removeBadgesFor(patientID: patientID)
+        removeDemographicsFor(patientID: patientID)
+        removeIncisions(patientID: patientID)
+        removeAllNotificationFor(patientID: patientID)
+        removePatientRecordFor(patientID: patientID)
+        removePhysicalExamFor(patientID: patientID)
+        removeProcedure(patientID: patientID)
+        removeVitalsFor(patientID: patientID)
+        
+        //Treatment Vitals
+        var collectionTxVitals = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
+        
+        //Treatments
+        var collectionTreatments = UserDefaults.standard.object(forKey: "collectionTreatments") as? Array<Dictionary<String,String>> ?? []
+        
+        //Treatment Notes
+        var treatmentsAndNotes = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
+
+        removeMissingFor(patientID: patientID)
         deleteImage(imageName: patientID+".png") //See camera.swift
         deleteCollectionImages(patientID: patientID)
-        removePatientRecordFor(patientID: patientID)
     }
     func deleteCollectionImages(patientID:String){
         var collectionPhotos = UserDefaults.standard.object(forKey: "collectionPhotos") as? Array<Dictionary<String,String>> ?? []

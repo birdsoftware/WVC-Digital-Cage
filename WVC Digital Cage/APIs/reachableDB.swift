@@ -20,9 +20,14 @@ class GETdoesDB {
         let dataTask = session.dataTask(with: request as URLRequest,
             completionHandler: { (data, response, error) -> Void in
                 if (error != nil) {
-                    print("FALSE could not reach database")
+                    if error.debugDescription.contains("-1005"){//https://forums.developer.apple.com/thread/67606
+                        print("ignore -1005")
+                        self.saveAndQuit(isTrue: true, di: dispachInstance)
+                    } else {
+                    print("FALSE could not reach database: \(error!)")
                     self.saveAndQuit(isTrue: false, di: dispachInstance)
                     return
+                    }
                 } else {//let httpResponse = response as? HTTPURLResponse print(httpResponse!)
                     do {//http://roadfiresoftware.com/2016/12/how-to-parse-json-with-swift-3/
                         if let data = data,  //go from Data? type (optional Data) to non-optional Data

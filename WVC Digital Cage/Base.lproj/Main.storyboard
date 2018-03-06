@@ -72,6 +72,7 @@
                                     <constraint firstItem="lZP-2n-6qn" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" constant="20" id="8It-dT-7gI"/>
                                     <constraint firstItem="uch-MN-7mc" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" id="9HW-b3-bgG"/>
                                     <constraint firstItem="LbP-7i-KUq" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" id="A92-7y-IFb"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2U2-bL-WJM" secondAttribute="trailing" constant="20" symbolic="YES" id="Dt2-V0-yMz"/>
                                     <constraint firstAttribute="bottom" secondItem="p1g-J2-cZH" secondAttribute="bottom" constant="8" id="E2r-45-3kH"/>
                                     <constraint firstItem="p1g-J2-cZH" firstAttribute="top" secondItem="lZP-2n-6qn" secondAttribute="bottom" constant="8" id="GBN-mA-NBG"/>
                                     <constraint firstItem="p1g-J2-cZH" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" constant="6" id="KeB-cE-LZd"/>
@@ -354,11 +355,24 @@
                                             <action selector="syncAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i4R-87-i1Y"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBl-XI-kgx" customClass="BorderedLabel" customModule="WVC_Digital_Cage" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="8" height="21"/>
+                                        <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Jj6-CN-Kgt" secondAttribute="trailing" id="3Cb-B7-nel"/>
                                     <constraint firstItem="4d8-Lz-wn8" firstAttribute="leading" secondItem="L7j-AH-Dri" secondAttribute="leading" constant="6" id="6Ad-UH-Txz"/>
+                                    <constraint firstItem="aBl-XI-kgx" firstAttribute="leading" secondItem="L7j-AH-Dri" secondAttribute="leading" constant="8" id="CHK-qK-43e"/>
                                     <constraint firstAttribute="height" constant="150" id="F1t-uO-D0b"/>
                                     <constraint firstItem="4d8-Lz-wn8" firstAttribute="top" secondItem="N65-JO-HN6" secondAttribute="bottom" constant="8" id="Fqx-bT-dhW"/>
                                     <constraint firstItem="N65-JO-HN6" firstAttribute="centerX" secondItem="L7j-AH-Dri" secondAttribute="centerX" id="G3H-NL-6dC"/>
@@ -366,6 +380,7 @@
                                     <constraint firstAttribute="bottom" secondItem="4d8-Lz-wn8" secondAttribute="bottom" constant="8" id="LQU-TM-ace"/>
                                     <constraint firstItem="Jj6-CN-Kgt" firstAttribute="leading" secondItem="L7j-AH-Dri" secondAttribute="leading" id="Lhp-rZ-V5q"/>
                                     <constraint firstAttribute="width" constant="150" id="Pth-MG-CV0"/>
+                                    <constraint firstItem="aBl-XI-kgx" firstAttribute="top" secondItem="L7j-AH-Dri" secondAttribute="top" constant="8" id="YDh-v5-nog"/>
                                     <constraint firstAttribute="trailing" secondItem="4d8-Lz-wn8" secondAttribute="trailing" constant="6" id="b1t-Lq-kxE"/>
                                     <constraint firstItem="Jj6-CN-Kgt" firstAttribute="top" secondItem="L7j-AH-Dri" secondAttribute="top" id="cwP-1U-tPF"/>
                                     <constraint firstItem="N65-JO-HN6" firstAttribute="top" secondItem="L7j-AH-Dri" secondAttribute="top" constant="20" id="hcC-Xa-KVB"/>
@@ -438,6 +453,7 @@
                     <connections>
                         <outlet property="notificationsBadge" destination="2U2-bL-WJM" id="Gf5-SY-cqi"/>
                         <outlet property="patientsBadge" destination="LCr-jW-S9k" id="3cH-A1-RxF"/>
+                        <outlet property="syncBadge" destination="aBl-XI-kgx" id="ThR-rt-Mlc"/>
                         <outlet property="syncImage" destination="N65-JO-HN6" id="JI8-JA-842"/>
                         <outlet property="syncView" destination="L7j-AH-Dri" id="IIg-TR-NW6"/>
                         <segue destination="TDT-QR-D5s" kind="presentation" identifier="segueToSync" animates="NO" id="d7f-AR-Gde"/>

@@ -39,7 +39,6 @@ class POSTPatientUpdates {
             UserDefaults.standard.set(statusCode, forKey: "statusCode")
             UserDefaults.standard.synchronize()
             //let httpData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            //print("Response String :\(httpData)")
             
             do {
             if let data = data,
@@ -48,12 +47,7 @@ class POSTPatientUpdates {
                 let insertId = authData["insertId"]! as? Int ?? 0 //TODO nill found and crashes here
                 print("insertId: \(insertId)")
                 
-                let pName = parameters["patientName"]
-                var dataBasePatientId = UserDefaults.standard.object(forKey: "dataBasePatientId") as? Array<Dictionary<String,Any>> ?? []
-                dataBasePatientId.insert(["patientID":pName,"dataBasePatientId":insertId], at: 0)
-                
-                UserDefaults.standard.set(dataBasePatientId, forKey: "dataBasePatientId")
-                UserDefaults.standard.synchronize()
+                self.savePatientIdFromSQLTable(parameters: parameters, insertId: insertId, endPoint: endPoint)
                 
                 dispachInstance.leave()
                 }
@@ -61,10 +55,19 @@ class POSTPatientUpdates {
                 print("Error when JSONSerialization )")
                 dispachInstance.leave()
             }
-            
         }
 })
         dataTask.resume()
+    }
+    func savePatientIdFromSQLTable(parameters: [String : Any], insertId: Int, endPoint: String){
+        if endPoint == Constants.Patient.postPatient{
+            let pName = parameters["patientName"]!
+            var dataBasePatientId = UserDefaults.standard.object(forKey: "dataBasePatientId") as? Array<Dictionary<String,Any>> ?? []
+            dataBasePatientId.insert(["patientID":pName,"dataBasePatientId":insertId], at: 0)
+            
+            UserDefaults.standard.set(dataBasePatientId, forKey: "dataBasePatientId")
+            UserDefaults.standard.synchronize()
+        }
     }
 }
 
