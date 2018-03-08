@@ -24,7 +24,7 @@ extension PatientsVC {
         removeSingleDict(patientID: patientID, userDefaultsName: "treatmentsAndNotes")
         removeMultipleDics(patientID: patientID, userDefaultsName: "collectionTxVitals")
         removeMultipleDics(patientID: patientID, userDefaultsName: "collectionTreatments")
-        
+        //
         //removeAMPM(patientID: patientID)
         //removeIncisions(patientID: patientID)
         removeAllNotificationFor(patientID: patientID)
