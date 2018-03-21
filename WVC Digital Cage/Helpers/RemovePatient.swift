@@ -14,7 +14,7 @@ extension PatientsVC {
         removeSingleDict(patientID: patientID, userDefaultsName: "patientPhysicalExam")
         removeSingleDict(patientID: patientID, userDefaultsName: "demographics")
         removeSingleDict(patientID: patientID, userDefaultsName: "procedures")
-        removeSingleDict(patientID: patientID, userDefaultsName: "missingPatientIDs")
+        //removeSingleDict(patientID: patientID, userDefaultsName: "missingPatientIDs")
         removeSingleDict(patientID: patientID, userDefaultsName: "badges")
         removeSingleDict(patientID: patientID, userDefaultsName: "patientRecords")
         
@@ -41,7 +41,7 @@ extension PatientsVC {
         //Treatment Notes - only one record per patientID
         //var treatmentsAndNotes = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
 
-        //removeMissingFor(patientID: patientID)
+        removeMissingFor(patientID: patientID)
         deleteImage(imageName: patientID+".png") //See camera.swift
         deleteCollectionImages(patientID: patientID)
     }
@@ -130,15 +130,15 @@ extension PatientsVC {
 //            UserDefaults.standard.synchronize()
 //        }
 //    }
-//    func removeMissingFor(patientID:String){
-//        var missingPatientIDs = UserDefaults.standard.object(forKey: "missingPatientIDs") as? [String] ?? []
-//        if missingPatientIDs.contains(patientID) {
-//            missingPatientIDs = missingPatientIDs.filter{$0 != patientID}
-//            print("removed missingPatientIDs \(missingPatientIDs.count)")
-//            UserDefaults.standard.set(missingPatientIDs, forKey: "missingPatientIDs")
-//            UserDefaults.standard.synchronize()
-//        }
-//    }
+    func removeMissingFor(patientID:String){
+        var missingPatientIDs = UserDefaults.standard.object(forKey: "missingPatientIDs") as? [String] ?? []
+        if missingPatientIDs.contains(patientID) {
+            missingPatientIDs = missingPatientIDs.filter{$0 != patientID}
+            print("removed missingPatientIDs \(missingPatientIDs.count)")
+            UserDefaults.standard.set(missingPatientIDs, forKey: "missingPatientIDs")
+            UserDefaults.standard.synchronize()
+        }
+    }
 //    func removeBadgesFor(patientID: String){
 //        var badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
 //        if let index = dictIndexFrom(array: badges, usingKey: "patientID", usingValue: patientID) {

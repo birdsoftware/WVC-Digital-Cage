@@ -501,15 +501,17 @@ extension PatientsVC {
         let removeForThisPID = self.SearchData[indexPath.row]["patientID"]
         print("delete:: \(removeForThisPID!)")
         self.removeAllDataAndPicturesFor(patientID:removeForThisPID!)
-        self.showHideView()
+        self.showHideView()//show view & change constants
 //        self.patientRecords.remove(at: indexPath.row)
 //        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
 //        UserDefaults.standard.synchronize()
+        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         self.SearchData = self.patientRecords
         //self.SearchData.sort { $0["kennelID"]! < $1["kennelID"]! }
         let sortResults = self.SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
         SearchData = sortResults
-        self.patientTable.deleteRows(at: [indexPath], with: .fade)
+        patientTable.reloadData()
+        //self.patientTable.deleteRows(at: [indexPath], with: .fade)
     }
     func archiveButtonTapped(indexPath: IndexPath, statusString: String){
         print("Archive button tapped")

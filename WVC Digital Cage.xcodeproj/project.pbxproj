@@ -49,6 +49,7 @@
 		584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E51FA0E21C009E56BE /* Dictionaries.swift */; };
 		5841C62850E3FA84D345A129 /* Pods_WVC_Digital_Cage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */; };
 		587A0789202E441E00F0D094 /* DELETE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A0788202E441E00F0D094 /* DELETE.swift */; };
+		58882DB62061C6B90050F983 /* activityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58882DB52061C6B90050F983 /* activityIndicator.swift */; };
 		58AA457B202235430069E58D /* GETPatientIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA457A202235430069E58D /* GETPatientIntake.swift */; };
 		58C201EE1FBCAEAF005529DF /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C201ED1FBCAEAF005529DF /* Map.storyboard */; };
 		58C201F01FBCAEF6005529DF /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C201EF1FBCAEF6005529DF /* MapVC.swift */; };
@@ -145,6 +146,7 @@
 		584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDemographicsVC.swift; sourceTree = "<group>"; };
 		584009E51FA0E21C009E56BE /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
 		587A0788202E441E00F0D094 /* DELETE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETE.swift; sourceTree = "<group>"; };
+		58882DB52061C6B90050F983 /* activityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = activityIndicator.swift; sourceTree = "<group>"; };
 		58AA457A202235430069E58D /* GETPatientIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETPatientIntake.swift; sourceTree = "<group>"; };
 		58C201ED1FBCAEAF005529DF /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		58C201EF1FBCAEF6005529DF /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 		582836811F9147A9003F18FE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				58882DB52061C6B90050F983 /* activityIndicator.swift */,
 				5834D13E1FFFF1CB00996D83 /* email.swift */,
 				58053DA7201FAEA800DACE9D /* toggle.swift */,
 				58053D9A201BA71500DACE9D /* Reachability.swift */,
@@ -577,6 +580,7 @@
 				58053DA8201FAEA800DACE9D /* toggle.swift in Sources */,
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
 				5834D13F1FFFF1CC00996D83 /* email.swift in Sources */,
+				58882DB62061C6B90050F983 /* activityIndicator.swift in Sources */,
 				58053DA2201BD7B400DACE9D /* GETPatient.swift in Sources */,
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */,

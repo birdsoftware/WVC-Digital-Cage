@@ -12,8 +12,10 @@ class GETPatientIntake {
     
     func exists(patientID: String, intakeDate: String,dispachInstance: DispatchGroup){
 
+        let urlwithPercentEscapes = patientID.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed)//fixes zues's special chars issue "'"," ", "-", "_"
+        
         let url = "http://ec2-54-244-57-24.us-west-2.compute.amazonaws.com:9000/patients/"
-            + patientID + "/intakeDate/" + intakeDate//12%2F15%2F2017"
+            + urlwithPercentEscapes!/*patientID*/ + "/intakeDate/" + intakeDate//12%2F15%2F2017"
         
         let headers = [
             "Content-Type": "application/json",
