@@ -48,7 +48,10 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var moreLessBool = true
     
-    var patientItemsSaved = Array<Dictionary<String,String>>()
+    var patientItemsSaved = [[String]]()//Array<Dictionary<String,String>>()
+    var patientItemsToSave = [[String]]()
+    
+    var lastItemPopedOnStack = String()
     
     struct Stack<Element> {//https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html
         var items = [Element]()
@@ -215,7 +218,6 @@ extension SyncVC {
         }
     }
     func processStack(){
-        //let stackCount = stackOfStrings.items.count
         
         if stackOfStrings.items.count == 0{
             
@@ -224,15 +226,33 @@ extension SyncVC {
             self.view.viewWithTag(1)?.removeFromSuperview()
             simpleAlert(title: "Save To Cloud Completed", message: "", buttonTitle: "OK")
             
+            for index in 0..<patientItemsToSave.count {
+                let patientToSave = patientItemsToSave[index] //[patientName, itemCount]
+                
+                for index2 in 0..<patientItemsSaved.count{
+                    let patientSaved = patientItemsSaved[index2]
+                    
+                    if patientToSave[0] == patientSaved[0]{
+                        if patientToSave[1] == patientSaved[1]{
+                            //Verify all items saved for patient
+                            //DELETE
+                            removeAllDataAndPicturesFor(patientID:patientToSave[0])
+                            print(" <> DELETE \(patientToSave[0]) \(patientToSave[1]) <>")
+                        }
+                    }
+                }
+            }
+            //print("  >> Patient items saved: \(patientItemsSaved)")
+            //print("  << Patient items to save: \(patientItemsToSave)")
+            
         } else {
             
-            //stackCount.times { // LOOP
                 let topItem = stackOfStrings.peek()
                 let groupType = topItem[1]
                 
                 print("PID,tableName,indexPIDInTable \(topItem)")
                 savePatientRecords(topItem: topItem, saveType: groupType)
-            //}
+            
         }
     }
 
@@ -244,6 +264,7 @@ extension SyncVC {
     func savePatientRecords(topItem: [String], saveType: String){
         // POP - parent loop can continue
         _ = stackOfStrings.pop()
+        lastItemPopedOnStack = topItem[0]
         
         // Is Data Base Reachable?
         let checkDBFlag = DispatchGroup()
@@ -494,12 +515,29 @@ extension SyncVC {
         return UserDefaults.standard.integer(forKey: "statusCode")
     }
     //Called When save task complete
-    func updateUITextField(patient: [String : String], topItem: [String]){
+    func updateItemsSaved(topItem: [String]){
+        
         let patientName = topItem[0]
-        let group = topItem[1]
-        patientItemsSaved.append(["patient":patientName,"group":group])
+        var countItems = 1
+        var findPatientAndUpdateCount = false
+        
+        for index in 0..<patientItemsSaved.count {
+            if patientItemsSaved[index][0] == patientName {
+                countItems = Int(patientItemsSaved[index][1])! + 1
+                patientItemsSaved[index][1] = String(countItems)
+                findPatientAndUpdateCount = true
+            }
+        }
+        
+        if findPatientAndUpdateCount == false { patientItemsSaved.append([patientName,String(countItems)]) }
+    }
+    func updateUITextField(patient: [String : String], topItem: [String]){
+
+        self.updateItemsSaved(topItem: topItem)
+        
         if self.returnStatusCode() == 200{
-            print("\(patient["patientID"]!): \(group) Saved")
+            //let group = topItem[1]
+            //print("\(patient["patientID"]!): \(group) Saved")
             self.successSavingItem(topItem: topItem)
             //REFRESH SYNC TABLE VIEW
             //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshSyncTable"), object: nil)
@@ -668,19 +706,17 @@ extension SyncVC {
         var countItems = 0
         let tables = [patientRecords, patientVitals, patientPhysicalExam, myNotifications, myDemographics, myAmpms, incisions, procedures, badges, collectionTxVitals, collectionTreatments, treatmentsAndNotes]
         //let tableNames = ["Rec", "Vit", "PEx", "Not", "Dem", "Amp", "Inc", "Pro", "Bad", "TVi", "Tre", "TNo"]
-        //var iterator = 0
-        //var endString = ""
         for table in tables{
             
             if let index = table.index(where: {$0["patientID"] == patientID}){
                 countItems += 1
-                //endString += " \(tableNames[iterator])"
+                
             }
-            //iterator += 1
         }
 
-
-        return String(countItems)// + endString
+        patientItemsToSave.append([patientID,String(countItems)])
+        
+        return String(countItems)
     }
 }
 extension SyncVC {

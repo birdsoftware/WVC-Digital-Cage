@@ -7,7 +7,8 @@
 //
 
 import Foundation
-extension PatientsVC {
+import UIKit
+extension UIViewController /*PatientsVC*/ {
     func removeAllDataAndPicturesFor(patientID: String){
         
         removeSingleDict(patientID: patientID, userDefaultsName: "patientVitals")
