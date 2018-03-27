@@ -172,9 +172,7 @@ extension AddPatientsVC{
         default:
             return
         }
-//        if textField == patientIDTF {
-//            reviewPatientID.text = patientIDTF.text
-//        }
+
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -232,6 +230,30 @@ extension AddPatientsVC{
                 UserDefaults.standard.set([newP], forKey: "patientRecords")
                 UserDefaults.standard.synchronize()
             }
+            
+            var patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+            
+            let newPE =
+                [
+                    "patientID":reviewPatientID.text!,
+                    "comments":"",
+                    "generalAppearance":"false",
+                    "skinFeetHair":"false",
+                    "musculoskeletal":"false",
+                    "nose":"false",
+                    "digestiveTeeth":"false",
+                    "respiratory":"false",
+                    "ears":"false",
+                    "nervousSystem":"false",
+                    "lymphNodes":"false",
+                    "eyes":"false",
+                    "urogenital":"false",
+                    "bodyConditionScore":"3.0"
+            ]
+
+            patientPhysicalExam.append(newPE)
+            UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
+            UserDefaults.standard.synchronize()
             
         }
     }

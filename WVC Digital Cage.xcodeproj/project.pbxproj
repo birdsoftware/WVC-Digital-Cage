@@ -51,6 +51,8 @@
 		587A0789202E441E00F0D094 /* DELETE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A0788202E441E00F0D094 /* DELETE.swift */; };
 		58882DB62061C6B90050F983 /* activityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58882DB52061C6B90050F983 /* activityIndicator.swift */; };
 		58AA457B202235430069E58D /* GETPatientIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA457A202235430069E58D /* GETPatientIntake.swift */; };
+		58BB516020699B7A0003AEFC /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB515F20699B7A0003AEFC /* testData.swift */; };
+		58BB5162206A9A6C0003AEFC /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB5161206A9A6C0003AEFC /* DataStructures.swift */; };
 		58C201EE1FBCAEAF005529DF /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C201ED1FBCAEAF005529DF /* Map.storyboard */; };
 		58C201F01FBCAEF6005529DF /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C201EF1FBCAEF6005529DF /* MapVC.swift */; };
 		58C9B3391FA27296006DE233 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C9B3381FA27296006DE233 /* Settings.storyboard */; };
@@ -148,6 +150,8 @@
 		587A0788202E441E00F0D094 /* DELETE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETE.swift; sourceTree = "<group>"; };
 		58882DB52061C6B90050F983 /* activityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = activityIndicator.swift; sourceTree = "<group>"; };
 		58AA457A202235430069E58D /* GETPatientIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETPatientIntake.swift; sourceTree = "<group>"; };
+		58BB515F20699B7A0003AEFC /* testData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
+		58BB5161206A9A6C0003AEFC /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		58C201ED1FBCAEAF005529DF /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		58C201EF1FBCAEF6005529DF /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		58C9B3381FA27296006DE233 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 				58053DA0201BD79600DACE9D /* APIs */,
 				582836811F9147A9003F18FE /* Helpers */,
 				582836531F9143AC003F18FE /* AppDelegate.swift */,
+				58BB515F20699B7A0003AEFC /* testData.swift */,
 				582836571F9143AC003F18FE /* Main.storyboard */,
 				5828369C1F914F5A003F18FE /* Patients.storyboard */,
 				58E8A52E1F9802D4004E6640 /* AddNewPatient.storyboard */,
@@ -295,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				58882DB52061C6B90050F983 /* activityIndicator.swift */,
+				58BB5161206A9A6C0003AEFC /* DataStructures.swift */,
 				5834D13E1FFFF1CB00996D83 /* email.swift */,
 				58053DA7201FAEA800DACE9D /* toggle.swift */,
 				58053D9A201BA71500DACE9D /* Reachability.swift */,
@@ -618,8 +624,10 @@
 				582836961F914840003F18FE /* Bordered.swift in Sources */,
 				582836541F9143AC003F18FE /* AppDelegate.swift in Sources */,
 				583050701FE34EB100876BFF /* TxVC.swift in Sources */,
+				58BB516020699B7A0003AEFC /* testData.swift in Sources */,
 				58E8A5331F98187A004E6640 /* DatePickerDialog.swift in Sources */,
 				58C9B3571FA7E778006DE233 /* AnalyticsVC.swift in Sources */,
+				58BB5162206A9A6C0003AEFC /* DataStructures.swift in Sources */,
 				5837803D1FAB850C00905B3C /* String Manip.swift in Sources */,
 				58053DAA201FB0EB00DACE9D /* reachableDB.swift in Sources */,
 			);
@@ -789,7 +797,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				DEVELOPMENT_TEAM = 7X8W8A4Y2R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -814,7 +822,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 55VP4JFWK9;
+				DEVELOPMENT_TEAM = 7X8W8A4Y2R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

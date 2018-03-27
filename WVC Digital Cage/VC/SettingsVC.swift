@@ -11,15 +11,34 @@ import UIKit
 class SettingsVC: UIViewController,/*email*/MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var emailAddress: UITextField!
+    @IBOutlet weak var devButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(normalTap))
+        tapGesture.numberOfTapsRequired = 5
+        devButton.addGestureRecognizer(tapGesture)
+        
         let savedUserEmailAddress = UserDefaults.standard.string(forKey: "userEmailAddress") ?? ""
         if savedUserEmailAddress == "" {
             emailAddress.placeholder = "First initial.last@wvc.org"
         } else {
             emailAddress.text = savedUserEmailAddress
         }
+    }
+    @objc func normalTap(_ sender: UIGestureRecognizer){
+        // create the alert
+        let alert = UIAlertController(title: "Add Test Data", message: "This is my message.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            self.addTestData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
 
     @IBAction func saveChangesAction(_ sender: Any) {
@@ -28,6 +47,7 @@ class SettingsVC: UIViewController,/*email*/MFMailComposeViewControllerDelegate 
         UserDefaults.standard.synchronize()
         self.performSegue(withIdentifier: "segueFromSettingsToMainDB", sender: self)
     }
+
     @IBAction func emailHelpAction(_ sender: Any) {
         sendEmailWithAttachemnt()
     }

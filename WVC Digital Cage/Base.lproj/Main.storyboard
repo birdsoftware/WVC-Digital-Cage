@@ -33,9 +33,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OvM-Il-gFY" userLabel="notifications" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="437" y="265" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Notifications" translatesAutoresizingMaskIntoConstraints="NO" id="LbP-7i-KUq">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="bell" translatesAutoresizingMaskIntoConstraints="NO" id="lZP-2n-6qn">
                                         <rect key="frame" x="11" y="20" width="128" height="88"/>
                                     </imageView>
@@ -71,19 +68,15 @@
                                 <constraints>
                                     <constraint firstItem="lZP-2n-6qn" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" constant="20" id="8It-dT-7gI"/>
                                     <constraint firstItem="uch-MN-7mc" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" id="9HW-b3-bgG"/>
-                                    <constraint firstItem="LbP-7i-KUq" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" id="A92-7y-IFb"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2U2-bL-WJM" secondAttribute="trailing" constant="20" symbolic="YES" id="Dt2-V0-yMz"/>
                                     <constraint firstAttribute="bottom" secondItem="p1g-J2-cZH" secondAttribute="bottom" constant="8" id="E2r-45-3kH"/>
                                     <constraint firstItem="p1g-J2-cZH" firstAttribute="top" secondItem="lZP-2n-6qn" secondAttribute="bottom" constant="8" id="GBN-mA-NBG"/>
                                     <constraint firstItem="p1g-J2-cZH" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" constant="6" id="KeB-cE-LZd"/>
-                                    <constraint firstAttribute="trailing" secondItem="LbP-7i-KUq" secondAttribute="trailing" id="OrB-Hz-Xes"/>
                                     <constraint firstAttribute="trailing" secondItem="uch-MN-7mc" secondAttribute="trailing" id="WLp-Os-od9"/>
                                     <constraint firstAttribute="bottom" secondItem="uch-MN-7mc" secondAttribute="bottom" id="X1a-hG-KiA"/>
                                     <constraint firstAttribute="width" constant="150" id="YWL-Rm-ahe"/>
                                     <constraint firstItem="2U2-bL-WJM" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" constant="8" id="Yk2-J7-FN2"/>
-                                    <constraint firstAttribute="bottom" secondItem="LbP-7i-KUq" secondAttribute="bottom" id="a74-Uf-VGd"/>
                                     <constraint firstItem="uch-MN-7mc" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" id="jJr-tP-dpV"/>
-                                    <constraint firstItem="LbP-7i-KUq" firstAttribute="top" secondItem="OvM-Il-gFY" secondAttribute="top" id="jbk-yr-LEb"/>
                                     <constraint firstItem="lZP-2n-6qn" firstAttribute="centerX" secondItem="OvM-Il-gFY" secondAttribute="centerX" id="jwx-ph-EC6"/>
                                     <constraint firstItem="2U2-bL-WJM" firstAttribute="leading" secondItem="OvM-Il-gFY" secondAttribute="leading" constant="8" id="ll0-Mj-suE"/>
                                     <constraint firstAttribute="height" constant="150" id="rHj-jd-1cr"/>
@@ -100,14 +93,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBm-Bg-ko0" userLabel="history" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="437" y="423" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="historybg" translatesAutoresizingMaskIntoConstraints="NO" id="feG-qb-Yzl" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.050000000000000003"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="history" translatesAutoresizingMaskIntoConstraints="NO" id="bOV-T4-RxH">
                                         <rect key="frame" x="11" y="20" width="128" height="91.5"/>
                                     </imageView>
@@ -126,7 +111,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666666669999997" green="0.0039215686269999999" blue="0.054901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="feG-qb-Yzl" firstAttribute="top" secondItem="uBm-Bg-ko0" secondAttribute="top" id="0rd-se-YhN"/>
                                     <constraint firstItem="dvU-cW-AVy" firstAttribute="leading" secondItem="uBm-Bg-ko0" secondAttribute="leading" constant="6" id="1Bf-hq-c99"/>
                                     <constraint firstItem="TLh-eT-LgB" firstAttribute="leading" secondItem="uBm-Bg-ko0" secondAttribute="leading" id="5FJ-2G-3iw"/>
                                     <constraint firstItem="dvU-cW-AVy" firstAttribute="top" secondItem="bOV-T4-RxH" secondAttribute="bottom" constant="8" id="Azz-16-tXy"/>
@@ -139,9 +123,6 @@
                                     <constraint firstAttribute="trailing" secondItem="bOV-T4-RxH" secondAttribute="trailing" constant="11" id="Zxf-dz-ran"/>
                                     <constraint firstAttribute="trailing" secondItem="TLh-eT-LgB" secondAttribute="trailing" id="aps-gM-TnQ"/>
                                     <constraint firstAttribute="bottom" secondItem="TLh-eT-LgB" secondAttribute="bottom" id="ilq-Mx-y26"/>
-                                    <constraint firstItem="feG-qb-Yzl" firstAttribute="leading" secondItem="uBm-Bg-ko0" secondAttribute="leading" id="ktt-MN-lEM"/>
-                                    <constraint firstAttribute="trailing" secondItem="feG-qb-Yzl" secondAttribute="trailing" id="oCd-zS-S91"/>
-                                    <constraint firstAttribute="bottom" secondItem="feG-qb-Yzl" secondAttribute="bottom" id="paX-UF-qME"/>
                                     <constraint firstAttribute="trailing" secondItem="dvU-cW-AVy" secondAttribute="trailing" constant="6" id="vjw-pC-fG9"/>
                                     <constraint firstItem="bOV-T4-RxH" firstAttribute="leading" secondItem="uBm-Bg-ko0" secondAttribute="leading" constant="11" id="zdN-lK-G6i"/>
                                 </constraints>
@@ -154,14 +135,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sg7-ZB-BtC" userLabel="analytics" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="595" y="423" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Analytics" translatesAutoresizingMaskIntoConstraints="NO" id="dhk-AL-Ono" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.050000000000000003"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="pie chart" translatesAutoresizingMaskIntoConstraints="NO" id="Dt5-va-Kh7">
                                         <rect key="frame" x="11" y="20" width="128" height="91.5"/>
                                     </imageView>
@@ -182,14 +155,10 @@
                                 <constraints>
                                     <constraint firstItem="Dt5-va-Kh7" firstAttribute="centerX" secondItem="Sg7-ZB-BtC" secondAttribute="centerX" id="4aD-w5-8rC"/>
                                     <constraint firstAttribute="trailing" secondItem="Dt5-va-Kh7" secondAttribute="trailing" constant="11" id="C4a-uP-QRx"/>
-                                    <constraint firstAttribute="trailing" secondItem="dhk-AL-Ono" secondAttribute="trailing" id="F9C-pE-wX2"/>
-                                    <constraint firstAttribute="bottom" secondItem="dhk-AL-Ono" secondAttribute="bottom" id="HGm-Di-oaB"/>
                                     <constraint firstAttribute="bottom" secondItem="tVG-fh-qda" secondAttribute="bottom" constant="8" id="Hiy-Af-13v"/>
-                                    <constraint firstItem="dhk-AL-Ono" firstAttribute="top" secondItem="Sg7-ZB-BtC" secondAttribute="top" id="JAp-ht-C0M"/>
                                     <constraint firstItem="Dt5-va-Kh7" firstAttribute="leading" secondItem="Sg7-ZB-BtC" secondAttribute="leading" constant="11" id="MhT-Eh-fjk"/>
                                     <constraint firstAttribute="bottom" secondItem="Eq4-bm-nbf" secondAttribute="bottom" id="Roh-rh-Xly"/>
                                     <constraint firstItem="Eq4-bm-nbf" firstAttribute="top" secondItem="Sg7-ZB-BtC" secondAttribute="top" id="VzV-KP-qzk"/>
-                                    <constraint firstItem="dhk-AL-Ono" firstAttribute="leading" secondItem="Sg7-ZB-BtC" secondAttribute="leading" id="dK3-iH-3eL"/>
                                     <constraint firstItem="tVG-fh-qda" firstAttribute="leading" secondItem="Sg7-ZB-BtC" secondAttribute="leading" constant="6" id="erl-mH-TTD"/>
                                     <constraint firstAttribute="height" constant="150" id="nUh-OZ-wJt"/>
                                     <constraint firstItem="tVG-fh-qda" firstAttribute="top" secondItem="Dt5-va-Kh7" secondAttribute="bottom" constant="8" id="qIE-jj-LmI"/>
@@ -208,9 +177,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gh-Fj-2AB" userLabel="patients" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="279" y="265" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Patients" translatesAutoresizingMaskIntoConstraints="NO" id="Ye5-Q1-SLs">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="dog avatar" translatesAutoresizingMaskIntoConstraints="NO" id="BPJ-I5-hsp">
                                         <rect key="frame" x="11" y="20" width="128" height="88"/>
                                     </imageView>
@@ -243,23 +209,19 @@
                                     <constraint firstAttribute="bottom" secondItem="O07-fU-nrm" secondAttribute="bottom" id="5jM-TN-Y5j"/>
                                     <constraint firstItem="BPJ-I5-hsp" firstAttribute="centerX" secondItem="0gh-Fj-2AB" secondAttribute="centerX" id="84s-IG-fSL"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LCr-jW-S9k" secondAttribute="trailing" constant="20" symbolic="YES" id="8Lv-8T-6Ps"/>
-                                    <constraint firstItem="Ye5-Q1-SLs" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" id="Ait-Sh-LFv"/>
                                     <constraint firstAttribute="trailing" secondItem="BPJ-I5-hsp" secondAttribute="trailing" constant="11" id="CPc-e3-J5z"/>
                                     <constraint firstItem="O07-fU-nrm" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" id="KhX-ec-tg1"/>
                                     <constraint firstItem="BPJ-I5-hsp" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" constant="20" id="Kyu-CE-50e"/>
                                     <constraint firstAttribute="height" constant="150" id="RFl-l5-UFS"/>
                                     <constraint firstAttribute="bottom" secondItem="cKw-NK-hNj" secondAttribute="bottom" constant="8" id="VmG-SV-Z5y"/>
                                     <constraint firstAttribute="trailing" secondItem="cKw-NK-hNj" secondAttribute="trailing" constant="6" id="bDu-EB-dbZ"/>
-                                    <constraint firstItem="Ye5-Q1-SLs" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" id="ebe-M8-utO"/>
                                     <constraint firstItem="BPJ-I5-hsp" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" constant="11" id="fWh-Jd-HWA"/>
                                     <constraint firstAttribute="trailing" secondItem="O07-fU-nrm" secondAttribute="trailing" id="oZ0-HQ-AyX"/>
                                     <constraint firstItem="cKw-NK-hNj" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" constant="6" id="pFz-Ce-4xH"/>
                                     <constraint firstItem="O07-fU-nrm" firstAttribute="leading" secondItem="0gh-Fj-2AB" secondAttribute="leading" id="pSY-Vv-Vzg"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ye5-Q1-SLs" secondAttribute="trailing" id="scc-co-YQD"/>
                                     <constraint firstItem="LCr-jW-S9k" firstAttribute="top" secondItem="0gh-Fj-2AB" secondAttribute="top" constant="8" id="teO-0X-2Cm"/>
                                     <constraint firstAttribute="width" constant="150" id="ug2-iI-mJ8"/>
                                     <constraint firstItem="cKw-NK-hNj" firstAttribute="top" secondItem="BPJ-I5-hsp" secondAttribute="bottom" constant="8" id="wNL-84-4fP"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ye5-Q1-SLs" secondAttribute="bottom" id="yod-FQ-XEn"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
@@ -270,15 +232,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-iw-fNf" userLabel="settings" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="279" y="423" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="zWz-FZ-A7w" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="radiusMultiplier">
-                                                <real key="value" value="0.050000000000000003"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="cogwheels" translatesAutoresizingMaskIntoConstraints="NO" id="kiY-Wr-9NQ">
                                         <rect key="frame" x="11" y="20" width="128" height="91.5"/>
                                     </imageView>
@@ -521,17 +474,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Analytics" width="75" height="75"/>
-        <image name="Notifications" width="75" height="75"/>
-        <image name="Patients" width="75" height="75"/>
         <image name="WVCLogog" width="200" height="63"/>
         <image name="bell" width="64" height="64"/>
         <image name="cogwheels" width="64" height="64"/>
         <image name="dog avatar" width="64" height="64"/>
         <image name="history" width="64" height="64"/>
-        <image name="historybg" width="75" height="75"/>
         <image name="pie chart" width="64" height="64"/>
-        <image name="settings" width="75" height="75"/>
         <image name="syn" width="64" height="64"/>
     </resources>
 </document>

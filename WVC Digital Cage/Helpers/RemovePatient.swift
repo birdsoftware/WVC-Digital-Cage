@@ -28,7 +28,9 @@ extension UIViewController /*PatientsVC*/ {
         //
         //removeAMPM(patientID: patientID)
         //removeIncisions(patientID: patientID)
-        removeAllNotificationFor(patientID: patientID)
+        
+        //removeAllNotificationFor(patientID: patientID)
+        removeMultipleDics(patientID: patientID, userDefaultsName: "notifications")
         
         //removeBadgesFor(patientID: patientID)
         //removeDemographicsFor(patientID: patientID)

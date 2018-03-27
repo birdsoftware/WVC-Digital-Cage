@@ -53,27 +53,7 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var lastItemPopedOnStack = String()
     
-    struct Stack<Element> {//https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html
-        var items = [Element]()
-        mutating func push(_ item: Element) {
-            items.append(item)
-        }
-        mutating func pop() -> Element {
-            return items.removeLast()
-        }
-        mutating func peek() -> Element {
-            return items.last!
-        }
-        mutating func pushFirst(_ item: Element) {
-            items.insert(item, at: 0)
-        }
-        mutating func isEmpty() -> Bool {
-            if items.count > 0 {
-                return false
-            }
-            return true
-        }
-    }
+    
     
     var stackOfStrings = Stack<[String]>()
     
@@ -99,7 +79,7 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                            selector: #selector(refreshSyncTable),
                            name: NSNotification.Name(rawValue: "refreshSyncTable"),
                            object: nil)
-        
+        hideSaveButtonIfArchiveIsEmpty()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -242,8 +222,8 @@ extension SyncVC {
                     }
                 }
             }
-            //print("  >> Patient items saved: \(patientItemsSaved)")
-            //print("  << Patient items to save: \(patientItemsToSave)")
+            print("  >> Patient items saved: \(patientItemsSaved)")
+            print("  << Patient items to save: \(patientItemsToSave)")
             
         } else {
             
@@ -611,7 +591,11 @@ extension SyncVC {
             syncTable.reloadData()
         }
     }
-
+    func hideSaveButtonIfArchiveIsEmpty(){
+        if archivePatients.isEmpty {
+            syncButton.isHidden = true
+        }
+    }
     func getArchivePatientRecords(){
         for array in patientRecords {
             if array["status"] == "Archive" {

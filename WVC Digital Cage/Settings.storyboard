@@ -234,6 +234,14 @@
                                     <constraint firstAttribute="height" constant="41" id="m4q-jT-cY0"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" alpha="0.10000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f54-hC-Etf">
+                                <rect key="frame" x="20" y="485" width="120" height="120"/>
+                                <color key="backgroundColor" red="0.80385059120000002" green="0.80396705869999996" blue="0.8038250804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Jgh-xs-STN"/>
+                                    <constraint firstAttribute="width" constant="120" id="nVm-dg-dX8"/>
+                                </constraints>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -259,9 +267,11 @@
                             <constraint firstItem="6PA-vf-sN3" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" constant="20" id="aUH-Xt-lIh"/>
                             <constraint firstItem="Oej-K4-bDm" firstAttribute="top" secondItem="YMh-Ne-sqK" secondAttribute="bottom" constant="12" id="blq-PF-tOp"/>
                             <constraint firstItem="6HE-aZ-o9B" firstAttribute="centerX" secondItem="dbx-bK-oS0" secondAttribute="centerX" id="c9g-nu-9un"/>
+                            <constraint firstItem="f54-hC-Etf" firstAttribute="top" secondItem="awl-eF-hur" secondAttribute="bottom" constant="19" id="cgq-W8-hSq"/>
                             <constraint firstItem="Hs6-Nf-vWd" firstAttribute="trailing" secondItem="7NU-PV-Ofj" secondAttribute="trailing" id="gHu-wt-PXo"/>
                             <constraint firstItem="2ro-5Z-htU" firstAttribute="centerY" secondItem="Oej-K4-bDm" secondAttribute="centerY" id="j5p-ju-0RT"/>
                             <constraint firstItem="gEY-MD-EcB" firstAttribute="top" secondItem="6PA-vf-sN3" secondAttribute="bottom" constant="105" id="jFM-uf-2Cq"/>
+                            <constraint firstItem="f54-hC-Etf" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" constant="20" id="l9R-RB-FfH"/>
                             <constraint firstItem="Cmf-z4-FAt" firstAttribute="leading" secondItem="7NU-PV-Ofj" secondAttribute="leading" id="mwY-OG-vQz"/>
                             <constraint firstItem="Hs6-Nf-vWd" firstAttribute="top" secondItem="PTe-22-3lg" secondAttribute="bottom" constant="35" id="qit-eU-IKt"/>
                             <constraint firstItem="t3d-d7-AXS" firstAttribute="top" secondItem="awl-eF-hur" secondAttribute="bottom" constant="19" id="xSt-DP-UXD"/>
@@ -273,6 +283,7 @@
                         <viewLayoutGuide key="safeArea" id="7NU-PV-Ofj"/>
                     </view>
                     <connections>
+                        <outlet property="devButton" destination="f54-hC-Etf" id="h5a-Wf-a3Z"/>
                         <outlet property="emailAddress" destination="Suz-0i-QBG" id="ppl-kq-9Ya"/>
                     </connections>
                 </viewController>
