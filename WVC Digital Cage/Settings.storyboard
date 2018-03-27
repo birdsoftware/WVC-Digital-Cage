@@ -204,10 +204,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 1.3.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3d-d7-AXS">
-                                <rect key="frame" x="20" y="485" width="160" height="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 1.0.0, build 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3d-d7-AXS">
+                                <rect key="frame" x="20" y="485" width="300" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="9RY-2C-VlA"/>
+                                    <constraint firstAttribute="width" constant="300" id="9RY-2C-VlA"/>
                                     <constraint firstAttribute="height" constant="26" id="pdl-yI-5DS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -285,6 +285,7 @@
                     <connections>
                         <outlet property="devButton" destination="f54-hC-Etf" id="h5a-Wf-a3Z"/>
                         <outlet property="emailAddress" destination="Suz-0i-QBG" id="ppl-kq-9Ya"/>
+                        <outlet property="versionBuildLabel" destination="t3d-d7-AXS" id="CfD-Ys-dsv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BZ2-cO-GKR" userLabel="First Responder" sceneMemberID="firstResponder"/>

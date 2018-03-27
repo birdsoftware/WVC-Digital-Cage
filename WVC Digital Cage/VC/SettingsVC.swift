@@ -12,6 +12,7 @@ class SettingsVC: UIViewController,/*email*/MFMailComposeViewControllerDelegate 
 
     @IBOutlet weak var emailAddress: UITextField!
     @IBOutlet weak var devButton: UIButton!
+    @IBOutlet weak var versionBuildLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,10 @@ class SettingsVC: UIViewController,/*email*/MFMailComposeViewControllerDelegate 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(normalTap))
         tapGesture.numberOfTapsRequired = 5
         devButton.addGestureRecognizer(tapGesture)
+        
+        let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"]!
+        let build = Bundle.main.infoDictionary!["CFBundleVersion"]!
+        versionBuildLabel.text = "Version: \(version), build: \(build) "
         
         let savedUserEmailAddress = UserDefaults.standard.string(forKey: "userEmailAddress") ?? ""
         if savedUserEmailAddress == "" {
