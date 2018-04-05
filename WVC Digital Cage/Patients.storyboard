@@ -719,7 +719,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initials:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3N-rM-D7r">
-                                        <rect key="frame" x="268" y="150" width="63" height="24"/>
+                                        <rect key="frame" x="233" y="150" width="63" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="63" id="Kff-I0-8oa"/>
                                         </constraints>
@@ -764,10 +764,10 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kkp-bK-9IJ">
-                                        <rect key="frame" x="341" y="147" width="60" height="30"/>
+                                        <rect key="frame" x="306" y="147" width="95" height="30"/>
                                         <color key="backgroundColor" red="0.95559948679999995" green="0.98042947049999996" blue="0.99294942620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="1Xj-Ez-z6A"/>
+                                            <constraint firstAttribute="width" constant="95" id="1Xj-Ez-z6A"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

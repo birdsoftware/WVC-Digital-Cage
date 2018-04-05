@@ -222,6 +222,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     @IBAction func shareAction(_ sender: Any) {
         shareActive = true
         //generate file path then pdf to attach
+        pageNumber = 1
         let pdfPathWithFile = generatePDFFile(patientData: selectedData)
         // set up activity view controller
         let document = NSData(contentsOfFile: pdfPathWithFile)
@@ -798,8 +799,8 @@ extension PatientsVC{
             let spacerTwenty = 20
             
             var numColumns = 1
-            var isThisGoingToFirstPage = true
-            var numberPagesIncicions = 1
+            //var isThisGoingToFirstPage = true
+            //var numberPagesIncicions = 1
 
             for dict in allInc {
                 if dict["patientID"] == patientID {

@@ -182,7 +182,7 @@ extension SyncVC {
         for patient in archivePatients{
             let patientID = patient["patientID"]!
             
-            var countTables = 0
+            //var countTables = 0
             var countTableNames = 0
             var endString = [String]()
             
@@ -201,9 +201,10 @@ extension SyncVC {
         
         if stackOfStrings.items.count == 0{
             
-            // In order to hide the activity indicator, call the function from your view controller
-            ViewControllerUtils().hideActivityIndicator(uiView: self.view)
-            self.view.viewWithTag(1)?.removeFromSuperview()
+            hideActivityIndicator()
+            
+            syncButton.isHidden = true
+            
             simpleAlert(title: "Save To Cloud Completed", message: "", buttonTitle: "OK")
             
             for index in 0..<patientItemsToSave.count {
@@ -595,6 +596,11 @@ extension SyncVC {
         if archivePatients.isEmpty {
             syncButton.isHidden = true
         }
+    }
+    func hideActivityIndicator(){
+        // In order to hide the activity indicator, call the function from your view controller
+        ViewControllerUtils().hideActivityIndicator(uiView: self.view)
+        self.view.viewWithTag(1)?.removeFromSuperview()
     }
     func getArchivePatientRecords(){
         for array in patientRecords {

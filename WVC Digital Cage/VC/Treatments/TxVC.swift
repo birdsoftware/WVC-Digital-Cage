@@ -158,12 +158,57 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     @IBAction func addNotesAction(_ sender: Any) {
-        alertGetNote()
+        //alertGetNote()
+        textViewAlertGetNote()
     }
     @IBAction func emailAction(_ sender: Any) {
+        saveTreatmentAndNotes()
         emailPDFTreatment(patientID: seguePatientID!)
     }
-    
+    func textViewAlertGetNote(){
+        let alert = UIAlertController(title: "Add a note", message: "Date: \(todayTF.text!)", preferredStyle: .alert)
+        let textView = UITextView()
+        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        let controller = UIViewController()
+        
+        textView.frame = controller.view.frame
+        controller.view.addSubview(textView)
+        
+        alert.setValue(controller, forKey: "contentViewController")
+        
+        let height: NSLayoutConstraint = NSLayoutConstraint(item: alert.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: view.frame.height * 0.8)
+        
+        // Submit button
+        let submitAction = UIAlertAction(title: "Update now", style: .default, handler: { (action) -> Void in
+            let textViewText = textView.text!
+            // Get TextField's text
+            var noteString = ""
+            if textViewText == "" {
+                noteString = "[\(self.todayTF.text!)] " + textViewText
+            } else {
+                noteString = self.notes.text + "\n[\(self.todayTF.text!)] " + textViewText
+            }
+            
+            //update UI
+            self.notes.text = noteString
+            
+            //save to local storage
+            if textViewText != "" {
+                self.saveTreatmentAndNotes()
+            }
+            
+        })
+        
+        // Cancel button
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
+        
+        alert.view.addConstraint(height)
+        alert.addAction(submitAction)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
 }
 extension TxVC {
@@ -478,9 +523,18 @@ extension TxVC {
         let monitored = aData["monitored"]
         print("monitored \(monitored!), row \(row)")
         //let mOptions = ["1","2","3","4","5","6","7","8","9","T"]
-        //let treatmets = ["treatmentOne","treatmentTwo","treatmentThree","treatmentFour","treatmentFive","treatmentSix","treatmentSeven","treatmentEight","treatmentNine","treatmentTen"]
-        //var cellLabel = [aCell.one.backgroundColor, aCell.two.backgroundColor, aCell.three.backgroundColor, aCell.four.backgroundColor, aCell.five.backgroundColor, aCell.six.backgroundColor, aCell.seven.backgroundColor, aCell.eight.backgroundColor, aCell.nine.backgroundColor, aCell.ten.backgroundColor]
+        //let treatments = ["treatmentOne","treatmentTwo","treatmentThree","treatmentFour","treatmentFive","treatmentSix","treatmentSeven","treatmentEight","treatmentNine","treatmentTen"]
+        //let cells = aCell as! Array<UITableViewCell>// = [aCell.one.backgroundColor, aCell.two.backgroundColor, aCell.three.backgroundColor, aCell.four.backgroundColor, aCell.five.backgroundColor, aCell.six.backgroundColor, aCell.seven.backgroundColor, aCell.eight.backgroundColor, aCell.nine.backgroundColor, aCell.ten.backgroundColor]
        // if isComplete { currentColor = UIColor.candyGreen() }
+        
+//        for index in 0..<treatments.count{
+//            if monitored?.range(of:mOptions[index]) != nil {
+//                if aData[treatments[index]] == "" {
+//                    aCell.one.backgroundColor = .WVCLightRed()
+//                } else {
+//                    aCell.one.backgroundColor = .candyGreen() }
+//            } else { aCell.one.backgroundColor = .clear }
+//        }
         
         if monitored?.range(of:"1") != nil {
             if aData["treatmentOne"] == "" {
