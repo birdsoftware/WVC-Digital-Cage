@@ -46,6 +46,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     @IBOutlet weak var viewTitle: UILabel!
     @IBOutlet weak var patientIDLabel: UILabel!
     @IBOutlet weak var pdfLabel: UILabel!
+    @IBOutlet weak var treatmentBadge: UILabel!
     
     //test fields
     @IBOutlet weak var temperature: UITextField!
@@ -149,6 +150,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
             patientIDLabel.text = patientID
             let kennelID = selectedData["kennelID"]!
             kennelNumberButton.setTitle(kennelID, for: .normal)
+            
             if selectedData["walkDate"]! != ""{
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -163,6 +165,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showProcedure"), object: nil)
             setBadges()
+            createBadgeFrom(UIlabel:treatmentBadge, text: treatementCount(p: patientID) )
         }
     }
     //#MARK - Actions
@@ -327,6 +330,7 @@ extension PatientsVC {
     }
     @objc func refreshBadge(){
         setBadges()
+        createBadgeFrom(UIlabel:treatmentBadge, text: treatementCount(p: patientID) )
         print("refreshBadge")
     }
     @objc func moveAMPMUp(){
@@ -462,6 +466,34 @@ extension PatientsVC {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showProcedure"), object: nil)
         setBadges()
+        
+        createBadgeFrom(UIlabel:treatmentBadge, text: treatementCount(p: patientID) )
+    }
+    func treatementCount(p: String) -> String{
+        let array = UserDefaults.standard.object(forKey: "treatmentsAndNotes") as? Array<Dictionary<String,String>> ?? []
+        let array2 = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
+        let array3 = UserDefaults.standard.object(forKey: "collectionTreatments") as? Array<Dictionary<String,String>> ?? []
+        var num = 0
+        var numString = ""
+        for dict in array{
+            if dict["patientID"] == p{
+                num += 1
+            }
+        }
+        for dict in array2{
+            if dict["patientID"] == p{
+                num += 1
+            }
+        }
+        for dict in array3{
+            if dict["patientID"] == p{
+                num += 1
+            }
+        }
+        if num != 0{
+            numString = " \(num) "
+        }
+        return numString
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let thisPatient = SearchData[indexPath.row]

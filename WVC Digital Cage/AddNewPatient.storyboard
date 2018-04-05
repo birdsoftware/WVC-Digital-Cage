@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,12 +42,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UKw-nH-snS" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVL-s6-4Ps">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVL-s6-4Ps">
                                         <rect key="frame" x="20" y="20" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="GGN-F7-1ez"/>
                                             <constraint firstAttribute="height" constant="35" id="hUb-pE-9rO"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="back"/>
                                         <connections>
                                             <segue destination="WNC-VB-w4Y" kind="presentation" identifier="segueToPatientsDB" animates="NO" id="LYM-9A-gFW"/>
@@ -67,7 +68,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="20"/>
                                         <state key="normal" title="MAP">
-                                            <color key="titleColor" red="0.21202906966209412" green="0.578815758228302" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="Bpm-yg-Bav" kind="presentation" animates="NO" id="H7q-Gm-Ym1"/>

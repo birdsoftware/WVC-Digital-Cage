@@ -132,7 +132,7 @@ extension TxVC {
             if item == "notes" {
                 titleWidth = 0
                 newTotalX = 70
-                textRecWidth = 450; textRecHeight = 100
+                textRecWidth = 460; textRecHeight = 130
             }
             newTotalX += 170
             
@@ -152,7 +152,7 @@ extension TxVC {
         var textRecWidth:Int = 110//pdfMeta["textRecWid
         var textRecHeight:Int = pdfMeta["textRecHeight"]!
         var newTotalY = pdfMeta["lastUseHeight"]!
-        var newTotalX = 70
+        var newTotalX = 50
         
         let titles = [ "date", "temperature", "heartRate", "respirations", "mm/Crt", "diet", "v/D/C/S", "weightKgs", "initials" ]
         //, "monitorDays", "checkComplete", "patientID", "monitorFrequency", "monitored", "group"]

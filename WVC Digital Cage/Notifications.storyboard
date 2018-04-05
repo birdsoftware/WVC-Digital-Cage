@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,23 +42,25 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSg-CA-lLl" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ir5-xY-2tZ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ir5-xY-2tZ">
                                         <rect key="frame" x="20" y="20" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="2Ma-fU-cwz"/>
                                             <constraint firstAttribute="height" constant="35" id="o1t-5c-65p"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="back"/>
                                         <connections>
                                             <segue destination="bfy-Tz-OgA" kind="presentation" animates="NO" id="9ii-0y-NcL"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAB-Fg-bVV">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAB-Fg-bVV">
                                         <rect key="frame" x="969" y="20" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="FzQ-rR-Yed"/>
                                             <constraint firstAttribute="height" constant="35" id="Y5G-z1-oOb"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="add"/>
                                         <connections>
                                             <segue destination="CeJ-9o-WcQ" kind="show" identifier="segueAddNotification" animates="NO" id="o2s-D5-Hf1"/>
@@ -210,12 +212,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="no3-N0-EGk" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2H-xT-kaO">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2H-xT-kaO">
                                         <rect key="frame" x="20" y="20" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="KKW-xJ-9b9"/>
                                             <constraint firstAttribute="height" constant="35" id="iTg-I6-KjB"/>
                                         </constraints>
+                                        <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="back"/>
                                         <connections>
                                             <action selector="goBackAction:" destination="CeJ-9o-WcQ" eventType="touchUpInside" id="ZMP-Px-m2b"/>
@@ -250,6 +253,7 @@
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="custom notification" translatesAutoresizingMaskIntoConstraints="NO" id="88u-ZU-lmi">
                                 <rect key="frame" x="20" y="77" width="50" height="50"/>
+                                <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="q1K-t9-s9x"/>
                                     <constraint firstAttribute="height" constant="50" id="sKP-Jq-rTi"/>

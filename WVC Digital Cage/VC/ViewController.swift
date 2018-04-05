@@ -201,13 +201,13 @@ extension ViewController{
     }
 }
 extension ViewController{
-    func createBadgeFrom(UIlabel:UILabel, text: String) {
-        UIlabel.clipsToBounds = true
-        UIlabel.layer.cornerRadius = UIlabel.font.pointSize * 1.2 / 2
-        UIlabel.backgroundColor = .white//.bostonBlue()
-        UIlabel.textColor = .DarkRed()
-        UIlabel.text = text
-    }
+//    func createBadgeFrom(UIlabel:UILabel, text: String) {
+//        UIlabel.clipsToBounds = true
+//        UIlabel.layer.cornerRadius = UIlabel.font.pointSize * 1.2 / 2
+//        UIlabel.backgroundColor = .white//.bostonBlue()
+//        UIlabel.textColor = .DarkRed()
+//        UIlabel.text = text
+//    }
     func getArchivePatientRecordsCount() -> Int{
         var theCount = 0
         for array in patientRecords {
