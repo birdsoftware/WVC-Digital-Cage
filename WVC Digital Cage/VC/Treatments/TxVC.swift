@@ -183,13 +183,8 @@ class TxVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSour
         let submitAction = UIAlertAction(title: "Update now", style: .default, handler: { (action) -> Void in
             let textViewText = textView.text!
             // Get TextField's text
-            var noteString = ""
-            if textViewText == "" {
-                noteString = "[\(self.todayTF.text!)] " + textViewText
-            } else {
-                noteString = self.notes.text + "\n[\(self.todayTF.text!)] " + textViewText
-            }
-            
+            let noteString = self.notes.text + "[\(self.todayTF.text!)] " + textViewText
+
             //update UI
             self.notes.text = noteString
             
@@ -612,48 +607,48 @@ extension TxVC{
     //
     // #MARK: - custom alerts -> Note
     //
-    func alertGetNote(){
-        // Show Alert, get new vitals[n] text, show [Update] [Cancel] buttons
-        let alert = UIAlertController(title: "Add a note",
-                                      message: "Date: \(todayTF.text!)",
-                                      preferredStyle: .alert)
-        
-        // Submit button
-        let submitAction = UIAlertAction(title: "Update now", style: .default, handler: { (action) -> Void in
-            
-            // Get TextField's text
-            var noteString = ""
-            if self.notes.text == "" {
-                noteString = "[\(self.todayTF.text!)] " + alert.textFields![0].text!
-            } else {
-                noteString = self.notes.text + "\n[\(self.todayTF.text!)] " + alert.textFields![0].text!
-            }
-            
-            //update UI
-            self.notes.text = noteString
-            
-            //save to local storage
-            if alert.textFields![0].text! != "" {
-                self.saveTreatmentAndNotes()
-            }
-
-        })
-        
-        // Cancel button
-        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
-
-        alert.addTextField { (textField: UITextField) in
-            textField.keyboardAppearance = .dark
-            textField.keyboardType = .default
-            textField.autocorrectionType = .default
-            textField.placeholder = "Note"
-            textField.clearButtonMode = .whileEditing
-        }
-
-        alert.addAction(submitAction)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
-    }
+//    func alertGetNote(){
+//        // Show Alert, get new vitals[n] text, show [Update] [Cancel] buttons
+//        let alert = UIAlertController(title: "Add a note",
+//                                      message: "Date: \(todayTF.text!)",
+//                                      preferredStyle: .alert)
+//
+//        // Submit button
+//        let submitAction = UIAlertAction(title: "Update now", style: .default, handler: { (action) -> Void in
+//
+//            // Get TextField's text
+//            var noteString = ""
+//            if self.notes.text.isEmpty == true {
+//                noteString = "[\(self.todayTF.text!)] " + alert.textFields![0].text!
+//            } else {
+//                noteString = self.notes.text + " [\(self.todayTF.text!)] " + alert.textFields![0].text!
+//            }
+//
+//            //update UI
+//            self.notes.text = noteString
+//
+//            //save to local storage
+//            if alert.textFields![0].text! != "" {
+//                self.saveTreatmentAndNotes()
+//            }
+//
+//        })
+//
+//        // Cancel button
+//        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
+//
+//        alert.addTextField { (textField: UITextField) in
+//            textField.keyboardAppearance = .dark
+//            textField.keyboardType = .default
+//            textField.autocorrectionType = .default
+//            textField.placeholder = "Note"
+//            textField.clearButtonMode = .whileEditing
+//        }
+//
+//        alert.addAction(submitAction)
+//        alert.addAction(cancel)
+//        present(alert, animated: true, completion: nil)
+//    }
     //
     // #MARK: - custom alerts -> Treatment
     //
@@ -716,7 +711,7 @@ extension TxVC{
                     textField.keyboardAppearance = .dark
                     textField.keyboardType = .default
                     textField.autocorrectionType = .default
-                    textField.placeholder = "Treatment \(index+1)"
+                    textField.placeholder = "Initials for Treatment \(index+1)"
                     //show previously entered value in alert
                     if selectedTreatment[treatmets[index]]! != "" {textField.text = selectedTreatment[treatmets[index]]!}
                     textField.clearButtonMode = .whileEditing

@@ -477,7 +477,9 @@ extension PatientsVC {
         var numString = ""
         for dict in array{
             if dict["patientID"] == p{
+                if dict["notes"]?.isEmpty == false {
                 num += 1
+                }
             }
         }
         for dict in array2{

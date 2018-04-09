@@ -60,12 +60,29 @@
  */
 
 /*
- incisions 9
+ //incisions
  "patientID": "323",
  "date": "11/08/17 02:49 PM",
  "initials": "B.B. "
 */
- 
+
+//treatmentsAndNotes
+/*
+ "date", "lVT", "patientID",
+ "sex", "age", "shelter",
+ "breed", "dVM", "dX", "notes"
+ */
+
+//collectionTxVitals
+/*
+ [ "date", "temperature", "heartRate", "respirations", "mm/Crt", "diet", "v/D/C/S", "weightKgs", "initials" , "monitorDays", "checkComplete", "patientID", "monitorFrequency", "monitored", "group"]
+ */
+
+//collectionTreatments
+/*
+"treatmentNine, "treatmentTen", "treatmentFour", "date": "04/04/18 PM", "treatmentOne", "monitorDays": "3", "treatmentThree": "", "containsTreatmentLabels": "true", "checkComplete": "true", "patientID": "test2", "monitorFrequency": "daily", "treatmentEight": "", "treatmentSix": "", "monitored": "1", "treatmentFive": "", "treatmentTwo": "", "treatmentSeven": ""]
+ */
+
 import UIKit
 //import UXCam
 
