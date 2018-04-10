@@ -88,7 +88,7 @@ extension addTx {
     //
     func setupUI(){// UPDATE Text Fields and Date Label
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yy a"
+        formatter.dateFormat = "MM/dd/yyyy a"
         let nowString = formatter.string(from: Date())
         dateLabel.text = nowString
         if filteredCollectionTreatments.isEmpty == false {

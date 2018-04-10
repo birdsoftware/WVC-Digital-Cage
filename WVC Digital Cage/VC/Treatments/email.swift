@@ -63,6 +63,7 @@ extension TxVC {
         
         drawTreatmentsAndNotes(patientID:patientID)
         drawTreatmentVitals(patientID:patientID)
+        drawTreatments(patientID:patientID)
         
         UIGraphicsEndPDFContext()
         
@@ -130,24 +131,25 @@ extension TxVC {
                 notesEndLine = 16
                 //Figure out the height for notes
                 let font = UIFont(name: "Helvetica", size: 16.0)
-                let width = dictionary[item]!.size(OfFont: font!).width // size: {w: 98.912 h: 14.32}
-                let numLines = width/460
-                let numWholeLines = Double(numLines.rounded(.up)) * 16.32
-                print("numWholeLines: \(numWholeLines)")
-                textRecWidth = 460; textRecHeight = Int(numWholeLines.rounded(.up))//130
+                let notesTotalLength = dictionary[item]!.size(OfFont: font!).width // size: {w: 98.912 h: 14.32}
+                let numberRows = notesTotalLength/460
+                let totalRowsHeight = Double(numberRows.rounded(.up)) * 16.32
+                let totalRowsHeightInteger = Int(totalRowsHeight.rounded(.up))
+                textRecWidth = 460;
+                textRecHeight = totalRowsHeightInteger
+                print("textRecHeight: \(textRecHeight)")
             }
             newTotalX += 170
             
-            title = CGRect(x: newTotalX, y: newTotalY, width: textRecWidth, height: 40)
-            value = CGRect(x: newTotalX+titleWidth, y: newTotalY+notesEndLine, width: textRecWidth+90, height: 40)
+            title = CGRect(x: newTotalX, y: newTotalY, width: textRecWidth, height: alignment.line.height)
+            value = CGRect(x: newTotalX+titleWidth, y: newTotalY+notesEndLine, width: textRecWidth+90, height: textRecHeight)
             
             uppercased.draw(in: title, withAttributes: returnTitleAttributes())
             dictionary[item]?.draw(in: value, withAttributes: returnTextAttributes())
         }
-        print("x: \(newTotalX)")//240+100
         
         //UPDATE PDF META DATA
-        updatePage(lastUseHeight: textRecHeight+200+20+notesEndLine, lastUseWidth: 0, pageCount: 1, textRecWidth: 100)
+        updatePage(lastUseHeight: textRecHeight+200+20+notesEndLine, hasTreatmentVital: false, pageCount: 1, textRecWidth: 100)
     }
     func stringWidth(item: String) -> Int{
         let string = item//"hello world!"
@@ -157,14 +159,17 @@ extension TxVC {
     }
      // 5. REPEATING Treatment Vitals
     func drawTreatmentVitals(patientID:String){
+        var hasTreatmentVital = false
         let array = UserDefaults.standard.object(forKey: "collectionTxVitals") as? Array<Dictionary<String,String>> ?? []
         let pdfMeta = returnPageDictionary()
         
         //GET PDF META DATA
         let textRecWidth:Int = 110
-        let textRecHeight:Int = alignment.line.height
-        var newTotalY = pdfMeta["lastUseHeight"]!
+        //let textRecHeight:Int = alignment.line.height
+        var pageCount = pdfMeta["pageCount"]! as! Int
+        var newTotalY = pdfMeta["lastUseHeight"]! as! Int
         if newTotalY < 310 {newTotalY = 310} //need to be below photo
+        print("newTotalY: \(newTotalY)")
         
         var newTotalX = alignment.margin.left
         var titleWidth = 60
@@ -172,9 +177,10 @@ extension TxVC {
         var title = CGRect()
         var value = CGRect()
         if arrayContains(array:array, value:patientID) {//check if patient has Treatment Vital
+            
             for column in array{
                 if column["patientID"] == patientID {
-                    
+                    hasTreatmentVital = true
                     //new column cariage return
                     if newTotalX >= alignment.margin.right {
                         newTotalX = alignment.margin.left
@@ -183,6 +189,7 @@ extension TxVC {
                     
                     //new page
                     if newTotalY >= 1100-alignment.columnHeight.vitalColumnHeight {
+                        pageCount += 1
                         //Start new page
                         UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
                         newTotalX = alignment.margin.left
@@ -195,8 +202,8 @@ extension TxVC {
                         
                         titleWidth = stringWidth(item: item)
                         
-                        title = CGRect(x: newTotalX, y: newTotalY, width: textRecWidth, height: textRecHeight)
-                        value = CGRect(x: newTotalX+titleWidth, y: newTotalY, width: textRecWidth+90, height: textRecHeight)
+                        title = CGRect(x: newTotalX, y: newTotalY, width: textRecWidth, height: alignment.line.height)
+                        value = CGRect(x: newTotalX+titleWidth, y: newTotalY, width: textRecWidth+90, height: alignment.line.height)
                         
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())
                         column[item]?.draw(in: value, withAttributes: returnTextAttributes())
@@ -208,35 +215,50 @@ extension TxVC {
                 }
             }
         }
+        else {
+            // no treatment vitals
+           hasTreatmentVital = false
+        }
+        //UPDATE PDF META DATA
+        updatePage(lastUseHeight: newTotalY, hasTreatmentVital: hasTreatmentVital, pageCount: pageCount, textRecWidth: 100)
+        print("pageCount: \(pageCount)")
     }
+    
     // 6. REPEATING Treatments
     func drawTreatments(patientID:String){
         let array = UserDefaults.standard.object(forKey: "collectionTreatments") as? Array<Dictionary<String,String>> ?? []
         let pdfMeta = returnPageDictionary()
         
         //GET PDF META DATA
-        let textRecWidth:Int = 110
-        let textRecHeight:Int = alignment.line.height
-        var newTotalY = pdfMeta["lastUseHeight"]!
-        if newTotalY < 310 {newTotalY = 310} //need to be below photo
-        
+        let textRecWidth:Int = 140
+        let hasTreatmentVital:Bool = pdfMeta["hasTreatmentVital"]! as! Bool
+        var pageCount = pdfMeta["pageCount"]! as! Int
+        var newTotalY = pdfMeta["lastUseHeight"]! as! Int
+        if hasTreatmentVital == true {
+            newTotalY +=  alignment.columnHeight.vitalColumnHeight //if 5. exists above
+        }
+        print("newTotalY: \(newTotalY)")
         var newTotalX = alignment.margin.left
-        var titleWidth = 60
-        let titles = [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive", "treatmentSix", "treatmentSeven", "treatmentEight", "treatmentNine", "treatmentTen", "patientID", "monitorFrequency", "monitored", "group"]
+        var titleWidth = 100
+    
+        let titles = getTitles(patientID: patientID, array: array)
+        let treatmentColumnHeight = titles.count * 31 + 31 //31 date, 62{1} 93{2} 124{3} 155 185 216 247 278 309 340
+        
         var title = CGRect()
         var value = CGRect()
         if arrayContains(array:array, value:patientID) {//check if patient has Treatment Vital
             for column in array{
                 if column["patientID"] == patientID {
                     
-                    //new column cariage return
+                    // cariage return new column
                     if newTotalX >= alignment.margin.right {
                         newTotalX = alignment.margin.left
-                        newTotalY += alignment.columnHeight.vitalColumnHeight
+                        newTotalY += treatmentColumnHeight//alignment.columnHeight.treatmentColumnHeight
                     }
                     
                     //new page
-                    if newTotalY >= 1100-alignment.columnHeight.vitalColumnHeight {
+                    if newTotalY >= 1100-treatmentColumnHeight { //alignment.columnHeight.treatmentColumnHeight {
+                        pageCount += 1
                         //Start new page
                         UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1100), nil)
                         newTotalX = alignment.margin.left
@@ -249,8 +271,8 @@ extension TxVC {
                         
                         titleWidth = stringWidth(item: item)
                         
-                        title = CGRect(x: newTotalX, y: newTotalY, width: textRecWidth, height: textRecHeight)
-                        value = CGRect(x: newTotalX+titleWidth, y: newTotalY, width: textRecWidth+90, height: textRecHeight)
+                        title = CGRect(x: newTotalX, y: newTotalY, width: textRecWidth, height: alignment.line.height)
+                        value = CGRect(x: newTotalX+titleWidth, y: newTotalY, width: textRecWidth+130, height: alignment.line.height)
                         
                         uppercased.draw(in: title, withAttributes: returnTitleAttributes())
                         column[item]?.draw(in: value, withAttributes: returnTextAttributes())
@@ -258,12 +280,46 @@ extension TxVC {
                     }
                     newTotalY -= (titles.count*30)//go back to top of vital block "Date" y location or height
                     
-                    newTotalX += alignment.columnWidth.txVitalColumnWidth
+                    newTotalX += alignment.columnWidth.treatmentWidth //this should be based on the width of longest treatment
                 }
             }
         }
+        print("pageCount: \(pageCount)")
     }
-    
+    func getTitles(patientID: String, array: Array<Dictionary<String,String>>) -> [String]{
+        //let treatmentType = ["1","2","3","4","5","6","7","8","9","T"]
+        for column in array{
+            if column["patientID"] == patientID {
+                return returnTitlesBasedOnMonitorList(monitoredString: column["monitored"]!)
+            }
+        }
+        return [ "date" ]
+    }
+   func returnTitlesBasedOnMonitorList(monitoredString: String) -> [String]{
+        if monitoredString.range(of:"T") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive", "treatmentSix", "treatmentSeven", "treatmentEight", "treatmentNine", "treatmentTen"]
+        } else if monitoredString.range(of:"9") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive", "treatmentSix", "treatmentSeven", "treatmentEight", "treatmentNine"]
+        } else if monitoredString.range(of:"8") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive", "treatmentSix", "treatmentSeven", "treatmentEight"]
+        } else if monitoredString.range(of:"7") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive", "treatmentSix", "treatmentSeven"]
+        } else if monitoredString.range(of:"6") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive", "treatmentSix"]
+        } else if monitoredString.range(of:"5") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour", "treatmentFive"]
+        } else if monitoredString.range(of:"4") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree", "treatmentFour"]
+        } else if monitoredString.range(of:"3") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo", "treatmentThree"]
+        } else if monitoredString.range(of:"2") != nil {
+            return [ "date", "treatmentOne", "treatmentTwo"]
+        } else if monitoredString.range(of:"1") != nil {
+            return [ "date", "treatmentOne"]
+        }
+        
+        else { return [ "date" ] }
+    }
 }//end extension
 
 extension TxVC {

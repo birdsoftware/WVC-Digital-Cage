@@ -25,21 +25,23 @@ struct alignment {
     }
     struct columnWidth {
         static let txVitalColumnWidth = 160
+        static let treatmentWidth = 320
     }
     struct columnHeight {
         static let vitalColumnHeight = 300
+        //static let treatmentColumnHeight = 340
     }
 }
 
 extension UIViewController {
-    func updatePage(lastUseHeight: Int, lastUseWidth: Int, pageCount: Int, textRecWidth: Int){
-        let dictionary = ["lastUseHeight": lastUseHeight, "lastUseWidth":lastUseWidth, "pageCount":pageCount, "textRecWidth":textRecWidth]
+    func updatePage(lastUseHeight: Int, hasTreatmentVital: Bool, pageCount: Int, textRecWidth: Int){
+        let dictionary = ["lastUseHeight": lastUseHeight, "hasTreatmentVital":hasTreatmentVital, "pageCount":pageCount, "textRecWidth":textRecWidth] as [String : Any]
 
         UserDefaults.standard.set(dictionary, forKey: "pdfData")
         UserDefaults.standard.synchronize()
     }
-    func returnPageDictionary() -> [String : Int]{
-        let pdfData = UserDefaults.standard.object(forKey: "pdfData") as? Dictionary<String,Int> ?? [:]
+    func returnPageDictionary() -> [String : Any]{
+        let pdfData = UserDefaults.standard.object(forKey: "pdfData") as? Dictionary<String,Any> ?? [:]
         return pdfData
     }
 }
