@@ -48,6 +48,8 @@
 		584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */; };
 		584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584009E51FA0E21C009E56BE /* Dictionaries.swift */; };
 		5841C62850E3FA84D345A129 /* Pods_WVC_Digital_Cage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BF4A9E64F9F8368B74B012 /* Pods_WVC_Digital_Cage.framework */; };
+		5843931F208A70FA00FFEC11 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843931E208A70FA00FFEC11 /* CustomAlertView.swift */; };
+		58439321208A7FD600FFEC11 /* CustomAlertViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58439320208A7FD600FFEC11 /* CustomAlertViewDelegate.swift */; };
 		587A0789202E441E00F0D094 /* DELETE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A0788202E441E00F0D094 /* DELETE.swift */; };
 		587F2B0E20753F3300B1DD6A /* PDFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587F2B0D20753F3300B1DD6A /* PDFData.swift */; };
 		58882DB62061C6B90050F983 /* activityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58882DB52061C6B90050F983 /* activityIndicator.swift */; };
@@ -150,6 +152,8 @@
 		583CCD2D1FB12C6000F03DF1 /* Injuries.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Injuries.storyboard; sourceTree = "<group>"; };
 		584009E31F9F9BA3009E56BE /* PatientDemographicsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDemographicsVC.swift; sourceTree = "<group>"; };
 		584009E51FA0E21C009E56BE /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
+		5843931E208A70FA00FFEC11 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		58439320208A7FD600FFEC11 /* CustomAlertViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewDelegate.swift; sourceTree = "<group>"; };
 		587A0788202E441E00F0D094 /* DELETE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETE.swift; sourceTree = "<group>"; };
 		587F2B0D20753F3300B1DD6A /* PDFData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFData.swift; sourceTree = "<group>"; };
 		58882DB52061C6B90050F983 /* activityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = activityIndicator.swift; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 				58D920901FACCE4D00713C72 /* AMPMVC.swift */,
 				58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */,
 				583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */,
+				5843931E208A70FA00FFEC11 /* CustomAlertView.swift */,
+				58439320208A7FD600FFEC11 /* CustomAlertViewDelegate.swift */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 				58D3AE081FB663A10036E0E0 /* InjuriesVC.swift */,
 				58C201EF1FBCAEF6005529DF /* MapVC.swift */,
@@ -617,10 +623,12 @@
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */,
 				58053DA6201BF87F00DACE9D /* POSTPatient.swift in Sources */,
+				58439321208A7FD600FFEC11 /* CustomAlertViewDelegate.swift in Sources */,
 				582836971F914840003F18FE /* SimpleAlert.swift in Sources */,
 				58D920951FACD6C000713C72 /* IntExtension.swift in Sources */,
 				58C9B3411FA7896B006DE233 /* StringExtensions.swift in Sources */,
 				582836A61F914FDF003F18FE /* NotificationsVC.swift in Sources */,
+				5843931F208A70FA00FFEC11 /* CustomAlertView.swift in Sources */,
 				584009E41F9F9BA3009E56BE /* PatientDemographicsVC.swift in Sources */,
 				587F2B0E20753F3300B1DD6A /* PDFData.swift in Sources */,
 				58C201F01FBCAEF6005529DF /* MapVC.swift in Sources */,

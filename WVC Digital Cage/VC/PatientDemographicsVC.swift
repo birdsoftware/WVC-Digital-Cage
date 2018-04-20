@@ -10,6 +10,9 @@ import UIKit
 
 class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate  {
 
+    //buttons
+    @IBOutlet weak var ageButton: UIButton! //-> Custom Alert
+    
     //pickers
     @IBOutlet weak var ownerPicker: UIPickerView!
     @IBOutlet weak var kennelPicker: UIPickerView!
@@ -62,6 +65,20 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
                                                name: NSNotification.Name(rawValue: "showDemographics"),
                                                object: nil)
     }
+    
+    //
+    // Button / Switch Actions
+    //
+    @IBAction func ageAction(_ sender: Any) {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertID") as! CustomAlertView
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
     @IBAction func sexSwitchAction(_ sender: Any) {
         saveDemographics()
     }
@@ -79,13 +96,7 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func feedTypeAction(_ sender: Any) {
         saveBadgeToDefaults(); updateBadgeUI()
     }
-//    func toggleCheckBox( isChecked: inout Bool, checkButton: UIButton){
-//        if (isChecked) {
-//            checkButton.setImage(UIImage.init(named: "box"), for: .normal)
-//        } else {
-//            checkButton.setImage(UIImage.init(named: "boxCheck"), for: .normal) }
-//        isChecked = !isChecked
-//    }
+
     func updateBadgeUI(){
         //REFRESH BADGE IN PATIENTS VIEW
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshBadge"), object: nil)
@@ -427,6 +438,25 @@ extension PatientDemographicsVC {
             return true;
         }
         return false
+    }
+}
+
+extension PatientDemographicsVC: CustomAlertViewDelegate {
+    // #MARK: - Setup Custom Alert View
+    func okButtonTapped(selectedOption: String, textFieldValue: String) {
+        //print("ok Button Tapped with \(selectedOption) option selected")
+        //print("TextField has value: \(textFieldValue)")
+        ageTF.text = selectedOption
+        saveDemographics()
+    }
+    func cancelButtonTapped() {
+        print("cancel Button Tapped")
+    }
+    func setTitle() -> String{
+        return "Age"
+    }
+    func setMessage() -> String{
+        return "Choose age in years and months"
     }
 }
 
