@@ -940,8 +940,8 @@ extension PatientsVC{
                 demDict = dems[index]
             }
             for item in demDict {
-                if item.value == "false" { demDict[item.key] = "male" }
-                if item.value == "true" { demDict[item.key] = "female" }
+                if item.value == "false" { demDict[item.key] = "Male" }
+                if item.value == "true" { demDict[item.key] = "Female" }
             }
             /*let xCol1 = 50*/ let xCol2 = 270 /*let xCol3 = 550*/ //850 by 1100 page
             var newTotalY = 100+300

@@ -176,10 +176,13 @@ extension AMPMVC {
     func updateTextField(isChecked: Bool, value: String){
         let textFieldString = vdcsTF.text
         let slashValue = "/" + value
+        
         if isChecked == false {//add Value
-            if textFieldString == "" {
+            if textFieldString == "" || textFieldString == "na" {
                 vdcsTF.text = value
-            } else { vdcsTF.text = textFieldString! + slashValue }
+            } else {
+                vdcsTF.text = textFieldString! + slashValue
+            }
         } else if isChecked {//remove Value
             let replacedValue = textFieldString?.replacingOccurrences(of: slashValue, with: "")
             var replacedSlashValue = replacedValue?.replacingOccurrences(of: value, with: "")
@@ -190,8 +193,8 @@ extension AMPMVC {
                     replacedSlashValue = String(describing: noFirstSlash!)
                 }
             }
-            if textFieldString == "" {
-                vdcsTF.text = ""
+            if textFieldString == "" || replacedSlashValue! == ""{
+                vdcsTF.text = "na"//does nothing
             } else { vdcsTF.text = replacedSlashValue! }
         }
     }
@@ -319,7 +322,7 @@ extension AMPMVC {
         fecesTF.text = ""
         urineTF.text = ""
         appetiteTF.text = ""
-        vdcsTF.text = ""
+        vdcsTF.text = "na"
         initialsTF.text = ""
         setupUI()
         resetAMPM()

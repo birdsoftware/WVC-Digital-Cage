@@ -11,8 +11,8 @@ import UIKit
 class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate  {
 
     //buttons
-    @IBOutlet weak var ageButton: UIButton! //-> Custom Alert
-    
+    //@IBOutlet weak var ageButton: UIButton!   // Custom Alert
+    //@IBOutlet weak var breedButton: UIButton! // Custom Alert
     //pickers
     @IBOutlet weak var ownerPicker: UIPickerView!
     @IBOutlet weak var kennelPicker: UIPickerView!
@@ -28,8 +28,10 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var ageTF: UITextField!
     @IBOutlet weak var patientIDTF: UITextField!
     @IBOutlet weak var breedTF: UITextField!
-    //switches
-    @IBOutlet weak var switchSex: UISwitch!
+    @IBOutlet weak var sexTF: UITextField!
+    //switch
+    //@IBOutlet weak var switchSex: UISwitch!
+    
     @IBOutlet weak var npo: UIButton!
     @IBOutlet weak var cation: UIButton!
     @IBOutlet weak var feed: UISegmentedControl!
@@ -78,10 +80,28 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
     }
-    
-    @IBAction func sexSwitchAction(_ sender: Any) {
-        saveDemographics()
+    @IBAction func breedAction(_ sender: Any) {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "CustomBreedAlertID") as! CustomAlertBreedView
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
     }
+    @IBAction func sexAction(_ sender: Any) {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "CustomSexAlertID") as! CustomAlertSexView
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
+//    @IBAction func sexSwitchAction(_ sender: Any) {
+//        saveDemographics()
+//    }
     @IBAction func npoAction(_ sender: Any) {
         toggleCheckBox(isChecked: &toggleNPO, checkButton: npo)
         saveBadgeToDefaults(); updateBadgeUI()
@@ -293,25 +313,31 @@ extension PatientDemographicsVC {
         found = false
         for patient in myDemographics {
             if patient["patientID"] == selectedPatientID {
-                moveSwitchState(switchName: switchSex, isTrue: patient["sex"]!)
+                //moveSwitchState(switchName: switchSex, isTrue: patient["sex"]!)
+                sexTF.text = patient["sex"]
+                
+                if patient["sex"] == "false" { sexTF.text = "Male" }
+                if patient["sex"] == "true" { sexTF.text = "Female" }
+                
                 ageTF.text = patient["age"]
                 breedTF.text = patient["breed"]
                 found = true
             }
         }
         if found == false{
-            moveSwitchState(switchName: switchSex, isTrue: "false")
+            //moveSwitchState(switchName: switchSex, isTrue: "false")
+            sexTF.text = ""
             ageTF.text = ""
             breedTF.text = ""
         }
     }
-    func moveSwitchState(switchName: UISwitch, isTrue:String){//sex? Male Female
-        if isTrue == "true" || isTrue == "Archive"{
-            switchName.setOn(true, animated: false)
-        } else {
-            switchName.setOn(false, animated: false)
-        }
-    }
+//    func moveSwitchState(switchName: UISwitch, isTrue:String){//sex? Male Female
+//        if isTrue == "true" || isTrue == "Archive"{
+//            switchName.setOn(true, animated: false)
+//        } else {
+//            switchName.setOn(false, animated: false)
+//        }
+//    }
 }
 extension PatientDemographicsVC {
     //make changes to owner and kennel#
@@ -378,7 +404,7 @@ extension PatientDemographicsVC {
                 "patientID":pid,
                 "age":ageTF.text!,
                 "breed":breedTF.text!,
-                "sex":String(switchSex.isOn)//true = Male
+                "sex":sexTF.text!//String(switchSex.isOn)//true = Male
         ]
     }
     func saveDemographics(){
@@ -460,3 +486,30 @@ extension PatientDemographicsVC: CustomAlertViewDelegate {
     }
 }
 
+extension PatientDemographicsVC: CustomAlertViewDelegateBreed {
+    // #MARK: - Setup Custom Alert View
+    func okButtonTappedBreed(selectedOption: String, textFieldValue: String) {
+        //print("ok Button Tapped with \(selectedOption) option selected")
+        //print("TextField has value: \(textFieldValue)")
+        breedTF.text = selectedOption
+        saveDemographics()
+        print("selectedOption \(selectedOption)")
+    }
+    func cancelButtonTappedBreed() {
+        print("cancel Button Tapped")
+    }
+}
+
+extension PatientDemographicsVC: CustomAlertViewDelegateSex {
+    // #MARK: - Setup Custom Alert View
+    func okButtonTappedSex(selectedOption: String, textFieldValue: String) {
+        //print("ok Button Tapped with \(selectedOption) option selected")
+        //print("TextField has value: \(textFieldValue)")
+        sexTF.text = selectedOption
+        saveDemographics()
+        print("selectedOption \(selectedOption)")
+    }
+    func cancelButtonTappedSex() {
+        print("cancel Button Tapped")
+    }
+}
