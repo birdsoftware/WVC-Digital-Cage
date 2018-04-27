@@ -67,3 +67,17 @@ class syncTableView: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var message: UILabel!
 }
+
+class cloudTableView: UITableViewCell {
+    //cloudCell
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var photo: UIImageView!
+    @IBOutlet weak var kennelId: UILabel!
+    @IBOutlet weak var speciesGroup: UILabel!
+    @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var owner: UILabel!
+    @IBOutlet weak var intakeDate: UILabel!
+    @IBOutlet weak var count: UILabel!
+}
+
+

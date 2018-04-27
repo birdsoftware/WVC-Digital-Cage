@@ -55,6 +55,9 @@
 		5843932920923BFB00FFEC11 /* CustomAlertViewDelegateBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843932820923BFB00FFEC11 /* CustomAlertViewDelegateBreed.swift */; };
 		5843932B20926CF900FFEC11 /* CustomAlertSex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843932A20926CF900FFEC11 /* CustomAlertSex.swift */; };
 		5843932D2092718500FFEC11 /* CustomAlertViewDelegateSex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843932C2092718500FFEC11 /* CustomAlertViewDelegateSex.swift */; };
+		5843933020928CAA00FFEC11 /* CloudVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843932F20928CAA00FFEC11 /* CloudVC.swift */; };
+		58439332209297FD00FFEC11 /* GETPatientCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58439331209297FD00FFEC11 /* GETPatientCount.swift */; };
+		584393342092A1F700FFEC11 /* GETPatients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584393332092A1F700FFEC11 /* GETPatients.swift */; };
 		587A0789202E441E00F0D094 /* DELETE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A0788202E441E00F0D094 /* DELETE.swift */; };
 		587F2B0E20753F3300B1DD6A /* PDFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587F2B0D20753F3300B1DD6A /* PDFData.swift */; };
 		58882DB62061C6B90050F983 /* activityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58882DB52061C6B90050F983 /* activityIndicator.swift */; };
@@ -164,6 +167,9 @@
 		5843932820923BFB00FFEC11 /* CustomAlertViewDelegateBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewDelegateBreed.swift; sourceTree = "<group>"; };
 		5843932A20926CF900FFEC11 /* CustomAlertSex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertSex.swift; sourceTree = "<group>"; };
 		5843932C2092718500FFEC11 /* CustomAlertViewDelegateSex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewDelegateSex.swift; sourceTree = "<group>"; };
+		5843932F20928CAA00FFEC11 /* CloudVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudVC.swift; sourceTree = "<group>"; };
+		58439331209297FD00FFEC11 /* GETPatientCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETPatientCount.swift; sourceTree = "<group>"; };
+		584393332092A1F700FFEC11 /* GETPatients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETPatients.swift; sourceTree = "<group>"; };
 		587A0788202E441E00F0D094 /* DELETE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETE.swift; sourceTree = "<group>"; };
 		587F2B0D20753F3300B1DD6A /* PDFData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFData.swift; sourceTree = "<group>"; };
 		58882DB52061C6B90050F983 /* activityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = activityIndicator.swift; sourceTree = "<group>"; };
@@ -239,6 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				58053DA1201BD7B400DACE9D /* GETPatient.swift */,
+				584393332092A1F700FFEC11 /* GETPatients.swift */,
+				58439331209297FD00FFEC11 /* GETPatientCount.swift */,
 				58AA457A202235430069E58D /* GETPatientIntake.swift */,
 				58053DA9201FB0EB00DACE9D /* reachableDB.swift */,
 				58053DA5201BF87F00DACE9D /* POSTPatient.swift */,
@@ -351,6 +359,7 @@
 				58D920901FACCE4D00713C72 /* AMPMVC.swift */,
 				58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */,
 				583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */,
+				5843932F20928CAA00FFEC11 /* CloudVC.swift */,
 				5843932E2092723300FFEC11 /* Alerts Demographics */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 				58D3AE081FB663A10036E0E0 /* InjuriesVC.swift */,
@@ -638,6 +647,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58D3AE091FB663A10036E0E0 /* InjuriesVC.swift in Sources */,
+				58439332209297FD00FFEC11 /* GETPatientCount.swift in Sources */,
 				58A82B932076D5E400E4B958 /* Badge.swift in Sources */,
 				58053DA8201FAEA800DACE9D /* toggle.swift in Sources */,
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
@@ -672,6 +682,7 @@
 				58AA457B202235430069E58D /* GETPatientIntake.swift in Sources */,
 				582836A41F914FC9003F18FE /* PatientsVC.swift in Sources */,
 				58BB5165206D88ED0003AEFC /* textViewAlert.swift in Sources */,
+				584393342092A1F700FFEC11 /* GETPatients.swift in Sources */,
 				5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */,
 				58D920911FACCE4D00713C72 /* AMPMVC.swift in Sources */,
 				58053D9F201BBDD300DACE9D /* SyncVC.swift in Sources */,
@@ -681,6 +692,7 @@
 				582836981F914840003F18FE /* Date.swift in Sources */,
 				582836951F914840003F18FE /* Rounded.swift in Sources */,
 				582836941F914840003F18FE /* HexColor.swift in Sources */,
+				5843933020928CAA00FFEC11 /* CloudVC.swift in Sources */,
 				58FE3C2C1FEB1EE2005F7219 /* addTxVital.swift in Sources */,
 				580FCADC1FBA1130007D6414 /* Camera.swift in Sources */,
 				582836A81F914FED003F18FE /* HistoryVC.swift in Sources */,

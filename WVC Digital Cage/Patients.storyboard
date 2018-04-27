@@ -26,6 +26,14 @@
             </objects>
             <point key="canvasLocation" x="540" y="-254"/>
         </scene>
+        <!--cloudDB-->
+        <scene sceneID="Pcw-iR-DcU">
+            <objects>
+                <viewControllerPlaceholder storyboardName="cloud" referencedIdentifier="cloudDB" id="HI3-Wb-hvx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fpo-9d-mOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-241" y="-198"/>
+        </scene>
         <!--PatientsVC-->
         <scene sceneID="ujy-Wb-G46">
             <objects>
@@ -428,6 +436,9 @@
                                         </constraints>
                                         <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="cloudSearch"/>
+                                        <connections>
+                                            <segue destination="HI3-Wb-hvx" kind="presentation" animates="NO" id="ox9-aP-yjQ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

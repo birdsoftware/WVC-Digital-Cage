@@ -11,7 +11,7 @@
 //  CarePointe
 //
 //  Created by Brian Bird on 5/3/17.
-//  Copyright © 2017 Mogul Pro Media. All rights reserved.
+//  Copyright © 2017 BMB. All rights reserved.
 //
 
 import Foundation
