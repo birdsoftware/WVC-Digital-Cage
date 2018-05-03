@@ -30,7 +30,7 @@
                                         <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="back"/>
                                         <connections>
-                                            <segue destination="Roc-PF-Olt" kind="presentation" animates="NO" id="CHm-hx-hTm"/>
+                                            <segue destination="Roc-PF-Olt" kind="presentation" identifier="" animates="NO" id="CHm-hx-hTm"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloud Patient Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfa-Ua-E4f">
@@ -260,8 +260,26 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1t-3g-4HA">
-                                <rect key="frame" x="491" y="97" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r1t-3g-4HA">
+                                <rect key="frame" x="510" y="97" width="4.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8U-Lh-h5N">
+                                <rect key="frame" x="959" y="84.5" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Hlf-6H-QXp"/>
+                                    <constraint firstAttribute="height" constant="45" id="sz4-31-0D2"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0078431372550000003" green="0.63529411759999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="cloudGet"/>
+                                <connections>
+                                    <action selector="downloadAction:" destination="XrU-vY-3iz" eventType="touchUpInside" id="SDt-6r-NC0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWH-Fu-Vyo">
+                                <rect key="frame" x="590" y="97.5" width="349" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -271,14 +289,19 @@
                         <constraints>
                             <constraint firstItem="oBe-WH-ciQ" firstAttribute="leading" secondItem="ZZz-lh-5sL" secondAttribute="leading" constant="20" id="2sT-eh-uZd"/>
                             <constraint firstItem="oBe-WH-ciQ" firstAttribute="top" secondItem="CQ6-NL-TJu" secondAttribute="bottom" id="5ih-qJ-qie"/>
+                            <constraint firstItem="lWH-Fu-Vyo" firstAttribute="leading" secondItem="oBe-WH-ciQ" secondAttribute="trailing" constant="200" id="9xI-kA-PuQ"/>
                             <constraint firstAttribute="trailing" secondItem="CQ6-NL-TJu" secondAttribute="trailing" id="COV-4E-iHn"/>
+                            <constraint firstItem="lWH-Fu-Vyo" firstAttribute="centerY" secondItem="oBe-WH-ciQ" secondAttribute="centerY" id="DK6-fR-hLH"/>
+                            <constraint firstItem="ZZz-lh-5sL" firstAttribute="trailing" secondItem="p8U-Lh-h5N" secondAttribute="trailing" constant="20" id="DKW-z9-GPJ"/>
                             <constraint firstItem="ZZz-lh-5sL" firstAttribute="trailing" secondItem="l4W-qy-mNZ" secondAttribute="trailing" constant="20" id="Hsb-ks-Ij0"/>
                             <constraint firstItem="l4W-qy-mNZ" firstAttribute="leading" secondItem="ZZz-lh-5sL" secondAttribute="leading" constant="20" id="WOd-Wo-Qgd"/>
                             <constraint firstItem="r1t-3g-4HA" firstAttribute="centerX" secondItem="k4x-Uo-LBM" secondAttribute="centerX" id="Ygd-zd-y7h"/>
                             <constraint firstItem="r1t-3g-4HA" firstAttribute="centerY" secondItem="oBe-WH-ciQ" secondAttribute="centerY" id="btW-yb-1I0"/>
                             <constraint firstItem="l4W-qy-mNZ" firstAttribute="top" secondItem="oBe-WH-ciQ" secondAttribute="bottom" id="cdV-md-9kG"/>
                             <constraint firstItem="ZZz-lh-5sL" firstAttribute="bottom" secondItem="l4W-qy-mNZ" secondAttribute="bottom" id="dwI-xK-9ZU"/>
+                            <constraint firstItem="p8U-Lh-h5N" firstAttribute="centerY" secondItem="oBe-WH-ciQ" secondAttribute="centerY" id="e9b-FB-I99"/>
                             <constraint firstItem="CQ6-NL-TJu" firstAttribute="leading" secondItem="k4x-Uo-LBM" secondAttribute="leading" id="f2l-PA-HwK"/>
+                            <constraint firstItem="p8U-Lh-h5N" firstAttribute="leading" secondItem="lWH-Fu-Vyo" secondAttribute="trailing" constant="20" id="fya-BV-fFu"/>
                             <constraint firstItem="CQ6-NL-TJu" firstAttribute="top" secondItem="ZZz-lh-5sL" secondAttribute="top" id="ljW-8N-CnE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZZz-lh-5sL"/>
@@ -286,13 +309,15 @@
                     <connections>
                         <outlet property="cloudCount" destination="Sfa-Ua-E4f" id="jba-c4-Eot"/>
                         <outlet property="cloudPatientsTable" destination="l4W-qy-mNZ" id="c9S-DE-miy"/>
+                        <outlet property="marqueeLabel" destination="lWH-Fu-Vyo" id="otp-JF-3L8"/>
                         <outlet property="search" destination="oBe-WH-ciQ" id="AaK-Bo-DHs"/>
                         <outlet property="searchFilterResultLabel" destination="r1t-3g-4HA" id="7pb-Wq-seY"/>
+                        <segue destination="wf0-7R-Nho" kind="presentation" identifier="segueCloudToPatientDB" id="x1v-AR-zd3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTY-GQ-8YO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104.296875" y="131.25"/>
+            <point key="canvasLocation" x="108.984375" y="100"/>
         </scene>
         <!--patientsDB-->
         <scene sceneID="t9H-k5-bwc">
@@ -300,11 +325,20 @@
                 <viewControllerPlaceholder storyboardName="Patients" referencedIdentifier="patientsDB" id="Roc-PF-Olt" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5dD-B9-nUi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="557" y="-137"/>
+            <point key="canvasLocation" x="507" y="-171"/>
+        </scene>
+        <!--patientsDB-->
+        <scene sceneID="blO-0N-XqQ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Patients" referencedIdentifier="patientsDB" id="wf0-7R-Nho" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j5T-Wy-svl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="507" y="-112"/>
         </scene>
     </scenes>
     <resources>
         <image name="back" width="64" height="64"/>
+        <image name="cloudGet" width="64" height="64"/>
         <image name="dog circle" width="80" height="80"/>
     </resources>
 </document>

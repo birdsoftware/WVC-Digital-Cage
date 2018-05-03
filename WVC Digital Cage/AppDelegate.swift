@@ -68,6 +68,9 @@ extension UIColor {
     static func seaBuckthorn() -> UIColor {//WVC Other
         return UIColor(hex:0xFCAB29)
     }
+    static func seaBuckthornLightTint() -> UIColor {//WVC Saved
+        return UIColor(hex:0xfadec6)
+    }
     //blues
     static func backButtonBlue() -> UIColor {//blue in title
         return UIColor(hex:0x007AFF)

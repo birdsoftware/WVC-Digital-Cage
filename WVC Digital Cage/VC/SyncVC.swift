@@ -53,8 +53,6 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var lastItemPopedOnStack = String()
     
-    
-    
     var stackOfStrings = Stack<[String]>()
     
     override func viewDidLoad() {
@@ -102,16 +100,19 @@ class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         moreLessBool.toggle()
     }
+    
     @IBAction func startSyncAction(_ sender: Any) {
         groupItemDetails.text = ""
         moreLessButton.isHidden = true
         checkDatabaseConnection()
         processStack()
         
-        // In order to show the activity indicator, call the function from your view controller
+        // SHOW ACTIVITY INDICATOR, call the function from your view controller
         ViewControllerUtils().showActivityIndicator(uiView: self.view)
-        // In order to hide the activity indicator, call the function from your view controller
-        // ViewControllerUtils().hideActivityIndicator(self.view)
+        
+        // HIDE ACTIVITY INDICATOR, call the function from your view controller
+        // ViewControllerUtils().hideActivityIndicator(uiView: self.view)
+        // self.view.viewWithTag(1)?.removeFromSuperview()
         
         //---
         // TESTING Single API
@@ -598,7 +599,7 @@ extension SyncVC {
         }
     }
     func hideActivityIndicator(){
-        // In order to hide the activity indicator, call the function from your view controller
+        // HIDE ACTIVITY INDICATOR, call the function from your view controller
         ViewControllerUtils().hideActivityIndicator(uiView: self.view)
         self.view.viewWithTag(1)?.removeFromSuperview()
     }

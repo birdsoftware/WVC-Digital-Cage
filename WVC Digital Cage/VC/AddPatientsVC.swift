@@ -49,19 +49,8 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         patientIDTF.delegate = self
         ownerTF.delegate = self
         kennelTF.delegate = self
-        //get local patientID
-        //let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-//        if patientRecords.isEmpty == false
-//        {
-//            let patient = patientRecords.last
-//            let lastPatientID = patient!["patientID"]!
-//          print("lastPatientID: \(lastPatientID)")
-//            let incrementalPID = Int(lastPatientID)!+1
-//            patientIDTF.text = String(incrementalPID)
-//            reviewPatientID.text = String(incrementalPID)
-//        }
-
     }
+    
     // #MARK: - ACTIONS
     @IBAction func changeDateAction(_ sender: Any) {
         changeDateTime(title: "Intake Date")

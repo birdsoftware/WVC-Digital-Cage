@@ -241,6 +241,7 @@ extension MapVC{
     }
 }
 extension MapVC{
+    // #MARK: - Get Most Recent Data For Table
     func updateWalkDate(walkDate: String) -> String{
         if walkDate != ""{
             let formatter = DateFormatter()

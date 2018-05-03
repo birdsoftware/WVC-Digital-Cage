@@ -127,6 +127,12 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
                            name: NSNotification.Name(rawValue: "moveAMPMDown"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool){//SEGUE FROM VIEW 2 - UPDATE UI
+        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        SearchData=patientRecords
+        let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
+        SearchData = sortResults
+        patientTable.reloadData()
+        print("selectedPatientID: B \(seguePatientID)")
         if let seguePatientID = seguePatientID {
             func indexOfPatients(pid: String) -> Int {
                 return SearchData.index { (patient) -> Bool in
@@ -426,6 +432,8 @@ extension PatientsVC {
         } else { cell.missingPiece.isHidden = true }
         if thisPatient["status"] == "Archive" {
             cell.backgroundColor = UIColor.polar()
+        } else if thisPatient["status"] == "Saved"{
+            cell.backgroundColor = UIColor.seaBuckthornLightTint()
         } else {
             cell.backgroundColor = .white
         }
@@ -524,7 +532,6 @@ extension PatientsVC {
             archive.backgroundColor = UIColor.WVCGray()
         } else {
             archive.backgroundColor = UIColor.WVCActionBlue()
-            
         }
         return [email, delete, archive]
     }
