@@ -58,13 +58,30 @@ class CloudVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
             for thisRow in selectedRows {
                 saveNewPatientLocally(thisSelectedRow:thisRow)
-            }
-            
-            getData(id: "168", idName: "patientID", tableName: "ampms")
+                //let cloudPatientID = searchData[thisRow]["cloudPatientID"]!
+                //print("cloudPatientID \(cloudPatientID)")
+                
+                
+                //TIP: save new defaults key name each time API is called. Data needs to be stored in seperate key names. Can't reuse immediately!
+                //     saveDefaults named here
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "ampms", appendHere: "ampms", saveDefaults: "getAMPMData")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "vitals", appendHere: "patientVitals", saveDefaults: "getVitalData")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "badges", appendHere: "badges", saveDefaults: "getBadgess")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "demographics", appendHere: "demographics", saveDefaults: "getDemographics")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "incisions", appendHere: "incisions", saveDefaults: "getIncisions")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "notifications", appendHere: "notifications", saveDefaults: "getNotifications")
+                //patients API. See getAllFromPatientsTable()
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "physicalExam", appendHere: "patientPhysicalExam", saveDefaults: "getPhysicalExam")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "procedures", appendHere: "procedures", saveDefaults: "getProcedures")
+                //treatments
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "treatmentNotes", appendHere: "treatmentsAndNotes", saveDefaults: "getTreatmentNotes")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "treatments", appendHere: "collectionTreatments", saveDefaults: "getTreatments")
+                getData(id: searchData[thisRow]["cloudPatientID"]!, idName: "patientID", tableName: "treatmentVitals", appendHere: "collectionTxVitals", saveDefaults: "getTreatmentVitals")
+        }
             
             print("selectedRows: \(selectedRows)")
         
-            selectedRow = selectedRows.last! //show this patient after segue
+            selectedRow = selectedRows.last! //show this patient first segue
             performSegue(withIdentifier: "segueCloudToPatientDB", sender: self)
             
         } else {
@@ -153,7 +170,7 @@ extension CloudVC{
             searchData=cloudData
         }
         //SORT
-        let sortResults = searchData.sorted { $0["intakeDate"]! < $1["intakeDate"]! }
+        let sortResults = searchData.sorted { $0["intakeDate"]! > $1["intakeDate"]! }
         searchData = sortResults
         
         cloudPatientsTable.reloadData()
@@ -181,7 +198,7 @@ extension CloudVC{
         searchBar.endEditing(true)
         searchData=cloudData
         
-        //let sortResults = cloudData.sorted { $0["intakeDate"]! < $1["intakeDate"]! }
+        //let sortResults = cloudData.sorted { $0["intakeDate"]! > $1["intakeDate"]! }
         //searchData = sortResults
         cloudPatientsTable.reloadData()
         searchFilterResultLabel.text = ""
@@ -226,12 +243,51 @@ extension CloudVC{
         }
     }
     
-    func getData(id: String, idName: String, tableName: String){
+    func getData(id: String, idName: String, tableName: String, appendHere: String, saveDefaults: String){
         let getDataFlag = DispatchGroup(); getDataFlag.enter()
-        GET().recordFor(id: id, idName: idName, tableName: tableName, dispachInstance: getDataFlag)
+        GET().recordFor(id: id, idName: idName, tableName: tableName, saveDefaults: saveDefaults, dispachInstance: getDataFlag)
         getDataFlag.notify(queue: DispatchQueue.main){
-            let a = UserDefaults.standard.object(forKey: "getData") as? Array<Dictionary<String,Any>> ?? []
-            print("getData: \(a)")
+            let APIData = UserDefaults.standard.object(forKey: saveDefaults) as? Array<Dictionary<String,Any>> ?? []
+            var appendArray = UserDefaults.standard.object(forKey: appendHere) as? Array<Dictionary<String,String>> ?? []
+            
+            for dict in APIData{
+                var convertedDict = [String: String]()
+                
+                dict.forEach { convertedDict[$0.0] = "\($0.1)" } //convert dictionary Any to String. [String: Any] - > [String: String]
+                
+                //if appendHere == "ampms" || appendHere == "patientVitals" || appendHere == "procedures"{ "badges"
+                    if  let value = dict["patientName"]{
+                        convertedDict["patientID"] = "\(value)"
+                    }
+                //}
+                if tableName == "treatmentVitals" {
+                    if  let value = dict["mmCrt"]{
+                        convertedDict["mm/Crt"] = "\(value)"
+                    }
+                    let convertedTxVitalsDict = [
+                        "patientID":dict["patientName"],
+                        "date":dict["date"],
+                        "temperature":dict["temperature"],
+                        "heartRate":dict["heartRate"],
+                        "respirations":dict["respirations"],
+                        "mm/Crt":dict["mmCrt"],
+                        "diet":dict["diet"],
+                        "v/D/C/S":dict["cSVD"],
+                        "weightKgs":dict["weightKgs"],
+                        "initials":dict["initials"],
+                        "monitorFrequency":dict["monitorFrequency"],//daily or 2x daily
+                        "monitorDays":dict["monitorDays"],
+                        "monitored":dict["monitored"],//T,H,R,M, D,C,W,I
+                        "group":dict["groupNumber"],//"1",//check and auto increment
+                        "checkComplete":dict["checkComplete"]]
+                    convertedDict = convertedTxVitalsDict as! [String : String]
+                }
+                
+                appendArray.append(convertedDict)
+            }
+            
+            UserDefaults.standard.set(appendArray, forKey: appendHere)
+            UserDefaults.standard.synchronize()
         }
     }
 }
@@ -241,11 +297,6 @@ extension CloudVC {
     // #MARK: - Navigation
     //
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        
-        //need to grab the data
-        //show activity indicator until download complete
-        //when data updated then navigate
-        
         
         if segue.identifier == "segueCloudToPatientDB" {
             
@@ -285,15 +336,6 @@ extension CloudVC {
             UserDefaults.standard.synchronize()
         }
     }
-    
-//    func segueToPatientsVC(){
-//        let selectedPatientID = searchData[selectedRow]["patientID"]
-//
-//        let vc = PatientsVC()
-//        vc.seguePatientID = selectedPatientID!
-//        print("selectedPatientID: A \(selectedPatientID!)")
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
     
 }
 

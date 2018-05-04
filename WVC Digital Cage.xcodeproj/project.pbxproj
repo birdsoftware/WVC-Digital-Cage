@@ -358,12 +358,12 @@
 		582836A21F914FA8003F18FE /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				5843932E2092723300FFEC11 /* Alerts Demographics */,
 				58E8A5301F9808A9004E6640 /* AddPatientsVC.swift */,
 				58D920901FACCE4D00713C72 /* AMPMVC.swift */,
 				58C9B3561FA7E778006DE233 /* AnalyticsVC.swift */,
 				583CCD2B1FB0F1D000F03DF1 /* customNotifVC.swift */,
 				5843932F20928CAA00FFEC11 /* CloudVC.swift */,
-				5843932E2092723300FFEC11 /* Alerts Demographics */,
 				582836A71F914FED003F18FE /* HistoryVC.swift */,
 				58D3AE081FB663A10036E0E0 /* InjuriesVC.swift */,
 				58C201EF1FBCAEF6005529DF /* MapVC.swift */,

@@ -102,7 +102,7 @@ class params {
             "patientName":  update["patientID"]!,
             "age":          update["age"]!,
             "breed":        update["breed"]!,
-            "sex":          update["sex"]!
+            "sex":          update["sex"]! //Note true means Female
             ] as [String : Any]
         return parameters
     }
@@ -224,7 +224,7 @@ class params {
             "age":                update["age"]!,
             "date":                update["date"]!,
             "dX":                 update["dX"]!,
-            "sex":               update["sex"]!,
+            "sex":               update["sex"]!,   //Note true means female
             "notes":               update["notes"]!
             ] as [String : Any]
         return parameters

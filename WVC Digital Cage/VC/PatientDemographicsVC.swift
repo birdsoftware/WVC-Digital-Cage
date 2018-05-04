@@ -314,7 +314,7 @@ extension PatientDemographicsVC {
         for patient in myDemographics {
             if patient["patientID"] == selectedPatientID {
                 //moveSwitchState(switchName: switchSex, isTrue: patient["sex"]!)
-                sexTF.text = patient["sex"]
+                sexTF.text = patient["sex"]//false = Male
                 
                 if patient["sex"] == "false" { sexTF.text = "Male" }
                 if patient["sex"] == "true" { sexTF.text = "Female" }
@@ -404,7 +404,7 @@ extension PatientDemographicsVC {
                 "patientID":pid,
                 "age":ageTF.text!,
                 "breed":breedTF.text!,
-                "sex":sexTF.text!//String(switchSex.isOn)//true = Male
+                "sex":sexTF.text!//String(switchSex.isOn)//true = female
         ]
     }
     func saveDemographics(){

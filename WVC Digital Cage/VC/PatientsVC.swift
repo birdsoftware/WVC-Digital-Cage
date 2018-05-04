@@ -407,8 +407,7 @@ extension PatientsVC {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SearchData.count
     }
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt IndexPath: IndexPath) -> UITableViewCell {
         let cell: PatientTableView = tableView.dequeueReusableCell(withIdentifier: "patientCell") as! PatientTableView
         let thisPatient = SearchData[IndexPath.row]
         cell.intakeDate.text = thisPatient["intakeDate"]
@@ -430,19 +429,18 @@ extension PatientsVC {
         if missingPatientIDs.contains(thisPatient["patientID"]!){
             cell.missingPiece.isHidden = false
         } else { cell.missingPiece.isHidden = true }
+        cell.status.font = UIFont.boldSystemFont(ofSize: 17)
         if thisPatient["status"] == "Archive" {
-            cell.backgroundColor = UIColor.polar()
+            cell.status.textColor = UIColor.WVCGray()
+            
         } else if thisPatient["status"] == "Saved"{
-            cell.backgroundColor = UIColor.seaBuckthornLightTint()
+            cell.status.textColor = UIColor.WVCActionBlue()
         } else {
-            cell.backgroundColor = .white
+            cell.status.textColor = UIColor.black
         }
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let cell = tableView.cellForRow(at: indexPath) {
-//            cell.accessoryType = .checkmark
-//        }
         selectedData = SearchData[indexPath.row]
         selectedRow = indexPath.row //used for populating Tx View patient data
         hideHideView()

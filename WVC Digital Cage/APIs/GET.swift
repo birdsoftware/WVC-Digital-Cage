@@ -10,7 +10,7 @@ import Foundation
 
 class GET {
     
-    func recordFor(id: String, idName: String, tableName: String, dispachInstance: DispatchGroup){
+    func recordFor(id: String, idName: String, tableName: String, saveDefaults: String, dispachInstance: DispatchGroup){
         
         // ec2-54-244-57-24.us-west-2.compute.amazonaws.com:9000/getRecordFor/168/idName/patientID/tableName/ampms
         // forever start --minUptime 600000 --spinSleepTime 3600000 tester.js
@@ -48,9 +48,9 @@ class GET {
                             if(type == true) {
                                 let data = json["data"] as? [[String: Any]]
                                 
-                                UserDefaults.standard.set(data, forKey: "getData")
+                                UserDefaults.standard.set(data, forKey: saveDefaults)
                                 UserDefaults.standard.synchronize()
-                                print("finished GET data")
+                                print("finished GET data for table \(tableName)")
                             }
                             else {
                                 //error?

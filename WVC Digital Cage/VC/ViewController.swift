@@ -114,6 +114,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
+        
+        //clear(arrayDicName: "collectionTxVitals")
         //clear(arrayDicName: "collectionTreatments")
         
         //for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
