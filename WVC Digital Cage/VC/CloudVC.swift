@@ -123,38 +123,84 @@ extension CloudVC{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
-            if cell.accessoryType == .checkmark {
-                cell.accessoryType = .none
-                checked[indexPath.row] = false
-//                for index in 0..<selectedCards.count{
-//                    if selectedCards[index] == searchData[indexPath.row]["patientID"]!{
-//                        selectedCards.remove(at: index)
-//                        break
-//                    }
-//                }
-                //filter out checked row item
-                selectedCards = selectedCards.filter{$0 != searchData[indexPath.row]["patientID"]!}
-                selectedRows = selectedRows.filter{$0 != indexPath.row}
-                if selectedCards.count == 0 {
-                    marqueeLabel.text = " "
-                } else {
-                    marqueeLabel.text = selectedCards.joined(separator: ",")// + ","
-                }
-                
-            } else {
-                cell.accessoryType = .checkmark
-                checked[indexPath.row] = true
-                selectedCards.append(searchData[indexPath.row]["patientID"]!)
-                selectedRows.append(indexPath.row)
-                
-                //Array of strings to string
-                marqueeLabel.text = selectedCards.joined(separator: ",")// + ","
-            }
-        }
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        let count = checked.count
+        checked = Array(repeating: false, count: count)
+        checked[indexPath.row] = true
+        selectedCards.append(searchData[indexPath.row]["patientID"]!)
+        selectedRows.append(indexPath.row)
+        //Array of strings to string
+        marqueeLabel.text = selectedCards[0]
     }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        checked[indexPath.row] = false
+        selectedCards = [String]()
+        selectedRows = [Int]()
+        marqueeLabel.text = " "
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//
+//        if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
+//            //SINGLE SELECTION -----------------------------------------------------------------------
+//            if cell.accessoryType == .checkmark {
+//                cell.accessoryType = .none
+//                checked[indexPath.row] = false
+//                selectedCards = [String]()
+//                selectedRows = [Int]()
+//                marqueeLabel.text = " "
+//
+//            } else {
+//                cell.accessoryType = .checkmark
+//                let count = checked.count
+//                checked = Array(repeating: false, count: count)
+//                checked[indexPath.row] = true
+//                selectedCards.append(searchData[indexPath.row]["patientID"]!)
+//                selectedRows.append(indexPath.row)
+//               //Array of strings to string
+//                marqueeLabel.text = selectedCards[0]//.joined(separator: ",")// + ","
+//            }
+//            //SINGLE SELECTION -----------------------------------------------------------------------
+//
+//            //let str = "Swift 3.0 is the best version of Swift to learn, so if you're starting fresh you should definitely learn Swift 3.0."
+//            //let replaced = str.replacingOccurrences(of: "3.0", with: "4.0")
+//
+////            //WORKS MULTIPLE CHECKED ---------------------------------------------------------------
+////            if cell.accessoryType == .checkmark {
+////                cell.accessoryType = .none
+////                checked[indexPath.row] = false
+//////                for index in 0..<selectedCards.count{
+//////                    if selectedCards[index] == searchData[indexPath.row]["patientID"]!{
+//////                        selectedCards.remove(at: index)
+//////                        break
+//////                    }
+//////                }
+////
+////
+////                //filter out checked row item
+////                selectedCards = selectedCards.filter{$0 != searchData[indexPath.row]["patientID"]!}
+////                selectedRows = selectedRows.filter{$0 != indexPath.row}
+////                if selectedCards.count == 0 {
+////                    marqueeLabel.text = " "
+////                } else {
+////                    marqueeLabel.text = selectedCards.joined(separator: ",")// + ","
+////                }
+////
+////            } else {
+////                cell.accessoryType = .checkmark
+////                checked[indexPath.row] = true
+////                selectedCards.append(searchData[indexPath.row]["patientID"]!)
+////                selectedRows.append(indexPath.row)
+////
+////                //Array of strings to string
+////                marqueeLabel.text = selectedCards.joined(separator: ",")// + ","
+////            }
+////            //WORKS MULTIPLE CHECKED ^^ ---------------------------------------------------------------
+//        }
+//    }
 }
 
 extension CloudVC{
