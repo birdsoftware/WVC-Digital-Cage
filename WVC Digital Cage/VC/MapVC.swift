@@ -259,6 +259,7 @@ extension MapVC{
         let scopePredicate:NSPredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", patientID)
         var arr=(myAmpms as NSArray).filtered(using: scopePredicate) as! Array<Dictionary<String,String>>
         //arr.sort { $0["date"]! > $1["date"]! }//sort
+        //BUG 1
         arr = sortArrayDictDesc(dict: myAmpms, dateFormat: "MM/dd/yy a")
         if let firstDate = arr.first{
             if firstDate["date"]?.isEmpty == false {
@@ -274,6 +275,7 @@ extension MapVC{
         let scopePredicate:NSPredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", patientID)
         var arr=(incisions as NSArray).filtered(using: scopePredicate) as! Array<Dictionary<String,String>>
         //arr.sort { $0["date"]! > $1["date"]! }//sort
+        //BUG 1
         arr = sortArrayDictDesc(dict: arr, dateFormat: "MM/dd/yy hh:mm a")
         if let firstDate = arr.first{
             if firstDate["date"]?.isEmpty == false {

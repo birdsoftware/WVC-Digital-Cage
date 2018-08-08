@@ -361,7 +361,10 @@ extension PatientProcedureVC {
 //        dateFormatter.dateFormat = "MM/dd/yy hh:mm a"
 //        let sortedArray = filteredIncisions.sorted{[dateFormatter] one, two in
 //            return dateFormatter.date(from: one["date"]! )! > dateFormatter.date(from: two["date"]! )! }
+        
+        //BUG 1
         filteredIncisions = sortArrayDictDesc(dict: filteredIncisions, dateFormat: "MM/dd/yy hh:mm a")
+        
         if let firstDate = filteredIncisions.first{
             if firstDate["date"]?.isEmpty == false {//} != ""{
                 incisionLastChecked.text = firstDate["date"]

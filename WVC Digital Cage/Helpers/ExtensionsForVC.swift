@@ -19,8 +19,18 @@ extension UIViewController {
     func sortArrayDictDesc(dict: [Dictionary<String, String>], dateFormat: String) -> [Dictionary<String, String>] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateFormat
-        return dict.sorted{[dateFormatter] one, two in
-            return dateFormatter.date(from: one["date"]! )! > dateFormatter.date(from: two["date"]! )! }
+        return dict.sorted{
+            [dateFormatter] one, two in
+            
+            //check if the date string in dictionary.element one and two are empty
+            if(one["date"]! == ""){ return false}//return two
+            else if(two["date"]! == ""){ return true}//return one
+            else {
+                //no empty strings so move forward
+                return dateFormatter.date(from: one["date"]! )! > dateFormatter.date(from: two["date"]! )!
+            }
+            
+        }
     }
     //use: filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
     //     filteredIncisions = sortArrayDictDesc(dict: filteredIncisions, dateFormat: "MM/dd/yy hh:mm a")

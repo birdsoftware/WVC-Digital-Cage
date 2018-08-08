@@ -313,6 +313,7 @@ extension AMPMVC {
         //filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
         
         
+        //BUG 1
         filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
         
         ampmTable.reloadData()
@@ -410,7 +411,11 @@ extension AMPMVC {
             filteredAMPM=[clear]
         }
         //filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
+        
+        
+        //BUG 1
         filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
+        
         ampmTable.reloadData()
         //self.ampmTable.deleteRows(at: [indexPath], with: .fade)
     }
