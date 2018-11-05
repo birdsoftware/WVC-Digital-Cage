@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import UXCam
+//import UXCam
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

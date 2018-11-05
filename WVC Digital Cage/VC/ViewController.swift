@@ -115,7 +115,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
         
-        //clear(arrayDicName: "collectionTxVitals")
+        //segueclear(arrayDicName: "collectionTxVitals")
         //clear(arrayDicName: "collectionTreatments")
         
         //for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
@@ -127,7 +127,10 @@ class ViewController: UIViewController {
         let app = UIApplication.shared
         
         //Register for the applicationWillResignActive anywhere in your app.
+        //swift 4.1
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationWillEnterForeground(notification:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: app)
+        //swift 4.2
+        //NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationWillEnterForeground(notification:)), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         printDictionaries(records: patientRecords, vitals: patientVitals, pe: patientPhysicalExam, notifications: myNotifications, myDemographics: myDemographics, myAmpms: myAmpms, incisions: incisions, procedures: procedures, collectionPhotos: collectionPhotos, badges: badges, collectionTxVitals: collectionTxVitals, collectionTreatments: collectionTreatments, treatmentsAndNotes: treatmentsAndNotes)
 

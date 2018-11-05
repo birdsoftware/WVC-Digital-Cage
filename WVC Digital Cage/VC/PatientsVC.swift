@@ -134,7 +134,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
         //Sort in place.
         sortSearchDataNow()
         patientTable.reloadData()
-        print("selectedPatientID: B \(seguePatientID)")
+        //print("selectedPatientID: B \(seguePatientID)")
         if let seguePatientID = seguePatientID {
             func indexOfPatients(pid: String) -> Int {
                 return SearchData.index { (patient) -> Bool in

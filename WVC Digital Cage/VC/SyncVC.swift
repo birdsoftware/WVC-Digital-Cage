@@ -156,7 +156,7 @@ extension SyncVC {
             
             let patientID = patient["patientID"]!
             for table in tables{
-                if let index = table.index(where: {$0["patientID"] == patientID}){
+                if /*let index =*/ table.index(where: {$0["patientID"] == patientID}) != nil{
    
                     if show == "more" {
                         syncButtonRightConstraint.constant = 10
@@ -699,9 +699,8 @@ extension SyncVC {
         //let tableNames = ["Rec", "Vit", "PEx", "Not", "Dem", "Amp", "Inc", "Pro", "Bad", "TVi", "Tre", "TNo"]
         for table in tables{
             
-            if let index = table.index(where: {$0["patientID"] == patientID}){
+            if /*let index =*/ (table.index(where: {$0["patientID"] == patientID})) != nil{
                 countItems += 1
-                
             }
         }
 
