@@ -34,6 +34,8 @@
 // orriginally found:
 // http://stackoverflow.com/questions/31540375/how-to-toast-message-in-swift
 
+//EXAMPLE: self.view.makeToast(message, duration: 1.1, position: .center)
+
 import UIKit
 import ObjectiveC
 

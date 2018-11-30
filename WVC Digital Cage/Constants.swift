@@ -9,6 +9,53 @@
 import Foundation
 
 struct Constants {
+    struct instantShare {
+        struct Patient {
+            static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+            //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getSinglePatient/1
+            static let getSinglePatient = url_IS + "getSinglePatient/"
+            
+            //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/insertPatient
+            /*{
+                "patientId": 10, //patientId is optional, if left off MySQL will auto increment
+                "status": "Archive",
+                "intakeDate": "08/11/2018",
+                "patientName": "Baby",
+                "walkDate": "",
+                "photoName": "Baby.png",
+                "kennelId": "D4",
+                "owner": "Desert Haven Animal Society (DHAS)",
+                "groupString": "Canine"
+            }*/
+            static let insertPatient = url_IS + "insertPatient"
+            
+            //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/updatePatient
+            /*{
+                "patientId":2,
+                "status": "Archive",
+                "intakeDate": "01/23/2018",
+                "patientName": "0965749",
+                "walkDate": "2018-01-25 12:15:07",
+                "photoName": "0965749.png",
+                "kennelId": "S5",
+                "owner": "Henderson Shelter (HS)",
+                "groupString": "Canine"
+            }*/
+            static let updatePatient = url_IS + "updatePatient"
+            
+            //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getAllPatients
+            static let getAllPatients = url_IS + "getAllPatients"
+            
+            //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getPatientsCount
+            static let getPatientsCount = url_IS + "getPatientsCount"
+            
+            //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/deletePatient
+            /*{
+                "patientID"   : "10"
+            }*/
+            static let deletePatient = url_IS + "deletePatient"
+        }
+    }
     struct Patient {
         static let url = "ec2-54-244-57-24.us-west-2.compute.amazonaws.com:9000/"
         static let patient =        "http://" + url + "patients/"       //+ patientID
