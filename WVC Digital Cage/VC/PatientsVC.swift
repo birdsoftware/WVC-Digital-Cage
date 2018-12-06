@@ -13,6 +13,8 @@ import MessageUI //send email
 class PatientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,  MFMailComposeViewControllerDelegate, UIImagePickerControllerDelegate /*photoLib*/,
 UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
 
+    @IBOutlet var patientsView: UIView!
+    
     //Walk Alert animation image
     @IBOutlet weak var runningDogImage: UIImageView!
     @IBOutlet weak var walkAlertView: UIView!
@@ -97,8 +99,19 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     
     var selectedRow:Int = 0
     
+    //-- pull to refresh --
+    private let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //-- pull to refresh --
+        //let refreshControl = UIRefreshControl()
+        patientTable.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(PatientsVC.refreshData), for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching Patients ...")
+        
         textFieldsDelegates()
         setUpUI()
         //keyboard notification for update patient record
@@ -399,10 +412,23 @@ extension PatientsVC {
                 UserDefaults.standard.set(patientRecords, forKey: "patientRecords")
                 UserDefaults.standard.synchronize()//save instance
                 SearchData = patientRecords//update search
-//                let sortResults = SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
-//                SearchData = sortResults
                 //Sort in place.
                 sortSearchDataNow()
+                
+                //update the cloud record
+                let updateDCCISPatient:Dictionary<String,String> =
+                    [
+                        "patientId": patientRecords[index]["cloudPatientID"]!,//cloudPatientID
+                        "status": patientRecords[index]["status"]!,
+                        "intakeDate": patientRecords[index]["intakeDate"]!,
+                        "patientName": patientRecords[index]["patientID"]!,
+                        "walkDate": patientRecords[index]["walkDate"]!,
+                        "photoName": patientRecords[index]["photo"]!,
+                        "kennelId": patientRecords[index]["kennelID"]!,
+                        "owner": patientRecords[index]["owner"]!,
+                        "groupString": patientRecords[index]["group"]!
+                ]
+                updateInDCCISCloud(thisPatient:updateDCCISPatient)
                 break
             }
         }
@@ -418,6 +444,52 @@ extension PatientsVC {
         hideView.isHidden = true
     }
 }
+
+extension PatientsVC {
+    //
+    // MARK: - Refresh Function
+    //
+    @objc func refreshData(){
+        
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAllInstantShare().getPatients(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got all IS Patients")
+            self.patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+            self.SearchData=self.patientRecords
+            self.sortSearchDataNow()
+            self.patientTable.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    //
+    // MARK: - API Calls
+    //
+    
+    func deletePatient(patientID: Int){
+        let removeDG = DispatchGroup()
+        removeDG.enter()
+        DeleteInstantShare().patient(aview: patientsView, parameters: ["patientID":patientID], dispatchInstance: removeDG)
+        
+        removeDG.notify(queue: DispatchQueue.main) {
+            print("deleted \(patientID)")
+        }
+    }
+    
+    func updateInDCCISCloud(thisPatient:[String : Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATEPatient().thisPatient(aview: patientsView, parameters: thisPatient, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update walk me for Patient success")
+        }
+    }
+}
+
 extension PatientsVC {
     //
     // #MARK: - Table View
@@ -557,12 +629,17 @@ extension PatientsVC {
     }
     func deleteButtonTapped(indexPath: IndexPath){
         let removeForThisPID = self.SearchData[indexPath.row]["patientID"]
+        let cloudPatientID = self.SearchData[indexPath.row]["cloudPatientID"]
         print("delete:: \(removeForThisPID!)")
         self.removeAllDataAndPicturesFor(patientID:removeForThisPID!)
+        //check if cloudPatientID exist
+        
+        if cloudPatientID != nil {
+            self.deletePatient(patientID: Int(cloudPatientID!)!)
+        } else {
+            self.view.makeToast("found nil for this patient ID: \(removeForThisPID!)", duration: 2.1, position: .center)
+        }
         self.showHideView()//show view & change constants
-//        self.patientRecords.remove(at: indexPath.row)
-//        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
-//        UserDefaults.standard.synchronize()
         patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
         self.SearchData = self.patientRecords
         //let sortResults = self.SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
@@ -1227,9 +1304,6 @@ extension PatientsVC {
         runningDogImage.animationDuration = 2.0
         runningDogImage.startAnimating()
         self.view.bringSubview(toFront: walkAlertView)
-        //runningDogImage
-        //walkAlertView
-        
     }
     func closeWalkAlert(){
         self.view.sendSubview(toBack: walkAlertView)

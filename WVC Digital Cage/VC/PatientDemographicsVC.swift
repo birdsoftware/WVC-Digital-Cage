@@ -10,6 +10,8 @@ import UIKit
 
 class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate  {
 
+    @IBOutlet var patientDemographicsView: UIView!
+    
     //buttons
     //@IBOutlet weak var ageButton: UIButton!   // Custom Alert
     //@IBOutlet weak var breedButton: UIButton! // Custom Alert
@@ -357,15 +359,57 @@ extension PatientDemographicsVC {
             dictDefaultsKey: dictDefaultsKey,
             dictKey: dictKey)
     }
+//    a d = 1234
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+//        if pickerView == kennelPicker {
+//            //kennelTF.text = String(kennelIntArray[row])
+//            //flashGreenTextField(textField: kennelTF, displayText: String(kennelIntArray[row]))
+//            askToChange(selectedStringToChange: String(kennelIntArray[row]), textField: kennelTF, whatIsChanging: "Kennel#", dictDefaultsKey: "patientRecords", dictKey: "kennelID")
+//        } else {
+//            //ownerTF.text = ownerList[row]
+//            //flashGreenTextField(textField: ownerTF, displayText: ownerList[row])
+//            askToChange(selectedStringToChange: String(ownerList[row]), textField: ownerTF, whatIsChanging: "Owner", dictDefaultsKey: "patientRecords", dictKey: "owner")
+//        }
+//    }
+    
     func changeButtonTapped(selectedPatientID: String, selectedStringToChange: String, textField: UITextField,dictDefaultsKey: String,dictKey: String){
+        
         flashGreenTextField(textField: textField, displayText: selectedStringToChange)
-        var dictArray = UserDefaults.standard.object(forKey: dictDefaultsKey) as? Array<Dictionary<String,String>> ?? []
+        var dictArray = UserDefaults.standard.object(forKey: dictDefaultsKey) as? Array<Dictionary<String,String>> ?? [] //"patientRecords"
         for index in 0..<dictArray.count {
             if dictArray[index]["patientID"] == selectedPatientID {
                 //print("selectedPatientID \(selectedPatientID) dictDefaultsKey \(dictDefaultsKey) dictKey \(dictKey)")
                 dictArray[index][dictKey] = selectedStringToChange
                 UserDefaults.standard.set(dictArray, forKey: dictDefaultsKey)
                 UserDefaults.standard.synchronize()
+                
+                var kennelId = ""
+                if dictKey == "kennelID" {
+                    kennelId = selectedStringToChange
+                } else {
+                    kennelId = dictArray[index]["kennelID"]!
+                }
+                var owner = ""
+                if dictKey == "owner" {
+                    owner = selectedStringToChange
+                } else {
+                    owner = dictArray[index]["owner"]!
+                }
+                
+                let updateDCCISPatient:Dictionary<String,String> =
+                    [
+                        "patientId": dictArray[index]["cloudPatientID"]!,//cloudPatientID
+                        "status": dictArray[index]["status"]!,
+                        "intakeDate": dictArray[index]["intakeDate"]!,
+                        "patientName": dictArray[index]["patientID"]!,
+                        "walkDate": dictArray[index]["walkDate"]!,
+                        "photoName": dictArray[index]["photo"]!,
+                        "kennelId": kennelId,
+                        "owner": owner,
+                        "groupString": dictArray[index]["group"]!
+                ]
+                //print("\(updateDCCISPatient)")
+                updateInDCCISCloud(thisPatient:updateDCCISPatient)
             }
         }
         //REFRESH PATIENTS TABLE VIEW 
@@ -435,6 +479,7 @@ extension PatientDemographicsVC {
     }
 }
 extension PatientDemographicsVC {
+    //
     // #MARK: - Setup Text Field Delegates
     //make sure + UITextFieldDelegate and textFieldsDelegates() viewDidLoad
     func textFieldsDelegates(){
@@ -513,3 +558,22 @@ extension PatientDemographicsVC: CustomAlertViewDelegateSex {
         print("cancel Button Tapped")
     }
 }
+
+//patientDemographicsView
+extension PatientDemographicsVC {
+//
+// #MARK: API
+//
+
+    func updateInDCCISCloud(thisPatient:[String : Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATEPatient().thisPatient(aview: patientDemographicsView, parameters: thisPatient, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update this Patient success")
+        }
+    }
+    
+}
+

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,7 +107,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bbd-ru-aCq">
-                                        <rect key="frame" x="131" y="0.0" width="129" height="30"/>
+                                        <rect key="frame" x="131" y="0.5" width="129" height="30"/>
                                         <color key="backgroundColor" red="0.95559948679999995" green="0.98042947049999996" blue="0.99294942620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3qB-rV-7IG"/>
@@ -117,7 +118,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Iiz-XG-6pN">
-                                        <rect key="frame" x="131" y="38" width="314" height="29"/>
+                                        <rect key="frame" x="131" y="38.5" width="314" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="Uxk-oQ-I3i"/>
                                             <constraint firstAttribute="width" constant="314" id="diA-zy-iTt"/>
@@ -133,7 +134,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9g-pc-EIX">
-                                        <rect key="frame" x="58" y="38" width="65" height="27"/>
+                                        <rect key="frame" x="58" y="39" width="65" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="OUG-fg-qWz"/>
                                             <constraint firstAttribute="width" constant="65" id="iqW-6v-20r"/>
@@ -261,7 +262,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7q-Q6-EuO">
-                                        <rect key="frame" x="143" y="7" width="32" height="32"/>
+                                        <rect key="frame" x="143" y="7.5" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="dXd-hk-Ee4"/>
                                             <constraint firstAttribute="width" constant="32" id="yog-u2-aEw"/>
@@ -542,6 +543,7 @@
                         <viewLayoutGuide key="safeArea" id="LpY-kX-haS"/>
                     </view>
                     <connections>
+                        <outlet property="addNewPatientView" destination="tsN-pj-bLZ" id="P5r-ES-PHn"/>
                         <outlet property="dateLabel" destination="9m1-1k-6ji" id="5jd-mg-ny2"/>
                         <outlet property="kennelPicker" destination="svt-Jf-Kfs" id="eMy-Vd-1XL"/>
                         <outlet property="kennelTF" destination="zOY-MM-M9R" id="drn-10-Adn"/>

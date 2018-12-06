@@ -88,6 +88,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet var mainView: UIView!
+    
     @IBOutlet weak var patientsBadge: UILabel!
     @IBOutlet weak var notificationsBadge: UILabel!
     @IBOutlet weak var syncBadge: UILabel!
@@ -113,7 +115,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //UXCam.tagUsersName("brian")//"\(name), \(title), \(role)")
+        getPatientsFromDCCISCloud()
         
         //segueclear(arrayDicName: "collectionTxVitals")
         //clear(arrayDicName: "collectionTreatments")
@@ -125,7 +127,6 @@ class ViewController: UIViewController {
         //deleteImage(imageName: "good _1.png")
         
         let app = UIApplication.shared
-        
         //Register for the applicationWillResignActive anywhere in your app.
         //swift 4.1
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationWillEnterForeground(notification:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: app)
@@ -178,6 +179,23 @@ class ViewController: UIViewController {
             self.performSegue(withIdentifier: "segueToSync", sender: self)
         } else {
             simpleAlert(title: "Internet connection not found", message: "Enable internet connection to continue with cloud backups.", buttonTitle: "OK")
+        }
+    }
+}
+extension ViewController{
+    //
+    //#MARK: - API Calls
+    //
+    
+    func getPatientsFromDCCISCloud(){
+        
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAllInstantShare().getPatients(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got all IS Patients")
+            self.patientsBadge.text = " \(self.patientRecords.count) "
         }
     }
 }

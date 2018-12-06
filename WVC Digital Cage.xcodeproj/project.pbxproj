@@ -40,6 +40,7 @@
 		5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506B1FE323BD00876BFF /* RemovePatient.swift */; };
 		5830506E1FE34B5300876BFF /* Treatments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5830506D1FE34B5300876BFF /* Treatments.storyboard */; };
 		583050701FE34EB100876BFF /* TxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506F1FE34EB100876BFF /* TxVC.swift */; };
+		58349B0221B1F4BF005C328E /* DELETEPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58349B0121B1F4BF005C328E /* DELETEPatient.swift */; };
 		5834D13F1FFFF1CC00996D83 /* email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5834D13E1FFFF1CB00996D83 /* email.swift */; };
 		583520191FF44B75002ACD1C /* addTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583520181FF44B75002ACD1C /* addTx.swift */; };
 		5837803D1FAB850C00905B3C /* String Manip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5837803C1FAB850C00905B3C /* String Manip.swift */; };
@@ -61,12 +62,15 @@
 		587A0789202E441E00F0D094 /* DELETE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A0788202E441E00F0D094 /* DELETE.swift */; };
 		587F2B0E20753F3300B1DD6A /* PDFData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587F2B0D20753F3300B1DD6A /* PDFData.swift */; };
 		58882DB62061C6B90050F983 /* activityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58882DB52061C6B90050F983 /* activityIndicator.swift */; };
+		58939B5421B764B70075A221 /* UPDATEPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58939B5321B764B70075A221 /* UPDATEPatient.swift */; };
 		58A661C021960FEC004CB5B6 /* InAppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A661BF21960FEC004CB5B6 /* InAppData.swift */; };
 		58A82B932076D5E400E4B958 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A82B922076D5E400E4B958 /* Badge.swift */; };
 		58AA457B202235430069E58D /* GETPatientIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA457A202235430069E58D /* GETPatientIntake.swift */; };
 		58BB516020699B7A0003AEFC /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB515F20699B7A0003AEFC /* testData.swift */; };
 		58BB5162206A9A6C0003AEFC /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB5161206A9A6C0003AEFC /* DataStructures.swift */; };
 		58BB5165206D88ED0003AEFC /* textViewAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BB5164206D88ED0003AEFC /* textViewAlert.swift */; };
+		58C1811821B1A57E007F15B1 /* INSERTPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C1811721B1A57E007F15B1 /* INSERTPatient.swift */; };
+		58C1811A21B1AA5B007F15B1 /* GETAllPatients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C1811921B1AA5B007F15B1 /* GETAllPatients.swift */; };
 		58C201EE1FBCAEAF005529DF /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C201ED1FBCAEAF005529DF /* Map.storyboard */; };
 		58C201F01FBCAEF6005529DF /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C201EF1FBCAEF6005529DF /* MapVC.swift */; };
 		58C9B3391FA27296006DE233 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58C9B3381FA27296006DE233 /* Settings.storyboard */; };
@@ -155,6 +159,7 @@
 		5830506B1FE323BD00876BFF /* RemovePatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePatient.swift; sourceTree = "<group>"; };
 		5830506D1FE34B5300876BFF /* Treatments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Treatments.storyboard; sourceTree = "<group>"; };
 		5830506F1FE34EB100876BFF /* TxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxVC.swift; sourceTree = "<group>"; };
+		58349B0121B1F4BF005C328E /* DELETEPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETEPatient.swift; sourceTree = "<group>"; };
 		5834D13E1FFFF1CB00996D83 /* email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = email.swift; path = "WVC Digital Cage/VC/Treatments/email.swift"; sourceTree = SOURCE_ROOT; };
 		583520181FF44B75002ACD1C /* addTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTx.swift; sourceTree = "<group>"; };
 		5837803C1FAB850C00905B3C /* String Manip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String Manip.swift"; sourceTree = "<group>"; };
@@ -175,12 +180,15 @@
 		587A0788202E441E00F0D094 /* DELETE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETE.swift; sourceTree = "<group>"; };
 		587F2B0D20753F3300B1DD6A /* PDFData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFData.swift; sourceTree = "<group>"; };
 		58882DB52061C6B90050F983 /* activityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = activityIndicator.swift; sourceTree = "<group>"; };
+		58939B5321B764B70075A221 /* UPDATEPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPDATEPatient.swift; sourceTree = "<group>"; };
 		58A661BF21960FEC004CB5B6 /* InAppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppData.swift; sourceTree = "<group>"; };
 		58A82B922076D5E400E4B958 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		58AA457A202235430069E58D /* GETPatientIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETPatientIntake.swift; sourceTree = "<group>"; };
 		58BB515F20699B7A0003AEFC /* testData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
 		58BB5161206A9A6C0003AEFC /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		58BB5164206D88ED0003AEFC /* textViewAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textViewAlert.swift; sourceTree = "<group>"; };
+		58C1811721B1A57E007F15B1 /* INSERTPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INSERTPatient.swift; sourceTree = "<group>"; };
+		58C1811921B1AA5B007F15B1 /* GETAllPatients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETAllPatients.swift; sourceTree = "<group>"; };
 		58C201ED1FBCAEAF005529DF /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		58C201EF1FBCAEF6005529DF /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		58C9B3381FA27296006DE233 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -446,6 +454,10 @@
 		58C1811621B19EFC007F15B1 /* PATIENT */ = {
 			isa = PBXGroup;
 			children = (
+				58C1811721B1A57E007F15B1 /* INSERTPatient.swift */,
+				58C1811921B1AA5B007F15B1 /* GETAllPatients.swift */,
+				58349B0121B1F4BF005C328E /* DELETEPatient.swift */,
+				58939B5321B764B70075A221 /* UPDATEPatient.swift */,
 			);
 			path = PATIENT;
 			sourceTree = "<group>";
@@ -676,6 +688,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58C1811821B1A57E007F15B1 /* INSERTPatient.swift in Sources */,
 				58D3AE091FB663A10036E0E0 /* InjuriesVC.swift in Sources */,
 				58439332209297FD00FFEC11 /* GETPatientCount.swift in Sources */,
 				58A82B932076D5E400E4B958 /* Badge.swift in Sources */,
@@ -701,9 +714,11 @@
 				582836991F914840003F18FE /* toast.swift in Sources */,
 				58D3AE0B1FB66C1C0036E0E0 /* CollectionViewCell.swift in Sources */,
 				58C9B33F1FA3F4E8006DE233 /* PatientProcedureVC.swift in Sources */,
+				58939B5421B764B70075A221 /* UPDATEPatient.swift in Sources */,
 				58053DA4201BD81000DACE9D /* Constants.swift in Sources */,
 				582836561F9143AC003F18FE /* ViewController.swift in Sources */,
 				58F54A71209A600A004810A0 /* GET.swift in Sources */,
+				58349B0221B1F4BF005C328E /* DELETEPatient.swift in Sources */,
 				58053D9B201BA71500DACE9D /* Reachability.swift in Sources */,
 				5843932B20926CF900FFEC11 /* CustomAlertSex.swift in Sources */,
 				587A0789202E441E00F0D094 /* DELETE.swift in Sources */,
@@ -723,6 +738,7 @@
 				584009E61FA0E21C009E56BE /* Dictionaries.swift in Sources */,
 				582836981F914840003F18FE /* Date.swift in Sources */,
 				582836951F914840003F18FE /* Rounded.swift in Sources */,
+				58C1811A21B1AA5B007F15B1 /* GETAllPatients.swift in Sources */,
 				582836941F914840003F18FE /* HexColor.swift in Sources */,
 				5843933020928CAA00FFEC11 /* CloudVC.swift in Sources */,
 				58FE3C2C1FEB1EE2005F7219 /* addTxVital.swift in Sources */,

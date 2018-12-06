@@ -9,6 +9,9 @@
 import UIKit
 
 class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    
+    @IBOutlet var addNewPatientView: UIView!
+    
     //label
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var reviewDateLabel: UILabel!
@@ -208,6 +211,17 @@ extension AddPatientsVC{
                      "walkDate":"",
                      "photo":""
                     ]
+            let newISPatient:Dictionary<String,String> =
+            [
+             "status": "Active",
+             "intakeDate": reviewDateLabel.text!,
+             "patientName": reviewPatientID.text!,
+             "walkDate": "",
+             "photoName": "",
+             "kennelId": reviewKennel.text!,
+             "owner": reviewOwner.text!,
+             "groupString": reviewGroup.text!
+             ]
             
             if patientRecords.isEmpty == false
             {
@@ -244,6 +258,7 @@ extension AddPatientsVC{
             UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
             UserDefaults.standard.synchronize()
             
+            saveToDCCISCloud(newPatient:newISPatient, newPE:newPE)//TODO: save  newPE in cloud
         }
     }
     func patientDataConversion(indexV:Int) -> String{
@@ -258,6 +273,15 @@ extension AddPatientsVC{
             return "Kennel"
         default:
             return "Patient Field"
+        }
+    }
+    func saveToDCCISCloud(newPatient:[String : Any], newPE:Dictionary<String,String>){
+        let saveDG = DispatchGroup()
+        saveDG.enter()
+        INSERTPatient().newPatient(aview: addNewPatientView, parameters: newPatient, dispachInstance: saveDG)
+            
+        saveDG.notify(queue: DispatchQueue.main) {
+            print("new IS Patient")
         }
     }
 }

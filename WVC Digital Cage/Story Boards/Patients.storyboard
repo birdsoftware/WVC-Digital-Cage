@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1081,6 +1081,7 @@
                         <outlet property="patientPicture" destination="mC1-GR-qEd" id="Udp-Yz-3QC"/>
                         <outlet property="patientSearchBar" destination="u2H-SX-0Xq" id="9UK-re-oSU"/>
                         <outlet property="patientTable" destination="hvb-MT-b3r" id="6U9-KN-esu"/>
+                        <outlet property="patientsView" destination="SV5-kp-K4Z" id="hpe-aT-zk7"/>
                         <outlet property="pdfLabel" destination="y8m-bg-qon" id="bbM-uZ-H3K"/>
                         <outlet property="pulse" destination="GYj-r3-2Nc" id="Koz-sh-bRj"/>
                         <outlet property="respiration" destination="zjA-hg-Mga" id="NMk-Jm-rU1"/>
@@ -2168,6 +2169,7 @@
                         <outlet property="npo" destination="Uj9-vE-kLs" id="c2d-Sj-OL9"/>
                         <outlet property="ownerPicker" destination="odk-PR-hdy" id="ihT-Mz-mmz"/>
                         <outlet property="ownerTF" destination="2I1-Nf-Bsk" id="SK6-2y-mPC"/>
+                        <outlet property="patientDemographicsView" destination="Rrt-0X-fC2" id="6bA-fi-AMZ"/>
                         <outlet property="patientIDTF" destination="4sq-iv-igv" id="HKT-hX-Q7h"/>
                         <outlet property="sexTF" destination="QJZ-AI-0qM" id="NKh-7K-2Xg"/>
                     </connections>
