@@ -404,6 +404,13 @@
 			path = "Alerts Demographics";
 			sourceTree = "<group>";
 		};
+		58939B5521B8A9070075A221 /* VITALS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VITALS;
+			sourceTree = "<group>";
+		};
 		58A82B912076B25A00E4B958 /* Treatments */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +434,7 @@
 		58C1811421B19709007F15B1 /* IS APIs */ = {
 			isa = PBXGroup;
 			children = (
+				58939B5521B8A9070075A221 /* VITALS */,
 				58C1811621B19EFC007F15B1 /* PATIENT */,
 			);
 			path = "IS APIs";

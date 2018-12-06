@@ -1299,9 +1299,11 @@ extension PatientsVC {
 extension PatientsVC {
     func starWalkAlert(){
         let imagesListArray =
-            [UIImage(named: "dog1.png")!,UIImage(named: "dog2.png")!,UIImage(named: "dog3.png")!,UIImage(named: "dog4.png")!,UIImage(named: "dog1.png")!,UIImage(named: "dog2.png")!,UIImage(named: "dog3.png")!,UIImage(named: "dog4.png")!,UIImage(named: "dog1.png")!,UIImage(named: "dog2.png")!,UIImage(named: "dog3.png")!,UIImage(named: "dog4.png")!]
-        runningDogImage.animationImages = imagesListArray
-        runningDogImage.animationDuration = 2.0
+            [UIImage(named: "dog1dalmation.png")!,UIImage(named: "dog2dalmation.png")!,UIImage(named: "dog3dalmation.png")!,UIImage(named: "dog4dalmation.png")!,UIImage(named: "dog5dalmation.png")!,UIImage(named: "dog6dalmation.png")!,UIImage(named: "dog7dalmation.png")!]
+        
+        let imagesListArray2 = [UIImage(named: "dog1gs.png")!,UIImage(named: "dog2gs.png")!,UIImage(named: "dog3gs.png")!,UIImage(named: "dog4gs.png")!,UIImage(named: "dog5gs.png")!,UIImage(named: "dog1gs.png")!,UIImage(named: "dog2gs.png")!,UIImage(named: "dog3gs.png")!,UIImage(named: "dog4gs.png")!,UIImage(named: "dog5gs.png")!]
+        runningDogImage.animationImages = imagesListArray2
+        runningDogImage.animationDuration = 1.0
         runningDogImage.startAnimating()
         self.view.bringSubview(toFront: walkAlertView)
     }

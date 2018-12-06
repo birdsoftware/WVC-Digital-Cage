@@ -63,14 +63,14 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog1" translatesAutoresizingMaskIntoConstraints="NO" id="TdM-mI-W4I">
-                                        <rect key="frame" x="392" y="320" width="240" height="128"/>
+                                        <rect key="frame" x="443" y="351" width="138" height="66"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="128" id="K2z-37-hWI"/>
-                                            <constraint firstAttribute="width" constant="240" id="dgZ-1n-a2j"/>
+                                            <constraint firstAttribute="height" constant="66" id="K2z-37-hWI"/>
+                                            <constraint firstAttribute="width" constant="138" id="dgZ-1n-a2j"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grn-O6-Nd4" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="289.5" y="463.5" width="200" height="75"/>
+                                        <rect key="frame" x="289.5" y="459.5" width="200" height="75"/>
                                         <color key="backgroundColor" red="0.0078431372549019607" green="0.63529411764705879" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="H7i-h3-Xmi"/>
@@ -90,7 +90,7 @@
                                         </connections>
                                     </button>
                                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pPE-OD-sEO">
-                                        <rect key="frame" x="509.5" y="456" width="5" height="90"/>
+                                        <rect key="frame" x="509.5" y="452" width="5" height="90"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="5" id="VZG-eW-hd2"/>
@@ -98,14 +98,14 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's go for a walk?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOA-0S-XpW">
-                                        <rect key="frame" x="368" y="259.5" width="288" height="40.5"/>
+                                        <rect key="frame" x="368" y="255.5" width="288" height="40.5"/>
                                         <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="33"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="1" height="-1"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frj-Wb-Wp9" customClass="RoundedButton" customModule="WVC_Digital_Cage" customModuleProvider="target">
-                                        <rect key="frame" x="534.5" y="463.5" width="200" height="75"/>
+                                        <rect key="frame" x="534.5" y="459.5" width="200" height="75"/>
                                         <color key="backgroundColor" red="0.64705882349999999" green="0.050980392159999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="1Ya-go-MLC"/>
@@ -127,7 +127,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.390625" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="pPE-OD-sEO" firstAttribute="top" secondItem="TdM-mI-W4I" secondAttribute="bottom" constant="8" id="1nm-TR-LPE"/>
+                                    <constraint firstItem="pPE-OD-sEO" firstAttribute="top" secondItem="TdM-mI-W4I" secondAttribute="bottom" constant="35" id="1nm-TR-LPE"/>
                                     <constraint firstItem="TdM-mI-W4I" firstAttribute="centerY" secondItem="eAF-Ov-TGa" secondAttribute="centerY" id="8C2-Nq-TEN"/>
                                     <constraint firstItem="qOA-0S-XpW" firstAttribute="centerX" secondItem="TdM-mI-W4I" secondAttribute="centerX" id="Fg1-KZ-yxX"/>
                                     <constraint firstItem="Yj6-Eu-F8L" firstAttribute="centerY" secondItem="eAF-Ov-TGa" secondAttribute="centerY" id="NRz-rY-cbH"/>
@@ -135,7 +135,7 @@
                                     <constraint firstItem="pPE-OD-sEO" firstAttribute="leading" secondItem="grn-O6-Nd4" secondAttribute="trailing" constant="20" id="e0m-2d-Uy6"/>
                                     <constraint firstItem="grn-O6-Nd4" firstAttribute="centerY" secondItem="pPE-OD-sEO" secondAttribute="centerY" id="jjQ-Hk-ySv"/>
                                     <constraint firstItem="frj-Wb-Wp9" firstAttribute="centerY" secondItem="pPE-OD-sEO" secondAttribute="centerY" id="ta2-Fk-gWt"/>
-                                    <constraint firstItem="TdM-mI-W4I" firstAttribute="top" secondItem="qOA-0S-XpW" secondAttribute="bottom" constant="20" id="wmF-Xb-uWU"/>
+                                    <constraint firstItem="TdM-mI-W4I" firstAttribute="top" secondItem="qOA-0S-XpW" secondAttribute="bottom" constant="55" id="wmF-Xb-uWU"/>
                                     <constraint firstItem="frj-Wb-Wp9" firstAttribute="leading" secondItem="pPE-OD-sEO" secondAttribute="trailing" constant="20" id="xOe-x9-oZH"/>
                                     <constraint firstItem="Yj6-Eu-F8L" firstAttribute="centerX" secondItem="eAF-Ov-TGa" secondAttribute="centerX" id="zrR-nY-b1M"/>
                                     <constraint firstItem="TdM-mI-W4I" firstAttribute="centerX" secondItem="eAF-Ov-TGa" secondAttribute="centerX" id="zsY-Ik-VkO"/>

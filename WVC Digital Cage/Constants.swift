@@ -10,8 +10,61 @@ import Foundation
 
 struct Constants {
     struct instantShare {
+        static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+        struct Vitals {
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getSingleVital/:patientID
+            static let getSingleVital = url_IS + "getSingleVital/"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getAllVitals
+            static let getAllVitals = url_IS + "getAllVitals"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/insertVital
+            // BODY Implicit use of auto increment on patientId
+            //      Explicit use works also: "vitalId":2 as long as record DNE.
+            //  {
+            //      "patientId": 1,
+            //      "patientName": "0965741",
+            //      "temperature": "100.1",
+            //      "pulse": "99",
+            //      "weight": "22",
+            //      "exitWeight": "25",
+            //      "cRT_MM": "bar",
+            //      "respiration": "100",
+            //      "initialsVitals": "B.B."
+            //  }
+            // RESPONSE:
+            // {
+            //    "type": true
+            // }
+            static let insertVital = url_IS + "insertVital"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/updateVital
+            //  {
+            //      "vitalId": 1,
+            //      "patientID": 1,
+            //      "patientName": "0965741",
+            //      "temperature": "100.1",
+            //      "pulse": "99",
+            //      "weight": "22",
+            //      "exitWeight": "25",
+            //      "cRT_MM": "bar",
+            //      "respiration": "100",
+            //      "initialsVitals": "B.B."
+            //  }
+            // RESPONSE:
+            // {
+            //    "type": true
+            // }
+            static let updateVital = url_IS + "updateVital"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getVitalsCount
+            static let getVitalsCount = url_IS + "getVitalsCount"
+            
+            
+            static let deleteVital = url_IS + "deleteVital"
+        }
         struct Patient {
-            static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+            
             //http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getSinglePatient/1
             static let getSinglePatient = url_IS + "getSinglePatient/"
             
