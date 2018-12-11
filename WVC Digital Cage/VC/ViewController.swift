@@ -191,11 +191,24 @@ extension ViewController{
         
         let getDG = DispatchGroup()
         getDG.enter()
-        GETAllInstantShare().getPatients(aview: mainView, dispachInstance: getDG)
+        GETAll().getPatients(aview: mainView, dispachInstance: getDG)
         
         getDG.notify(queue: DispatchQueue.main) {
             print("got all IS Patients")
             self.patientsBadge.text = " \(self.patientRecords.count) "
+            
+            self.getVitalsFromDCCISCloud()
+        }
+    }
+    
+    func getVitalsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getVitals(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            //print("got all IS Vitals \n \(patientVitals)")
         }
     }
 }

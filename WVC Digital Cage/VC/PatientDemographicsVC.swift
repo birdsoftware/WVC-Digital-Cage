@@ -568,7 +568,7 @@ extension PatientDemographicsVC {
     func updateInDCCISCloud(thisPatient:[String : Any]){
         let updateDG = DispatchGroup()
         updateDG.enter()
-        UPDATEPatient().thisPatient(aview: patientDemographicsView, parameters: thisPatient, dispachInstance: updateDG)
+        UPDATE().Patient(aview: patientDemographicsView, parameters: thisPatient, dispachInstance: updateDG)
         
         updateDG.notify(queue: DispatchQueue.main) {
             print("update this Patient success")

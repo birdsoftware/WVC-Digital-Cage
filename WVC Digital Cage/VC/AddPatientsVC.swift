@@ -278,7 +278,7 @@ extension AddPatientsVC{
     func saveToDCCISCloud(newPatient:[String : Any], newPE:Dictionary<String,String>){
         let saveDG = DispatchGroup()
         saveDG.enter()
-        INSERTPatient().newPatient(aview: addNewPatientView, parameters: newPatient, dispachInstance: saveDG)
+        INSERT().newPatient(aview: addNewPatientView, parameters: newPatient, dispachInstance: saveDG)
             
         saveDG.notify(queue: DispatchQueue.main) {
             print("new IS Patient")

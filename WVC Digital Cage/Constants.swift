@@ -11,12 +11,64 @@ import Foundation
 struct Constants {
     struct instantShare {
         static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+        struct PhysicalExams {
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getAllPhysicalExams
+            static let getAllPhysicalExams = url_IS + "getAllPhysicalExams"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getPhysicalExamsCount
+            static let getPhysicalExamsCount = url_IS + "getPhysicalExamsCount"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getSinglePhysicalExam/:patientID
+            static let getSinglePhysicalExam = url_IS + "getSinglePhysicalExam/"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/insertPhysicalExam
+            // {
+            //      "patientID": "7",
+            //      "patientName": "Brutus",
+            //      "generalAppearance": "healthy",
+            //      "skinFeetHair": "good",
+            //      "musculoskeletal": "bad",
+            //      "nose": "bar",
+            //      "digestiveTeeth": "cavity in left canine 1 and 2",
+            //      "respiratory": "wheezing",
+            //      "ears": "good",
+            //      "nervousSystem": "good",
+            //      "lymphNodes": "lump in right neck lymph node",
+            //      "eyes": "occlusion in both eyes",
+            //      "urogenital": "ok",
+            //      "bodyConditionScore": "3.0",
+            //      "comments": "Overal health is in need of special care. Digestive medication and tylenol every 12 hours for next 4 days."
+            // }
+            static let insertPhysicalExam = url_IS + "insertPhysicalExam"
+            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/updatePhysicalExam
+            // {
+            //    "physicalExamId": 3,
+            //    "patientID": 7,
+            //    "patientName": "Brutus",
+            //    "generalAppearance": "test",
+            //    "skinFeetHair": "test",
+            //    "musculoskeletal": "test",
+            //    "nose": "bar",
+            //    "digestiveTeeth": "cavity in left canine 1 and 2",
+            //    "respiratory": "wheezing",
+            //    "ears": "test",
+            //    "nervousSystem": "confused when given commands",
+            //    "lymphNodes": "lump in right neck lymph node",
+            //    "eyes": "occlusion in both eyes",
+            //    "urogenital": "constipated",
+            //    "bodyConditionScore": "3.0",
+            //    "comments": "Overal health is in need of special care. Digestive medication and tylenol every 12 hours for next 4 days."
+            // }
+            static let updatePhysicalExam = url_IS + "updatePhysicalExam"
+        }
         struct Vitals {
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getSingleVital/:patientID
             static let getSingleVital = url_IS + "getSingleVital/"
             
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getAllVitals
             static let getAllVitals = url_IS + "getAllVitals"
+            static let getAllVitalsKey = "patientVitals"
             
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/insertVital
             // BODY Implicit use of auto increment on patientId
@@ -30,7 +82,7 @@ struct Constants {
             //      "exitWeight": "25",
             //      "cRT_MM": "bar",
             //      "respiration": "100",
-            //      "initialsVitals": "B.B."
+            //      "respiration": "B.B."
             //  }
             // RESPONSE:
             // {
@@ -60,7 +112,9 @@ struct Constants {
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getVitalsCount
             static let getVitalsCount = url_IS + "getVitalsCount"
             
-            
+            // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/deleteVital
+            // Example Input:
+            // { "vitalId"   : "17" }
             static let deleteVital = url_IS + "deleteVital"
         }
         struct Patient {

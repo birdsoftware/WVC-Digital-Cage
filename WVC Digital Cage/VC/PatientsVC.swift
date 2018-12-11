@@ -50,7 +50,7 @@ UINavigationControllerDelegate/*photoLib*/, UITextFieldDelegate {
     @IBOutlet weak var pdfLabel: UILabel!
     @IBOutlet weak var treatmentBadge: UILabel!
     
-    //test fields
+    //vitals fields
     @IBOutlet weak var temperature: UITextField!
     @IBOutlet weak var pulse: UITextField!
     @IBOutlet weak var cRT_MM: UITextField!
@@ -450,10 +450,13 @@ extension PatientsVC {
     // MARK: - Refresh Function
     //
     @objc func refreshData(){
+        //get all vitals
+        getVitalsFromDCCISCloud()
         
+        //get all patients
         let getDG = DispatchGroup()
         getDG.enter()
-        GETAllInstantShare().getPatients(aview: patientsView, dispachInstance: getDG)
+        GETAll().getPatients(aview: patientsView, dispachInstance: getDG)
         
         getDG.notify(queue: DispatchQueue.main) {
             print("got all IS Patients")
@@ -482,10 +485,44 @@ extension PatientsVC {
     func updateInDCCISCloud(thisPatient:[String : Any]){
         let updateDG = DispatchGroup()
         updateDG.enter()
-        UPDATEPatient().thisPatient(aview: patientsView, parameters: thisPatient, dispachInstance: updateDG)
+        UPDATE().Patient(aview: patientsView, parameters: thisPatient, dispachInstance: updateDG)
         
         updateDG.notify(queue: DispatchQueue.main) {
             print("update walk me for Patient success")
+        }
+    }
+    
+    //VITALS
+    func getVitalsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getVitals(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            //print("got all IS Vitals \n \(patientVitals)")
+        }
+    }
+    
+    func updateVitalInDCCISCloud(thisVital:[String : Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATE().vital(aview: patientsView, parameters: thisVital, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update vital success")
+            self.getVitalsFromDCCISCloud()
+        }
+    }
+    
+    func insertVitalInDCCISCloud(thisVital:[String : Any]){
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newVital(aview: patientsView, parameters: thisVital, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new vital success")
+            self.getVitalsFromDCCISCloud()
         }
     }
 }
@@ -717,45 +754,67 @@ extension PatientsVC {
     }
 }
 extension PatientsVC {
+    //
     // #MARK: - Save Vitals, Show Vitals, Remove Vitals
+    //
     func saveVitals(){
         var patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-        let newV:Dictionary<String,String> =
+        var patientHasVital = false
+        var cloudPatientID = ""
+        if let index = dictIndexFrom(array: patientRecords, usingKey:"patientID", usingValue: patientID) {
+                cloudPatientID = patientRecords[index]["cloudPatientID"]!
+            }
+        
+        let newVital:[String : Any] =
             [
-            "patientID":patientID,
-            "temperature":temperature.text!,
-            "pulse":pulse.text!,
-            "cRT_MM":cRT_MM.text!,
-            "respiration":respiration.text!,
-            "weight":weight.text!,
-            "exitWeight":exitWeight.text!,
-            "initialsVitals":initialsVitals.text!
-            ]
-        var found = false
+                "patientID":cloudPatientID,
+                "patientName":patientID,
+                "temperature":temperature.text!,
+                "pulse":pulse.text!,
+                "weight":weight.text!,
+                "exitWeight":exitWeight.text!,
+                "cRT_MM":cRT_MM.text!,
+                "respiration":respiration.text!,
+                "initialsVitals":initialsVitals.text!
+        ]
+        
+        //UPDATE LOCAL
         if patientVitals.isEmpty {//create new record/TABLE if DNE
-            UserDefaults.standard.set([newV], forKey: "patientVitals")
-            UserDefaults.standard.synchronize()
+            insertVitalInDCCISCloud(thisVital:newVital)
+            print("INSERT NEW Vital \n \(newVital)")
+            
         } else {
             for index in 0..<patientVitals.count {
+                //make sure we are update or saving for the right patient
                 if patientVitals[index]["patientID"] == patientID {//UPDATE by PID
-                    patientVitals[index]["temperature"] = temperature.text!
-                    patientVitals[index]["pulse"] = pulse.text!
-                    patientVitals[index]["cRT_MM"] = cRT_MM.text!
-                    patientVitals[index]["respiration"] = respiration.text!
-                    patientVitals[index]["temperature"] = temperature.text!
-                    patientVitals[index]["weight"] = weight.text!
-                    patientVitals[index]["exitWeight"] = exitWeight.text!
-                    patientVitals[index]["initialsVitals"] = initialsVitals.text!
-                    UserDefaults.standard.set(patientVitals, forKey: "patientVitals")
-                    UserDefaults.standard.synchronize()
-                    found = true
-                    return
+                    
+                    //UPDATE CLOUD
+                    if let vitalId = patientVitals[index]["vitalId"] as? String {
+                        let updatedVital:[String : Any] =
+                            [
+                                "vitalId":vitalId,
+                                "patientID":patientVitals[index]["cloudPatientID"]!,
+                                "patientName":patientID,
+                                "temperature":temperature.text!,
+                                "pulse":pulse.text!,
+                                "weight":weight.text!,
+                                "exitWeight":exitWeight.text!,
+                                "cRT_MM":cRT_MM.text!,
+                                "respiration":respiration.text!,
+                                "initialsVitals":initialsVitals.text!
+                        ]
+                        updateVitalInDCCISCloud(thisVital:updatedVital)
+                        print("UPDATE THIS Vital \n \(updatedVital)")
+                        patientHasVital = true
+                        return
+                    }
                 }
-            }
-            if found == false {//APPEND NEW
-                patientVitals.append(newV)
-                UserDefaults.standard.set(patientVitals, forKey: "patientVitals")
-                UserDefaults.standard.synchronize()
+            } //patientID not found in patientVitals
+            
+            //INSERT NEW CLOUD
+            if patientHasVital == false {
+                insertVitalInDCCISCloud(thisVital:newVital)
+                print("INSERT NEW Vital \n \(newVital)")
             }
         }
     }
@@ -1298,8 +1357,8 @@ extension PatientsVC {
 }
 extension PatientsVC {
     func starWalkAlert(){
-        let imagesListArray =
-            [UIImage(named: "dog1dalmation.png")!,UIImage(named: "dog2dalmation.png")!,UIImage(named: "dog3dalmation.png")!,UIImage(named: "dog4dalmation.png")!,UIImage(named: "dog5dalmation.png")!,UIImage(named: "dog6dalmation.png")!,UIImage(named: "dog7dalmation.png")!]
+//        let imagesListArray =
+//            [UIImage(named: "dog1dalmation.png")!,UIImage(named: "dog2dalmation.png")!,UIImage(named: "dog3dalmation.png")!,UIImage(named: "dog4dalmation.png")!,UIImage(named: "dog5dalmation.png")!,UIImage(named: "dog6dalmation.png")!,UIImage(named: "dog7dalmation.png")!]
         
         let imagesListArray2 = [UIImage(named: "dog1gs.png")!,UIImage(named: "dog2gs.png")!,UIImage(named: "dog3gs.png")!,UIImage(named: "dog4gs.png")!,UIImage(named: "dog5gs.png")!,UIImage(named: "dog1gs.png")!,UIImage(named: "dog2gs.png")!,UIImage(named: "dog3gs.png")!,UIImage(named: "dog4gs.png")!,UIImage(named: "dog5gs.png")!]
         runningDogImage.animationImages = imagesListArray2
