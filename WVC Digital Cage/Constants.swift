@@ -59,7 +59,7 @@ struct Constants {
             //    "urogenital": "constipated",
             //    "bodyConditionScore": "3.0",
             //    "comments": "Overal health is in need of special care. Digestive medication and tylenol every 12 hours for next 4 days."
-            // }
+
             static let updatePhysicalExam = url_IS + "updatePhysicalExam"
         }
         struct Vitals {
