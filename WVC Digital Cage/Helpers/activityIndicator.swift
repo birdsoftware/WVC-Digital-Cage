@@ -72,9 +72,9 @@ class ViewControllerUtils {
 }
 
 //// In order to show the activity indicator, call the function from your view controller
-//// ViewControllerUtils().showActivityIndicator(self.view)
+//// ViewControllerUtils().showActivityIndicator(uiView: self.view)
 //// In order to hide the activity indicator, call the function from your view controller
-//// ViewControllerUtils().hideActivityIndicator(self.view)
+//// ViewControllerUtils().hideActivityIndicator(suiView: self.view)
 //// self.view.viewWithTag(1)?.removeFromSuperview() // see above comment
 
 

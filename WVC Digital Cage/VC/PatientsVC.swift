@@ -762,7 +762,7 @@ extension PatientsVC {
         var patientHasVital = false
         var cloudPatientID = ""
         if let index = dictIndexFrom(array: patientRecords, usingKey:"patientID", usingValue: patientID) {
-                cloudPatientID = patientRecords[index]["cloudPatientID"]!
+                cloudPatientID = patientRecords[index]["cloudPatientID"]! //unexpectedly found nil while unwrapping option value
             }
         
         let newVital:[String : Any] =

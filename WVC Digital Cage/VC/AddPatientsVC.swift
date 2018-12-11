@@ -72,8 +72,8 @@ class AddPatientsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         }
     }
     @IBAction func saveAction(_ sender: Any) {
+        ViewControllerUtils().showActivityIndicator(uiView: self.view)
         saveNewPatientLocally()
-        self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
     }
     @IBAction func closeAction(_ sender: Any) {
         self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
@@ -281,7 +281,21 @@ extension AddPatientsVC{
         INSERT().newPatient(aview: addNewPatientView, parameters: newPatient, dispachInstance: saveDG)
             
         saveDG.notify(queue: DispatchQueue.main) {
-            print("new IS Patient")
+            print("new Patient inserted in IS cloud")
+            
+            self.getAllPatientsInDCCISCloud()
+            
+        }
+    }
+    func getAllPatientsInDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getPatients(aview: addNewPatientView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            ViewControllerUtils().hideActivityIndicator(uiView: self.view)
+            self.view.viewWithTag(1)?.removeFromSuperview() // see above comment
+            self.performSegue(withIdentifier: "segueToPatientsDB", sender: self)
         }
     }
 }
