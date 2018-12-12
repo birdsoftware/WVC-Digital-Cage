@@ -22,7 +22,7 @@ extension GETAll {
             "Content-Type": "application/json",
             "Cache-Control": "no-cache"
         ]
-        let request = NSMutableURLRequest(url: NSURL(string: Constants.instantShare.Vitals.getAllVitals)! as URL,
+        let request = NSMutableURLRequest(url: NSURL(string: Constants.instantShare.PhysicalExams.getAllPhysicalExams)! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 4.0)
         request.httpMethod = "GET"
@@ -47,8 +47,8 @@ extension GETAll {
                                                             for dict in dictArray! {
                                                                 physicalExamId = dict["physicalExamId"] as? Int ?? 0; let vid = String(physicalExamId)
                                                                 patientID = dict["patientID"] as? Int ?? 0; let pid = String(patientID)
-                                                                patientName = dict["patientName"] as? String ?? ""
-                                                                generalAppearance =  dict["generalAppearance"] as? String ?? "" //used as patientID in the app
+                                                                patientName = dict["patientName"] as? String ?? "" //used as patientID in the app
+                                                                generalAppearance =  dict["generalAppearance"] as? String ?? ""
                                                                 skinFeetHair =  dict["skinFeetHair"] as? String ?? ""
                                                                 musculoskeletal = dict["musculoskeletal"] as? String ?? ""
                                                                 nose =  dict["nose"] as? String ?? ""
@@ -64,17 +64,18 @@ extension GETAll {
                                                                 
                                                                 physicalExams.append(["physicalExamId": vid, "patientID": patientName, "cloudPatientID": pid, "generalAppearance": generalAppearance,
                                                                                "skinFeetHair": skinFeetHair, "musculoskeletal": musculoskeletal, "nose": nose, "digestiveTeeth": digestiveTeeth,
-                                                                               "respiratory": respiratory, "ears": ears, "nervousSystem": nervousSystem, "lymphNodes": lymphNodes, "eyes": eyes, "urogenital":urogenital, "bodyConditionScore":bodyConditionScore, "comments":comments])
+                                                                               "respiratory": respiratory, "ears": ears, "nervousSystem": nervousSystem, "lymphNodes": lymphNodes, "eyes": eyes,
+                                                                               "urogenital":urogenital, "bodyConditionScore":bodyConditionScore, "comments":comments])
                                                             }
                                                         }
                                                         
-                                                        UserDefaults.standard.set(physicalExams, forKey: Constants.instantShare.Vitals.getAllVitalsKey)
+                                                        UserDefaults.standard.set(physicalExams, forKey: Constants.instantShare.PhysicalExams.getALLPhysicalExamsKey)
                                                         UserDefaults.standard.synchronize()
-                                                        print("finished GET vitals")
+                                                        print("finished GET PhysicalExams")
                                                         dispachInstance.leave() // API Responded
                                                     } //ct came back empty?
                                                 } catch {
-                                                    print("Error deserializing vitals JSON: \(error)")
+                                                    print("Error deserializing PhysicalExams JSON: \(error)")
                                                     dispachInstance.leave() // API Responded
                                                 }
                                             }

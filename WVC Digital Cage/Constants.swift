@@ -14,6 +14,7 @@ struct Constants {
         struct PhysicalExams {
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getAllPhysicalExams
             static let getAllPhysicalExams = url_IS + "getAllPhysicalExams"
+            static let getALLPhysicalExamsKey = "patientPhysicalExam"
             
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getPhysicalExamsCount
             static let getPhysicalExamsCount = url_IS + "getPhysicalExamsCount"

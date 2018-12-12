@@ -11,10 +11,8 @@ import UIKit
 
 class UPDATE {
     
-    func Patient(aview: UIView, parameters: [String : Any]/*update:Dictionary<String,String>*/, dispachInstance: DispatchGroup){
-        let headers = [
-            "content-type": "application/json"
-        ]
+    func Patient(aview: UIView, parameters: [String : Any], dispachInstance: DispatchGroup){
+        let headers = [ "content-type": "application/json" ]
         
         let postData = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         let request = NSMutableURLRequest(url: NSURL(string: Constants.instantShare.Patient.updatePatient)! as URL,
@@ -43,7 +41,6 @@ class UPDATE {
                                         }
                                     dispachInstance.leave() // API Responded
                                 }
-                                //ct came back empty?
                             } catch {
                                 print("Error deserializing PUT newPatient JSON: \(error)")
                                 dispachInstance.leave() // API Responded
