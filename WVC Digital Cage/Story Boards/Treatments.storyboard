@@ -2791,6 +2791,7 @@
         <image name="vitals" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="PGI-fe-mtT"/>
         <segue reference="3Ed-Bc-gy9"/>
     </inferredMetricsTieBreakers>
 </document>

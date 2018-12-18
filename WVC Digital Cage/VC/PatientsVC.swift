@@ -450,6 +450,9 @@ extension PatientsVC {
     // MARK: - Refresh Function
     //
     @objc func refreshData(){
+        //get all physical exams
+        getPhysicalExamsFromDCCISCloud()
+        
         //get all vitals
         getVitalsFromDCCISCloud()
         
@@ -523,6 +526,18 @@ extension PatientsVC {
         insertDG.notify(queue: DispatchQueue.main) {
             print("insert new vital success")
             self.getVitalsFromDCCISCloud()
+        }
+    }
+    
+    //Physical Exam
+    func getPhysicalExamsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getPhysicalExams(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            print("got cloud PhysicalExams")
         }
     }
 }
@@ -778,7 +793,7 @@ extension PatientsVC {
                 "initialsVitals":initialsVitals.text!
         ]
         
-        //UPDATE LOCAL
+        //INSERT NEW CLOUD
         if patientVitals.isEmpty {//create new record/TABLE if DNE
             insertVitalInDCCISCloud(thisVital:newVital)
             print("INSERT NEW Vital \n \(newVital)")
@@ -848,7 +863,9 @@ extension PatientsVC {
     }
 }
 extension PatientsVC{
+    //
     // MARK: - Email
+    //
     func sendEmailWithAttachemnt(patientData: Dictionary<String,String>){
         
         emailActive = true //close keyboard?

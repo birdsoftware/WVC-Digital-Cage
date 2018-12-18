@@ -11,6 +11,25 @@ import Foundation
 struct Constants {
     struct instantShare {
         static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+        struct Demographics {
+            // /getAllDemographics
+            static let getAllDemographics = url_IS + "getAllDemographics"
+            static let getAllDemographicsKey = "demographics"
+            
+            // /insertDemographic
+            static let insertDemographic = url_IS + "insertDemographic"
+            
+            // /updateDemographic
+            // {
+            //     "demographicsId":"5",
+            //     "patientID": "7",
+            //     "patientName": "Brutus",
+            //     "age": "1 year, 6 months",
+            //     "breed": "Mixed",
+            //     "sex": "Male"
+            // }
+            static let updateDemographic = url_IS + "updateDemographic"
+        }
         struct PhysicalExams {
             // http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/getAllPhysicalExams
             static let getAllPhysicalExams = url_IS + "getAllPhysicalExams"

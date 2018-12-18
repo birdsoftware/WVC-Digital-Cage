@@ -194,10 +194,12 @@ extension ViewController{
         GETAll().getPatients(aview: mainView, dispachInstance: getDG)
         
         getDG.notify(queue: DispatchQueue.main) {
-            print("got all IS Patients")
-            self.patientsBadge.text = " \(self.patientRecords.count) "
+            print("got cloud Patients")
+            //self.patientsBadge.text = " \(self.patientRecords.count) "
             
             self.getVitalsFromDCCISCloud()
+            
+            self.getPhysicalExamsFromDCCISCloud()
         }
     }
     
@@ -208,7 +210,18 @@ extension ViewController{
         
         getDG.notify(queue: DispatchQueue.main) {
             //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-            //print("got all IS Vitals \n \(patientVitals)")
+            print("got cloud Vitals")//\n \(patientVitals)")
+        }
+    }
+    
+    func getPhysicalExamsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getPhysicalExams(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            print("got cloud PhysicalExams")
         }
     }
 }

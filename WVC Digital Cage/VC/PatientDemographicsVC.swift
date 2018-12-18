@@ -181,7 +181,10 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
 }
 
 extension PatientDemographicsVC{
+    //
     // #MARK: - Picker View
+    //
+    
     // returns the number of 'columns' to display.
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -333,16 +336,11 @@ extension PatientDemographicsVC {
             breedTF.text = ""
         }
     }
-//    func moveSwitchState(switchName: UISwitch, isTrue:String){//sex? Male Female
-//        if isTrue == "true" || isTrue == "Archive"{
-//            switchName.setOn(true, animated: false)
-//        } else {
-//            switchName.setOn(false, animated: false)
-//        }
-//    }
 }
 extension PatientDemographicsVC {
-    //make changes to owner and kennel#
+    //
+    // #MARK: OWNER & KENNEL# Save, Update & Create
+    //
     func askToChange(selectedStringToChange: String,
                      textField: UITextField,
                      whatIsChanging: String,
@@ -359,18 +357,6 @@ extension PatientDemographicsVC {
             dictDefaultsKey: dictDefaultsKey,
             dictKey: dictKey)
     }
-//    a d = 1234
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-//        if pickerView == kennelPicker {
-//            //kennelTF.text = String(kennelIntArray[row])
-//            //flashGreenTextField(textField: kennelTF, displayText: String(kennelIntArray[row]))
-//            askToChange(selectedStringToChange: String(kennelIntArray[row]), textField: kennelTF, whatIsChanging: "Kennel#", dictDefaultsKey: "patientRecords", dictKey: "kennelID")
-//        } else {
-//            //ownerTF.text = ownerList[row]
-//            //flashGreenTextField(textField: ownerTF, displayText: ownerList[row])
-//            askToChange(selectedStringToChange: String(ownerList[row]), textField: ownerTF, whatIsChanging: "Owner", dictDefaultsKey: "patientRecords", dictKey: "owner")
-//        }
-//    }
     
     func changeButtonTapped(selectedPatientID: String, selectedStringToChange: String, textField: UITextField,dictDefaultsKey: String,dictKey: String){
         
@@ -565,6 +551,7 @@ extension PatientDemographicsVC {
 // #MARK: API
 //
 
+    // update Patients table
     func updateInDCCISCloud(thisPatient:[String : Any]){
         let updateDG = DispatchGroup()
         updateDG.enter()
@@ -575,5 +562,37 @@ extension PatientDemographicsVC {
         }
     }
     
+    //Demographics table
+    func getDemographicsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getDemographic(aview: patientDemographicsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            print("got cloud Demographics")
+        }
+    }
+    
+    func updateDemographicInDCCISCloud(thisDemographic:[String : Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATE().Demographic(aview: patientDemographicsView, parameters: thisDemographic, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update Demographic success")
+            self.getDemographicsFromDCCISCloud()
+        }
+    }
+    
+    func insertDemographicInDCCISCloud(thisDemographic:[String : Any]){
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newDemographic(aview: patientDemographicsView, parameters: thisDemographic, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new Demographic success")
+            self.getDemographicsFromDCCISCloud()
+        }
+    }
 }
-

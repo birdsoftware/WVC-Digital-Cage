@@ -8,12 +8,19 @@
 
 import UIKit
 
-class PatientPE_VC: UIViewController {
+class PatientPE_VC: UIViewController, UITextViewDelegate{
 
+    //this view
+    @IBOutlet var physicalExamView: UIView!
+    
     //text view
     @IBOutlet weak var textViewPE: UITextView!
+    
+    //segment
+    @IBOutlet weak var bodyConditionScoreSegmentControl: UISegmentedControl!
+    
     //slider
-    @IBOutlet weak var sliderPE: UISlider!
+    //@IBOutlet weak var sliderPE: UISlider!
     @IBOutlet weak var sliderValueLabel: UILabel!
     //Layout Constraint
     @IBOutlet weak var commentsTopLayoutConstraint: NSLayoutConstraint!
@@ -31,12 +38,7 @@ class PatientPE_VC: UIViewController {
     @IBOutlet weak var switchTen: UISwitch!
     @IBOutlet weak var switchEleven: UISwitch!
     
-    //var boolArray = [Bool](repeating: false, count: 11)
-    
-    //Saved selectedPatientID from PatientsVC.swift
-    //var selectedPatientID = ""
-    
-    var newPE:Dictionary<String,String> =
+    var newPE:[String: Any] = //Dictionary<String,String> =
         [
             "patientID":"",
             "comments":"",
@@ -54,6 +56,7 @@ class PatientPE_VC: UIViewController {
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpDelegateFor(textView: textViewPE)
         tapDismissKeyboard()
         //keyboard notification for push fields up/down
         let center = NotificationCenter.default
@@ -112,12 +115,13 @@ class PatientPE_VC: UIViewController {
             break;
         }
     }
-    @IBAction func sliderAction(_ sender: UISlider) {
-        let roundedNearestHalf = round(sender.value*2)/2 //0, 0.5,...
-        let currentValue = String(roundedNearestHalf)
-        sliderValueLabel.text = "\(currentValue)"
-        updateSliderValueInpatientPhysicalExamDictionary(sliderNewValue: currentValue)
+    @IBAction func segmentAction(_ sender: Any) {
+        let segmentIndex = bodyConditionScoreSegmentControl.selectedSegmentIndex
+        let title = bodyConditionScoreSegmentControl.titleForSegment(at: segmentIndex)
+        sliderValueLabel.text = "\(title!)"
+        updateDCCISCloud()//BodyConditionScore: sliderValueLabel.text!)
     }
+
 }
 extension PatientPE_VC{
     //switch action
@@ -145,13 +149,16 @@ extension PatientPE_VC{
     }
 }
 extension PatientPE_VC {
+    //
     // #MARK: - Hide Keyboard
+    //
     func tapDismissKeyboard(){
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PatientPE_VC.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     @objc func dismissKeyboard(){
         view.endEditing(true)
+        
         commentsTopLayoutConstraint.constant = 320 //move text view back
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -165,20 +172,44 @@ extension PatientPE_VC {
         })
     }// #MARK: - When Keyboard shws DO: Move text view down
     @objc func keyboardWillHide(sender: NSNotification){
+        
         commentsTopLayoutConstraint.constant = 320
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }
 }
+extension PatientPE_VC {
+    //
+    // #MARK: - Text View
+    //
+    func setUpDelegateFor(textView: UITextView){
+        textView.delegate = self
+        textView.tag = 10
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.tag == 10 {
+            print("keyboardWillHide")
+            updateDCCISCloud()
+        }
+    }
+}
 extension PatientPE_VC{
-    func updatePEDataObject(){
+    //
+    // #MARK - Reset Physical Exam
+    //
+    func setPhysicalExamToNormalState(){
         let pid = returnSelectedPatientID()
+        
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? [] //might be slow
+        let cpid = returnCloudPatientIDFor(dictArray: patientRecords, patientID: pid)
+       
         newPE =
             [
-                "patientID":pid,
+                "patientID":cpid,
+                "patientName":pid,//patientName
                 "comments":textViewPE.text!,
-                "generalAppearance":"false",
+                "generalAppearance":"false",//Normal/Abnormal - false/true
                 "skinFeetHair":"false",
                 "musculoskeletal":"false",
                 "nose":"false",
@@ -192,37 +223,68 @@ extension PatientPE_VC{
                 "bodyConditionScore":sliderValueLabel.text!
         ]
     }
+}
+
+extension PatientPE_VC{
+    //
+    // #MARK: - Save New or Update Physical Exam
+    //
     func savePhysicalExamSwitchValue(senderTag:Int, isSwitchOpen: Bool){
         var patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
-        let pid = returnSelectedPatientID()
-        let switchStringNames = ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital"]
-        var found = false
-        updatePEDataObject()
         
-        newPE.updateValue(String(isSwitchOpen), forKey: switchStringNames[senderTag])
-        if patientPhysicalExam.isEmpty {//Create NEW record/TABLE if DNE
-            UserDefaults.standard.set([newPE], forKey: "patientPhysicalExam")
-            UserDefaults.standard.synchronize()
+        var found = false
+        setPhysicalExamToNormalState()
+        
+        //update selected toggle switch
+        let toggleSwitchs = ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital"]
+        newPE.updateValue(String(isSwitchOpen), forKey: toggleSwitchs[senderTag])
+        
+        //INSERT NEW CLOUD
+        if patientPhysicalExam.isEmpty {
+            
+            insertPhysicalExamInDCCISCloud(thisPhysicalExam:newPE)
+            print("EMPTY, INSERT NEW P E \n \(newPE)")
+            
         } else {
+            
+            //make sure we are update or saving for the right patient
             for index in 0..<patientPhysicalExam.count {
-                if patientPhysicalExam[index]["patientID"] == pid {//UPDATE Existing PID
-                    patientPhysicalExam[index][switchStringNames[senderTag]] = String(isSwitchOpen)
-                    patientPhysicalExam[index]["comments"] = textViewPE.text!
-                    patientPhysicalExam[index]["bodyConditionScore"] = sliderValueLabel.text!
-                    UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
-                    UserDefaults.standard.synchronize()
-                    found = true
-                    //print("UPDATE PE \(patientPhysicalExam)")
+                
+                let patientName = newPE["patientName"] as? String
+                if patientPhysicalExam[index]["patientID"] == patientName {
+                    
+                    //UPDATE CLOUD
+                    //If this patient already has a physical exam record then update it here
+                    if let physicalExamId = patientPhysicalExam[index]["physicalExamId"] as? String {
+                        
+                        for item in toggleSwitchs {
+                            newPE[item] = patientPhysicalExam[index][item]
+                        }
+                        newPE["physicalExamId"] = physicalExamId
+                        //newPE["comments"] = textViewPE.text!
+                        //newPE["bodyConditionScore"] = sliderValueLabel.text!
+                        newPE.updateValue(String(isSwitchOpen), forKey: toggleSwitchs[senderTag])
+                        
+                        found = true
+                        print("UPDATE PE \(patientPhysicalExam)")
+                        updatePhysicalExamInDCCISCloud(thisPhysicalExam: newPE)
+                        return
+                    }
                 }
             }
             if found == false {
-                patientPhysicalExam.append(newPE)
-                UserDefaults.standard.set(patientPhysicalExam, forKey: "patientPhysicalExam")
-                UserDefaults.standard.synchronize()
-                //print("APPEND PE \(patientPhysicalExam)")
+                
+                //INSERT NEW
+                insertPhysicalExamInDCCISCloud(thisPhysicalExam:newPE)
+                print("INSERT NEW P E \n \(newPE)")
+                
             }
         }
     }
+    
+    //
+    // #MARK: - Show Physical Exam
+    //
     @objc func showPhysicalExam(){
         let pid = returnSelectedPatientID()
         var patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
@@ -246,9 +308,9 @@ extension PatientPE_VC{
                     textViewPE.text = patientPhysicalExam[index]["comments"]!
                     let sliderScore = patientPhysicalExam[index]["bodyConditionScore"]!
                     sliderValueLabel.text = sliderScore
-                    sliderPE.setValue(Float(sliderScore)!, animated: false)
+                    print("sliderScore: \(sliderScore)")
+                    updateSlider(sliderScore: sliderScore)
                     found = true
-                    //print("showPhysicalExam found by PID")
                 }
             }
         }
@@ -266,8 +328,9 @@ extension PatientPE_VC{
             moveSwitchState(switchName: switchTen, isTrue: "")
             moveSwitchState(switchName: switchEleven, isTrue: "")
             textViewPE.text = ""
-            sliderValueLabel.text = "3.0"
-            sliderPE.setValue(3.0, animated: false)
+            sliderValueLabel.text = "3"
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 4
+            //sliderPE.setValue(3.0, animated: false)
         }
     }
     func moveSwitchState(switchName: UISwitch, isTrue:String){
@@ -277,34 +340,116 @@ extension PatientPE_VC{
             switchName.setOn(false, animated: false)
         }
     }
-    func updateSliderValueInpatientPhysicalExamDictionary(sliderNewValue: String){
-        //let pid = returnSelectedPatientID()
-        var dic = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
-        if dic.isEmpty {
-            updatePEDataObject()
-            UserDefaults.standard.set([newPE], forKey: "patientPhysicalExam")
-            UserDefaults.standard.synchronize()
-        } else {
-            var changesMade = false
-            let result : [Any] = dic.map { dictionary in
-                var dict = dictionary
-                if let patientID = dict["patientID"], patientID == returnSelectedPatientID() {
-                    dict["bodyConditionScore"] = sliderNewValue
-                    changesMade = true
-                }
-                return dict
-            }
-            if changesMade {
-                UserDefaults.standard.set(result, forKey: "patientPhysicalExam")
-                UserDefaults.standard.synchronize()
-            } else {
-                updatePEDataObject()
-                dic.append(newPE)
-                UserDefaults.standard.set(dic, forKey: "patientPhysicalExam")
-                UserDefaults.standard.synchronize()
-            }
+    func updateSlider(sliderScore: String){
+        switch sliderScore {
+        case "1":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 0
+        case "1.5":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 1
+        case "2":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 2
+        case "2.5":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 3
+        case "3":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 4
+        case "3.5":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 5
+        case "4":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 6
+        case "4.5":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 7
+        case "5":
+            bodyConditionScoreSegmentControl.selectedSegmentIndex = 8
+        default: ()
+        break;
         }
     }
     
 }
 
+extension PatientPE_VC{
+    //
+    // #MARK: - UPDATE SLIDER for Body Condition Score and comments
+    //
+    func updateDCCISCloud(){
+        var patientPhysicalExam = UserDefaults.standard.object(forKey: "patientPhysicalExam") as? Array<Dictionary<String,String>> ?? []
+        
+        var found = false
+        setPhysicalExamToNormalState()
+        
+        //INSERT NEW CLOUD
+        if patientPhysicalExam.isEmpty {
+            
+            insertPhysicalExamInDCCISCloud(thisPhysicalExam:newPE)
+            print("EMPTY, INSERT NEW body condition score \n \(newPE)")
+            
+        } else {
+            
+            let toggleSwitchs = ["generalAppearance","skinFeetHair","musculoskeletal","nose","digestiveTeeth","respiratory","ears","nervousSystem","lymphNodes","eyes","urogenital"]
+            //make sure we are update or saving for the right patient
+            for index in 0..<patientPhysicalExam.count {
+                
+                let patientName = newPE["patientName"] as? String
+                if patientPhysicalExam[index]["patientID"] == patientName {
+                    
+                    //UPDATE CLOUD
+                    //If this patient already has a physical exam record then update it here
+                    if let physicalExamId = patientPhysicalExam[index]["physicalExamId"] as? String {
+                        
+                        for item in toggleSwitchs {
+                            newPE[item] = patientPhysicalExam[index][item]
+                        }
+                        newPE["physicalExamId"] = physicalExamId
+                        found = true
+                        print("UPDATE body condition score \(newPE)")
+                        updatePhysicalExamInDCCISCloud(thisPhysicalExam: newPE)
+                        return
+                    }
+                }
+            }
+            if found == false {
+                //INSERT NEW
+                insertPhysicalExamInDCCISCloud(thisPhysicalExam:newPE)
+                print("INSERT NEW body condition score \n \(newPE)")
+            }
+        }
+    }
+}
+
+extension PatientPE_VC{
+    //
+    // #MARK: - API
+    //
+    func getPhysicalExamsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getPhysicalExams(aview: physicalExamView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            print("got cloud PhysicalExams")
+        }
+    }
+    
+    func updatePhysicalExamInDCCISCloud(thisPhysicalExam:[String : Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATE().physicalExam(aview: physicalExamView, parameters: thisPhysicalExam, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update Physical Exam success")
+            self.getPhysicalExamsFromDCCISCloud()
+        }
+    }
+    
+    func insertPhysicalExamInDCCISCloud(thisPhysicalExam:[String : Any]){
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newPhysicalExam(aview: physicalExamView, parameters: thisPhysicalExam, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new Physical Exam success")
+            self.getPhysicalExamsFromDCCISCloud()
+        }
+    }
+}

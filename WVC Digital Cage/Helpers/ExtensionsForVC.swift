@@ -78,5 +78,12 @@ extension UIViewController {
         isChecked = !isChecked
     }
 
+    func returnCloudPatientIDFor(dictArray: Array<Dictionary<String,String>>, patientID: String) -> String{
+        var cloudPatientID = ""
+        if let index = dictIndexFrom(array: dictArray, usingKey:"patientID", usingValue: patientID) {
+            cloudPatientID = dictArray[index]["cloudPatientID"]! //unexpectedly found nil while unwrapping option value
+        }
+        return cloudPatientID
+    }
     
 }

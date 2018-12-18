@@ -40,6 +40,9 @@
 		5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506B1FE323BD00876BFF /* RemovePatient.swift */; };
 		5830506E1FE34B5300876BFF /* Treatments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5830506D1FE34B5300876BFF /* Treatments.storyboard */; };
 		583050701FE34EB100876BFF /* TxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830506F1FE34EB100876BFF /* TxVC.swift */; };
+		58326DC021C8690900DDF2C4 /* INSERTDEMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DBF21C8690900DDF2C4 /* INSERTDEMO.swift */; };
+		58326DC221C8691B00DDF2C4 /* GETALLDEMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DC121C8691B00DDF2C4 /* GETALLDEMO.swift */; };
+		58326DC421C8692800DDF2C4 /* UPDATEDEMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DC321C8692800DDF2C4 /* UPDATEDEMO.swift */; };
 		58349B0221B1F4BF005C328E /* DELETEPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58349B0121B1F4BF005C328E /* DELETEPatient.swift */; };
 		5834D13F1FFFF1CC00996D83 /* email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5834D13E1FFFF1CB00996D83 /* email.swift */; };
 		583520191FF44B75002ACD1C /* addTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583520181FF44B75002ACD1C /* addTx.swift */; };
@@ -166,6 +169,9 @@
 		5830506B1FE323BD00876BFF /* RemovePatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePatient.swift; sourceTree = "<group>"; };
 		5830506D1FE34B5300876BFF /* Treatments.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Treatments.storyboard; sourceTree = "<group>"; };
 		5830506F1FE34EB100876BFF /* TxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxVC.swift; sourceTree = "<group>"; };
+		58326DBF21C8690900DDF2C4 /* INSERTDEMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INSERTDEMO.swift; sourceTree = "<group>"; };
+		58326DC121C8691B00DDF2C4 /* GETALLDEMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETALLDEMO.swift; sourceTree = "<group>"; };
+		58326DC321C8692800DDF2C4 /* UPDATEDEMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPDATEDEMO.swift; sourceTree = "<group>"; };
 		58349B0121B1F4BF005C328E /* DELETEPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETEPatient.swift; sourceTree = "<group>"; };
 		5834D13E1FFFF1CB00996D83 /* email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = email.swift; path = "WVC Digital Cage/VC/Treatments/email.swift"; sourceTree = SOURCE_ROOT; };
 		583520181FF44B75002ACD1C /* addTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTx.swift; sourceTree = "<group>"; };
@@ -405,6 +411,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		58326DBE21C868EB00DDF2C4 /* DEMOGRAPHICS */ = {
+			isa = PBXGroup;
+			children = (
+				58326DBF21C8690900DDF2C4 /* INSERTDEMO.swift */,
+				58326DC121C8691B00DDF2C4 /* GETALLDEMO.swift */,
+				58326DC321C8692800DDF2C4 /* UPDATEDEMO.swift */,
+			);
+			path = DEMOGRAPHICS;
+			sourceTree = "<group>";
+		};
 		5843932E2092723300FFEC11 /* Alerts Demographics */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +478,7 @@
 		58C1811421B19709007F15B1 /* IS APIs */ = {
 			isa = PBXGroup;
 			children = (
+				58326DBE21C868EB00DDF2C4 /* DEMOGRAPHICS */,
 				58939B5E21C079AD0075A221 /* PHYSICAL EXAM */,
 				58939B5521B8A9070075A221 /* VITALS */,
 				58C1811621B19EFC007F15B1 /* PATIENT */,
@@ -728,6 +745,7 @@
 				58C1811821B1A57E007F15B1 /* INSERTPatient.swift in Sources */,
 				58939B5D21B9F0620075A221 /* UPDATEVital.swift in Sources */,
 				58D3AE091FB663A10036E0E0 /* InjuriesVC.swift in Sources */,
+				58326DC021C8690900DDF2C4 /* INSERTDEMO.swift in Sources */,
 				58439332209297FD00FFEC11 /* GETPatientCount.swift in Sources */,
 				58A82B932076D5E400E4B958 /* Badge.swift in Sources */,
 				58053DA8201FAEA800DACE9D /* toggle.swift in Sources */,
@@ -767,6 +785,7 @@
 				58439325209134AF00FFEC11 /* CustomAlertBreed.swift in Sources */,
 				58AA457B202235430069E58D /* GETPatientIntake.swift in Sources */,
 				582836A41F914FC9003F18FE /* PatientsVC.swift in Sources */,
+				58326DC421C8692800DDF2C4 /* UPDATEDEMO.swift in Sources */,
 				58BB5165206D88ED0003AEFC /* textViewAlert.swift in Sources */,
 				584393342092A1F700FFEC11 /* GETPatients.swift in Sources */,
 				5830506C1FE323BD00876BFF /* RemovePatient.swift in Sources */,
@@ -783,6 +802,7 @@
 				5843933020928CAA00FFEC11 /* CloudVC.swift in Sources */,
 				58FE3C2C1FEB1EE2005F7219 /* addTxVital.swift in Sources */,
 				580FCADC1FBA1130007D6414 /* Camera.swift in Sources */,
+				58326DC221C8691B00DDF2C4 /* GETALLDEMO.swift in Sources */,
 				582836A81F914FED003F18FE /* HistoryVC.swift in Sources */,
 				58939B6421C07A1D0075A221 /* UPDATEPE.swift in Sources */,
 				582836AB1F916092003F18FE /* TableViewCell.swift in Sources */,
