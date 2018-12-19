@@ -20,7 +20,7 @@ extension INSERT {
         let postData = try! JSONSerialization.data(withJSONObject: parameters, options: [])
         let request = NSMutableURLRequest(url: NSURL(string: Constants.instantShare.Demographics.insertDemographic)! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
-                                          timeoutInterval: 10.0)
+                                          timeoutInterval: 4.0)
         
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = headers

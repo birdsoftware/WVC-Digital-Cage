@@ -247,7 +247,7 @@ extension PatientPE_VC{
             
         } else {
             
-            //make sure we are update or saving for the right patient
+            //make sure we have right patient
             for index in 0..<patientPhysicalExam.count {
                 
                 let patientName = newPE["patientName"] as? String

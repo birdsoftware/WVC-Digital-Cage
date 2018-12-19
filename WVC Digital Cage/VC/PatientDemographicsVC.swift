@@ -48,7 +48,7 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
             "breed":"",
             "sex":""
         ]
-    var kennelIntArray = ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10",
+    var kennelIntArray = ["S1","S2","S3","S4","S5","S6","S7","S8",//"S9","S10",
                               "D1","D2","D3","D4","D5","D6","D7","D8","D9","D10",
                               "D11","D12","D13","D14","D15","D16",
                               "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10",
@@ -429,9 +429,12 @@ extension PatientDemographicsVC {
     //add update save create Demographics: Age, Breed, Sex
     func updateDemographicsObject(){
         let pid = returnSelectedPatientID()
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? [] //might be slow
+        let cpid = returnCloudPatientIDFor(dictArray: patientRecords, patientID: pid)
         newDemographics =
             [
-                "patientID":pid,
+                "patientID":cpid,
+                "patientName":pid,//patientName
                 "age":ageTF.text!,
                 "breed":breedTF.text!,
                 "sex":sexTF.text!//String(switchSex.isOn)//true = female
@@ -441,25 +444,36 @@ extension PatientDemographicsVC {
         var demographics = UserDefaults.standard.object(forKey: "demographics") as? Array<Dictionary<String,String>> ?? []
         updateDemographicsObject()
         var found = false
+        //INSERT NEW CLOUD
         if demographics.isEmpty {
-            UserDefaults.standard.set([newDemographics], forKey: "demographics")
-            UserDefaults.standard.synchronize()
+            //UserDefaults.standard.set([newDemographics], forKey: "demographics")
+            //UserDefaults.standard.synchronize()
+            insertDemographicInDCCISCloud(thisDemographic: newDemographics)
+            print("EMPTY, INSERT NEW Demographics \n \(newDemographics)")
         } else {
+            //make sure we have right patient
             for index in 0..<demographics.count{
-                if demographics[index]["patientID"] == newDemographics["patientID"]{
+                if demographics[index]["patientID"] == newDemographics["patientName"]{
                     found = true
-                    for item in newDemographics {
-                        demographics[index][item.key] = item.value
+                    print("got here at least!!!")
+                    if let demographicsId = demographics[index]["demographicsId"] as? String {
+                        newDemographics["demographicsId"] = demographicsId
+                    //UserDefaults.standard.set(demographics, forKey: "demographics")
+                    //UserDefaults.standard.synchronize()
+                        found = true
+                        print("UPDATE Demographics \(newDemographics)")
+                        updateDemographicInDCCISCloud(thisDemographic: newDemographics)
+                        return
                     }
-                    UserDefaults.standard.set(demographics, forKey: "demographics")
-                    UserDefaults.standard.synchronize()
-                    return
                 }
             }
-            if found == false {//APPEND NEW
-                demographics.append(newDemographics)
-                UserDefaults.standard.set(demographics, forKey: "demographics")
-                UserDefaults.standard.synchronize()
+            if found == false {
+                insertDemographicInDCCISCloud(thisDemographic: newDemographics)
+                print("INSERT NEW Demographics \n \(newDemographics)")
+                //INSERT NEW
+                //demographics.append(newDemographics)
+                //UserDefaults.standard.set(demographics, forKey: "demographics")
+                //UserDefaults.standard.synchronize()
             }
         }
     }
@@ -505,6 +519,7 @@ extension PatientDemographicsVC: CustomAlertViewDelegate {
         //print("TextField has value: \(textFieldValue)")
         ageTF.text = selectedOption
         saveDemographics()
+        print("selectedOption \(selectedOption)")
     }
     func cancelButtonTapped() {
         print("cancel Button Tapped")

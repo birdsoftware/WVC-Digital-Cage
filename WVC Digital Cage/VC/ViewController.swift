@@ -118,7 +118,7 @@ class ViewController: UIViewController {
         getPatientsFromDCCISCloud()
         
         //segueclear(arrayDicName: "collectionTxVitals")
-        //clear(arrayDicName: "collectionTreatments")
+        //clear(arrayDicName: "demographics")
         
         //for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
         //    print("\(key) = \(value) \n")
@@ -200,6 +200,8 @@ extension ViewController{
             self.getVitalsFromDCCISCloud()
             
             self.getPhysicalExamsFromDCCISCloud()
+            
+            self.getDemographicsFromDCCISCloud()
         }
     }
     
@@ -222,6 +224,17 @@ extension ViewController{
         getDG.notify(queue: DispatchQueue.main) {
             //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
             print("got cloud PhysicalExams")
+        }
+    }
+    //Demographics table
+    func getDemographicsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getDemographic(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            print("got cloud Demographics")
         }
     }
 }

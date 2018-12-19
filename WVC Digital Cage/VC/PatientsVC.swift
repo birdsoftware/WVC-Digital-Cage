@@ -450,6 +450,9 @@ extension PatientsVC {
     // MARK: - Refresh Function
     //
     @objc func refreshData(){
+        //get demographics
+        getDemographicsFromDCCISCloud()
+        
         //get all physical exams
         getPhysicalExamsFromDCCISCloud()
         
@@ -475,6 +478,7 @@ extension PatientsVC {
     // MARK: - API Calls
     //
     
+    //PATIENTS
     func deletePatient(patientID: Int){
         let removeDG = DispatchGroup()
         removeDG.enter()
@@ -538,6 +542,18 @@ extension PatientsVC {
         getDG.notify(queue: DispatchQueue.main) {
             //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
             print("got cloud PhysicalExams")
+        }
+    }
+    
+    //Demographics
+    func getDemographicsFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getDemographic(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
+            print("got cloud Demographics")
         }
     }
 }

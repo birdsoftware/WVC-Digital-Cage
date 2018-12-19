@@ -15,7 +15,7 @@ extension GETAll {
         let messgTitle = "Demographic"
         
         var Demographic = [Dictionary<String,String>]()
-        var demographicId = 0; var patientID =  0; var patientName =  "";
+        var demographicsId = 0; var patientID =  0; var patientName =  "";
         var age =  ""; var breed = ""; var sex = "";
         
         let headers = [
@@ -46,8 +46,8 @@ extension GETAll {
                                     //we have DATA
                                     let patientsIS = json["data"] as? [[String: Any]]
                                     for dict in patientsIS! {
-                                        demographicId = dict["demographicId"] as? Int ?? 0
-                                        let did = String(demographicId)
+                                        demographicsId = dict["demographicsId"] as? Int ?? 0
+                                        let did = String(demographicsId)
                                         patientID = dict["patientID"] as? Int ?? 0
                                         let pid = String(patientID)
                                         patientName = dict["patientName"] as? String ?? ""
@@ -55,7 +55,7 @@ extension GETAll {
                                         breed =  dict["breed"] as? String ?? ""
                                         sex = dict["sex"] as? String ?? ""
                                         
-                                        Demographic.append(["demographicId": did, "patientID": patientName, "cloudPatientID": pid, "age": age,
+                                        Demographic.append(["demographicsId": did, "patientID": patientName, "cloudPatientID": pid, "age": age,
                                                        "breed": breed, "sex": sex])
                                     }
                                 }
