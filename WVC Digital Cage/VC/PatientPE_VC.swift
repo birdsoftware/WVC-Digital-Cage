@@ -306,10 +306,10 @@ extension PatientPE_VC{
                     moveSwitchState(switchName: switchTen, isTrue: patientPhysicalExam[index]["eyes"]!)
                     moveSwitchState(switchName: switchEleven, isTrue: patientPhysicalExam[index]["urogenital"]!)
                     textViewPE.text = patientPhysicalExam[index]["comments"]!
-                    let sliderScore = patientPhysicalExam[index]["bodyConditionScore"]!
-                    sliderValueLabel.text = sliderScore
-                    print("sliderScore: \(sliderScore)")
-                    updateSlider(sliderScore: sliderScore)
+                    let segmentScore = patientPhysicalExam[index]["bodyConditionScore"]!
+                    sliderValueLabel.text = segmentScore
+                    print("segmentScore: \(segmentScore)")
+                    updateSegment(segmentScore: segmentScore)
                     found = true
                 }
             }
@@ -340,8 +340,8 @@ extension PatientPE_VC{
             switchName.setOn(false, animated: false)
         }
     }
-    func updateSlider(sliderScore: String){
-        switch sliderScore {
+    func updateSegment(segmentScore: String){
+        switch segmentScore {
         case "1":
             bodyConditionScoreSegmentControl.selectedSegmentIndex = 0
         case "1.5":

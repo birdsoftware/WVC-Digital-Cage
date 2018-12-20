@@ -5,12 +5,32 @@
 //  Created by Brian Bird on 1/26/18.
 //  Copyright © 2018 Brian Bird. All rights reserved.
 //
+// command on terminal to clear connections to port 9000
+// fuser -k 9000/tcp
 
 import Foundation
 
 struct Constants {
     struct instantShare {
         static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+        struct Badges {
+            static let getAllBadges = url_IS + "getAllBadges"
+            static let getAllBadgesKey = "badges"
+            static let getBadgesCount = url_IS + "getBadgesCount"
+            static let insertBadge = url_IS + "insertBadge"
+            // {
+            //      "badgesId": "4",
+            //      "patientID": "2",
+            //      "patientName": "0965749",
+            //      "isWet": "true",
+            //      "isDry": "false",
+            //      "isNpo": "true",
+            //      "isTwice": "true",
+            //      "isHalf": "false",
+            //      "isCaution": "true"
+            // }
+            static let updateBadge = url_IS + "updateBadge"
+        }
         struct Demographics {
             // /getAllDemographics
             static let getAllDemographics = url_IS + "getAllDemographics"

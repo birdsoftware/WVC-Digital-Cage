@@ -43,6 +43,9 @@
 		58326DC021C8690900DDF2C4 /* INSERTDEMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DBF21C8690900DDF2C4 /* INSERTDEMO.swift */; };
 		58326DC221C8691B00DDF2C4 /* GETALLDEMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DC121C8691B00DDF2C4 /* GETALLDEMO.swift */; };
 		58326DC421C8692800DDF2C4 /* UPDATEDEMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DC321C8692800DDF2C4 /* UPDATEDEMO.swift */; };
+		58326DC921CC23FF00DDF2C4 /* INSERTBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DC821CC23FF00DDF2C4 /* INSERTBadge.swift */; };
+		58326DCB21CC241000DDF2C4 /* GETALLBadges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DCA21CC241000DDF2C4 /* GETALLBadges.swift */; };
+		58326DCD21CC241D00DDF2C4 /* UPDATEBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58326DCC21CC241D00DDF2C4 /* UPDATEBadge.swift */; };
 		58349B0221B1F4BF005C328E /* DELETEPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58349B0121B1F4BF005C328E /* DELETEPatient.swift */; };
 		5834D13F1FFFF1CC00996D83 /* email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5834D13E1FFFF1CB00996D83 /* email.swift */; };
 		583520191FF44B75002ACD1C /* addTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583520181FF44B75002ACD1C /* addTx.swift */; };
@@ -172,6 +175,9 @@
 		58326DBF21C8690900DDF2C4 /* INSERTDEMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INSERTDEMO.swift; sourceTree = "<group>"; };
 		58326DC121C8691B00DDF2C4 /* GETALLDEMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETALLDEMO.swift; sourceTree = "<group>"; };
 		58326DC321C8692800DDF2C4 /* UPDATEDEMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPDATEDEMO.swift; sourceTree = "<group>"; };
+		58326DC821CC23FF00DDF2C4 /* INSERTBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INSERTBadge.swift; sourceTree = "<group>"; };
+		58326DCA21CC241000DDF2C4 /* GETALLBadges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETALLBadges.swift; sourceTree = "<group>"; };
+		58326DCC21CC241D00DDF2C4 /* UPDATEBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPDATEBadge.swift; sourceTree = "<group>"; };
 		58349B0121B1F4BF005C328E /* DELETEPatient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DELETEPatient.swift; sourceTree = "<group>"; };
 		5834D13E1FFFF1CB00996D83 /* email.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = email.swift; path = "WVC Digital Cage/VC/Treatments/email.swift"; sourceTree = SOURCE_ROOT; };
 		583520181FF44B75002ACD1C /* addTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTx.swift; sourceTree = "<group>"; };
@@ -421,6 +427,16 @@
 			path = DEMOGRAPHICS;
 			sourceTree = "<group>";
 		};
+		58326DC721CC23DB00DDF2C4 /* BADGES */ = {
+			isa = PBXGroup;
+			children = (
+				58326DC821CC23FF00DDF2C4 /* INSERTBadge.swift */,
+				58326DCA21CC241000DDF2C4 /* GETALLBadges.swift */,
+				58326DCC21CC241D00DDF2C4 /* UPDATEBadge.swift */,
+			);
+			path = BADGES;
+			sourceTree = "<group>";
+		};
 		5843932E2092723300FFEC11 /* Alerts Demographics */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +494,7 @@
 		58C1811421B19709007F15B1 /* IS APIs */ = {
 			isa = PBXGroup;
 			children = (
+				58326DC721CC23DB00DDF2C4 /* BADGES */,
 				58326DBE21C868EB00DDF2C4 /* DEMOGRAPHICS */,
 				58939B5E21C079AD0075A221 /* PHYSICAL EXAM */,
 				58939B5521B8A9070075A221 /* VITALS */,
@@ -742,12 +759,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58326DCD21CC241D00DDF2C4 /* UPDATEBadge.swift in Sources */,
 				58C1811821B1A57E007F15B1 /* INSERTPatient.swift in Sources */,
 				58939B5D21B9F0620075A221 /* UPDATEVital.swift in Sources */,
 				58D3AE091FB663A10036E0E0 /* InjuriesVC.swift in Sources */,
 				58326DC021C8690900DDF2C4 /* INSERTDEMO.swift in Sources */,
 				58439332209297FD00FFEC11 /* GETPatientCount.swift in Sources */,
 				58A82B932076D5E400E4B958 /* Badge.swift in Sources */,
+				58326DCB21CC241000DDF2C4 /* GETALLBadges.swift in Sources */,
 				58053DA8201FAEA800DACE9D /* toggle.swift in Sources */,
 				58C9B33B1FA27339006DE233 /* SettingsVC.swift in Sources */,
 				5834D13F1FFFF1CC00996D83 /* email.swift in Sources */,
@@ -755,6 +774,7 @@
 				58053DA2201BD7B400DACE9D /* GETPatient.swift in Sources */,
 				58E8A5351F990977004E6640 /* ExtensionsForVC.swift in Sources */,
 				583CCD2C1FB0F1D000F03DF1 /* customNotifVC.swift in Sources */,
+				58326DC921CC23FF00DDF2C4 /* INSERTBadge.swift in Sources */,
 				58053DA6201BF87F00DACE9D /* POSTPatient.swift in Sources */,
 				5843932D2092718500FFEC11 /* CustomAlertViewDelegateSex.swift in Sources */,
 				58439321208A7FD600FFEC11 /* CustomAlertViewDelegate.swift in Sources */,

@@ -188,6 +188,7 @@ extension ViewController{
     //
     
     func getPatientsFromDCCISCloud(){
+        ViewControllerUtils().showActivityIndicator(uiView: self.view)
         
         let getDG = DispatchGroup()
         getDG.enter()
@@ -195,13 +196,14 @@ extension ViewController{
         
         getDG.notify(queue: DispatchQueue.main) {
             print("got cloud Patients")
-            //self.patientsBadge.text = " \(self.patientRecords.count) "
             
             self.getVitalsFromDCCISCloud()
             
             self.getPhysicalExamsFromDCCISCloud()
             
             self.getDemographicsFromDCCISCloud()
+            
+            self.getBadgesFromDCCISCloud()
         }
     }
     
@@ -211,8 +213,7 @@ extension ViewController{
         GETAll().getVitals(aview: mainView, dispachInstance: getDG)
         
         getDG.notify(queue: DispatchQueue.main) {
-            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
-            print("got cloud Vitals")//\n \(patientVitals)")
+            print("got cloud Vitals")
         }
     }
     
@@ -222,7 +223,6 @@ extension ViewController{
         GETAll().getPhysicalExams(aview: mainView, dispachInstance: getDG)
         
         getDG.notify(queue: DispatchQueue.main) {
-            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
             print("got cloud PhysicalExams")
         }
     }
@@ -233,8 +233,21 @@ extension ViewController{
         GETAll().getDemographic(aview: mainView, dispachInstance: getDG)
         
         getDG.notify(queue: DispatchQueue.main) {
-            //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
             print("got cloud Demographics")
+        }
+    }
+    func getBadgesFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getBadges(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud Badges")
+            
+            // PLACE IN LAST API CALL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ViewControllerUtils().hideActivityIndicator(uiView: self.view)
+            self.view.viewWithTag(1)?.removeFromSuperview()
+            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
     }
 }

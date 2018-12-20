@@ -106,17 +106,17 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
 //    }
     @IBAction func npoAction(_ sender: Any) {
         toggleCheckBox(isChecked: &toggleNPO, checkButton: npo)
-        saveBadgeToDefaults(); updateBadgeUI()
+        saveBadgeToDefaults(); //updateBadgeUI()
     }
     @IBAction func cationAction(_ sender: Any) {
         toggleCheckBox(isChecked: &toggleCation, checkButton: cation)
-        saveBadgeToDefaults(); updateBadgeUI()
+        saveBadgeToDefaults(); //updateBadgeUI()
     }
     @IBAction func feedFrequencyAction(_ sender: Any) {
-        saveBadgeToDefaults(); updateBadgeUI()
+        saveBadgeToDefaults(); //updateBadgeUI()
     }
     @IBAction func feedTypeAction(_ sender: Any) {
-        saveBadgeToDefaults(); updateBadgeUI()
+        saveBadgeToDefaults(); //updateBadgeUI()
     }
 
     func updateBadgeUI(){
@@ -126,6 +126,8 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
     func saveBadgeToDefaults(){
         //save badge to defaults
         let pid = returnSelectedPatientID()
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? [] //might be slow
+        let cpid = returnCloudPatientIDFor(dictArray: patientRecords, patientID: pid)
         var feedHalf=false; var feedTwice=false;
         var feedWet=false; var feedDry=false;
         switch feed.selectedSegmentIndex {
@@ -146,7 +148,8 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         var newBadge =
         [
-            "patientID":pid,
+            "patientID":cpid,
+            "patientName":pid,
             "isNpo":String(toggleNPO),
             "isHalf":String(feedHalf),
             "isTwice":String(feedTwice),
@@ -156,25 +159,25 @@ class PatientDemographicsVC: UIViewController, UIPickerViewDelegate, UIPickerVie
         ]
         var badges = UserDefaults.standard.object(forKey: "badges") as? Array<Dictionary<String,String>> ?? []
         var found = false
-        if badges.isEmpty {
-            UserDefaults.standard.set([newBadge], forKey: "badges")
-            UserDefaults.standard.synchronize()
+        if badges.isEmpty {//INSERT NEW
+            insertBadgeInDCCISCloud(thisBadge: newBadge)
+            print("EMPTY, INSERT NEW badge \n \(newBadge)")
         } else {
             for index in 0..<badges.count {
-                if badges[index]["patientID"] == newBadge["patientID"]{
+                if badges[index]["patientID"] == newBadge["patientName"]{
                     found = true
-                    for item in newBadge {
-                        badges[index][item.key] = item.value
+                    if let badgeId = badges[index]["badgesId"] as? String{//UPDATE
+                        newBadge["badgesId"] = badgeId
+                        found = true
+                        print("UPDATE Badge \(newBadge)")
+                        updateBadgeInDCCISCloud(thisBadge: newBadge)
+                        return
                     }
-                    UserDefaults.standard.set(badges, forKey: "badges")
-                    UserDefaults.standard.synchronize()
-                    return
                 }
             }
-            if found == false {//APPEND NEW
-                badges.append(newBadge)
-                UserDefaults.standard.set(badges, forKey: "badges")
-                UserDefaults.standard.synchronize()
+            if found == false {//INSERT NEW
+                insertBadgeInDCCISCloud(thisBadge: newBadge)
+                print("EMPTY, INSERT NEW badge \n \(newBadge)")
             }
         }
     }
@@ -321,8 +324,8 @@ extension PatientDemographicsVC {
                 //moveSwitchState(switchName: switchSex, isTrue: patient["sex"]!)
                 sexTF.text = patient["sex"]//false = Male
                 
-                if patient["sex"] == "false" { sexTF.text = "Male" }
-                if patient["sex"] == "true" { sexTF.text = "Female" }
+                //if patient["sex"] == "false" { sexTF.text = "Male" }
+                //if patient["sex"] == "true" { sexTF.text = "Female" }
                 
                 ageTF.text = patient["age"]
                 breedTF.text = patient["breed"]
@@ -339,7 +342,7 @@ extension PatientDemographicsVC {
 }
 extension PatientDemographicsVC {
     //
-    // #MARK: OWNER & KENNEL# Save, Update & Create
+    // #MARK: OWNER & KENNEL# Picker funcs for Save, Update & Create
     //
     func askToChange(selectedStringToChange: String,
                      textField: UITextField,
@@ -434,7 +437,7 @@ extension PatientDemographicsVC {
         newDemographics =
             [
                 "patientID":cpid,
-                "patientName":pid,//patientName
+                "patientName":pid,
                 "age":ageTF.text!,
                 "breed":breedTF.text!,
                 "sex":sexTF.text!//String(switchSex.isOn)//true = female
@@ -446,8 +449,6 @@ extension PatientDemographicsVC {
         var found = false
         //INSERT NEW CLOUD
         if demographics.isEmpty {
-            //UserDefaults.standard.set([newDemographics], forKey: "demographics")
-            //UserDefaults.standard.synchronize()
             insertDemographicInDCCISCloud(thisDemographic: newDemographics)
             print("EMPTY, INSERT NEW Demographics \n \(newDemographics)")
         } else {
@@ -455,11 +456,8 @@ extension PatientDemographicsVC {
             for index in 0..<demographics.count{
                 if demographics[index]["patientID"] == newDemographics["patientName"]{
                     found = true
-                    print("got here at least!!!")
                     if let demographicsId = demographics[index]["demographicsId"] as? String {
                         newDemographics["demographicsId"] = demographicsId
-                    //UserDefaults.standard.set(demographics, forKey: "demographics")
-                    //UserDefaults.standard.synchronize()
                         found = true
                         print("UPDATE Demographics \(newDemographics)")
                         updateDemographicInDCCISCloud(thisDemographic: newDemographics)
@@ -471,9 +469,6 @@ extension PatientDemographicsVC {
                 insertDemographicInDCCISCloud(thisDemographic: newDemographics)
                 print("INSERT NEW Demographics \n \(newDemographics)")
                 //INSERT NEW
-                //demographics.append(newDemographics)
-                //UserDefaults.standard.set(demographics, forKey: "demographics")
-                //UserDefaults.standard.synchronize()
             }
         }
     }
@@ -566,7 +561,7 @@ extension PatientDemographicsVC {
 // #MARK: API
 //
 
-    // update Patients table
+    // --- update Patients table ---
     func updateInDCCISCloud(thisPatient:[String : Any]){
         let updateDG = DispatchGroup()
         updateDG.enter()
@@ -577,7 +572,7 @@ extension PatientDemographicsVC {
         }
     }
     
-    //Demographics table
+    // --- Demographics table ---
     func getDemographicsFromDCCISCloud(){
         let getDG = DispatchGroup()
         getDG.enter()
@@ -608,6 +603,40 @@ extension PatientDemographicsVC {
         insertDG.notify(queue: DispatchQueue.main) {
             print("insert new Demographic success")
             self.getDemographicsFromDCCISCloud()
+        }
+    }
+    
+    // --- badges table ---
+    func getBadgesFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getBadges(aview: patientDemographicsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud badges")
+            self.updateBadgeUI()
+        }
+    }
+    
+    func updateBadgeInDCCISCloud(thisBadge:[String : Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATE().Badge(aview: patientDemographicsView, parameters: thisBadge, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update Badge success")
+            self.getBadgesFromDCCISCloud()
+        }
+    }
+    
+    func insertBadgeInDCCISCloud(thisBadge:[String : Any]){
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newBadge(aview: patientDemographicsView, parameters: thisBadge, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new Badge success")
+            self.getBadgesFromDCCISCloud()
         }
     }
 }

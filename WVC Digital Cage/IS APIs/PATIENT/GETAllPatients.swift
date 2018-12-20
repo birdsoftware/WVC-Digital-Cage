@@ -13,8 +13,6 @@ class GETAll {
     
     func getPatients(aview: UIView, dispachInstance: DispatchGroup){
         
-        //var patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-        
         var patients = [Dictionary<String,String>]()
         
         //for loop
