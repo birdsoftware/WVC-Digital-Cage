@@ -10,6 +10,8 @@ import UIKit
 
 class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    @IBOutlet var patientProcedureView: UIView!
+    
     //table
     @IBOutlet weak var incisionTable: UITableView!
     //text fields
@@ -39,9 +41,10 @@ class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewData
             "radiographs":"",
             "lab":""
         ]
-    var newIncision:Dictionary<String,String> =
+    var newIncision:/*[String:Any] =*/Dictionary<String,String> =
         [
             "patientID":"",
+            "patientName":"",
             "initials":"",
             "date":""
         ]
@@ -52,6 +55,9 @@ class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewData
             "date":""
     ]
     
+    //
+    // #MARK: - Button Actions
+    //
     @IBAction func bloodWorkAction(_ sender: Any) {
         if (toggleBloodWork) {
             bloodWorkButton.setImage(UIImage.init(named: "box"), for: .normal)
@@ -68,14 +74,11 @@ class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewData
         changeDateTime(dateLabel: surgeryDate, title: "Surgery Date")
         saveProcedureObject()
     }
-    
     @IBAction func updateNowAction(_ sender: Any) {
         if initialsTF.text?.isEmpty ?? true {
             simpleAlert(title: "Initials are missing", message: "Enter your initials before update.", buttonTitle: "OK")
         } else{
             saveIncisionObject()
-            incisions = UserDefaults.standard.object(forKey: "incisions") as? Array<Dictionary<String,String>> ?? []
-            showIncisions()
             initialsTF.text = ""
         }
     }
@@ -108,7 +111,9 @@ class PatientProcedureVC: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 extension PatientProcedureVC {
+    //
     // #MARK: - Keboard
+    //
     @objc func keyboardWillShowProcedure(sender: NSNotification){
         //AMPMTextFieldsViewTopLayoutConstraint.constant = -300
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
@@ -154,12 +159,16 @@ extension PatientProcedureVC {
         for index in 0..<incisions.count{
             if incisions[index]["patientID"] == pid && incisions[index]["date"] == date {
 
-                incisions.remove(at: index)
+                //incisions.remove(at: index)
                 
-                UserDefaults.standard.set(incisions, forKey: "incisions")
-                UserDefaults.standard.synchronize()
+                //UserDefaults.standard.set(incisions, forKey: "incisions")
+                //UserDefaults.standard.synchronize()
                 
-                showIncisions()
+                //showIncisions()
+                
+                if let incisionsId = incisions[index]["incisionsId"] {
+                print("removed for incisionsId: \(incisionsId)")
+                    deleteIncision(incisionsId: Int(incisionsId)!) }
                 
                 break
             }
@@ -203,67 +212,151 @@ extension PatientProcedureVC{
         }
     }
 }
-extension PatientProcedureVC{
-    // #MARK: - Save Incision
-    func updateIncisionObject(){
-        let pid = returnSelectedPatientID()
-        newIncision =
-            [
-                "patientID":pid,
-                "initials":initialsTF.text!,
-                "date":incisionDate.text!
-        ]
+extension PatientProcedureVC {
+    //
+    // #MARK: - API
+    //
+    func getAllIncisions(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getIncisions(aview: patientProcedureView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            self.showIncisions()
+        }
     }
-    func saveIncisionObject(){
-        updateIncisionObject()
-        if incisions.isEmpty {
-            UserDefaults.standard.set([newIncision], forKey: "incisions")
-            UserDefaults.standard.synchronize()
+    func insertIncisions(thisIncision:[String:Any]) {
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newIncision(aview: patientProcedureView, parameters: thisIncision, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new incision success")
+            self.getAllIncisions()
         }
-        else {
-            incisions.append(newIncision)
-            UserDefaults.standard.set(incisions, forKey: "incisions")
-            UserDefaults.standard.synchronize()
+    }
+    func deleteIncision(incisionsId: Int) {
+        /* {
+         *  "incisionsId": "6"
+         *  } */
+        let removeDG = DispatchGroup()
+        removeDG.enter()
+        DeleteInstantShare().Incision(aview: patientProcedureView, parameters: ["incisionsId":incisionsId], dispatchInstance: removeDG)
+        
+        removeDG.notify(queue: DispatchQueue.main) {
+            print("deleted \(incisionsId)")
+            self.getAllIncisions()
         }
+    }
+    
+    //procedures
+    func getAllProcedures(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getProcedures(aview: patientProcedureView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            self.showIncisions()
+        }
+    }
+    func insertProcedure(thisProcedure:[String:Any]){
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newProcedure(aview: patientProcedureView, parameters: thisProcedure, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new procedure success")
+            self.getAllProcedures()
+        }
+    }
+    func updateProcedure(thisProcedure:[String:Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATE().Procedure(aview: patientProcedureView, parameters: thisProcedure, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update procedure success")
+            self.getAllProcedures()
+        }
+    }
+    func deleteProcedures(proceduresId: Int){
+        
     }
 }
 extension PatientProcedureVC{
+    //
+    // #MARK: - Save Incision
+    //
+    func updateIncisionObject(){
+        let pid = returnSelectedPatientID()
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? [] //might be slow
+        let cpid = returnCloudPatientIDFor(dictArray: patientRecords, patientID: pid)
+        newIncision =
+            [
+                "patientID":cpid,
+                "patientName":pid,
+                "initials":initialsTF.text!,
+                "date":incisionDate.text!
+            ]
+    }
+    
+    func saveIncisionObject(){
+        updateIncisionObject()
+        insertIncisions(thisIncision:newIncision)
+    }
+}
+extension PatientProcedureVC{
+    //
     // #MARK: - Save Procedure
+    //
     func updateProcedureObject(){
         let pid = returnSelectedPatientID()
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? [] //might be slow
+        let cpid = returnCloudPatientIDFor(dictArray: patientRecords, patientID: pid)
         newProcedure =
         [
-        "patientID":pid,
-        "bloodWork":String(toggleBloodWork),
-        "surgeryDate":surgeryDate.text!,
-        "suture":sutureTF.text!,
-        "radiographs":radiographTF.text!,
-        "lab":labTF.text!
+            "patientID":cpid,
+            "patientName":pid,
+            "bloodWork":String(toggleBloodWork),
+            "surgeryDate":surgeryDate.text!,
+            "suture":sutureTF.text!,
+            "radiographs":radiographTF.text!,
+            "lab":labTF.text!
         ]
     }
     func saveProcedureObject(){
         updateProcedureObject()
+        procedures = UserDefaults.standard.object(forKey: "procedures") as? Array<Dictionary<String,String>> ?? []
         var found = false
         if procedures.isEmpty {//CREATE NEW
-            UserDefaults.standard.set([newProcedure], forKey: "procedures")
-            UserDefaults.standard.synchronize()
+            insertProcedure(thisProcedure: newProcedure)
+            //UserDefaults.standard.set([newProcedure], forKey: "procedures")
+            //UserDefaults.standard.synchronize()
         }
         else {
             for index in 0..<procedures.count {
-                if procedures[index]["patientID"] == newProcedure["patientID"] {//UPDATE by PID
+                if procedures[index]["patientID"] == newProcedure["patientName"] {//UPDATE by PID
                     found = true
-                    for item in newProcedure {
-                        procedures[index][item.key] = item.value
+                    if let proceduresId = procedures[index]["proceduresId"] as String?{
+                        newProcedure["proceduresId"] = proceduresId
+                        found = true
+                        print("UPDATE procedure \(newProcedure)")
+                        updateProcedure(thisProcedure: newProcedure)
+                        return
                     }
-                    UserDefaults.standard.set(procedures, forKey: "procedures")
-                    UserDefaults.standard.synchronize()
-                    return
+                    //for item in newProcedure {
+                    //    procedures[index][item.key] = item.value
+                    //}
+                    //UserDefaults.standard.set(procedures, forKey: "procedures")
+                    //UserDefaults.standard.synchronize()
+                    
                 }
             }
             if found == false {//APPEND NEW
-                procedures.append(newProcedure)
-                UserDefaults.standard.set(procedures, forKey: "procedures")
-                UserDefaults.standard.synchronize()
+                insertProcedure(thisProcedure: newProcedure)
+                //procedures.append(newProcedure)
+                //UserDefaults.standard.set(procedures, forKey: "procedures")
+                //UserDefaults.standard.synchronize()
             }
         }
     }

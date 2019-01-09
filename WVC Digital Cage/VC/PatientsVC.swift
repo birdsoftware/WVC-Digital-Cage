@@ -450,14 +450,18 @@ extension PatientsVC {
     // MARK: - Refresh Function
     //
     @objc func refreshData(){
-        //get demographics
-        getDemographicsFromDCCISCloud()
         
-        //get all physical exams
+        getAllIncisions()
+
+        getBadgesFromDCCISCloud()
+        
+        getDemographicsFromDCCISCloud()
+
         getPhysicalExamsFromDCCISCloud()
         
-        //get all vitals
         getVitalsFromDCCISCloud()
+        
+        getAllProcedures()
         
         //get all patients
         let getDG = DispatchGroup()
@@ -488,7 +492,6 @@ extension PatientsVC {
             print("deleted \(patientID)")
         }
     }
-    
     func updateInDCCISCloud(thisPatient:[String : Any]){
         let updateDG = DispatchGroup()
         updateDG.enter()
@@ -510,7 +513,6 @@ extension PatientsVC {
             //print("got all IS Vitals \n \(patientVitals)")
         }
     }
-    
     func updateVitalInDCCISCloud(thisVital:[String : Any]){
         let updateDG = DispatchGroup()
         updateDG.enter()
@@ -521,7 +523,6 @@ extension PatientsVC {
             self.getVitalsFromDCCISCloud()
         }
     }
-    
     func insertVitalInDCCISCloud(thisVital:[String : Any]){
         let insertDG = DispatchGroup()
         insertDG.enter()
@@ -533,7 +534,7 @@ extension PatientsVC {
         }
     }
     
-    //Physical Exam
+    //update tables during refresh
     func getPhysicalExamsFromDCCISCloud(){
         let getDG = DispatchGroup()
         getDG.enter()
@@ -544,8 +545,6 @@ extension PatientsVC {
             print("got cloud PhysicalExams")
         }
     }
-    
-    //Demographics
     func getDemographicsFromDCCISCloud(){
         let getDG = DispatchGroup()
         getDG.enter()
@@ -554,6 +553,33 @@ extension PatientsVC {
         getDG.notify(queue: DispatchQueue.main) {
             //let patientVitals = UserDefaults.standard.object(forKey: "patientVitals") as? Array<Dictionary<String,String>> ?? []
             print("got cloud Demographics")
+        }
+    }
+    func getBadgesFromDCCISCloud(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getBadges(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud Badges")
+        }
+    }
+    func getAllIncisions(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getIncisions(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud incisions")
+        }
+    }
+    func getAllProcedures(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getProcedures(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud procedures")
         }
     }
 }

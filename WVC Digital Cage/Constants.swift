@@ -13,6 +13,50 @@ import Foundation
 struct Constants {
     struct instantShare {
         static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
+        struct Ampm {
+            static let getAllAmpm = url_IS + "getAllAmpm"
+            static let getAllAmpmKey = url_IS + "ampms"
+            static let getAmpmCount = url_IS + "getAmpmCount"
+            static let insertAmpm = url_IS + "insertAmpm"
+            static let updateAmpm = url_IS + "updateAmpm"
+            static let deleteAmpm = url_IS + "deleteAmpm"
+        }
+        struct Procedures {
+            static let getAllProcedures = url_IS + "getAllProcedures"
+            static let getAllProceduresKey = "procedures"
+            static let getProceduresCount = url_IS + "getProceduresCount"
+            static let insertProcedure = url_IS + "insertProcedure"
+            // {
+            //    "proceduresId":"3",
+            //    "patientID": "1",
+            //    "patientName": "remove",
+            //    "radiographs": "rm",
+            //    "bloodWork": "rm",
+            //    "suture":"sq",
+            //    "lab":"m",
+            //    "surgeryDate":"07/09/18 02:44 PM"
+            // }
+            static let updateProcedure = url_IS + "updateProcedure"
+            // {
+            //    "proceduresId":"3"
+            // }
+            static let deleteProcedures = url_IS + "deleteProcedures"
+        }
+        struct Incisions {
+            static let getAllIncisions = url_IS + "getAllIncisions"
+            static let getAllIncisionsKey = "incisions"
+            static let getIncisionsCount = url_IS + "getIncisionsCount"
+            static let insertIncision = url_IS + "insertIncisions"
+            // {
+            //      "incisionsId": "1",
+            //      "patientID": "1",
+            //      "patientName": "Baby",
+            //      "date": "2018-12-18 19:14:59",
+            //      "initials": "true"
+            //  }
+            static let updateIncision = url_IS + "updateIncisions"
+            static let deleteIncision = url_IS + "deleteIncision"
+        }
         struct Badges {
             static let getAllBadges = url_IS + "getAllBadges"
             static let getAllBadgesKey = "badges"

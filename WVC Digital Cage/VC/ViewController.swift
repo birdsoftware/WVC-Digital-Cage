@@ -204,6 +204,10 @@ extension ViewController{
             self.getDemographicsFromDCCISCloud()
             
             self.getBadgesFromDCCISCloud()
+            
+            self.getAllIncisions()
+            
+            self.getAllProcedures()
         }
     }
     
@@ -216,7 +220,6 @@ extension ViewController{
             print("got cloud Vitals")
         }
     }
-    
     func getPhysicalExamsFromDCCISCloud(){
         let getDG = DispatchGroup()
         getDG.enter()
@@ -226,7 +229,6 @@ extension ViewController{
             print("got cloud PhysicalExams")
         }
     }
-    //Demographics table
     func getDemographicsFromDCCISCloud(){
         let getDG = DispatchGroup()
         getDG.enter()
@@ -243,6 +245,24 @@ extension ViewController{
         
         getDG.notify(queue: DispatchQueue.main) {
             print("got cloud Badges")
+        }
+    }
+    func getAllIncisions(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getIncisions(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud incisions")
+        }
+    }
+    func getAllProcedures(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getProcedures(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud procedures")
             
             // PLACE IN LAST API CALL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             ViewControllerUtils().hideActivityIndicator(uiView: self.view)

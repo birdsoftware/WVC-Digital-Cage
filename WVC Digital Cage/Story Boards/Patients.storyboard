@@ -2874,6 +2874,7 @@
                         <outlet property="incisionTable" destination="Sls-s1-meH" id="PbK-Kk-cOC"/>
                         <outlet property="initialsTF" destination="Z9i-v7-frH" id="OcF-EX-4mp"/>
                         <outlet property="labTF" destination="d58-f3-XoM" id="VVK-9m-YO8"/>
+                        <outlet property="patientProcedureView" destination="bWA-D0-j7Q" id="IVD-Mh-nYu"/>
                         <outlet property="radiographTF" destination="UYt-zd-1nK" id="PWD-vn-Mu8"/>
                         <outlet property="surgeryDate" destination="YGB-UV-SEr" id="rXJ-k8-ncR"/>
                         <outlet property="sutureTF" destination="BOa-t1-zsY" id="1g5-GF-Zwy"/>
