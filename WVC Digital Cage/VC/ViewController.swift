@@ -208,6 +208,8 @@ extension ViewController{
             self.getAllIncisions()
             
             self.getAllProcedures()
+            
+            self.getAllAmpm()
         }
     }
     
@@ -263,6 +265,15 @@ extension ViewController{
         
         getDG.notify(queue: DispatchQueue.main) {
             print("got cloud procedures")
+        }
+    }
+    func getAllAmpm(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getAmpms(aview: mainView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            print("got cloud ampms")
             
             // PLACE IN LAST API CALL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             ViewControllerUtils().hideActivityIndicator(uiView: self.view)

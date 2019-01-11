@@ -3528,6 +3528,8 @@
                         <outlet property="AMPMTextFieldsViewTopLayoutConstraint" destination="00O-Jw-FpJ" id="iPB-ze-Ffm"/>
                         <outlet property="ampmSwitch" destination="023-ty-vYK" id="hPb-l7-ORn"/>
                         <outlet property="ampmTable" destination="auN-QY-hfK" id="aVw-HC-Pvo"/>
+                        <outlet property="ampmView" destination="3nb-ch-xdl" id="p2t-f2-pMK"/>
+                        <outlet property="appetiteSlider" destination="3lF-hR-ou4" id="2Ey-Xa-s5n"/>
                         <outlet property="appetiteTF" destination="hCW-NH-ib3" id="ecq-wh-gA2"/>
                         <outlet property="attitudeTF" destination="MQq-mj-qpN" id="8rK-ok-emp"/>
                         <outlet property="cButton" destination="9hE-Pr-b0R" id="hQB-Ne-grh"/>
@@ -3546,7 +3548,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wlf-ZN-NcK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="857.51953125" y="794.921875"/>
+            <point key="canvasLocation" x="876" y="795"/>
         </scene>
         <!--mapDB-->
         <scene sceneID="2sy-Qj-3AS">

@@ -330,8 +330,6 @@ extension PatientProcedureVC{
         var found = false
         if procedures.isEmpty {//CREATE NEW
             insertProcedure(thisProcedure: newProcedure)
-            //UserDefaults.standard.set([newProcedure], forKey: "procedures")
-            //UserDefaults.standard.synchronize()
         }
         else {
             for index in 0..<procedures.count {
@@ -344,19 +342,10 @@ extension PatientProcedureVC{
                         updateProcedure(thisProcedure: newProcedure)
                         return
                     }
-                    //for item in newProcedure {
-                    //    procedures[index][item.key] = item.value
-                    //}
-                    //UserDefaults.standard.set(procedures, forKey: "procedures")
-                    //UserDefaults.standard.synchronize()
-                    
                 }
             }
             if found == false {//APPEND NEW
                 insertProcedure(thisProcedure: newProcedure)
-                //procedures.append(newProcedure)
-                //UserDefaults.standard.set(procedures, forKey: "procedures")
-                //UserDefaults.standard.synchronize()
             }
         }
     }

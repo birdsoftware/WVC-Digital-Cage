@@ -463,6 +463,8 @@ extension PatientsVC {
         
         getAllProcedures()
         
+        getAllAmpm()
+        
         //get all patients
         let getDG = DispatchGroup()
         getDG.enter()
@@ -580,6 +582,17 @@ extension PatientsVC {
         
         getDG.notify(queue: DispatchQueue.main) {
             print("got cloud procedures")
+        }
+    }
+    func getAllAmpm(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getAmpms(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //showAmpm()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showAmpm"), object: nil)
+            print("got cloud ampms")
         }
     }
 }
@@ -1231,7 +1244,8 @@ extension PatientsVC{
             
             var localPageNumber = 1
             
-            let titles = ["date","attitude", "feces", "urine", "appetite%", "v/D/C/S", "initials"]
+            let titles = ["date","attitude", "feces", "urine", "appetite", "vDCS", "initials"] //"appetite%", "v/D/C/S"
+            //"appetite%" -> "appetite" and "v/D/C/S" -> "vDCS"
             var title = CGRect()
             var value = CGRect()
             let spacerTwenty = 20
@@ -1242,7 +1256,8 @@ extension PatientsVC{
                     nextAMPM = dict
                     for item in titles {
                         let word = item.camelCaseToWords()
-                        let uppercased = word.firstUppercased + ":"
+                        var uppercased = word.firstUppercased + ":"
+                        if item == "appetite" { uppercased = "Appetite%:" }
                         newTotalY += spacerTwenty
                         
                         if newTotalY >= endOfPage {

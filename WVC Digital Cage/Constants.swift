@@ -15,7 +15,7 @@ struct Constants {
         static let url_IS = "http://ec2-52-33-132-52.us-west-2.compute.amazonaws.com:9000/api/"
         struct Ampm {
             static let getAllAmpm = url_IS + "getAllAmpm"
-            static let getAllAmpmKey = url_IS + "ampms"
+            static let getAllAmpmKey = "ampms"
             static let getAmpmCount = url_IS + "getAmpmCount"
             static let insertAmpm = url_IS + "insertAmpm"
             static let updateAmpm = url_IS + "updateAmpm"

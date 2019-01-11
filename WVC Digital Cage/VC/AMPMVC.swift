@@ -10,6 +10,10 @@ import UIKit
 
 class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
 
+    //class view
+    @IBOutlet var ampmView: UIView!
+    //slider
+    @IBOutlet weak var appetiteSlider: UISlider!
     //label
     @IBOutlet weak var dateNow: UILabel!
     @IBOutlet weak var emojiLabel: UILabel!
@@ -39,6 +43,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     var myAmpms = Array<Dictionary<String,String>>()
     var filteredAMPM = Array<Dictionary<String,String>>()
+    var selectedAmpmFromTable = ""
     
     var newAMPM:Dictionary<String,String> =
         [
@@ -48,8 +53,8 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             "attitude":"",
             "feces":"",
             "urine":"",
-            "appetite%":"",
-            "v/D/C/S":"",
+            "appetite":"",
+            "vDCS":"",
             "initials":""
         ]
     let clear:Dictionary<String,String> =
@@ -60,8 +65,8 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     "attitude":"",
     "feces":"",
     "urine":"",
-    "appetite%":"",
-    "v/D/C/S":"",
+    "appetite":"",
+    "vDCS":"",
     "initials":""
     ]
     var toggleV = false
@@ -91,7 +96,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                            object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
-        myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+        //myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         showAmpm()
     }
     //
@@ -99,7 +104,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //
     @IBAction func updateNowAction(_ sender: Any) {
         saveAMPMObject()
-        myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+        //myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         showAmpm()
         ampmTable.reloadData()
         updateMissingAMPMRecords()
@@ -178,7 +183,7 @@ extension AMPMVC {
         let slashValue = "/" + value
         
         if isChecked == false {//add Value
-            if textFieldString == "" || textFieldString == "na" {
+            if textFieldString == "" || textFieldString == "npo" {
                 vdcsTF.text = value
             } else {
                 vdcsTF.text = textFieldString! + slashValue
@@ -194,7 +199,7 @@ extension AMPMVC {
                 }
             }
             if textFieldString == "" || replacedSlashValue! == ""{
-                vdcsTF.text = "na"//does nothing
+                vdcsTF.text = "npo"//does nothing
             } else { vdcsTF.text = replacedSlashValue! }
         }
     }
@@ -299,6 +304,7 @@ extension AMPMVC {
     }
     @objc func showAmpm(){
         //filter myAmpms
+        self.myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
         let pid = returnSelectedPatientID()
         var scopePredicate:NSPredicate
         
@@ -319,11 +325,11 @@ extension AMPMVC {
         ampmTable.reloadData()
         
         //clear Text Fields
-        attitudeTF.text = ""
+        attitudeTF.text = "bar"
         fecesTF.text = ""
         urineTF.text = ""
         appetiteTF.text = ""
-        vdcsTF.text = "na"
+        vdcsTF.text = "npo"
         initialsTF.text = ""
         setupUI()
         resetAMPM()
@@ -342,8 +348,8 @@ extension AMPMVC {
         let this = filteredAMPM[IndexPath.row]
         let isAnyAMPMBlank = Bool(
                 this["attitude"] == "" || this["feces"] == "" ||
-                this["urine"] == "" || this["appetite%"] == "" ||
-                this["v/D/C/S"] == "" || this["initials"] == ""
+                this["urine"] == "" || this["appetite"] == "" ||
+                this["vDCS"] == "" || this["initials"] == ""
         )
         
         if this["date"] != "" && isAnyAMPMBlank{
@@ -354,8 +360,8 @@ extension AMPMVC {
             cell.attitude.text = this["attitude"]
             cell.feces.text = this["feces"]
             cell.urine.text = this["urine"]
-            cell.appetite.text = this["appetite%"]
-            cell.VDCS.text = this["v/D/C/S"]
+            cell.appetite.text = this["appetite"]
+            cell.VDCS.text = this["vDCS"]
             cell.initials.text = this["initials"]
             cell.ampmEmoji.text = returnEmojiFrom(dateString: this["date"]!)
         
@@ -367,8 +373,8 @@ extension AMPMVC {
             attitudeTF.text! = selectedData["attitude"]!
             fecesTF.text! = selectedData["feces"]!
             urineTF.text! = selectedData["urine"]!
-            appetiteTF.text! = selectedData["appetite%"]!
-            vdcsTF.text! = selectedData["v/D/C/S"]!
+            appetiteTF.text! = selectedData["appetite"]!
+            vdcsTF.text! = selectedData["vDCS"]!
             initialsTF.text! = selectedData["initials"]!
             //Move switch state based on date
             var isTrue = "false"
@@ -378,6 +384,9 @@ extension AMPMVC {
                 emojiLabel.text = "🌞"
             } else { emojiLabel.text = "☾" }
             moveSwitchState(switchName: ampmSwitch, isTrue: isTrue)
+            let FSV = Float(selectedData["appetite"]!) ?? 0.0
+            appetiteSlider.value = FSV
+            selectedAmpmFromTable = selectedData["ampmsId"]!
         }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
@@ -389,91 +398,98 @@ extension AMPMVC {
     }
     func deleteButtonTapped(indexPath: IndexPath){
         let selectedDict = filteredAMPM[indexPath.row]
-        let selectedFilterID = selectedDict["filterID"]
+        let selectedAmpm = selectedDict["ampmsId"]!
         
-        if let index = dictIndexFrom(array: myAmpms, usingKey:"filterID", usingValue: selectedFilterID!) {
-                 myAmpms.remove(at: index)
-         }
-  
-        //self.myAmpms.remove(at: indexPath.row)//not correct indexPath.rom is for filteredAMPM displayed NEED ID
-        UserDefaults.standard.set(self.myAmpms, forKey: "ampms")
-        UserDefaults.standard.synchronize()
-        //----------------filter it
-        let pid = returnSelectedPatientID()
-        var scopePredicate:NSPredicate
-
-        scopePredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", pid)
-        let arr=(myAmpms as NSArray).filtered(using: scopePredicate)
-        if arr.count > 0
-        {
-            filteredAMPM=arr as! Array<Dictionary<String,String>>
-        } else {
-            filteredAMPM=[clear]
-        }
-        //filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
-        
-        
-        //BUG 1
-        filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
-        
-        ampmTable.reloadData()
+        deleteAmpm(thisProcedure:["ampmsId":selectedAmpm])
+//        if let index = dictIndexFrom(array: myAmpms, usingKey:"filterID", usingValue: selectedFilterID!) {
+//                 myAmpms.remove(at: index)
+//         }
+//
+//        //self.myAmpms.remove(at: indexPath.row)//not correct indexPath.rom is for filteredAMPM displayed NEED ID
+//        UserDefaults.standard.set(self.myAmpms, forKey: "ampms")
+//        UserDefaults.standard.synchronize()
+//        //----------------filter it
+//        let pid = returnSelectedPatientID()
+//        var scopePredicate:NSPredicate
+//
+//        scopePredicate = NSPredicate(format: "SELF.patientID MATCHES[cd] %@", pid)
+//        let arr=(myAmpms as NSArray).filtered(using: scopePredicate)
+//        if arr.count > 0
+//        {
+//            filteredAMPM=arr as! Array<Dictionary<String,String>>
+//        } else {
+//            filteredAMPM=[clear]
+//        }
+//        //filteredAMPM.sort { $0["date"]! > $1["date"]! }//sort array in place
+//
+//
+//        //BUG 1
+//        filteredAMPM = sortArrayDictDesc(dict: filteredAMPM, dateFormat: "MM/dd/yy a")
+//
+//        ampmTable.reloadData()
         //self.ampmTable.deleteRows(at: [indexPath], with: .fade)
     }
 
 }
 extension AMPMVC {
-// #MARK: - Save AMPM
+    //
+    // #MARK: - Save AMPM
+    //
     func updateAMPMObject(){
         let pid = returnSelectedPatientID()
+        let patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? [] //might be slow
+        let cpid = returnCloudPatientIDFor(dictArray: patientRecords, patientID: pid)
         var filterID = "0"
         if myAmpms.isEmpty == false {
-            let dict = myAmpms.last
-            let lastFilerID = dict!["filterID"]!
+            let lastFilerID = myAmpms.last!["filterID"]!
             filterID = String(Int(lastFilerID)! + 1)
         }
         newAMPM =
         [
-        "patientID":pid,
-        "filterID":filterID,
-        "date":dateNow.text!,
+        "patientID":cpid,
+        "patientName":pid,
         "attitude":attitudeTF.text!,
-        "feces":fecesTF.text!,
+        "filterID":filterID,
+        "initials":initialsTF.text!,
+        "vDCS":vdcsTF.text!,
+        "date":dateNow.text!,
         "urine":urineTF.text!,
-        "appetite%":appetiteTF.text!,
-        "v/D/C/S":vdcsTF.text!,
-        "initials":initialsTF.text!
+        "feces":fecesTF.text!,
+        "appetite":appetiteTF.text!
+        //"appetite%":appetiteTF.text!
+        //"v/D/C/S":vdcsTF.text!
+        
         ]
     }
     func saveAMPMObject(){
         updateAMPMObject()
         var found = false
         if myAmpms.isEmpty {//CREATE NEW
-            UserDefaults.standard.set([newAMPM], forKey: "ampms")
-            UserDefaults.standard.synchronize()
-            print("create new ampm")
+            insertAmpm(thisProcedure: newAMPM)
+            print("myAmpms is Empty insert new ampm \(newAMPM)")
+            return
+//            UserDefaults.standard.set([newAMPM], forKey: "ampms")
+//            UserDefaults.standard.synchronize()
+//            print("create new ampm")
         }
         else {
             for index in 0..<myAmpms.count{
-                if myAmpms[index]["date"] == newAMPM["date"] &&
-                    myAmpms[index]["patientID"] == newAMPM["patientID"]
-                {//UPDATE
-                    found = true
-                    for item in newAMPM {
-                        myAmpms[index][item.key] = item.value
+                if myAmpms[index]["ampmsId"] == selectedAmpmFromTable && myAmpms[index]["patientID"] == newAMPM["patientName"] {
+                    //UPDATE
+                    if let ampmsId = myAmpms[index]["ampmsId"] {
+                        newAMPM["ampmsId"] = ampmsId
+                        found = true
+                        print("UPDATE ampm \(newAMPM)")
+                        updateAmpm(thisProcedure: newAMPM)
+                        return
                     }
-                    UserDefaults.standard.set(myAmpms, forKey: "ampms")
-                    UserDefaults.standard.synchronize()
-                    print("update ampm")
-                    return
                 }
             }
-            if found == false {//APPEND NEW
-                myAmpms.append(newAMPM)
-                UserDefaults.standard.set(myAmpms, forKey: "ampms")
-                UserDefaults.standard.synchronize()
-                print("append new ampm")
-            }
         }
+            if found == false {//APPEND NEW
+                insertAmpm(thisProcedure: newAMPM)
+                print("insert ampm \(newAMPM)")
+            }
     }
     func updateMissingAMPMRecords(){
         myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
@@ -487,9 +503,9 @@ extension AMPMVC {
         print("missingPatientIDs \(missingPatientIDs.count):\n\(missingPatientIDs)")
     }
 }
-extension AMPMVC{
+extension AMPMVC {
     //
-    //#MARK - Date Picker Alert
+    // #MARK: - Date Picker Alert
     //
     func changeDateTime(dateLabel: UILabel, title: String){
         DatePickerDialog().show(title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .dateAndTime) {
@@ -505,3 +521,47 @@ extension AMPMVC{
     }
 }
 
+extension AMPMVC {
+    //
+    //  #MARK: - API
+    //
+    func getAllAmpms(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getAmpms(aview: ampmView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main) {
+            //self.myAmpms = UserDefaults.standard.object(forKey: "ampms") as? Array<Dictionary<String,String>> ?? []
+            self.showAmpm()
+        }
+    }
+    func insertAmpm(thisProcedure:[String:Any]){
+        let insertDG = DispatchGroup()
+        insertDG.enter()
+        INSERT().newAmpm(aview: ampmView, parameters: thisProcedure, dispachInstance: insertDG)
+        
+        insertDG.notify(queue: DispatchQueue.main) {
+            print("insert new ampm success")
+            self.getAllAmpms()
+        }
+    }
+    func updateAmpm(thisProcedure:[String:Any]){
+        let updateDG = DispatchGroup()
+        updateDG.enter()
+        UPDATE().Ampm(aview: ampmView, parameters: thisProcedure, dispachInstance: updateDG)
+        
+        updateDG.notify(queue: DispatchQueue.main) {
+            print("update ampm success")
+            self.getAllAmpms()
+        }
+    }
+    func deleteAmpm(thisProcedure:[String:Any]){
+        let deleteDG = DispatchGroup()
+        deleteDG.enter()
+        DeleteInstantShare().Ampm(aview: ampmView, parameters: thisProcedure, dispatchInstance: deleteDG)
+        deleteDG.notify(queue: DispatchQueue.main) {
+            print("delete ampm success")
+            self.getAllAmpms()
+        }
+    }
+}
