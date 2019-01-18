@@ -348,6 +348,13 @@
                                     <constraint firstItem="esE-67-iTA" firstAttribute="top" secondItem="mC1-GR-qEd" secondAttribute="bottom" id="yHS-6S-kyP"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ox4-PN-mzg" userLabel="View under age bar">
+                                <rect key="frame" x="366" y="277" width="658" height="1"/>
+                                <color key="backgroundColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ah1-Zw-Q6B"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4I7-AA-OXW" customClass="BorderedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="59"/>
                                 <subviews>
@@ -1017,7 +1024,9 @@
                             <constraint firstItem="SyT-Ks-Bh6" firstAttribute="top" secondItem="ceQ-rU-fkc" secondAttribute="bottom" constant="2.5" id="Dby-sh-NDD"/>
                             <constraint firstItem="ISA-Ks-PLW" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="9" id="HdQ-w0-egA"/>
                             <constraint firstItem="zZP-tR-Gle" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="bottom" constant="-1" id="HfK-hv-aOX"/>
+                            <constraint firstAttribute="trailing" secondItem="ox4-PN-mzg" secondAttribute="trailing" id="I9a-HN-Npk"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="trailing" secondItem="ISA-Ks-PLW" secondAttribute="trailing" constant="5" id="ICp-n8-Eol"/>
+                            <constraint firstItem="ox4-PN-mzg" firstAttribute="top" secondItem="SyT-Ks-Bh6" secondAttribute="bottom" constant="0.5" id="Ik1-CS-opu"/>
                             <constraint firstItem="258-X3-mEt" firstAttribute="leading" secondItem="Mnz-2U-Z2P" secondAttribute="trailing" constant="8" id="Ilf-n6-BGI"/>
                             <constraint firstItem="6bR-4s-74J" firstAttribute="leading" secondItem="258-X3-mEt" secondAttribute="trailing" constant="4" id="KYR-ZC-J73"/>
                             <constraint firstItem="Mnz-2U-Z2P" firstAttribute="bottom" secondItem="B4e-IZ-odx" secondAttribute="bottom" id="L0E-ok-wen"/>
@@ -1056,6 +1065,7 @@
                             <constraint firstItem="3Fm-o9-llY" firstAttribute="top" secondItem="4I7-AA-OXW" secondAttribute="bottom" constant="190" id="pqx-AQ-gGK"/>
                             <constraint firstItem="u7b-ix-jrT" firstAttribute="top" secondItem="ISA-Ks-PLW" secondAttribute="bottom" constant="-1" id="uf9-kA-w79"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="trailing" secondItem="6bR-4s-74J" secondAttribute="trailing" constant="5" id="vJT-HR-H5O"/>
+                            <constraint firstItem="ox4-PN-mzg" firstAttribute="leading" secondItem="hvb-MT-b3r" secondAttribute="trailing" id="xBi-6a-ftJ"/>
                             <constraint firstItem="B4e-IZ-odx" firstAttribute="bottom" secondItem="eZB-gQ-2G6" secondAttribute="bottom" id="ymv-wl-Bp1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="B4e-IZ-odx"/>
@@ -2579,17 +2589,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVM-pe-4Rs" userLabel="View dg bottom">
-                                <rect key="frame" x="0.0" y="125" width="365" height="1.5"/>
-                                <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="125" width="365" height="1"/>
+                                <color key="backgroundColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1.5" id="0yI-5z-8To"/>
+                                    <constraint firstAttribute="height" constant="1" id="0yI-5z-8To"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OX-Sr-fgE" userLabel="View dg left">
-                                <rect key="frame" x="0.0" y="0.0" width="1.5" height="125"/>
-                                <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1" height="125"/>
+                                <color key="backgroundColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="1.5" id="x6i-lB-aMN"/>
+                                    <constraint firstAttribute="width" constant="1" id="x6i-lB-aMN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0P-3D-bM2" userLabel="View date and time">
@@ -2626,17 +2636,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i07-26-YoW" userLabel="View dg left of table">
-                                <rect key="frame" x="363.5" y="125" width="1.5" height="330"/>
-                                <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="364" y="125" width="1" height="330"/>
+                                <color key="backgroundColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="1.5" id="cWZ-y4-YDL"/>
+                                    <constraint firstAttribute="width" constant="1" id="cWZ-y4-YDL"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8e-9w-mfS" userLabel="View dg top">
-                                <rect key="frame" x="0.0" y="0.0" width="645" height="1.5"/>
-                                <color key="backgroundColor" red="0.43917480110000001" green="0.43924182649999999" blue="0.43916010859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="645" height="1"/>
+                                <color key="backgroundColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1.5" id="zDd-0q-gH5"/>
+                                    <constraint firstAttribute="height" constant="1" id="zDd-0q-gH5"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jid-Jm-bS3" userLabel="View procedure">

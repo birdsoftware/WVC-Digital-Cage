@@ -43,7 +43,7 @@ class AMPMVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     var myAmpms = Array<Dictionary<String,String>>()
     var filteredAMPM = Array<Dictionary<String,String>>()
-    var selectedAmpmFromTable = ""
+    //var selectedAmpmFromTable = ""
     
     var newAMPM:Dictionary<String,String> =
         [
@@ -183,7 +183,7 @@ extension AMPMVC {
         let slashValue = "/" + value
         
         if isChecked == false {//add Value
-            if textFieldString == "" || textFieldString == "npo" {
+            if textFieldString == "" || textFieldString == "na" {
                 vdcsTF.text = value
             } else {
                 vdcsTF.text = textFieldString! + slashValue
@@ -199,7 +199,7 @@ extension AMPMVC {
                 }
             }
             if textFieldString == "" || replacedSlashValue! == ""{
-                vdcsTF.text = "npo"//does nothing
+                vdcsTF.text = "na"//does nothing
             } else { vdcsTF.text = replacedSlashValue! }
         }
     }
@@ -329,7 +329,7 @@ extension AMPMVC {
         fecesTF.text = ""
         urineTF.text = ""
         appetiteTF.text = ""
-        vdcsTF.text = "npo"
+        vdcsTF.text = "na"
         initialsTF.text = ""
         setupUI()
         resetAMPM()
@@ -386,7 +386,7 @@ extension AMPMVC {
             moveSwitchState(switchName: ampmSwitch, isTrue: isTrue)
             let FSV = Float(selectedData["appetite"]!) ?? 0.0
             appetiteSlider.value = FSV
-            selectedAmpmFromTable = selectedData["ampmsId"]!
+            //selectedAmpmFromTable = selectedData["ampmsId"]!
         }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
@@ -474,12 +474,13 @@ extension AMPMVC {
         }
         else {
             for index in 0..<myAmpms.count{
-                if myAmpms[index]["ampmsId"] == selectedAmpmFromTable && myAmpms[index]["patientID"] == newAMPM["patientName"] {
+                if /*myAmpms[index]["ampmsId"] == selectedAmpmFromTable*/myAmpms[index]["date"] == newAMPM["date"] && myAmpms[index]["patientID"] == newAMPM["patientName"] {
                     //UPDATE
                     if let ampmsId = myAmpms[index]["ampmsId"] {
                         newAMPM["ampmsId"] = ampmsId
                         found = true
-                        print("UPDATE ampm \(newAMPM)")
+                        print("UPDATE ampm newAMPM:\(newAMPM)")
+                        print("UPDATE ampm myAmpms:\(myAmpms[index])")
                         updateAmpm(thisProcedure: newAMPM)
                         return
                     }
