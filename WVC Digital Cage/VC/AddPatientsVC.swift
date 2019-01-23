@@ -196,7 +196,10 @@ extension AddPatientsVC{
         for item in patientRecords {
             if item["patientID"] == reviewPatientID.text!{
                 missingData = true
-                simpleAlert(title: "Patient ID " + reviewPatientID.text! + " already in use", message: "Enter a unique Patient ID before saving.", buttonTitle: "OK")
+                simpleAlert(title: " " + reviewPatientID.text! + " already exists", message: "Enter a unique Patient ID before saving.", buttonTitle: "OK")
+                ViewControllerUtils().hideActivityIndicator(uiView: self.view)
+                self.view.viewWithTag(1)?.removeFromSuperview() // see above comment
+                return
             }
         }
         //save locally if no missing data

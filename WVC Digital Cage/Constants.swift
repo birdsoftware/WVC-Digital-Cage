@@ -354,11 +354,11 @@ class params {
             "attitude":      update["attitude"]!,
             "filterID":      update["filterID"]!,
             "initials":      update["initials"]!,
-            "vDCS":          update["v/D/C/S"]!,
+            "vDCS":          update["vDCS"]!,//v/D/C/S"]!,
             "date":          update["date"]!,
             "urine":         update["urine"]!,
             "feces":         update["feces"]!,
-            "appetite":      update["appetite%"]!
+            "appetite":      update["appetite"]!//%"]!
             ] as [String : Any]
         return parameters
     }

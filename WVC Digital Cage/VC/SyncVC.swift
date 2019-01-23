@@ -10,6 +10,8 @@ import UIKit
 
 class SyncVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    
+    @IBOutlet var syncView: UIView!
     //table
     @IBOutlet weak var syncTable: UITableView!
     //image
@@ -218,7 +220,20 @@ extension SyncVC {
                         if patientToSave[1] == patientSaved[1]{
                             //Verify all items saved for patient
                             //DELETE
-                            removeAllDataAndPicturesFor(patientID:patientToSave[0])
+                            //removeAllDataAndPicturesFor(patientID:patientToSave[0])
+                            var cloudPatientID = ""
+                            if let index = dictIndexFrom(array: patientRecords, usingKey:"patientID", usingValue: patientToSave[0]) {
+                                cloudPatientID = patientRecords[index]["cloudPatientID"]! //unexpectedly found nil while unwrapping option value
+                            }
+                            print("!!! DELETE patient: \(cloudPatientID)")
+                            //Patient Name = patientToSave[0]
+                            //check if cloudPatientID exist
+                            if cloudPatientID != nil || cloudPatientID != ""{
+                                self.deletePatient(patientID: Int(cloudPatientID)!)
+                            } else {
+                                self.view.makeToast("found nil for this patient: \(patientToSave[0]), ID: \(cloudPatientID)", duration: 2.1, position: .center)
+                            }
+                            
                             print(" <> DELETE \(patientToSave[0]) \(patientToSave[1]) <>")
                         }
                     }
@@ -672,6 +687,16 @@ extension SyncVC {
         }
         //print("dBPID \(dBPID)")
         return dBPID
+    }
+    func deletePatient(patientID: Int){
+        let removeDG = DispatchGroup()
+        removeDG.enter()
+        DeleteInstantShare().patient(aview: syncView, parameters: ["patientID":patientID], dispatchInstance: removeDG)
+        
+        removeDG.notify(queue: DispatchQueue.main) {
+            //self.getAllPatients()
+            print("deleted \(patientID)")
+        }
     }
 }
 

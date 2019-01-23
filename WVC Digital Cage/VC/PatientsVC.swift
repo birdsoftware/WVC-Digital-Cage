@@ -485,12 +485,29 @@ extension PatientsVC {
     //
     
     //PATIENTS
+    func reloadPatientTable(){
+        self.patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        self.SearchData = self.patientRecords
+        //Sort in place.
+        self.sortSearchDataNow()
+        self.patientTable.reloadData()
+    }
+    func getAllPatients(){
+        let getDG = DispatchGroup()
+        getDG.enter()
+        GETAll().getPatients(aview: patientsView, dispachInstance: getDG)
+        
+        getDG.notify(queue: DispatchQueue.main){
+            self.reloadPatientTable()
+        }
+    }
     func deletePatient(patientID: Int){
         let removeDG = DispatchGroup()
         removeDG.enter()
         DeleteInstantShare().patient(aview: patientsView, parameters: ["patientID":patientID], dispatchInstance: removeDG)
         
         removeDG.notify(queue: DispatchQueue.main) {
+            self.getAllPatients()
             print("deleted \(patientID)")
         }
     }
@@ -500,7 +517,8 @@ extension PatientsVC {
         UPDATE().Patient(aview: patientsView, parameters: thisPatient, dispachInstance: updateDG)
         
         updateDG.notify(queue: DispatchQueue.main) {
-            print("update walk me for Patient success")
+            self.getAllPatients()
+            print("update Patient success")
         }
     }
     
@@ -738,40 +756,64 @@ extension PatientsVC {
         let removeForThisPID = self.SearchData[indexPath.row]["patientID"]
         let cloudPatientID = self.SearchData[indexPath.row]["cloudPatientID"]
         print("delete:: \(removeForThisPID!)")
-        self.removeAllDataAndPicturesFor(patientID:removeForThisPID!)
-        //check if cloudPatientID exist
+        //self.removeAllDataAndPicturesFor(patientID:removeForThisPID!)
         
+        //check if cloudPatientID exist
         if cloudPatientID != nil {
             self.deletePatient(patientID: Int(cloudPatientID!)!)
         } else {
             self.view.makeToast("found nil for this patient ID: \(removeForThisPID!)", duration: 2.1, position: .center)
+            reloadPatientTable() //this will remove patients downloaded from the cloud. Status = Saved
         }
         self.showHideView()//show view & change constants
-        patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
-        self.SearchData = self.patientRecords
-        //let sortResults = self.SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
-        //SearchData = sortResults
+        //patientRecords = UserDefaults.standard.object(forKey: "patientRecords") as? Array<Dictionary<String,String>> ?? []
+        //self.SearchData = self.patientRecords
         //Sort in place.
-        sortSearchDataNow()
-        patientTable.reloadData()
-        //self.patientTable.deleteRows(at: [indexPath], with: .fade)
+        //sortSearchDataNow()
+        //patientTable.reloadData()
     }
     func archiveButtonTapped(indexPath: IndexPath, statusString: String){
-        print("Archive button tapped")
         let archiveForThisPID = self.SearchData[indexPath.row]["patientID"]
         for index in 0..<patientRecords.count {
             if patientRecords[index]["patientID"] == archiveForThisPID {
-                patientRecords[index]["status"] = statusString//"Archive"//"Active"
+                let newPatientDic:Dictionary<String,String> =
+                    [
+                        "patientId": patientRecords[index]["cloudPatientID"]!,
+                        "status": statusString, //"Archive"//"Active"
+                        "intakeDate": patientRecords[index]["intakeDate"]!,
+                        "patientName": patientRecords[index]["patientID"]!,
+                        "walkDate": patientRecords[index]["walkDate"]!,
+                        "photoName": patientRecords[index]["photo"]!,
+                        "kennelId": patientRecords[index]["kennelID"]!,
+                        "owner": patientRecords[index]["owner"]!,
+                        "groupString": patientRecords[index]["group"]!
+                    ]
+                updateInDCCISCloud(thisPatient: newPatientDic)
+                //print("archiveButtonTapped for: \(newPatientDic)")
+                return
             }
         }//[indexPath.row]["status"] = "Archive"
-        UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
-        UserDefaults.standard.synchronize()
-        self.SearchData = self.patientRecords
-//        let sortResults = self.SearchData.sorted { $0["kennelID"]! < $1["kennelID"]! }
-//        SearchData = sortResults
+        //update the cloud record
+//        let cloudPatientID = self.SearchData[indexPath.row]["cloudPatientID"]
+//        let updateDCCISPatient:Dictionary<String,String> =
+//            [
+//                "patientId": cloudPatientID!,//cloudPatientID
+//                "status": statusString,
+//                "intakeDate": patientRecords[index]["intakeDate"]!,
+//                "patientName": patientRecords[index]["patientID"]!,
+//                "walkDate": patientRecords[index]["walkDate"]!,
+//                "photoName": patientRecords[index]["photo"]!,
+//                "kennelId": patientRecords[index]["kennelID"]!,
+//                "owner": patientRecords[index]["owner"]!,
+//                "groupString": patientRecords[index]["group"]!
+//        ]
+        
+        //UserDefaults.standard.set(self.patientRecords, forKey: "patientRecords")
+        //UserDefaults.standard.synchronize()
+        //self.SearchData = self.patientRecords
         //Sort in place.
-        sortSearchDataNow()
-        self.patientTable.reloadData()
+        //sortSearchDataNow()
+        //self.patientTable.reloadData()
     }
     func deleteRecordAlert(title:String, message:String,
                            buttonTitle:String,

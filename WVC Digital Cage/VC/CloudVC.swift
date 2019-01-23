@@ -216,8 +216,9 @@ extension CloudVC{
             searchData=cloudData
         }
         //SORT
-        let sortResults = searchData.sorted { $0["intakeDate"]! > $1["intakeDate"]! }
-        searchData = sortResults
+        //let sortResults = searchData.sorted { $0["intakeDate"]! > $1["intakeDate"]! }
+        //searchData = sortResults
+        sortSearchDataNow()
         
         cloudPatientsTable.reloadData()
         //viewTitle.text = "My Active Patients (\(SearchData.count))"
@@ -249,6 +250,15 @@ extension CloudVC{
         cloudPatientsTable.reloadData()
         searchFilterResultLabel.text = ""
     }
+    //
+    //MARK - Sort Function
+    //
+    func sortSearchDataNow(){
+        //Sort in place.
+        searchData.sort {
+            $0["intakeDate"]!.compare($1["intakeDate"]!, options: .numeric) == .orderedAscending
+        }
+    }
 }
 
 
@@ -278,9 +288,11 @@ extension CloudVC{
             
             self.checked = Array(repeating: false, count: self.cloudData.count)
             
-            let sortResults = self.cloudData.sorted { $0["intakeDate"]! > $1["intakeDate"]! }
-            self.cloudData = sortResults
+            //let sortResults = self.cloudData.sorted { $0["intakeDate"]! > $1["intakeDate"]! }
+            //self.cloudData = sortResults
             self.searchData = self.cloudData
+            self.sortSearchDataNow()
+            self.cloudData = self.searchData
             self.cloudPatientsTable.reloadData()
             
             // HIDE ACTIVITY INDICATOR, call the function from your view controller

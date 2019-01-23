@@ -89,7 +89,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBm-Bg-ko0" userLabel="history" customClass="RoundedImageView" customModule="WVC_Digital_Cage" customModuleProvider="target">
                                 <rect key="frame" x="437" y="423" width="150" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="MAP" translatesAutoresizingMaskIntoConstraints="NO" id="bOV-T4-RxH">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="MAP white" translatesAutoresizingMaskIntoConstraints="NO" id="bOV-T4-RxH">
                                         <rect key="frame" x="11" y="15" width="128" height="104"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="104" id="6AU-Qa-HGR"/>
@@ -291,7 +291,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="syn" translatesAutoresizingMaskIntoConstraints="NO" id="N65-JO-HN6">
                                         <rect key="frame" x="11" y="20" width="128" height="88"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SYNC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4d8-Lz-wn8">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ARCHIVE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4d8-Lz-wn8">
                                         <rect key="frame" x="6" y="116" width="138" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="ySd-Rz-Jn4"/>
@@ -453,7 +453,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MAP" width="500" height="350"/>
+        <image name="MAP white" width="500" height="350"/>
         <image name="WVCLogog" width="200" height="63"/>
         <image name="bell" width="64" height="64"/>
         <image name="cogwheels" width="64" height="64"/>
